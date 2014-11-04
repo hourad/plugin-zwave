@@ -1,0 +1,51 @@
+{
+    "zipato.vszp3102": {
+        "name": "Zipato Multi sensor Dual",
+        "vendor": "Zipato",
+        "manufacturerId": 265,
+        "manufacturerProductType": 8194,
+        "manufacturerProductId": 515,
+        "commands": [
+            {
+                "name": "Temperature",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[1].val"
+                }
+            },
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x30",
+                    "value": "data[1].level"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "presence",
+                    "mobile": "presence"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Délai mémorisation mouvement",
+                "description": "Délai après une absence de mouvement avant que le détecteur ne renvoi OFF",
+                "type": "input",
+                "unite": "s",
+                "default": "3",
+                "min": "0",
+                "max": "255"
+            }
+        }
+    }
+}

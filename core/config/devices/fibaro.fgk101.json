@@ -1,0 +1,187 @@
+{
+    "fibaro.fgk101": {
+        "name": "Fibaro FGK-101",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": 1792,
+        "manufacturerProductId": 4096,
+        "groups": {
+            "description": "Le 1 groupe est associé à l`entrée IN (et au capteur magnétique) – il permet d’envoyer une trame de commande BASIC SET ou ALARM aux dispositifs Z-Wave.Le 2eme groupe est associé au bouton TMP – Lors du relâchement du bouton, une trame ALARM GENERIC sera envoyée aux dispositifs associés.Le 3eme groupe envoie des rapports sur l`état du dispositif, seul un dispositif peut être assigné à ce groupe (le contrôleur principal par défaut)."
+        },
+        "commands": [
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x30",
+                    "value": "data[1].level"
+                },
+                "template": {
+                    "dashboard": "door",
+                    "mobile": "door"
+                },
+                "display": {
+                    "invertBinary": "1"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "D\u00e9lai d\u2019annulation d\u2019alarme de l\u2019entr\u00e9e IN",
+                "description": "Nombre de secondes avant l\u2019annulation de l\u2019alarme apr\u00e8s que le capteur de l\u2019entr\u00e9e 1 soit repass\u00e9 \u00e0 son \u00e9tat normal.",
+                "default": "0",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "65535"
+            },
+            "2": {
+                "name": "Activation de la LED",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "LED inactive."
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "LED active lors des changement de statu."
+                    }
+                ]
+            },
+            "3": {
+                "name": "Type d\u2019entr\u00e9e (entr\u00e9e IN)",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "INPUT_NC",
+                        "description": "Entr\u00e9e normalement ferm\u00e9e"
+                    },
+                    {
+                        "name": "INPUT_NO",
+                        "description": "Entr\u00e9e normalement ouverte"
+                    },
+                    {
+                        "name": "INPUT_MONOSTABLE",
+                        "description": "Entr\u00e9e monostable (bouton poussoir)"
+                    },
+                    {
+                        "name": "INPUT_BISTABLE",
+                        "description": "Entr\u00e9e bistable (interrupteur)"
+                    }
+                ]
+            },
+            "5": {
+                "name": "Type d\u2019information transmise",
+                "description": "",
+                "default": "255",
+                "type": "select",
+                "value": {
+                    "0": {
+                        "name": "ALARM GENERIC"
+                    },
+                    "1": {
+                        "name": "ALARM SMOKE"
+                    },
+                    "2": {
+                        "name": "ALARM CO"
+                    },
+                    "3": {
+                        "name": "ALARM CO2"
+                    },
+                    "4": {
+                        "name": "ALARM HEAT"
+                    },
+                    "5": {
+                        "name": "ALARM WATER"
+                    },
+                    "255": {
+                        "name": "BASIC_SET"
+                    }
+                }
+            },
+            "7": {
+                "name": "Valeur forc\u00e9e transmise au groupe 1",
+                "description": "1~99 : sp\u00e9cifie le niveau de variation d\u2019un \u00e9clairage ou d\u2019ouverture d\u2019un volet pour une action \u00abOn\u00bb. 255 : demande au variateur de lumi\u00e8re de s\u2019allumer au niveau de variation pr\u00e9c\u00e9demment utilis\u00e9 avant son extinction.",
+                "default": "255",
+                "type": "input",
+                "unite": "",
+                "min": "0",
+                "max": "255"
+            },
+            "9": {
+                "name": "Ordre d\u2019extinction apr\u00e8s annulation de l\u2019alarme",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Oui",
+                        "description": "L\u2019ordre est envoy\u00e9 eux groupe 1"
+                    },
+                    {
+                        "name": "Non",
+                        "description": "L\u2019ordre n\u2019est pas envoy\u00e9 au groupe 1"
+                    }
+                ]
+            },
+            "12": {
+                "name": "Delta minimum entre 2 valeurs transmises",
+                "description": "Valeur = xx\u00b0C x 16. Exemple pour 0,5\u00b0C --> 0,5x16 = 8 (valeur par d\u00e9faut)",
+                "default": "8",
+                "type": "input",
+                "unite": "",
+                "min": "0",
+                "max": "255"
+            },
+            "13": {
+                "name": "Transmission \u00e0 tous les modules \u00e0 proximit\u00e9 (broadcast)",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Inactif",
+                        "description": "IN & TMP : Broadcast inactif"
+                    },
+                    {
+                        "name": "Actif\/Inactif",
+                        "description": "IN : Broadcast actif \/ TMP : Broadcast inactif"
+                    },
+                    {
+                        "name": "Inactif\/Actif",
+                        "description": "IN : Broadcast inactif \/ TMP : Broadcast actif"
+                    },
+                    {
+                        "name": "Actif",
+                        "description": "IN & TMP : Broadcast actif"
+                    }
+                ]
+            },
+            "14": {
+                "name": "Fonction de sc\u00e8nes",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "D\u00e9sactiv\u00e9",
+                        "description": ""
+                    },
+                    {
+                        "name": "Activ\u00e9",
+                        "description": ""
+                    }
+                ]
+            }
+        }
+    }
+}

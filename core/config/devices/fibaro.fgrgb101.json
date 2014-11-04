@@ -1,0 +1,378 @@
+{
+    "fibaro.fgrgb101": {
+        "name": "Fibaro FGRGB-101",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": 2304,
+        "manufacturerProductId": 4096,
+        "commands": [
+            {
+                "name": "Couleur",
+                "type": "action",
+                "subtype": "color",
+                "isVisible": 1,
+                "value": "Etat",
+                "configuration": {
+                    "class": "0x26",
+                    "value": "#color#"
+                }
+            },
+            {
+                "name": "Puissance",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 1,
+                "unite": "W",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[4].val",
+                    "maxValue": 2500,
+                    "minValue": 0
+                }
+            },
+            {
+                "name": "Consommation",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "kWh",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x32",
+                    "value": "data[0].val"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "other",
+                "isVisible": 0,
+                "configuration": {
+                    "class": "0x26",
+                    "value": "#color#"
+                }
+            },
+            {
+                "name": "Cheminée",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x70",
+                    "value": "Set(72,6,1)"
+                },
+                "display": {
+                    "icon": "<i class=\"icon jeedom-feu\"><\/i>"
+                }
+            },
+            {
+                "name": "Orage",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x70",
+                    "value": "Set(72,7,1)"
+                },
+                "display": {
+                    "icon": "<i class=\"icon meteo-orage\"><\/i>"
+                }
+            },
+            {
+                "name": "Aube",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x70",
+                    "value": "Set(72,8,1)"
+                },
+                "display": {
+                    "icon": "<i class=\"icon meteo-soleil\"><\/i>"
+                }
+            },
+            {
+                "name": "Fading",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x70",
+                    "value": "Set(72,9,1)"
+                }
+            },
+            {
+                "name": "RBB",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x70",
+                    "value": "Set(72,10,1)"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Commande ALL ON \/ ALL OFF",
+                "description": "",
+                "default": "255",
+                "type": "select",
+                "value": {
+                    "0": {
+                        "name": "Aucun",
+                        "description": ""
+                    },
+                    "1": {
+                        "name": "All ON",
+                        "description": ""
+                    },
+                    "2": {
+                        "name": "All OFF",
+                        "description": ""
+                    },
+                    "255": {
+                        "name": "ALL ON & ALL OFF activ\u00e9s",
+                        "description": ""
+                    }
+                }
+            },
+            "6": {
+                "name": "Action des boutons (type de commande Z-Wave envoy\u00e9es)",
+                "description": "",
+                "default": "255",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Variateur",
+                        "description": "Mode Normal (VARIATEUR) \"BASIC SET \/SWITCH_MULTILEVEL_START\/STOP\""
+                    },
+                    {
+                        "name": "Normale 1",
+                        "description": "Mode Normal (RGBW) \"COLOR_CONTROL_SET\/START\/STOP_STATE_CHANGE\""
+                    },
+                    {
+                        "name": "Normale 2",
+                        "description": "Mode Normal (RGBW) \"COLOR_CONTROL_SET\""
+                    },
+                    {
+                        "name": "Normale 3",
+                        "description": "Mode Normal (RGBW) \"BASIC SET\/SWITCH_MULTILEVEL_START\/STOP\""
+                    },
+                    {
+                        "name": "Arc-en-ciel",
+                        "description": "Mode \"ARC-EN-CIEL\" (RGBW) \"COLOR_CONTROL_SET\""
+                    }
+                ]
+            },
+            "8": {
+                "name": "Action des boutons (type de commande Z-Wave envoy\u00e9es)",
+                "description": "",
+                "default": "255",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas \u00e0 pas",
+                        "description": "Transition \"pas \u00e0 pas\". Voir les param\u00e8tres 9 et 10 (nombre d'\u00e9tapes + d\u00e9lai entre \u00e9tapes)"
+                    },
+                    {
+                        "name": "Progressive",
+                        "description": "Transition progressive. Voir le param\u00e8tre 11 (dur\u00e9e de la transition)"
+                    }
+                ]
+            },
+            "9": {
+                "name": "S\u00e9lection du nombre d\u2019\u00e9tapes",
+                "description": "Nombre d\u2019\u00e9tapes ",
+                "default": "1",
+                "type": "input",
+                "min": "1",
+                "max": "255"
+            },
+            "10": {
+                "name": "S\u00e9lection du d\u00e9lai entre chaque \u00e9tapes",
+                "description": "Nombre d\u2019\u00e9tapes ",
+                "default": "10",
+                "type": "input",
+                "min": "0",
+                "max": "60000"
+            },
+            "11": {
+                "name": "S\u00e9lection de la dur\u00e9e de la transition d\u2019\u00e9tat",
+                "description": "Changement d\u2019\u00e9tat imm\u00e9diat. 20-260 ms (correspond \u00e0  [valeur choisie]*20ms. 1-63s (correspond \u00e0  [valeur choisie - 64]*1 seconde). 10-630s (correspond \u00e0  [valeur choisie - 128]*10 secondes). 1-63 min (correspond \u00e0  [valeur choisie - 192]*1 minute)",
+                "default": "10",
+                "type": "input",
+                "min": "0",
+                "max": "60000"
+            },
+            "12": {
+                "name": "Niveau maximum de luminosit\u00e9",
+                "description": "",
+                "default": "255",
+                "type": "input",
+                "min": "3",
+                "max": "255"
+            },
+            "13": {
+                "name": "Niveau minimum de variation",
+                "description": "",
+                "default": "2",
+                "type": "input",
+                "min": "2",
+                "max": "255"
+            },
+            "14": {
+                "name": "Configuration des entrées",
+                "description": "",
+                "default": "",
+                "type": "input"
+            },
+            "16": {
+                "name": "M\u00e9morisation d\u2019\u00e9tat \u00e0 la coupure d\u2019alimentation",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Aucune",
+                        "description": ""
+                    },
+                    {
+                        "name": "Oui",
+                        "description": ""
+                    }
+                ]
+            },
+            "30": {
+                "name": "R\u00e9action aux Alarmes",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Inactif",
+                        "description": ""
+                    },
+                    {
+                        "name": "ALARME ON",
+                        "description": ""
+                    },
+                    {
+                        "name": "ALARME OFF",
+                        "description": ""
+                    },
+                    {
+                        "name": "PROGRAMME D\u2019ALERTE",
+                        "description": ""
+                    }
+                ]
+            },
+            "38": {
+                "name": "Programme de s\u00e9quence d\u2019alerte",
+                "description": "Pr\u00e9cise le num\u00e9ro du programme d\u2019alerte.",
+                "default": "10",
+                "type": "input",
+                "min": "1",
+                "max": "10"
+            },
+            "39": {
+                "name": "Choix du de la dur\u00e9 du programme d\u2019alerte",
+                "description": "Choix de la dur\u00e9e en secondes",
+                "default": "600",
+                "type": "input",
+                "min": "1",
+                "max": "65534"
+            },
+            "42": {
+                "name": "Classe de commande utilis\u00e9e pour la remont\u00e9e d'information lors des changements de statuts.",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "0",
+                        "description": "Remont\u00e9e suite \u00e0 une action sur une entr\u00e9e ou depuis un contr\u00f4leur via Z-Wave (SWITCH_MULTILEVEL)"
+                    },
+                    {
+                        "name": "1",
+                        "description": "Remont\u00e9e \u00e0 la suite d\u2019action sur les entr\u00e9es (SWITCH_MULTILEVEL)."
+                    },
+                    {
+                        "name": "2",
+                        "description": "Remont\u00e9e \u00e0 la suite d\u2019action sur les entr\u00e9es. (COLOR_CONTROL)"
+                    }
+                ]
+            },
+            "43": {
+                "name": "Seuil de d\u00e9clenchement de remont\u00e9e d'information sur les entr\u00e9es 0-10V",
+                "description": "D\u00e9fini la variation minimale n\u00e9cessaire au d\u00e9clenchement d'une remont\u00e9e d'information (en d\u00e9civolt).",
+                "default": "5",
+                "type": "input",
+                "min": "1",
+                "max": "100",
+                "unite": "dcV"
+            },
+            "44": {
+                "name": "Fr\u00e9quence des mesures de puissance.",
+                "description": "",
+                "default": "30",
+                "type": "input",
+                "min": "0",
+                "max": "65534",
+                "unite": "s"
+            },
+            "45": {
+                "name": "Seuil de variation d\u00e9clenchant la remont\u00e9e de la consommation cumul\u00e9e du produit contr\u00f4l\u00e9.",
+                "description": "",
+                "default": "30",
+                "type": "input",
+                "min": "0",
+                "max": "254",
+                "unite": "0,1kWh"
+            },
+            "71": {
+                "name": "R\u00e9action d\u2019une luminosit\u00e9 \u00e0 0%",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Blanc",
+                        "description": "La couleur de l\u2019\u00e9clairage est d\u00e9finie en blanc (contr\u00f4le les quatre canaux)."
+                    },
+                    {
+                        "name": "M\u00e9moris\u00e9",
+                        "description": "La derni\u00e8re couleur m\u00e9moris\u00e9e est rappel\u00e9e."
+                    }
+                ]
+            },
+            "72": {
+                "name": "D\u00e9marrer un programme pr\u00e9d\u00e9fini au d\u00e9marrage du mode RGB\/RGBW",
+                "description": "Num\u00e9ro du programme d\u2019animation.",
+                "default": "1",
+                "type": "input",
+                "min": "1",
+                "max": "10"
+            },
+            "73": {
+                "name": "R\u00e9sultat d\u2019un triple clic",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "0",
+                        "description": "Envoi d\u2019une commande d\u2019information de noeud \"NIF\" (Node Information Frame)."
+                    },
+                    {
+                        "name": "1",
+                        "description": "D\u00e9marrage du programme pr\u00e9f\u00e9r\u00e9."
+                    }
+                ]
+            }
+        }
+    }
+}

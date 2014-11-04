@@ -1,0 +1,340 @@
+{
+    "fibaro.fgs221.pilote": {
+        "name": "Fibaro FGS-221 Double charge fils pilote",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": -1,
+        "manufacturerProductId": -1,
+        "commands": [
+            {
+                "name": "Confort",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "1&&2",
+                    "value": "Set(0)&&Set(0)"
+                }
+            },
+            {
+                "name": "Eco",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "1&&2",
+                    "value": "Set(255)&&Set(255)"
+                }
+            },
+            {
+                "name": "Hors Gel",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "1&&2",
+                    "value": "Set(0)&&Set(255)"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "1&&2",
+                    "value": "Set(255)&&Set(0)"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "logicalId": "pilotWire",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "",
+                    "instanceId": "1&&2",
+                    "value": "pilotWire"
+                },
+                "template": {
+                    "dashboard": "heatPiloteWire",
+                    "mobile": "heatPiloteWire"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Commande ALL ON \/ ALL OFF",
+                "description": "",
+                "default": "255",
+                "type": "select",
+                "value": {
+                    "0": {
+                        "name": "Aucun",
+                        "description": ""
+                    },
+                    "1": {
+                        "name": "All ON",
+                        "description": ""
+                    },
+                    "2": {
+                        "name": "All OFF",
+                        "description": ""
+                    },
+                    "255": {
+                        "name": "ALL ON & ALL OFF activ\u00e9s",
+                        "description": ""
+                    }
+                }
+            },
+            "3": {
+                "name": "Arr\u00eat automatique de la charge",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Inactif",
+                        "description": ""
+                    },
+                    {
+                        "name": "Actif pour la sortie 1",
+                        "description": ""
+                    },
+                    {
+                        "name": "Actif pour la sortie 2",
+                        "description": ""
+                    },
+                    {
+                        "name": "Activ\u00e9es pour les deux sorties",
+                        "description": ""
+                    }
+                ]
+            },
+            "4": {
+                "name": "D\u00e9lai de l\u2019arr\u00eat automatique sortie 1",
+                "description": "D\u00e9lai avant l\u2019arr\u00eat automatique de la sortie 1. FW1.10- : x 10 ms (1 = 10ms , 255 = 2,55s). FW2.1+ : X0,1s ( 10 = 1s , 65535 = 6553,5s)",
+                "default": "0",
+                "type": "input",
+                "unite": "s",
+                "min": "1",
+                "max": "65535"
+            },
+            "5": {
+                "name": "D\u00e9lai de l\u2019arr\u00eat automatique sortie 2",
+                "description": "D\u00e9lai avant l\u2019arr\u00eat automatique de la sortie 2. FW1.10- : x 10 ms (1 = 10ms , 255 = 2,55s). FW2.1+ : X0,1s ( 10 = 1s , 65535 = 6553,5s)",
+                "default": "0",
+                "type": "input",
+                "unite": "s",
+                "min": "1",
+                "max": "65535"
+            },
+            "6": {
+                "name": "Transmission des commandes locales du bouton 1 au groupe 1",
+                "description": "D\u00e9lai avant l\u2019arr\u00eat automatique de la sortie 2. FW1.10- : x 10 ms (1 = 10ms , 255 = 2,55s). FW2.1+ : X0,1s ( 10 = 1s , 65535 = 6553,5s)",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Marche\/Arr\u00eat",
+                        "description": "Transmet les commande Marche et Arr\u00eat"
+                    },
+                    {
+                        "name": "Arr\u00eat",
+                        "description": "Ne transmet que la commande Arr\u00eat. Un double appui transmet la commande Marche (dans le cas d\u2019un variateur, celui-ci s\u2019allume \u00e0 100%). N\u00e9cessite l\u2019activation du param\u00e8tre 15"
+                    }
+                ]
+            },
+            "7": {
+                "name": "Transmission des commandes locales du bouton 2 au groupe 2",
+                "description": "D\u00e9lai avant l\u2019arr\u00eat automatique de la sortie 2. FW1.10- : x 10 ms (1 = 10ms , 255 = 2,55s). FW2.1+ : X0,1s ( 10 = 1s , 65535 = 6553,5s)",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Marche\/Arr\u00eat",
+                        "description": "Transmet les commande Marche et Arr\u00eat"
+                    },
+                    {
+                        "name": "Arr\u00eat",
+                        "description": "Ne transmet que la commande Arr\u00eat. Un double appui transmet la commande Marche (dans le cas d\u2019un variateur, celui-ci s\u2019allume \u00e0 100%). N\u00e9cessite l\u2019activation du param\u00e8tre 15"
+                    }
+                ]
+            },
+            "13": {
+                "name": "Comportement avec commutateur bi-stable",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Mono-stable",
+                        "description": "Inversion d\u2019\u00e9tat \u00e0 chaque changement de position du bouton."
+                    },
+                    {
+                        "name": "Bi-stable",
+                        "description": "Bouton sur marche --> relais actif. Bouton sur arr\u00eat --> relais inactif."
+                    }
+                ]
+            },
+            "14": {
+                "name": "Compatibilit\u00e9 commutateurs bi-stables",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Mono-stable",
+                        "description": "Bouton-poussoir impusionnel (mono-stable)"
+                    },
+                    {
+                        "name": "Bi-stable",
+                        "description": "Commutateur Marche \/ Arr\u00eat (bi-stable)"
+                    }
+                ]
+            },
+            "15": {
+                "name": "Compatibilit\u00e9 variateurs et volets roulants",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Inactive",
+                        "description": ""
+                    },
+                    {
+                        "name": "Active",
+                        "description": ""
+                    }
+                ]
+            },
+            "16": {
+                "name": "M\u00e9morisation de l\u2019\u00e9tat",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Reste \u00e9teint",
+                        "description": ""
+                    },
+                    {
+                        "name": "Reprend",
+                        "description": ""
+                    }
+                ]
+            },
+            "30": {
+                "name": "Alarme G\u00e9n\u00e9rale sortie 1",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement",
+                        "description": "Clignotement pendant 10 minutes max."
+                    }
+                ]
+            },
+            "31": {
+                "name": "Alarme Innondation sortie 1",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement",
+                        "description": "Clignotement pendant 10 minutes max."
+                    }
+                ]
+            },
+            "32": {
+                "name": "Alarme Fum\u00e9e, CO, CO2 sortie 1",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement",
+                        "description": "Clignotement pendant 10 minutes max."
+                    }
+                ]
+            },
+            "33": {
+                "name": "Alarme Temp\u00e9rature sortie 1",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement",
+                        "description": "Clignotement pendant 10 minutes max."
+                    }
+                ]
+            },
+            "41": {
+                "name": "Alarme Innondation sortie 2",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement",
+                        "description": "Clignotement pendant 10 minutes max."
+                    }
+                ]
+            },
+            "42": {
+                "name": "Alarme Fum\u00e9e, CO, CO2 sortie 2",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement",
+                        "description": "Clignotement pendant 10 minutes max."
+                    }
+                ]
+            },
+            "43": {
+                "name": "Dur\u00e9e de l\u2019alarme",
+                "description": "Dur\u00e9e de l\u2019activation en cas d\u2019alarme (en ms)",
+                "default": "600",
+                "type": "input",
+                "unite": "ms",
+                "min": "1",
+                "max": "65535"
+            }
+        }
+    }
+}

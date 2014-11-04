@@ -1,0 +1,317 @@
+{
+    "fibaro.fgd211": {
+        "name": "Fibaro FGD-211 [Dimmer]",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": 256,
+        "manufacturerProductId": 4106,
+        "groups": {
+            "associate": [3]
+        },
+        "commands": [
+            {
+                "name": "Intensit\u00e9",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "value": "Etat",
+                "configuration": {
+                    "class": "0x26",
+                    "value": "Set(#slider#)"
+                },
+                "template": {
+                    "dashboard": "light",
+                    "mobile": "light"
+                }
+            },
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "configuration": {
+                    "class": "0x26",
+                    "value": "Set(99)"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "configuration": {
+                    "class": "0x26",
+                    "value": "Set(0)"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "numeric",
+                "unite": "%",
+                "isVisible": 0,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x26",
+                    "value": "data.level",
+                    "minValue": 0,
+                    "maxValue": 100
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Commande ALL ON \/ ALL OFF",
+                "description": "",
+                "default": "255",
+                "type": "select",
+                "value": {
+                    "0": {
+                        "name": "Aucun",
+                        "description": ""
+                    },
+                    "1": {
+                        "name": "All ON",
+                        "description": ""
+                    },
+                    "2": {
+                        "name": "All OFF",
+                        "description": ""
+                    },
+                    "255": {
+                        "name": "ALL ON & ALL OFF activ\u00e9s",
+                        "description": ""
+                    }
+                }
+            },
+            "6": {
+                "name": "Transmission des commandes locales au groupe",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "0",
+                        "description": "Transmet les commande Marche et Arr\u00eat"
+                    },
+                    {
+                        "name": "1",
+                        "description": "Ne transmet que la commande Arr\u00eat. Un double appui transmet la commande Marche (dans le cas d\u2019un variateur, celui-ci s\u2019allume \u00e0 son dernier niveau). N\u00e9cessite l\u2019activation du param\u00e8tre 15"
+                    },
+                    {
+                        "name": "2",
+                        "description": "Ne transmet que la commande Arr\u00eat. Un double appui transmet la commande Marche (dans le cas d\u2019un variateur, celui-ci s\u2019allume \u00e0 100%). N\u00e9cessite l\u2019activation du param\u00e8tre 15"
+                    }
+                ]
+            },
+            "7": {
+                "name": "V\u00e9rifier l\u2019\u00e9tat de l\u2019\u00e9quipement distant avant d\u2019envoyer un ordre depuis le bouton 2",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": ""
+                    },
+                    {
+                        "name": "Oui",
+                        "description": ""
+                    }
+                ]
+            },
+            "8": {
+                "name": "Palier de variation automatique",
+                "description": "Pourcentage de variation \u00e0 chaque palier de 1 \u00e0 99% (en commande automatique)",
+                "default": "1",
+                "type": "input",
+                "unite": "%",
+                "min": "1",
+                "max": "99"
+            },
+            "9": {
+                "name": "Dur\u00e9e de variation manuelle",
+                "description": "Dur\u00e9e de la variation entre deux valeurs extr\u00eames (1% --> 100% ou 100% --> 1%) lors d\u2019une commande manuelle. x 10ms (1 = 10ms \/ 255 = 2,55s)",
+                "default": "5",
+                "type": "input",
+                "unite": "s",
+                "min": "1",
+                "max": "255"
+            },
+            "10": {
+                "name": "Dur\u00e9e de variation automatique",
+                "description": "Dur\u00e9e de la variation douce entre deux valeurs extr\u00eames (1% --> 100% ou 100% --> 1%) lors d\u2019une commande automatique ou d\u2019un allumage \/ extinction. x 10ms (1 = 10ms \/ 255 = 2,55s) - 0 pour d\u00e9sactiver",
+                "default": "5",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "255"
+            },
+            "11": {
+                "name": "Palier de variation manuelle",
+                "description": "Pourcentage de variation \u00e0 chaque palier de 1 \u00e0 99% (en commande manuelle)",
+                "default": "1",
+                "type": "input",
+                "unite": "%",
+                "min": "1",
+                "max": "99"
+            },
+            "12": {
+                "name": "Niveau maximum de luminosit\u00e9",
+                "description": "Niveau maximum de luminosit\u00e9 autoris\u00e9 (en %). Doit \u00eatre sup\u00e9rieur au param\u00e8tre 13",
+                "default": "99",
+                "type": "input",
+                "unite": "%",
+                "min": "2",
+                "max": "99"
+            },
+            "13": {
+                "name": "Niveau minimum de luminosit\u00e9",
+                "description": "Niveau minimum de luminosit\u00e9 autoris\u00e9 (en %). Doit \u00eatre inf\u00e9rieur au param\u00e8tre 12",
+                "default": "2",
+                "type": "input",
+                "unite": "%",
+                "min": "2",
+                "max": "99"
+            },
+            "14": {
+                "name": "Compatibilit\u00e9 commutateurs bi-stables",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "Bouton-poussoir impusionnel (mono-stable)"
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "Commutateur Marche \/ Arr\u00eat (bi-stable)"
+                    }
+                ]
+            },
+            "15": {
+                "name": "Fonction double impulsion (double-clic)",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Inactif",
+                        "description": ""
+                    },
+                    {
+                        "name": "Actif",
+                        "description": "Active (fixe la luminosit\u00e9 \u00e0 100% lors d\u2019une double impulsion)"
+                    }
+                ]
+            },
+            "16": {
+                "name": "M\u00e9morisation de l\u2019\u00e9tat",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "Reste \u00e9teint apr\u00e8s une coupure de courant"
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "Reprend l\u2019\u00e9tat pr\u00e9c\u00e9dent la coupure de courant"
+                    }
+                ]
+            },
+            "17": {
+                "name": "Fonction va et vient ou t\u00e9l\u00e9rupteur",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "L\u2019entr\u00e9e bouton 2 commande le groupe 2. Il est possible de connecter plusieurs boutons poussoirs \u00e0 impulsion (mono-stable) sur l\u2019entr\u00e9e 1 ou deux interrupteurs 3 p\u00f4les en mode va-et-vient."
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "Chaque entr\u00e9e est reli\u00e9e \u00e0 un commutateur bi-stable \u00e0 2 p\u00f4les, l\u2019ensemble fonctionne comme un \u00ab va-et-vient \u00bb."
+                    }
+                ]
+            },
+            "18": {
+                "name": "Synchronisation de la variation",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "Ne communique que la mise en marche et l\u2019arr\u00eat."
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "Communique aussi le niveau de variation aux autres variateurs du groupe."
+                    }
+                ]
+            },
+            "19": {
+                "name": "Mode de fonctionnement avec interrupteur bi-stable",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "0",
+                        "description": "Chaque changement de position de l\u2019interrupteur bi-stable inverse l\u2019\u00e9tat du variateur (Marche \/ Arr\u00eat)."
+                    },
+                    {
+                        "name": "1",
+                        "description": "Interrupteur bi-stable ferm\u00e9 (marche) --> lampe allum\u00e9e. Interrupteur bi-stable ouvert (arr\u00eat) --> lampe \u00e9teinte. V\u00e9rifier la bonne configuration du param\u00e8tre 14"
+                    }
+                ]
+            },
+            "30": {
+                "name": "Alarme de tout type",
+                "description": "",
+                "default": "3",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Marche",
+                        "description": ""
+                    },
+                    {
+                        "name": "Arr\u00eat",
+                        "description": ""
+                    },
+                    {
+                        "name": "Clignotement pendant 10 minutes max.",
+                        "description": ""
+                    }
+                ]
+            },
+            "39": {
+                "name": "Dur\u00e9e de l\u2019alarme",
+                "description": "Dur\u00e9e de l\u2019activation en cas d\u2019alarme (en ms)",
+                "default": "600",
+                "type": "input",
+                "unite": "ms",
+                "min": "1",
+                "max": "65535"
+            },
+            "20": {
+                "name": "Contr\u00f4le fin de la fr\u00e9quence",
+                "description": "Permet d\u2019optimiser le niveau minimum de variation des lampes LED compatibles variateur (v\u00e9rifiez si votre mod\u00e8le est concern\u00e9). Attention: Une mauvaise configuration peut emp\u00eacher le bon fonctionnement du variateur.",
+                "default": "110",
+                "type": "input",
+                "unite": "0.5 Hz",
+                "min": "100",
+                "max": "170"
+            }
+        }
+    }
+}

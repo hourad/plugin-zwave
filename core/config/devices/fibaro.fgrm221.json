@@ -1,0 +1,384 @@
+{
+    "fibaro.fgrm221": {
+        "name": "Fibaro FGRM-221/222 [Volet roulant]",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": 769,
+        "manufacturerProductId": 4097,
+        "commands": [
+            {
+                "name": "Descendre",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "value": "Set(255)&&sleep(3)&&Get()"
+                },
+                "display" : {
+                    "icon" : "<i class=\"fa fa-arrow-down\"></i>"
+                }
+            },
+            {
+                "name": "Monter",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "value": "Set(0)&&sleep(3)&&Get()"
+                },
+                "display" : {
+                    "icon" : "<i class=\"fa fa-arrow-up\"></i>"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "value": "data.level"
+                },
+                "template": {
+                    "dashboard": "store",
+                    "mobile": "store"
+                }
+            },
+            {
+                "name": "Consommation",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "unite": "kWh",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x32",
+                    "value": "data[0].level"
+                },
+                "template": {
+                    "dashboard": "tile",
+                    "mobile": "tile"
+                }
+            },
+            {
+                "name": "Rafraichir",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "value": "Get()"
+                },
+                "display" : {
+                    "icon" : "<i class=\"fa fa-refresh\"></i>"
+                }
+            },
+            {
+                "name": "Reset",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "configuration": {
+                    "class": "0x32",
+                    "value": "Reset()"
+                }
+            }
+        ],
+        "parameters": {
+            "3": {
+                "name": "Type de retour d'information",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Standard",
+                        "description": "Classes de commande Z-Wave standard"
+                    },
+                    {
+                        "name": "INPUT_NO",
+                        "description": "Commandes Fibaro, doit \u00eatre utilis\u00e9 pour le contr\u00f4le de volets v\u00e9nitiens."
+                    }
+                ]
+            },
+            "10": {
+                "name": "D\u00e9sactiver la fonction de positionnement de l\u2019\u00e9quipement",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Desactive direct",
+                        "description": "DESACTIVE la fonction de positionnement direct du volet"
+                    },
+                    {
+                        "name": "Active direct",
+                        "description": "ACTIVE la fonction de positionnement direct du volet"
+                    },
+                    {
+                        "name": "Active v\u00e9n\u00e9tien",
+                        "description": "Mode v\u00e9nitien avec positionnement ACTIVE."
+                    },
+                    {
+                        "name": "Desactive porte",
+                        "description": "Mode Porte\/portail avec Positionnement DESACTIVE."
+                    },
+                    {
+                        "name": "Active porte",
+                        "description": "Mode Porte\/portail avec Positionnement ACTIVE."
+                    }
+                ]
+            },
+            "12": {
+                "name": "Temps de fermeture des lamelles en mode v\u00e9nitien (valeur du param\u00e8tres 10 \u00e0 \"2\") ou le d\u00e9lai de fermeture automatique en mode porte\/portail (valeur du param\u00e8tre 10 \u00e0 \"3\" ou \"4\").",
+                "description": "Ce param\u00e8tre n\u2019a aucune influence sur les autres modes.Valeurs disponibles par tranche de 0,01 seconde pour un temps ou d\u00e9lai de fermeture de 0,01 \u00e0 655,35 sec. 0 : En mode porte\/portail, d\u00e9sactive la fermeture automatique.",
+                "default": "150",
+                "type": "input",
+                "unite": "0,01s",
+                "min": "0",
+                "max": "65535"
+            },
+            "13": {
+                "name": "R\u00e9tablir la position pr\u00e9c\u00e9dente des lames",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Box domotique",
+                        "description": "R\u00e9tablir la position avec la box domotique uniquement"
+                    },
+                    {
+                        "name": "Sans bouton stop",
+                        "description": "R\u00e9tablir la position avec la box domotique, un poussoir ou une but\u00e9e."
+                    },
+                    {
+                        "name": "Avec bouton stop",
+                        "description": "R\u00e9tablir la position avec la box domotique, un poussoir, une but\u00e9e ou un bouton \u00ab stop \u00bb"
+                    }
+                ]
+            },
+            "14": {
+                "name": "Configuration du type de bouton",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Deux boutons poussoirs",
+                        "description": "Deux boutons poussoirs impulsionnels (mono-stable)"
+                    },
+                    {
+                        "name": "Commutateur",
+                        "description": "Commutateur Marche \/ Arr\u00eat (bi-stable)"
+                    },
+                    {
+                        "name": "Un seul bouton poussoir",
+                        "description": "Un seul bouton poussoir impulsionnel (mono-stable)"
+                    }
+                ]
+            },
+            "17": {
+                "name": "Param\u00e8tre de d\u00e9lai d\u2019ouverture du relai apr\u00e8s mise en but\u00e9e du volet.",
+                "description": "Ou du d\u00e9lai avant fermeture automatique de l'ouvrant porte\/portail.",
+                "default": "10",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "255"
+            },
+            "18": {
+                "name": "D\u00e9tection d\u2019activit\u00e9 moteur",
+                "description": "Seuil de puissance en Watts pouvant \u00eatre interpr\u00e9t\u00e9e comme une arriv\u00e9e en but\u00e9e.Une valeur \u00e0 0 d\u00e9sactive la fonction de d\u00e9tection de but\u00e9e.",
+                "default": "10",
+                "type": "input",
+                "unite": "W",
+                "min": "0",
+                "max": "255"
+            },
+            "22": {
+                "name": "D\u00e9tection d\u2019activit\u00e9 moteur",
+                "description": "0 : Fonction d\u00e9sactiv\u00e9e,1-65535 : Dur\u00e9e d'alimentation maximal du moteur en seconde.",
+                "default": "240",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "65535"
+            },
+            "29": {
+                "name": "Forcer l\u2019\u00e9talonnage de l\u2019\u00e9quipement",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "Deux boutons poussoirs impulsionnels (mono-stable)"
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "Doit \u00eatre fix\u00e9 \u00e0 1 pour lancer l'\u00e9talonnage automatique d'un \u00e9quipement.Le positionnement doit \u00eatre actif (param\u00e8tre 10 aux valeurs 1,2 ou 4).Le param\u00e8tre repasse \u00e0 0 automatiquement \u00e0 la fin de l'\u00e9talonnage."
+                    }
+                ]
+            },
+            "30": {
+                "name": "Alarme g\u00e9n\u00e9rale",
+                "description": "",
+                "default": "2",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Ouvrir le volet",
+                        "description": ""
+                    },
+                    {
+                        "name": "Fermer le volet",
+                        "description": ""
+                    }
+                ]
+            },
+            "31": {
+                "name": "Alarme d\u2019inondation",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Ouvrir le volet",
+                        "description": ""
+                    },
+                    {
+                        "name": "Fermer le volet",
+                        "description": ""
+                    }
+                ]
+            },
+            "32": {
+                "name": "Alarme de fum\u00e9e, CO, CO2",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Ouvrir le volet",
+                        "description": ""
+                    },
+                    {
+                        "name": "Fermer le volet",
+                        "description": ""
+                    }
+                ]
+            },
+            "33": {
+                "name": "Alarme de temp\u00e9rature",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Pas de r\u00e9ponse",
+                        "description": ""
+                    },
+                    {
+                        "name": "Ouvrir le volet",
+                        "description": ""
+                    },
+                    {
+                        "name": "Fermer le volet",
+                        "description": ""
+                    }
+                ]
+            },
+            "35": {
+                "name": "G\u00e9rer les Lames suite \u00e0 une Alarme",
+                "description": "N'est utile qu\u2019en mode volet v\u00e9nitien",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Ne rien faire",
+                        "description": ""
+                    },
+                    {
+                        "name": "Fermer les lames",
+                        "description": ""
+                    }
+                ]
+            },
+            "40": {
+                "name": "Mesure de consommation : % de variation de consommation instantan\u00e9e (W) n\u00e9cessaire au d\u00e9clenchement d'un envoi de mesure.",
+                "description": "",
+                "default": "10",
+                "type": "input",
+                "unite": "W",
+                "min": "1",
+                "max": "100"
+            },
+            "42": {
+                "name": "Fr\u00e9quence des envois syst\u00e9matiques de mesures de consommation.",
+                "description": "",
+                "default": "3600",
+                "type": "input",
+                "unite": "s",
+                "min": "1",
+                "max": "65534"
+            },
+            "43": {
+                "name": "Variation de consommation cumul\u00e9e (kWh) n\u00e9cessaire \u00e0 l'envoi d'une mesure ",
+                "description": "",
+                "default": "3600",
+                "type": "input",
+                "unite": "0,01kWh",
+                "min": "1",
+                "max": "254"
+            },
+            "44": {
+                "name": "Le module doit-il mesurer sa propre consommation ?",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Oui",
+                        "description": ""
+                    },
+                    {
+                        "name": "Non",
+                        "description": ""
+                    }
+                ]
+            },
+            "50": {
+                "name": "Fonction d'activation de sc\u00e8nes",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "D\u00e9sactiv\u00e9e",
+                        "description": ""
+                    },
+                    {
+                        "name": "Activ\u00e9e",
+                        "description": ""
+                    }
+                ]
+            }
+        }
+    }
+}

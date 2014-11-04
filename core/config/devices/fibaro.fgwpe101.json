@@ -1,0 +1,408 @@
+{
+    "fibaro.fgwpe101": {
+        "name": "Fibaro Wall Plug",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": 1536,
+        "manufacturerProductId": 4096,
+        "groups": {
+            "associate": [3]
+        },
+        "commands": [
+            {
+                "name": "Puissance",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "W",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[4].val",
+                    "maxValue": 2500,
+                    "minValue": 0
+                }
+            },
+            {
+                "name": "Consommation",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "kWh",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x32",
+                    "value": "data[0].val"
+                },
+                "template": {
+                    "dashboard": "tile"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "value": "data.level"
+                },
+                "template": {
+                    "dashboard": "prise",
+                    "mobile": "prise"
+                }
+            },
+            {
+                "name": "On",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "value": "Etat",
+                "configuration": {
+                    "class": "0x25",
+                    "value": "Set(255)"
+                },
+                "template": {
+                    "dashboard": "prise",
+                    "mobile": "prise"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "value": "Etat",
+                "configuration": {
+                    "class": "0x25",
+                    "value": "Set(0)"
+                },
+                "template": {
+                    "dashboard": "prise",
+                    "mobile": "prise"
+                }
+            },
+            {
+                "name": "Reset",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "unite": "",
+                "configuration": {
+                    "class": "0x32",
+                    "value": "Reset()"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Toujours allum\u00e9",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Active",
+                        "description": "La charge sera aliment\u00e9e en permanence, le bouton \u00abB\u00bb ne pourra pas \u00e9teindre la charge et la prise ne r\u00e9agira pas aux envois de type alarme."
+                    },
+                    {
+                        "name": "Inactif",
+                        "description": "Fonctionnement normal (commutateur)"
+                    }
+                ]
+            },
+            "16": {
+                "name": "M\u00e9moire d\u2019\u00e9tat",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Inactif",
+                        "description": "La charge restera \u00e9teinte apr\u00e8s une coupure de courant"
+                    },
+                    {
+                        "name": "Active",
+                        "description": "La charge reprendra son \u00e9tat initial apr\u00e8s une coupure de courant"
+                    }
+                ]
+            },
+            "34": {
+                "name": "R\u00e9ponse \u00e0 une alarme",
+                "description": "Types d\u2019alarmes (additionner les valeurs) 0 : Aucune,1 : G\u00e9n\u00e9rale, + 2 : Fum\u00e9e, + 4 : CO, + 8 : CO2, + 16 : Haute temp\u00e9rature,32 : Inondation",
+                "type": "input",
+                "default": "63",
+                "min": "0",
+                "max": "63"
+            },
+            "35": {
+                "name": "Always On Function",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Aucune",
+                        "description": ""
+                    },
+                    {
+                        "name": "1",
+                        "description": "Alimente la charge et le voyant clignote rouge-bleu-blanc pour une dur\u00e9e fix\u00e9e par le param. 39."
+                    },
+                    {
+                        "name": "2",
+                        "description": "Eteint la charge et le voyant clignote rouge-bleu-blanc pour une dur\u00e9e fix\u00e9e par le param. 39."
+                    },
+                    {
+                        "name": "3",
+                        "description": "Fait clignoter la charge toutes les 1 seconde pendant fix\u00e9e par le param. 39 et le voyant clignote rouge-bleu-blanc puis la charge revient \u00e0 son \u00e9tat d\u2019origine."
+                    }
+                ]
+            },
+            "39": {
+                "name": "Dur\u00e9e de l\u2019alarme",
+                "description": "Dur\u00e9e avant la fin de l\u2019alarme (dans le cas o\u00f9 cette dur\u00e9e n\u2019est pas impos\u00e9e par l\u2019\u00e9quipement d\u00e9clencheur de cette alarme)",
+                "type": "input",
+                "unite": "s",
+                "default": "600",
+                "min": "1",
+                "max": "65536"
+            },
+            "40": {
+                "name": "Transmission imm\u00e9diate de la puissance si variation de",
+                "description": "Variation de puissance n\u00e9cessaire \u00e0 l\u2019envoi imm\u00e9diat de la valeur de consommation.Attention: une valeur trop basse risque de surcharger le r\u00e9seau Z-Wave en cas de variations constantes de la consommation de l\u2019appareil (t\u00e9l\u00e9viseur par exemple).Une valeur de 100(%) d\u00e9sactive la fonction",
+                "type": "input",
+                "unite": "%",
+                "default": "80",
+                "min": "1",
+                "max": "100"
+            },
+            "42": {
+                "name": "Transmission standard de la puissance si variation de",
+                "description": "Variation de puissance n\u00e9cessaire \u00e0 l\u2019envoi de la valeur de consommation.Par d\u00e9faut l\u2019envoi standard se fait \u00e0 une cadence de 5 fois toutes les 30 secondes.Attention: une valeur trop basse risque de surcharger le r\u00e9seau Z-Wave en cas de variations constantes de la consommation de l\u2019appareil (t\u00e9l\u00e9viseur par exemple).Une valeur de 100(%) d\u00e9sactive la fonction",
+                "type": "input",
+                "unite": "%",
+                "default": "15",
+                "min": "1",
+                "max": "100"
+            },
+            "43": {
+                "name": "Fr\u00e9quence d\u2019envoi de la puissance",
+                "description": "Dur\u00e9e pendant laquelle la prise peut envoyer un maximum de 5 relev\u00e9s de consommation (si variation de plus de 15% \/ voir param. 42).Une valeur de 255 signifie que la prise n\u2019envoie pas cette donn\u00e9e de mani\u00e8re cyclique et se contente de r\u00e9pondre en cas d\u2019interrogation.",
+                "type": "input",
+                "unite": "s",
+                "default": "30",
+                "min": "1",
+                "max": "254"
+            },
+            "45": {
+                "name": "Augmentation d\u2019\u00e9nergie consomm\u00e9e n\u00e9cessaire au d\u00e9clenchement d\u2019une transmission",
+                "description": "Augmentation de consommation \u00e9nerg\u00e9tique n\u00e9cessaire \u00e0 l\u2019envoi de la valeur de consommation.Une valeur de 255 signifie que la prise n\u2019envoie pas cette donn\u00e9e de mani\u00e8re cyclique et se contente de r\u00e9pondre en cas d\u2019interrogation",
+                "type": "input",
+                "unite": "0,1kWh",
+                "default": "10",
+                "min": "1",
+                "max": "254"
+            },
+            "47": {
+                "name": "Fr\u00e9quence d\u2019envoi des consommations en dehors de variations",
+                "description": "D\u00e9lai entre deux envois cycliques des donn\u00e9es de consommations.Une valeur de 65534 signifie que la prise n\u2019envoie des donn\u00e9es qu\u2019en cas de changement de consommation ou d\u2019interrogation (param. 40, 42, 43, 45).",
+                "type": "input",
+                "unite": "s",
+                "default": "3600",
+                "min": "1",
+                "max": "65534"
+            },
+            "49": {
+                "name": "Inclure l\u2019\u00e9nergie consomm\u00e9e par le module prise",
+                "description": "",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Non",
+                        "description": "Ne mesure pas la consommation de la charge."
+                    },
+                    {
+                        "name": "Oui",
+                        "description": "Inclue la consommation du module prise"
+                    }
+                ]
+            },
+            "50": {
+                "name": "Groupe 2: Valeur basse",
+                "description": "Une puissance inf\u00e9rieure \u00e0 cette valeur enverra une commande   (cf. param 52) aux modules associ\u00e9s au groupe 2.La valeur du param\u00e8tre 50 doit \u00eatre inf\u00e9rieure \u00e0 la valeur du param\u00e8tre 51.",
+                "type": "input",
+                "unite": "0,1W",
+                "default": "300",
+                "min": "0",
+                "max": "25000"
+            },
+            "51": {
+                "name": "Groupe 2: Valeur haute",
+                "description": "Une puissance inf\u00e9rieure \u00e0 cette valeur enverra une commande (cf. param 52) aux modules associ\u00e9s au groupe 2.La valeur du param\u00e8tre 51 doit \u00eatre sup\u00e9rieure \u00e0 la valeur du param\u00e8tre 50.",
+                "type": "input",
+                "unite": "0,1W",
+                "default": "300",
+                "min": "0",
+                "max": "25000"
+            },
+            "52": {
+                "name": "Groupe 2: Action en cas de d\u00e9passement des valeurs 50 & 51",
+                "description": "",
+                "default": "6",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Aucune",
+                        "description": "Aucune action."
+                    },
+                    {
+                        "name": "1",
+                        "description": "Active les charges du groupe 2 jusqu\u2019\u00e0 ce que la puissance retombe en dessous de la valeur basse (param 50)"
+                    },
+                    {
+                        "name": "2",
+                        "description": "D\u00e9sactive les charges du groupe 2 jusqu\u2019\u00e0 ce que la puissance retombe en dessous de la valeur basse (param 50)"
+                    },
+                    {
+                        "name": "3",
+                        "description": "Active les charges du groupe 2 jusqu\u2019\u00e0 ce que la puissance augmente au dessus de la valeur haute (param 51)"
+                    },
+                    {
+                        "name": "4",
+                        "description": "D\u00e9sactive les charges du groupe 2 jusqu\u2019\u00e0 ce que la puissance augmente au dessus de la valeur haute (param 51)"
+                    },
+                    {
+                        "name": "5",
+                        "description": "1 & 4 combin\u00e9s"
+                    },
+                    {
+                        "name": "6",
+                        "description": "2 & 3 combin\u00e9s"
+                    }
+                ]
+            },
+            "60": {
+                "name": "Puissance maximale pour la couleur violette",
+                "description": "Puissance n\u00e9cessaire l\u2019affichage de la couleur violette (puissance maximale, valable uniquement pour une valeur de param. 61 \u00e0 0 ou 1)",
+                "type": "input",
+                "unite": "0,1W",
+                "default": "25000",
+                "min": "1000",
+                "max": "32000"
+            },
+            "61": {
+                "name": "Couleur si charge allum\u00e9e",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Variation",
+                        "description": "Variation de couleurs par \u00e9tapes en fonction de la puissance consomm\u00e9e."
+                    },
+                    {
+                        "name": "Continue",
+                        "description": "Variation de couleurs continue en fonction de la puissance consomm\u00e9e."
+                    },
+                    {
+                        "name": "Blanc",
+                        "description": ""
+                    },
+                    {
+                        "name": "Rouge",
+                        "description": ""
+                    },
+                    {
+                        "name": "Vert",
+                        "description": ""
+                    },
+                    {
+                        "name": "Bleu",
+                        "description": ""
+                    },
+                    {
+                        "name": "Jaune",
+                        "description": ""
+                    },
+                    {
+                        "name": "Cyan",
+                        "description": ""
+                    },
+                    {
+                        "name": "Manjenta",
+                        "description": ""
+                    },
+                    {
+                        "name": "Eteint",
+                        "description": ""
+                    }
+                ]
+            },
+            "63": {
+                "name": "Couleur si alarme",
+                "description": "",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Aucune",
+                        "description": "Pas de changement (fonctionnement normal suivant param. 61)"
+                    },
+                    {
+                        "name": "Rouge-bleu-blanc",
+                        "description": "Clignotement rouge-bleu-blanc."
+                    },
+                    {
+                        "name": "Blanc",
+                        "description": ""
+                    },
+                    {
+                        "name": "Rouge",
+                        "description": ""
+                    },
+                    {
+                        "name": "Vert",
+                        "description": ""
+                    },
+                    {
+                        "name": "Bleu",
+                        "description": ""
+                    },
+                    {
+                        "name": "Jaune",
+                        "description": ""
+                    },
+                    {
+                        "name": "Cyan",
+                        "description": ""
+                    },
+                    {
+                        "name": "Manjenta",
+                        "description": ""
+                    },
+                    {
+                        "name": "Etein",
+                        "description": ""
+                    }
+                ]
+            },
+            "70": {
+                "name": "Fonction s\u00e9curit\u00e9 de sur-puissanc",
+                "description": "Coupe la charge en cas de d\u00e9passement de la puissance param\u00e9tr\u00e9e.Une valeur sup\u00e9rieure \u00e0 32000 (3200W) d\u00e9sactiv\u00e9 la s\u00e9curit\u00e9.",
+                "type": "input",
+                "unite": "0,1W",
+                "default": "65535",
+                "min": "10",
+                "max": "31999"
+            }
+        }
+    }
+}

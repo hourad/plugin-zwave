@@ -1,0 +1,114 @@
+{
+    "everspring.st814": {
+        "name": "Everspring ST814",
+        "vendor": "Everspring",
+        "manufacturerId": 96,
+        "manufacturerProductType": 6,
+        "manufacturerProductId": 1,
+        "commands": [
+            {
+                "name": "Temp\u00e9rature",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "°C",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[1].val"
+                }
+            },
+            {
+                "name": "Humidit\u00e9",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "%",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[5].val"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Basic Level set",
+                "description": "Set basic set value to be on or off",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "99"
+            },
+            "2": {
+                "name": "Temperature trigger ON",
+                "description": "Temperature level when a ON command is sent out",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "99",
+                "unite": "°C"
+            },
+            "3": {
+                "name": "Temperature trigger OFF",
+                "description": "Temperature level when a OFF command is sent out",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "99",
+                "unite": "°C"
+            },
+            "4": {
+                "name": "Humidity trigger ON",
+                "description": "Humidity level when a ON command is sent out",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "99",
+                "unite": "%"
+            },
+            "5": {
+                "name": "Humidity trigger OFF",
+                "description": "Temperture level when a OFF command is sent out",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "99",
+                "unite": "%"
+            },
+            "6": {
+                "name": "Auto report time",
+                "description": "Sets the time interval when sensor report is sent",
+                "default": "0",
+                "type": "input",
+                "min": "0",
+                "max": "1439",
+                "unite": "min",
+                "set": "15"
+            },
+            "7": {
+                "name": "Auto report Temperature",
+                "description": "Sets the temperature change causing a sensor report",
+                "default": "0",
+                "type": "input",
+                "min": "0",
+                "max": "70",
+                "unite": "°C",
+                "set": "1"
+
+            },
+            "8": {
+                "name": "Auto report Humidity",
+                "description": "Sets the humidity change causing a sensor report",
+                "default": "0",
+                "type": "input",
+                "min": "0",
+                "max": "70",
+                "unite": "%",
+                "set": "5"
+            }
+        }
+    }
+}
