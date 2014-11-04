@@ -89,7 +89,7 @@ $('body').delegate('#bt_getFromMarket', 'click', function () {
 $('body').delegate('#bt_shareOnMarket', 'click', function () {
     var logicalId = $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').value();
     if (logicalId == '') {
-        $('#div_alert').showAlert({message: '{{Vous devez d\'abord séléctionner une configuration à partager}}', level: 'danger'});
+        $('#div_alert').showAlert({message: '{{Vous devez d\'abord sélectionner une configuration à partager}}', level: 'danger'});
         return;
     }
     $('#md_modal').dialog({title: "{{Partager sur le market}}"});
@@ -240,7 +240,7 @@ function addCmdToTable(_cmd) {
     tr += '<input class="cmdAttr form-control input-sm" data-l1key="name">';
     tr += '</div>';
     tr += '</div>';
-    tr += '<select class="cmdAttr form-control tooltips input-sm" data-l1key="value" style="display : none;margin-top : 5px;" title="{{La valeur de la commande vaut par defaut la commande}}">';
+    tr += '<select class="cmdAttr form-control tooltips input-sm" data-l1key="value" style="display : none;margin-top : 5px;" title="{{La valeur de la commande vaut par défaut la commande}}">';
     tr += '<option value="">Aucune</option>';
     tr += '</select>';
     tr += '</td>';
