@@ -31,7 +31,7 @@ if ($controlerState === '') {
                     <a class="btn btn-default btn-sm tooltips" id="bt_syncEqLogic" title="{{Synchroniser équipement avec le Razberry}}" style="display: inline-block;"><i class="fa fa-refresh"></i> <span class="expertModeHidden">{{Synchroniser}}</span></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_inspectQueue" title="{{Inspecter la queue Z-wave}}" style="display: inline-block;"><i class="fa fa-exchange fa-rotate-90"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_routingTable" title="{{Afficher la table de routage}}" style="display: inline-block;"><i class="fa fa-sitemap"></i></a>
-                    <a class="btn btn-default btn-sm tooltips" id="bt_getFromMarket" title="{{Récuperer du market}}" style="display: inline-block;"><i class="fa fa-shopping-cart"></i> <span class="expertModeHidden">{{Market}}</span></a>
+                    <a class="btn btn-default btn-sm tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}" style="display: inline-block;"><i class="fa fa-shopping-cart"></i> <span class="expertModeHidden">{{Market}}</span></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du zwave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>
                     <?php if (config::byKey('isOpenZwave', 'zwave', 0) == 0) { ?>
                         <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_showZwayLog" title="{{Log du serveur z-way (valable uniquement si le serveur z-way est local)}}" style="display: inline-block;"><i class="fa fa-file-o"></i></a>
