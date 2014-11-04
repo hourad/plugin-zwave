@@ -25,6 +25,21 @@ class zwave extends eqLogic {
 
     /*     * ***********************Methode static*************************** */
 
+    public static function sick() {
+        echo "Server zwave : " . config::byKey('zwaveAddr', 'zwave') . "\n";
+        echo "Port : 8083\n";
+        echo "Is openZwave : " . config::byKey('isOpenZwave', 'zwave', 0) . "\n";
+        echo "Test connection to zwave server...";
+        try {
+            self::callRazberry('/ZWaveAPI/Data/0');
+            echo "OK\n";
+        } catch (Exception $e) {
+            echo "NOK\n";
+            echo "Description : " . $e->getMessage();
+            echo "\n";
+        }
+    }
+
     public static function callRazberry($_url) {
         $url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':8083' . $_url;
         $ch = curl_init();
