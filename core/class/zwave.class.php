@@ -672,9 +672,9 @@ class zwave extends eqLogic {
                     } else {
                         $eqLogic = zwave::byLogicalId($node);
                         if (is_object($eqLogic)) {
-                            $info_group[] = array('id' => $eqLogic->getId(), 'name' => $eqLogic->getHumanName());
+                            $info_group[] = array('id' => $node, 'name' => $eqLogic->getHumanName());
                         } else {
-                            $info_group[] = array('id' => '', 'name' => $node);
+                            $info_group[] = array('id' => $node, 'name' => $node);
                         }
                     }
                 }
