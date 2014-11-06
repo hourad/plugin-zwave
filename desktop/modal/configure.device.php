@@ -175,7 +175,7 @@ $sameDevices = $eqLogic->getSameDevice();
             <form class="form-horizontal">
                 <fieldset>
                     <div class="form-group alert alert-warning">
-                        <label class="col-lg-2 control-label tooltips">{{Oépration}}</label>
+                        <label class="col-lg-2 control-label tooltips">{{Opération}}</label>
                         <div class="col-lg-6">
                             <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;">Forcer re-interview</a>
                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
