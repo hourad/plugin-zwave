@@ -138,6 +138,12 @@ if ($controlerState === '') {
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">{{Commentaire}}</label>
+                            <div class="col-lg-8">
+                                <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
+                            </div>
+                        </div>
                     </fieldset> 
                 </form>
             </div>
