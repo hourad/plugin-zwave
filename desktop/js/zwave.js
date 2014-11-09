@@ -25,7 +25,7 @@ $('#bt_uploadConfZwave').fileupload({
             return;
         }
         if (modifyWithoutSave) {
-            $('#div_alert').showAlert({message: '{{Fichier ajouté avec succes. Vous devez rafraichir pour vous en servir}}', level: 'success'});
+            $('#div_alert').showAlert({message: '{{Fichier ajouté avec succès. Vous devez rafraîchir pour vous en servir}}', level: 'success'});
         } else {
             window.location.reload();
         }
@@ -50,7 +50,7 @@ $('#bt_showClass').on('click', function () {
 });
 
 $('#bt_showZwayLog').on('click', function () {
-    $('#md_modal').dialog({title: "{{Log z-way-server}}"});
+    $('#md_modal').dialog({title: "{{Log z-way-serveur}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.log').dialog('open');
 });
 
@@ -126,20 +126,20 @@ $('body').one('nodeJsConnect', function () {
             $('.changeIncludeState[data-mode=1]').removeClass('btn-default').addClass('btn-success');
             $('.changeIncludeState[data-mode=1]').attr('data-state', 0);
             $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Arreter inclusion');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
+            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
         }
         if (_options == 5) {
             $('.changeIncludeState[data-mode=0]').removeClass('btn-default').addClass('btn-danger');
             $('.changeIncludeState[data-mode=0]').attr('data-state', 0);
             $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90"></i> Arreter exclusion');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous etes en mode exclusion. Recliquez sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
+            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode exclusion. Recliquez sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
         }
     });
 
     setTimeout(function () {
         socket.on('zwave::includeDevice', function (_options) {
             if (modifyWithoutSave) {
-                $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'etre inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
+                $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
             } else {
                 if (_options == '') {
                     window.location.reload();
