@@ -24,7 +24,22 @@
         "Class": "Class",
         "Paramètres": "Parameters",
         "Options": "Options",
-        "Voir sur le market": "View on market"
+        "Voir sur le market": "View on market",
+        "Synchroniser": "Synchroniser",
+        "Administration avancée du zwave": "Administration avancée du zwave",
+        "Log du serveur z-way (valable uniquement si le serveur z-way est local)": "Log du serveur z-way (valable uniquement si le serveur z-way est local)",
+        "Ajouter un équipement": "Ajouter un équipement",
+        "Délai maximum autorisé entre 2 messages (min)": "Délai maximum autorisé entre 2 messages (min)",
+        "Fréquence de rafraichissement des valeurs (cron)": "Fréquence de rafraichissement des valeurs (cron)",
+        "Ne jamais mettre en erreur": "Ne jamais mettre en erreur",
+        "Ne pas verifier la batterie": "Ne pas verifier la batterie",
+        "Module": "Module",
+        "Configurer": "Configurer",
+        "Envoyer une configuration": "Envoyer une configuration",
+        "Fabricant ID": "Fabricant ID",
+        "Type produit": "Type produit",
+        "Produit ID": "Produit ID",
+        "Commentaire": "Commentaire"
     },
     "plugins\/zwave\/desktop\/js\/zwave.js": {
         "Classe du périphérique": "Component class",
@@ -43,6 +58,26 @@
         "Inverser": "Reverse",
         "Lifetime cache": "Lifetime cache",
         "Unité": "Unite",
-        "Tester": "Test"
+        "Tester": "Test",
+        "Fichier ajouté avec succes. Vous devez rafraichir pour vous en servir": "Fichier ajouté avec succes. Vous devez rafraichir pour vous en servir",
+        "Classes du périphérique": "Classes du périphérique",
+        "Log z-way-server": "Log z-way-server",
+        "Arbre Zwave de l'équipement": "Arbre Zwave de l'équipement",
+        "Actions avancées": "Actions avancées",
+        "Vous devez d\\'abord sélectionner une configuration à partager": "Vous devez d\\'abord sélectionner une configuration à partager",
+        "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "Vous etes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode",
+        "Vous etes en mode exclusion. Recliquez sur le bouton d\\'exclusion pour sortir de ce mode": "Vous etes en mode exclusion. Recliquez sur le bouton d\\'exclusion pour sortir de ce mode",
+        "Un périphérique vient d\\'etre inclu\/exclu. Veuillez réactualiser la page": "Un périphérique vient d\\'etre inclu\/exclu. Veuillez réactualiser la page",
+        "Valeur retour d\\'état": "Valeur retour d\\'état",
+        "Durée avant retour d\\'état (min)": "Durée avant retour d\\'état (min)"
+    },
+    "plugins\/zwave\/mobile\/html\/zwave.html": {
+        "Inclusion": "Inclusion",
+        "Exclusion": "Exclusion",
+        "Valider": "Valider"
+    },
+    "plugins\/zwave\/core\/class\/zwave.class.php": {
+        "Complet": "Complet",
+        "Incomplet": "Incomplet"
     }
 }
