@@ -120,7 +120,7 @@ if ($controlerState === '') {
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-4 control-label">{{Fréquence de rafraichissement des valeurs (cron)}}</label>
+                            <label class="col-lg-4 control-label">{{Fréquence de rafraîchissement des valeurs (cron)}}</label>
                             <div class="col-lg-4">
                                 <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
                             </div>
@@ -133,7 +133,7 @@ if ($controlerState === '') {
                             <div class="col-lg-1">
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
                             </div>
-                            <label class="col-lg-4 control-label">{{Ne pas verifier la batterie}}</label>
+                            <label class="col-lg-4 control-label">{{Ne pas vérifier la batterie}}</label>
                             <div class="col-lg-1">
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
                             </div>
