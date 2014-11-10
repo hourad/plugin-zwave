@@ -1066,13 +1066,15 @@ class zwave extends eqLogic {
 
     public function InterviewForce() {
         $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . ']');
-        foreach ($results['instances'] as $instance_id => $instance) {
-            foreach ($instance['commandClasses'] as $commandClasses_id => $commandClasses) {
-                if (isset($commandClasses['interviewDone']) && isset($commandClasses['interviewDone']['value']) && $commandClasses['interviewDone']['value'] == true) {
-                    try {
-                        self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[' . $instance_id . '].commandClasses[' . $commandClasses_id . '].Interview()');
-                    } catch (Exception $e) {
-                        
+        if (isset($results['instances'])) {
+            foreach ($results['instances'] as $instance_id => $instance) {
+                foreach ($instance['commandClasses'] as $commandClasses_id => $commandClasses) {
+                    if (isset($commandClasses['interviewDone']) && isset($commandClasses['interviewDone']['value']) && $commandClasses['interviewDone']['value'] == true) {
+                        try {
+                            self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[' . $instance_id . '].commandClasses[' . $commandClasses_id . '].Interview()');
+                        } catch (Exception $e) {
+                            
+                        }
                     }
                 }
             }
