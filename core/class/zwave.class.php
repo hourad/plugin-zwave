@@ -501,7 +501,7 @@ class zwave extends eqLogic {
             try {
                 $content = file_get_contents($path . '/' . $file);
                 if (is_json($content)) {
-                    $return = array_merge($return, json_decode($content, true));
+                    $return += json_decode($content, true);
                 }
             } catch (Exception $e) {
                 
