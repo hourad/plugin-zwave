@@ -803,9 +803,12 @@ class zwave extends eqLogic {
         $return['interviewComplete'] = array(
             'value' => __('Complet', __FILE__),
         );
-        foreach (self::inspectQueue() as $queue) {
-            if ($queue['id'] == $this->getLogicalId() && strpos($queue['status'], 'Wait wakeup') !== false) {
-                $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
+
+        foreach ($return['instances'] as $instance) {
+            foreach ($instance['commandClasses'] as $commandClasses) {
+                if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
+                    $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
+                }
             }
         }
         return $return;
