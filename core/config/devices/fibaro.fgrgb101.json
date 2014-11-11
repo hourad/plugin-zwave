@@ -46,16 +46,6 @@
                 }
             },
             {
-                "name": "Etat",
-                "type": "info",
-                "subtype": "other",
-                "isVisible": 0,
-                "configuration": {
-                    "class": "0x26",
-                    "value": "#color#"
-                }
-            },
-            {
                 "name": "Cheminée",
                 "type": "action",
                 "subtype": "other",
