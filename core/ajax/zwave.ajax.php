@@ -38,6 +38,17 @@ try {
         ajax::success(zwave::getCommandClassInfo(init('class')));
     }
 
+    if (init('action') == 'launchInDebug') {
+        log::clear('zwavecmd');
+        zwave::restartZwayServer(true);
+        ajax::success();
+    }
+    
+    if (init('action') == 'restartZwayServer') {
+        zwave::restartZwayServer();
+        ajax::success();
+    }
+
     if (init('action') == 'getModuleInfo') {
         $eqLogic = zwave::byId(init('id'));
         if (!is_object($eqLogic)) {

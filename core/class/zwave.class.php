@@ -358,6 +358,23 @@ class zwave extends eqLogic {
         ));
     }
 
+    public static function restartZwayServer($_debug = false) {
+        if ($_debug) {
+            $cmd = 'sudo su -; ';
+            $cmd .= 'killall -9 z-way-server; ';
+            $cmd .= 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/z-way-server/libs; ';
+            $cmd .= '&& cd /opt/z-way-server; ';
+            $cmd .= './z-way-server >> ' . log::getPathToLog('zwavecmd') . ' 2>&1 &';
+        } else {
+            $output = array();
+            $retval = 0;
+            exec('sudo killall -9 z-way-server; sudo service z-way-server start', $output, $retval);
+            if ($retval != 0) {
+                throw new Exception(__('Impossible de redemarrer le serveur zway (probleme de droits ?) : ', __FILE__) . print_r($output, true));
+            }
+        }
+    }
+
     public static function changeIncludeState($_mode, $_state) {
         if ($_mode == 1) {
             self::callRazberry('/ZWaveAPI/Run/controller.AddNodeToNetwork(' . $_state . ')');
