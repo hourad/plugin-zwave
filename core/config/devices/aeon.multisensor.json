@@ -145,7 +145,7 @@
                 "description": "",
                 "default": "0",
                 "type": "input",
-                "set": "255"
+                "set": "225"
             },
             "102": {
                 "name": "Type d'informations à envoyer lors transmissions à intervalles régulières au groupe 2",
