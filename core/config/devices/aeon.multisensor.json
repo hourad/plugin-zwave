@@ -144,7 +144,8 @@
                 "name": "Type d'informations à envoyer lors transmissions à intervalles régulières au groupe 1",
                 "description": "",
                 "default": "0",
-                "type": "input"
+                "type": "input",
+                "set": "255"
             },
             "102": {
                 "name": "Type d'informations à envoyer lors transmissions à intervalles régulières au groupe 2",
@@ -165,7 +166,8 @@
                 "type": "input",
                 "unite": "s",
                 "min": "0",
-                "max": "2678400"
+                "max": "2678400",
+                "set": "720"
             },
             "112": {
                 "name": "Durée de l'intervalle entre deux transmissions automatiques au groupe 2",

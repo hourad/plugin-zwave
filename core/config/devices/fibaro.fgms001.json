@@ -1,0 +1,413 @@
+{
+    "fibaro.fgms001": {
+        "name": "Fibaro FGMS-001 [Motion Sensor]",
+        "vendor": "Fibar Group",
+        "manufacturerId": 271,
+        "manufacturerProductType": 2048,
+        "manufacturerProductId": 4097,
+	"groups": {
+	    "associate": [1],
+	    "associate": [2],
+            "associate": [3]
+        },
+        "commands": [
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x30",
+                    "value": "data[1].level"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "presence",
+                    "mobile": "presence"
+                }
+            },
+            {
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "°C",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[1].val"
+                }
+            },
+            {
+                "name": "Luminosité",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "Lux",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "value": "data[3].val",
+                    "maxValue": 1000,
+                    "minValue": 0
+                }
+            },
+            {
+                "name": "Anti Sabotage",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x9C",
+                    "value": "data[0].sensorState.value",
+		    "maxValue": 255,
+                    "minValue": 0
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+		"template": {
+                    "dashboard": "vibration",
+                    "mobile": "vibration"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "SENSIBILITE DU DETECTEUR DE MOUVEMENT",
+                "description": "Ce paramètre définit la sensibilité du capteur PIR. Plus sa valeur est petite, plus le capteur PIR sera sensible.",
+                "default": "10",
+                "type": "input",
+                "min": "8",
+                "max": "255"
+            },
+	    "2": {
+                "name": "INERTIE DU DETECTEUR DE MOUVEMENT (BLIND TIME)",
+                "description": "Temps pour lequel le capteur PIR sera « aveugle » aux mouvements. Ce paramètre détermine le temps minimum après lequel le capteur PIR sera prêt à détecter un nouveau mouvement. Plus ce temps est important, plus la vie de la batterie sera longue. Vous pouvez réduire cette valeur dès que vous avez besoin que le capteur PIR détecte un mouvement plus rapidement. Le temps d’inertie devrait être plus petit que celui qui figure dans le paramètre 6 (temps de maintien du mouvement). Par défaut 15 = 8 sec",
+                "default": "15",
+                "type": "input",
+                "min": "0",
+                "max": "15"
+            },
+	    "3": {
+                "name": "PULSE COUNTER DU CAPTEUR PIR",
+                "description": "Définition du nombre de mouvements qu`il faudrait effectuer (en théorie) pour que le capteur PIR détecte le mouvement. Plus cette valeur est haute, moins le capteur PIR sera sensible. Il n`est pas recommandé de modifier ce paramètre. Par défaut 1 = 2 pulsions",
+                "default": "1",
+                "type": "input",
+                "min": "0",
+                "max": "3"
+            },
+	    "4": {
+                "name": "WINDOW TIME DU CAPTEUR PIR",
+                "description": "Ce paramètre détermine le temps pendant lequel il doit y avoir un nombre de mouvements déterminé (paramètre 3) pour que le capteur détecte le mouvement. Théoriquement plus cette valeur est grande, plus le capteur PIR est sensible (il n’est pas recommandé de modifier ce paramètre). Par défaut 2 = 12 sec",
+                "default": "2",
+                "type": "input",
+                "min": "0",
+                "max": "3"
+            },
+	    "6": {
+                "name": "TEMPS DE MAINTIEN DU MOUVEMENT",
+                "description": "L`alarme du mouvement détectée sera retirée dans le contrôleur et les dispositifs associés après le temps défini dans ce paramètre. Chaque mouvement suivant fera prolonger ce temps et recommencer son calcul. Dans le cas de petites valeurs, de moins de 10 secondes, il faut corriger de manière appropriée le paramètre 2 (le paramètre « Blind Time » du capteur PIR). Par défaut 2 = 12 sec",
+                "default": "30",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "65000"
+            },
+            "8": {
+                "name": "MODE DE FONCTIONNEMENT DU CAPTEUR PIR",
+                "description": "Ce paramètre définit les conditions de luminosité dans lesquelles fonctionnera le capteur PIR. Ce paramètre influence uniquement les rapports de mouvement et les associations. Le capteur anti-sabotage, les mesures de la lumière et de la température seront actives quelque soit la valeur de ce paramètre.",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Capteur PIR toujours actif",
+                        "description": ""
+                    },
+                    {
+                        "name": "Capteur PIR actif le jour uniquement",
+                        "description": ""
+                    },
+                    {
+                        "name": "Capteur PIR actif la nuit uniquement",
+                        "description": ""
+                    }
+                ]
+            },
+	    "9": {
+                "name": "LIMITE DE FONCTIONNEMEMT JOUR ET NUIT",
+                "description": "Ce paramètre définit la limite du niveau de luminosité pour le paramètre 8.",
+                "default": "200",
+                "type": "input",
+                "unite": "lux",
+                "min": "0",
+                "max": "450"
+            },
+            "12": {
+                "name": "CONFIGURATION DES MESSAGES DES CLASSES DE COMMANDE CLASSIQUES BASIC COMMAND CLASS",
+                "description": "Ce paramètre définit quels messages seront envoyés dans le premier groupe d’association (lié avec le capteur PIR). Les valeurs des messages BASIC ON et BASIC OFF pourront être modifiées avec les paramètres appropriés.",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Les valeurs des messages BASIC ON et BASIC OFF sont envoyées à « Basic Command Class »",
+                        "description": "Les valeurs des messages BASIC ON et BASIC OFF sont envoyées à « Basic Command Class »"
+                    },
+                    {
+                        "name": "Seul les valeurs des messages BASIC ON sont envoyées à « Basic Command Class »",
+                        "description": "Seul les valeurs des messages BASIC ON sont envoyées à « Basic Command Class »"
+                    }
+                ]
+            },
+            "14": {
+                "name": "VALEUR DU MESSAGE DE COMMANDE BASIC ON",
+                "description": "La valeur 255 permet d’activer le dispositif. Dans le cas du module Dimmer (variateur) la valeur 255 signifie qu`il va passer sur son dernier état mémorisé. Par exemple, si le Dimmer (variateur) était à 30%, ensuite désactivé puis réactivé à l`aide de la commande 255, celui-ci s`activera sur son dernier état, soit à 30%.",
+                "default": "127",
+                "type": "input",
+                "min": "1",
+                "max": "255"
+            },
+            "16": {
+                "name": "VALEUR DU MESSAGE DE COMMANDE BASIC OFF",
+                "description": "Ce message de commande est envoyé au moment de l`annulation du mouvement après le temps de maintien du mouvement défini par le paramètre 6 (temps de maintien du mouvement).La valeur 0 permet de désactiver le dispositif, en revanche, la valeur 255 permet d’activer le dispositif. Dans le cas du module Dimmer (variateur) la valeur 255 signifie qu`il va passer sur son dernier état mémorisé. Par exemple, si le Dimmer (variateur) était à 30% , désactivé puis réactivé à l`aide de la commande 255, celui-ci s`activera sur son dernier état, soit à 30%.",
+                "default": "unknown",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "0",
+                        "description": "0 permet de désactiver le dispositif"
+                    },
+                    {
+                        "name": "255",
+                        "description": "255 permet d'activer le dispositif"
+                    }
+                ]
+            },
+            "20": {
+                "name": "SENSIBILITE DU CAPTEUR ANTI-SABOTAGE",
+                "description": "Ce paramètre détermine de combien doit changer la charge du capteur du mouvement pour que le capteur anti-sabotage notifie un sabotage. Cette unité est exprimée en fonction de l’accélération terrestre G. Par défaut 15 = 0.224G",
+                "default": "15",
+                "type": "input",
+                "unite": "G",
+                "min": "0",
+                "max": "122"
+            },
+            "22": {
+                "name": "TEMPS DE MAINTIEN DE L`ALARME DU CAPTEUR ANTI-SABOTAGE",
+                "description": "Temps passé après lequel l`alarme du capteur anti-sabotage sera désactivée. Chaque nouvelle détection de sabotage ne prolongera pas le temps de maintien du capteur anti-sabotage.",
+                "default": "30",
+                "type": "input",
+                "unite": "s"
+            },
+            "24": {
+                "name": "MODE DE TRAVAIL DU CAPTEUR ANTI-SABOTAGE",
+                "description": "Ce paramètre définit le comportement et le mode de notification du capteur anti-sabotage.",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation n'est pas notifiée",
+                        "description": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation n'est pas notifiée"
+                    },
+                    {
+                        "name": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation est notifiée après le temps défini en paramètre 22",
+                        "description": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation est notifiée après le temps défini en paramètre 22"
+                    },
+                    {
+                        "name": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation n'est pas notifiée. Le capteur d'orentation est notifié à Fibar command class après le temps défini en paramètre 22",
+                        "description": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation n'est pas notifiée. Le capteur d'orentation est notifié à Fibar command class après le temps défini en paramètre 22"
+                    },
+                    {
+                        "name": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation est notifiée après le temps défini en paramètre 22. Le capteur d'orentation est notifié à Fibar command class après le temps défini en paramètre 22",
+                        "description": "Capteur anti-sabotage notifié à SensorAlarm command class/ Annulation est notifiée après le temps défini en paramètre 22. Le capteur d'orentation est notifié à Fibar command class après le temps défini en paramètre 22"
+                    },
+                    {
+                        "name": "Le niveau maximum de vibration enregistré durant le temps défini en paramètre 22 est notifié. Les notifications sont arrétée après la détection des vibrations L'ensemble est notifié à SensorAlarm command class. Le champ « value » dépend de la force de vibration (0 - 100)",
+                        "description": "Le niveau maximum de vibration enregistré durant le temps défini en paramètre 22 est notifié. Les notifications sont arrétée après la détection des vibrations L'ensemble est notifié à SensorAlarm command class. Le champ « value » dépend de la force de vibration (0 - 100)"
+                    }
+                ]
+            },
+            "26": {
+                "name": "ACTIVITES DU CAPTEUR ANTI-SABOTAGE DANS LE MODE BROADCAST",
+                "description": "Ce paramètre détermine si le message de détection d’un sabotage du capteur anti-sabotage sera envoyé dans le mode broadcast. Les messages broadcast peuvent être reçus par tous les dispositifs à sa portée (s`ils le permettent).",
+                "default": "0",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Capteur anti-sabotage n'est pas envoyé en mode broadcast",
+                        "description": ""
+                    },
+                    {
+                        "name": "Capteur anti-sabotage est envoyé en mode broadcast",
+                        "description": ""
+                    }
+                ]
+            },
+            "40": {
+                "name": "SEUIL DE DÉCLENCHEMENT DES RAPPORTS DE LUMINOSITE",
+                "description": "Ce paramètre détermine de combien devra changer la luminosité par rapport à la dernière valeur notifiée pour que cette nouvelle valeur soit également notifiée au contrôleur. 0 pas de notification",
+                "default": "200",
+                "type": "input",
+                "unite": "lux",
+                "min": "0",
+                "max": "65535"
+            },
+            "42": {
+                "name": "TEMPS ECOULE ENTRE LES RAPPORTS SUCCESSIFS DES VALEURS DE LUMINOSITE",
+                "description": "Ce paramètre détermine l`intervalle entre les envois des rapports successifs de luminosité. Ces rapports sont envoyés mème s`il n`y a pas eu de changement de luminosité. 0 pas de notification",
+                "default": "0",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "65535"
+            },
+            "60": {
+                "name": "SEUIL DE DÉCLENCHEMENT DES RAPPORTS DE CAPTEUR DE TEMPERATURE",
+                "description": "Ce paramètre détermine de combien devra changer la température par rapport à la dernière valeur notifiée pour que cette nouvelle valeur soit également notifiée au contrôleur. 0 pas de notification",
+                "default": "10",
+                "type": "input",
+                "unite": "°C",
+                "min": "0.1",
+                "max": "25.5"
+            },
+            "62": {
+                "name": "TEMPS ENTRE LES MESURES SUCCESSIVES DE TEMPERATURE",
+                "description": "Ce paramètre détermine la fréquence de mesures. Plus la durée entre les mesures sera courte, plus la température sera mesurée fréquemment au détriment de la durée de vie de la batterie. 0 pas de notification",
+                "default": "900",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "65535"
+            },
+            "64": {
+                "name": "TEMPS ENTRE LES RAPPORTS SUCCESSIFS DETEMPERATURE",
+                "description": "Ce paramètre détermine la fréquence des rapports de température envoyés au contrôleur.",
+                "default": "0",
+                "type": "input",
+                "unite": "s",
+                "min": "0",
+                "max": "65535"
+            },
+            "66": {
+                "name": "CORRECTION (OFFSET) DE LA TEMPERATURE",
+                "description": "C’est la valeur qui sera ajoutée à celle de la température réellement mesurée. 0-100 (0°C à 100 °C) ou 64536-65535 (-100°C à -0.10°C)",
+                "default": "0",
+                "type": "input",
+                "min": "0",
+                "max": "65535"
+            },
+            "80": {
+                "name": "MODE DE SIGNALEMENT DE LA LED",
+                "description": "Ce paramètre détermine le type d’allumage de la LED après avoir détecté un mouvement. Valeurs 1 à 9 – Clignotement prolongé au moment de l`envoi du rapport d’une détection. Aucun autre mouvement ne sera indiqué jusqu'à ce que l'alarme soit annulée. Valeurs 10 à 18 – Clignotement prolongé au moment de l`envoi du rapport d’une détection et clignotement court à chaque fois qu’un nouveau mouvement est détecté. Valeurs 19 à 26 – Clignotement prolongé au moment de l`envoi du rapport d’une détection et deux clignotements courts dès la détection d’un autre mouvement.",
+                "default": "10",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "LED inactive",
+                        "description": ""
+                    },
+                    {
+                        "name": "La couleur de la LED dépend de la température",
+                        "description": "Voir paramètres 86 et 87"
+                    },
+                    {
+                        "name": "Mode Flash",
+                        "description": "La LED clignote blanc pendant 10 secondes"
+                    },
+		    {
+                        "name": "Blanc",
+                        "description": ""
+                    },
+		    {
+                        "name": "Rouge",
+                        "description": ""
+                    },
+		    {
+                        "name": "Vert",
+                        "description": ""
+                    },
+		    {
+                        "name": "Bleu",
+                        "description": ""
+                    },
+		    {
+                        "name": "Jaune",
+                        "description": ""
+                    },
+		    {
+                        "name": "Cyan",
+                        "description": ""
+                    },
+		    {
+                        "name": "Magenta",
+                        "description": ""
+                    }
+                ]
+            },
+            "81": {
+                "name": "LUMINOSITE DE LA LED",
+                "description": "Ce paramètre détermine la luminosité de la LED après avoir détecté le mouvement. 0 signifie que la luminosité dépendra de l`éclairage du local – voir paramètres 82 et 83.",
+                "default": "50",
+                "type": "input",
+                "min": "0",
+                "max": "100"
+            },
+            "82": {
+                "name": "NIVEAU D’ECLAIRAGE AMBIANT AU-DESSOUS DUQUEL LA LED S`ALLUMERA AU NIVEAU DE 1% DE SA LUMINOSITE MAXIMALE",
+                "description": "Niveau d’éclairage ambiant au dessous duquel la LED s’allumera au niveau de 1% de sa luminosité maximale. Ce paramètre est important seulement quand le paramètre 81 (luminosité de la LED) a été configuré de manière adéquate. 0 à la valeur du paramètre 83",
+                "default": "100",
+                "type": "input",
+                "min": "0",
+                "max": "65535"
+            },
+            "83": {
+                "name": "NIVEAU D`ECLAIRAGE AMBIANT AU-DESSOUS DUQUEL LA LED S`ALLUMERA AU NIVEAU DE 100% DE SA LUMINOSITE MAXIMALE",
+                "description": "Niveau d’éclairage ambiant au dessous duquel la LED s’allumera au niveau de 100% de sa luminosité maximale. Ce paramètre est important seulement quand le paramètre 81 (luminosité de la LED) a été configuré de manière adéquate. De la Valeur de 82 à 65535",
+                "default": "1000",
+                "type": "input",
+                "min": "0",
+                "max": "65535"
+            },
+            "86": {
+                "name": "TEMPÉRATURE MINIMALE POUR L'ILLUMINATION DE LA LED EN BLEU",
+                "description": "Température minimale pour l’illumination de la LED en bleu. Ce paramètre est important seulement quand le paramètre 80 (signalisation de la détection du mouvement) a été configuré de manière adéquate. 0 à la valeur du paramètre 87",
+                "default": "18",
+                "type": "input",
+                "min": "0",
+                "max": "255"
+            },
+            "87": {
+                "name": "TEMPÉRATURE MAXIMALE POUR L'ILLUMINATION DE LA LED EN ROUGE",
+                "description": "Température maximale pour l’illumination de la LED en rouge. Ce paramètre est important seulement quand le paramètre 80 (signalisation de la détection du mouvement) a été configuré de manière adéquate. De la Valeur de 86 à 255",
+                "default": "28",
+                "type": "input",
+                "min": "0",
+                "max": "255"
+            },
+            "89": {
+                "name": "SIGNALISATION DE DETECTION DU CAPTEUR ANTI-SABOTAGE AVEC LED ALLUMEE",
+                "description": "Signalisation de détection du capteur anti-sabotage avec LED allumée. Cette signalisation rappelle celle d`une voiture de patrouille de la police.",
+                "default": "1",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "La LED n'indique pas l'anti-sabotage",
+                        "description": ""
+                    },
+                    {
+                        "name": "La LED indique l'anti-sabotage",
+                        "description": ""
+                    }
+                ]
+            }
+        }
+    }
+}
