@@ -349,6 +349,78 @@
 		    {
                         "name": "Magenta",
                         "description": ""
+                    },
+                    {
+                        "name": "La couleur de la LED dépend de la température",
+                        "description": "Voir paramètres 86 et 87"
+                    },
+                    {
+                        "name": "Mode Flash",
+                        "description": "La LED clignote blanc pendant 10 secondes"
+                    },
+		    {
+                        "name": "Blanc",
+                        "description": ""
+                    },
+		    {
+                        "name": "Rouge",
+                        "description": ""
+                    },
+		    {
+                        "name": "Vert",
+                        "description": ""
+                    },
+		    {
+                        "name": "Bleu",
+                        "description": ""
+                    },
+		    {
+                        "name": "Jaune",
+                        "description": ""
+                    },
+		    {
+                        "name": "Cyan",
+                        "description": ""
+                    },
+		    {
+                        "name": "Magenta",
+                        "description": ""
+                    },
+                    {
+                        "name": "La couleur de la LED dépend de la température",
+                        "description": "Voir paramètres 86 et 87"
+                    },
+                    {
+                        "name": "Mode Flash",
+                        "description": "La LED clignote blanc pendant 10 secondes"
+                    },
+		    {
+                        "name": "Blanc",
+                        "description": ""
+                    },
+		    {
+                        "name": "Rouge",
+                        "description": ""
+                    },
+		    {
+                        "name": "Vert",
+                        "description": ""
+                    },
+		    {
+                        "name": "Bleu",
+                        "description": ""
+                    },
+		    {
+                        "name": "Jaune",
+                        "description": ""
+                    },
+		    {
+                        "name": "Cyan",
+                        "description": ""
+                    },
+		    {
+                        "name": "Magenta",
+                        "description": ""
                     }
                 ]
             },
