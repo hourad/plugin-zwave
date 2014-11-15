@@ -1172,7 +1172,7 @@ class zwaveCmd extends cmd {
                     $value = '';
                     foreach ($_val['value'] as $ascii) {
                         if ($ascii != 0) {
-                            $value .= chr($ascii);
+                            $value .=$ascii;
                         }
                     }
                 }
