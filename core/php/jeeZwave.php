@@ -30,7 +30,7 @@ if (isset($argv)) {
 if (php_sapi_name() != 'cli' || isset($_SERVER['REQUEST_METHOD']) || !isset($_SERVER['argc'])) {
     if (config::byKey('api') != init('apikey')) {
         connection::failed();
-        echo 'Clef API non valide, vous n\'etes pas autorisé à effectuer cette action (jeeZwave)';
+        echo 'Clef API non valide, vous n\'êtes pas autorisé à effectuer cette action (jeeZwave)';
         die();
     }
 }

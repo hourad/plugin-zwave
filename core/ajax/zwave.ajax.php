@@ -165,10 +165,10 @@ try {
             throw new Exception(__('Répertoire d\'upload non trouvé : ', __FILE__) . $uploaddir);
         }
         if (!isset($_FILES['file'])) {
-            throw new Exception(__('Aucun fichier trouvé. Vérifié parametre PHP (post size limit)', __FILE__));
+            throw new Exception(__('Aucun fichier trouvé. Vérifiez le paramètre PHP (post size limit)', __FILE__));
         }
         if (filesize($_FILES['file']['tmp_name']) > 2000000) {
-            throw new Exception(__('Le fichier est trop gros (miximum 2mo)', __FILE__));
+            throw new Exception(__('Le fichier est trop gros (maximum 2Mo)', __FILE__));
         }
         if (!is_json(file_get_contents($_FILES['file']['tmp_name']))) {
             throw new Exception(__('Le fichier json est invalide', __FILE__));

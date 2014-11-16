@@ -19,7 +19,7 @@ if (!isConnect('admin')) {
     throw new Exception('{{401 - Accès non autorisé}}');
 }
 if (init('id') == '') {
-    throw new Exception('{{EqLogic ID ne peut etre vide}}');
+    throw new Exception('{{EqLogic ID ne peut être vide}}');
 }
 $eqLogic = eqLogic::byId(init('id'));
 if (!is_object($eqLogic)) {
@@ -108,7 +108,7 @@ $sameDevices = $eqLogic->getSameDevice();
                                     </div>
                                 </div>
                             <?php } ?>
-                            <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module a renvoyer toutes ses données : configuration, valeur, status...">Forcer re-interview</a>
+                            <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeur, status...">Forcer re-interview</a>
                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
                             <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Enlever le module défaillant</a>
 
@@ -117,12 +117,12 @@ $sameDevices = $eqLogic->getSameDevice();
 
                     <legend>{{Configuration}}</legend>
                     <div class="alert alert-info">{{Certaines valeur de configurations peuvent mettre plusieurs minutes à arriver lors de la premiere récuperation}}
-                        <a class="btn btn-warning bt_forceRefresh pull-right btn-xs" style="color : white;" title="{{Force le module a renvoyer sa configuration et uniquement sa configuration}}"><i class="fa fa-refresh"></i> {{Forcer la mise à jour}}</a>
+                        <a class="btn btn-warning bt_forceRefresh pull-right btn-xs" style="color : white;" title="{{Force le module à renvoyer sa configuration et uniquement sa configuration}}"><i class="fa fa-refresh"></i> {{Forcer la mise à jour}}</a>
                     </div>
                     <div id="div_configureDeviceParameters">
                         <?php
                         if (count($device['parameters']) == 0) {
-                            echo '<div class="alert alert-info">{{Il n\'y a aucun parametres de configuration pour ce module}}</div>';
+                            echo '<div class="alert alert-info">{{Il n\'y a aucun paramètre de configuration pour ce module}}</div>';
                         } else {
                             foreach ($device['parameters'] as $id => $parameter) {
                                 echo '<div class="form-group">';
@@ -365,7 +365,7 @@ $sameDevices = $eqLogic->getSameDevice();
                     $('#div_configureDeviceAlert').showAlert({message: data.result, level: 'danger'});
                     return;
                 }
-                $('#div_configureDeviceAlert').showAlert({message: 'Opération réalisée avec succès (le temps de prise en compte par le péripherique peut etre de plusieurs minutes)', level: 'success'});
+                $('#div_configureDeviceAlert').showAlert({message: 'Opération réalisée avec succès (le temps de prise en compte par le périphérique peut être de plusieurs minutes)', level: 'success'});
             }
         });
     });
@@ -389,7 +389,7 @@ $sameDevices = $eqLogic->getSameDevice();
                     $('#div_configureDeviceAlert').showAlert({message: data.result, level: 'danger'});
                     return;
                 }
-                $('#div_configureDeviceAlert').showAlert({message: 'Opération réalisée avec succès (le temps de prise en compte par le péripherique peut etre de plusieurs minutes)', level: 'success'});
+                $('#div_configureDeviceAlert').showAlert({message: 'Opération réalisée avec succès (le temps de prise en compte par le périphérique peut être de plusieurs minutes)', level: 'success'});
             }
         });
     });
@@ -519,7 +519,7 @@ $sameDevices = $eqLogic->getSameDevice();
                     $('#div_configureDeviceAlert').showAlert({message: data.result, level: 'danger'});
                     return;
                 }
-                $('#div_configureDeviceAlert').showAlert({message: '{{Parrametres envoyés avec succes (la prise en compte peut prendre jusqu\'à plusieurs minutes)}}', level: 'success'});
+                $('#div_configureDeviceAlert').showAlert({message: '{{Parramètres envoyés avec succès (la prise en compte peut prendre jusqu\'à plusieurs minutes)}}', level: 'success'});
                 configureDeviceLoad(1);
             }
         });

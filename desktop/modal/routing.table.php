@@ -30,7 +30,7 @@ if (!isConnect('admin')) {
     </thead>
     <tbody>
         <tr>
-            <td colspan="2">{{Nombre de [route directe / avec 1 saut / 2 sauts / 3 sauts / 4 sauts]}}</td>
+            <td colspan="2">{{Nombre de [routes directes / avec 1 saut / 2 sauts / 3 sauts / 4 sauts]}}</td>
         </tr>
         <tr>
             <td class="alert alert-success" style="width: 40px"></td>
@@ -69,7 +69,7 @@ if (!isConnect('admin')) {
                     $('#div_routingTableAlert').showAlert({message: data.result, level: 'danger'});
                     return;
                 }
-                $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'a plusieurs minutes)}}', level: 'success'});
+                $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'à plusieurs minutes)}}', level: 'success'});
             }
         });
     });

@@ -139,7 +139,7 @@ $('body').one('nodeJsConnect', function () {
     setTimeout(function () {
         socket.on('zwave::includeDevice', function (_options) {
             if (modifyWithoutSave) {
-                $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclu/exclu. Veuillez réactualiser la page}}', level: 'warning'});
+                $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclus/exclu. Veuillez réactualiser la page}}', level: 'warning'});
             } else {
                 if (_options == '') {
                     window.location.reload();
