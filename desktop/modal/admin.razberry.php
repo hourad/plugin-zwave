@@ -43,7 +43,7 @@ if (!isConnect('admin')) {
     {{Cette fonction effectue un redémarrage logiciel du firmware de la puce du contrôleur Z-Wave sans 
     suppression de toute information de réseau ou un réglage. Il peut être nécessaire pour recupérer la puce d'un état bloqué.
     Une situation typique d'une puce redémarrage requis est si la puce Z-Wave échoue à venir 
-    De retour de l'inclusion ou de l'état d'exclusion.}}
+    de retour de l'inclusion ou de l'état d'exclusion.}}
 </td>
 </tr>
 <tr>
@@ -53,9 +53,9 @@ if (!isConnect('admin')) {
 </center>
 </td>
 <td>
-    {{Dans certains congurations réseau il peut être nécessaire d'envoyer l'Information Node cadre 
+    {{Dans certaines configurations réseau il peut être nécessaire d'envoyer le Node Id  
     du contrôleur Z-Way. Ceci est particulièrement utile pour l'utilisation de certaines télécommandes pour la scène 
-    activation. Le manuel de la télécommande se référer à cette exigence et donner plus d'
+    activation. Se référer au manuel de la télécommande pour donner plus d'
     informations quand et comment utiliser cette fonction.}}
 </td>
 </tr>
@@ -68,9 +68,7 @@ if (!isConnect('admin')) {
 </td>
 <td>
     {{Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut 
-être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable 
-coller comme par exemple Aeon Labs Z-bâton. Appareils fonctionnant sur secteur retourneront leur FNI immédiatement, 
-dispositifs à piles vont réagir après la prochaine activation.}}
+être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable coller comme par exemple Aeon Labs Z-Stick. Les appareils fonctionnant sur secteur retourneront leur FNI immédiatement, les dispositifs à piles vont réagir après la prochaine activation.}}
 </td>
 </tr>
 
@@ -81,23 +79,22 @@ dispositifs à piles vont réagir après la prochaine activation.}}
 </center>
 </td>
 <td>
-    {{Force tous les modules a renvoyer toutes leurs informations}}
+    {{Force tous les modules à renvoyer toutes leurs informations}}
 </td>
 </tr>
 
 <tr>
     <td>
 <center>
-    <a class='btn btn-danger btn-xs bt_adminRazberryAction' style="color : white;" data-command="ControllerChange(1)" data-risk="{{Elevé}}"> {{Démarrer changement le controleur primaire}}</a><br/><br/>
-    <a class='btn btn-success btn-xs bt_adminRazberryAction' style="color : white;" data-command="ControllerChange(0)" data-risk="{{Faible}}"> {{Arreter changement le controleur primaire}}</a>
+    <a class='btn btn-danger btn-xs bt_adminRazberryAction' style="color : white;" data-command="ControllerChange(1)" data-risk="{{Elevé}}"> {{Démarrer le changement du contrôleur primaire}}</a><br/><br/>
+    <a class='btn btn-success btn-xs bt_adminRazberryAction' style="color : white;" data-command="ControllerChange(0)" data-risk="{{Faible}}"> {{Arrêter le changement du contrôleur primaire}}</a>
 </center>        
 </td>
 <td>
-    {{La fonction de changement de contrôleur permet de transfert de la fonction primaire à un autre controleur du
-    réseau. La fonction fonctionne comme une fonction d'inclusion normal, mais remettra le primaire 
-    privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire de la 
-    réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande 
-    des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire 
+    {{La fonction de changement de contrôleur permet le transfert de la fonction primaire à un autre contrôleur du
+    réseau. La fonction fonctionne comme une fonction d'inclusion normale, mais remettra le primaire 
+    privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire du 
+    réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire 
     Enfin fonction est remis une des télécommandes.}}
 </td>
 </tr>
@@ -126,7 +123,7 @@ dispositifs à piles vont réagir après la prochaine activation.}}
                             $('#div_adminRazberryAlert').showAlert({message: data.result, level: 'danger'});
                             return;
                         }
-                        $('#div_adminRazberryAlert').showAlert({message: '{{Opération lancée avec succes. En fonction de l\'opération celle-ci peut mettre plusieurs minutes a ce réaliser.}}', level: 'success'});
+                        $('#div_adminRazberryAlert').showAlert({message: '{{Opération lancée avec succès. En fonction de l\'opération celle-ci peut mettre plusieurs minutes à se réaliser.}}', level: 'success'});
                     }
                 });
             }
