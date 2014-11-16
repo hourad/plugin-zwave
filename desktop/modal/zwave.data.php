@@ -19,7 +19,7 @@ if (!isConnect('admin')) {
     throw new Exception('{{401 - Accès non autorisé}}');
 }
 if (init('id') == '') {
-    throw new Exception('{{EqLogic ID ne peut etre vide}}');
+    throw new Exception('{{EqLogic ID ne peut être vide}}');
 }
 $eqLogic = eqLogic::byId(init('id'));
 if (!is_object($eqLogic)) {
