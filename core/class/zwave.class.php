@@ -119,13 +119,13 @@ class zwave extends eqLogic {
                         for ($i = 0; $i < 15; $i++) {
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
-                                'message' => __('Un périphérique Z-Wave vient d\'être inclu. Logical ID : ', __FILE__) . $result['value'] . __('. Pause de ', __FILE__) . (15 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
+                                'message' => __('Un périphérique Z-Wave vient d\'être inclus. Logical ID : ', __FILE__) . $result['value'] . __('. Pause de ', __FILE__) . (15 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
                             ));
                             sleep(1);
                         }
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
-                            'message' => __('Début de l\'integration', __FILE__)
+                            'message' => __('Début de l\'intégration', __FILE__)
                         ));
                         self::syncEqLogicWithRazberry();
                     }
@@ -140,13 +140,13 @@ class zwave extends eqLogic {
                         for ($i = 0; $i < 15; $i++) {
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
-                                'message' => __('Un périphérique Z-Wave vient d\'être inclu. Logical ID : ', __FILE__) . $result['value'] . __('. Pause de ', __FILE__) . (15 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
+                                'message' => __('Un périphérique Z-Wave vient d\'être inclus. Logical ID : ', __FILE__) . $result['value'] . __('. Pause de ', __FILE__) . (15 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
                             ));
                             sleep(1);
                         }
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
-                            'message' => __('Début de l\'integration', __FILE__)
+                            'message' => __('Début de l\'intégration', __FILE__)
                         ));
                         self::syncEqLogicWithRazberry();
                     }
@@ -322,7 +322,7 @@ class zwave extends eqLogic {
                         if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
-                                'message' => __('Péripherique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__)
+                                'message' => __('Périphérique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__)
                             ));
                             $eqLogic->setConfiguration('device', $device_id);
                             $eqLogic->save();
@@ -335,7 +335,7 @@ class zwave extends eqLogic {
                             }
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
-                                'message' => __('Mise à jour forcé des valeurs des commandes', __FILE__)
+                                'message' => __('Mise à jour forcée des valeurs des commandes', __FILE__)
                             ));
                             $eqLogic->forceUpdate();
                             break;
@@ -370,7 +370,7 @@ class zwave extends eqLogic {
             $retval = 0;
             exec('sudo killall -9 z-way-server; sudo service z-way-server start', $output, $retval);
             if ($retval != 0) {
-                throw new Exception(__('Impossible de redemarrer le serveur zway (probleme de droits ?) : ', __FILE__) . print_r($output, true));
+                throw new Exception(__('Impossible de redémarrer le serveur zway (problème de droits ?) : ', __FILE__) . print_r($output, true));
             }
         }
     }
@@ -539,7 +539,7 @@ class zwave extends eqLogic {
     public static function shareOnMarket(&$market) {
         $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
         if (!file_exists($moduleFile)) {
-            throw new Exception('Impossible de trouver le fichier de conf ' . $moduleFile);
+            throw new Exception('Impossible de trouver le fichier de configuration ' . $moduleFile);
         }
         $tmp = dirname(__FILE__) . '/../../../../tmp/' . $market->getLogicalId() . '.zip';
         if (file_exists($tmp)) {
@@ -556,7 +556,7 @@ class zwave extends eqLogic {
     public static function getFromMarket(&$market, $_path) {
         $cibDir = dirname(__FILE__) . '/../config/devices/';
         if (!file_exists($cibDir)) {
-            throw new Exception(__('Impossible d\'installer la configuration du module le repertoire n\éxiste pas : ', __FILE__) . $cibDir);
+            throw new Exception(__('Impossible d\'installer la configuration du module le répertoire n\'existe pas : ', __FILE__) . $cibDir);
         }
         $zip = new ZipArchive;
         if ($zip->open($_path) === TRUE) {
@@ -707,10 +707,10 @@ class zwave extends eqLogic {
 
     public function changeAssociation($_mode, $_group, $_node = 1) {
         if ($_node == '' || !is_numeric($_node)) {
-            throw new Exception(__('Vous devez mettre un node ID non vide et qui soit un numérique', __FILE__));
+            throw new Exception(__('Vous devez mettre un node ID non vide et qui soit numérique', __FILE__));
         }
         if ($_group == '' || !is_numeric($_group)) {
-            throw new Exception(__('Vous devez mettre un groupe non vide et qui soit un numérique', __FILE__));
+            throw new Exception(__('Vous devez mettre un groupe non vide et qui soit numérique', __FILE__));
         }
         if ($_mode == 'remove') {
             self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x85].Remove(' . $_group . ',' . $_node . ')');
@@ -1113,7 +1113,7 @@ class zwave extends eqLogic {
 
     public function setWakeUp($_time = null) {
         if ($_time === null || !is_numeric($_time) || $_time <= 0) {
-            throw new Exception(__('La durée de wakeup doit etre un nombre positif', __FILE__));
+            throw new Exception(__('La durée de wakeup doit être un nombre positif', __FILE__));
         }
         self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[132].Set(' . $_time . ',1)');
     }
@@ -1123,7 +1123,7 @@ class zwave extends eqLogic {
             throw new Exception(__('Cette fonction n\'est possible qu\'avec openZwave', __FILE__));
         }
         if ($_polling === null || !is_numeric($_polling) || $_polling <= 0) {
-            throw new Exception(__('La durée de polling doit etre un nombre positif', __FILE__));
+            throw new Exception(__('La durée de polling doit être un nombre positif', __FILE__));
         }
         self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].SetPolling(' . $_polling . ')');
     }
@@ -1218,7 +1218,7 @@ class zwaveCmd extends cmd {
 
     public function setRGBColor($_color) {
         if ($_color == '') {
-            throw new Exception('Couleur non défini');
+            throw new Exception('Couleur non définie');
         }
         $request = '/ZWaveAPI/Run/devices[' . $this->getEqLogic()->getLogicalId() . ']';
 
