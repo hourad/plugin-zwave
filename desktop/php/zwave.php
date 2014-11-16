@@ -13,13 +13,13 @@ if ($controlerState === 0) {
     echo '<div id="div_inclusionAlert"></div>';
 }
 if ($controlerState === 1) {
-    echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
+    echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
 }
 if ($controlerState === 5) {
-    echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous etes en mode exclusion. Recliquez sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
+    echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
 }
 if ($controlerState === '') {
-    echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway. Avez vous bien renseigné l\'IP ?}}</div>';
+    echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway. Vérifiez que vous avez bien renseigné l\'IP.}}</div>';
 }
 ?>
 
@@ -39,12 +39,12 @@ if ($controlerState === '') {
                 </center>
                 <?php
                 if ($controlerState == 1) {
-                    echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure prériphérique Z-wave}}" data-mode="1" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Arreter inclusion</a>';
+                    echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure périphérique Z-wave}}" data-mode="1" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Arrêter inclusion</a>';
                 } else {
-                    echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Inclure prériphérique Z-wave}}" data-mode="1" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion</a>';
+                    echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Inclure périphérique Z-wave}}" data-mode="1" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion</a>';
                 }
                 if ($controlerState == 5) {
-                    echo ' <a class="btn btn-danger tooltips changeIncludeState" title="{{Exclure périphérique Z-wave}}" data-mode="0" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Arreter exclusion</a>';
+                    echo ' <a class="btn btn-danger tooltips changeIncludeState" title="{{Exclure périphérique Z-wave}}" data-mode="0" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Arrêter exclusion</a>';
                 } else {
                     echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Exclure périphérique Z-wave}}" data-mode="0" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Mode exclusion</a>';
                 }
@@ -167,7 +167,7 @@ if ($controlerState === '') {
                             <div class="col-lg-5">
                                 <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
                                 <a class="btn btn-warning" id="bt_shareOnMarket"><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
-                                <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Zwave"><i class="fa fa-tree"></i></a>
+                                <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Z-wave"><i class="fa fa-tree"></i></a>
                                 <a class="btn btn-default expertModeVisible" id="bt_showClass" title="Voir les classes zwave"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
