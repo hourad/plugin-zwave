@@ -26,13 +26,13 @@ function initZwaveZwave() {
             if (_options == 1) {
                 $('.changeIncludeState[data-mode=1]').removeClass('ui-btn-a').addClass('ui-btn-b');
                 $('.changeIncludeState[data-mode=1]').attr('data-state', 0);
-                $('#div_inclusionAlert').html('{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}');
+                $('#div_inclusionAlert').html('{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}');
                 $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Stop inclusion}}');
             }
             if (_options == 5) {
                 $('.changeIncludeState[data-mode=0]').removeClass('ui-btn-a').addClass('ui-btn-b');
                 $('.changeIncludeState[data-mode=0]').attr('data-state', 0);
-                $('#div_inclusionAlert').html('{{Vous etes en mode exclusion. Recliquez sur le bouton d\'exclusion pour sortir de ce mode}}');
+                $('#div_inclusionAlert').html('{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}');
                 $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Stop exclusion}}');
             }
         });
@@ -60,13 +60,13 @@ function initZwaveZwave() {
         $('#div_inclusionAlert').html('{{Aucun mode actif}}');
     }
     if (controllerState == "1") {
-        $('#div_inclusionAlert').html('{{Vous etes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}');
+        $('#div_inclusionAlert').html('{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}');
         $('.changeIncludeState[data-mode=1]').removeClass('ui-btn-a').addClass('ui-btn-b');
         $('.changeIncludeState[data-mode=1]').attr('data-state', 0);
         $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Stop inclusion}}');
     }
     if (controllerState == "5") {
-        $('#div_inclusionAlert').html('{{Vous etes en mode exclusion. Recliquez sur le bouton d\'exclusion pour sortir de ce mode}}');
+        $('#div_inclusionAlert').html('{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}');
         $('.changeIncludeState[data-mode=0]').removeClass('ui-btn-a').addClass('ui-btn-b');
         $('.changeIncludeState[data-mode=0]').attr('data-state', 0);
         $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Stop exclusion}}');
