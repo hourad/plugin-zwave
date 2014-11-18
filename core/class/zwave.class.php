@@ -775,6 +775,9 @@ class zwave extends eqLogic {
                     'datetime' => date('Y-m-d H:i:s', $results['data']['isAwake']['updateTime']),
                 );
             }
+            if (isset($results['data']['isFailed'])) {
+                $return['state']['value'] = ($results['data']['isFailed']['value']) ? 'Dead' : $return['state']['value'],
+            }
             if (isset($deviceConf['name'])) {
                 $return['name'] = array(
                     'value' => $deviceConf['name'],
