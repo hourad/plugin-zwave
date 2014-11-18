@@ -10,7 +10,7 @@ include::configuration.asciidoc[]
 link:https://jeedom.fr/liste_module_zwave.php[ici]
 
 === Ajouter un module inconnu
-include::addUnknowModule.asciidoc[]
+include::addUnknowDevice.asciidoc[]
 
 === Changelog
 include::changelog.asciidoc[]
