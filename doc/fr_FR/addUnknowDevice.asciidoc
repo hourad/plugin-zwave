@@ -115,7 +115,7 @@ Après avoir testé votre configuration faite à la main précédemment, vous po
 
 Voici un fichier type pour la configuration d’un module en JSON. Vous pouvez télécharger ce fichier type ici. (en italique les lignes non obligatoires suivant le module)
 
-[source.json]
+
 ----
 { 
 "#marque#.#nom_module#": { 
@@ -202,7 +202,7 @@ Ces données sont disponibles sur la partie information de votre module sur l’
 
 image::../images/zwave_unknowDevice17.JPG[]
 
-[source.shell]
+
 ----
 "groups": { 
 "associate": [#numero_group#] 
