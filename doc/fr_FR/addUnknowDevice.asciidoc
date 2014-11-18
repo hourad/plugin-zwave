@@ -21,7 +21,7 @@ Les actions (par exemple on/off).
 Les infos (par exemple la température).
 Il faudra donc savoir si votre module comporte l’un ou l’autre type, et parfois les 2. Suivant le type de commande la configuration est différente, nous allons voir ça plus bas.
 
-=== LES ACTIONS
+==== LES ACTIONS
 Commençons par les actions. Il faudra vous rendre dans l’interface du contrôleur Z-Way (RaZberry) qui se trouve à http://IP_JEEDOM:8083 Ensuite rendez vous dans le mode Expert, puis device control – switches.
 
 image::../images/zwave_unknowDevice3.JPG[]
@@ -65,7 +65,7 @@ image::../images/zwave_unknowDevice8.JPG[]
 Vous pouvez répéter cette opération pour chaque commande. Pour les commandes de type slider il suffit de mettre dans la commande "Set(#slider#)"
 
 
-=== LES INFOS
+==== LES INFOS
 Passons maintenant aux commandes de type info.
 
 Ici c’est un peu plus complexe, car il faut lire l’arbre z-wave du module. Pour cela rendez-vous sur la page de votre module, rubrique information.
@@ -106,7 +106,7 @@ Ensuite on a les mêmes paramètres que précédemment, Historiser, Afficher, In
 
 image::../images/zwave_unknowDevice16.JPG[]
 
-=== PARTAGE SUR LE MARKET AVEC LA COMMUNAUTÉ
+==== PARTAGE SUR LE MARKET AVEC LA COMMUNAUTÉ
 Pour finir, un point très important, le partage de votre configuration avec la communauté sur le Market de Jeedom. En partageant votre configuration, vous permettrez aux autres utilisateurs d’utiliser ce module Z-Wave sans avoir à le configurer.
 
 Pour chaque module Z-Wave, il existe un fichier de configuration au format JSON. Ce fichier de configuration doit posséder un nom avec un format bien spécifique : marque.nom_du_module.json ce qui donne par exemple pour un Everspring AD142 everspring.ad142.json (évitez tous les caractères spéciaux et accent).
