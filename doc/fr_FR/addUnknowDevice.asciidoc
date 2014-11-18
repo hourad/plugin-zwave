@@ -9,11 +9,11 @@ Ces tâches ne sont pas complexes, mais nécessitent certaines compétences.
 
 Tout d’abord il faut inclure votre module Z-Wave.
 
-image::../images/zwave_unknowDevice.JPG[]
+image::../images/zwave_unknowDevice.png[]
 
 Pour cela référez vous à la documentation du plugin Z-Wave. Il faut bien s’assurer que l’inclusion s’est correctement déroulée, et que l’interview est complète. (sinon forcer l'interview, soit sur le module soit sur l'interface avec le bouton engrenage menu de gauche, en mode expert)
 
-image::../images/zwave_unknowDevice2.JPG[]
+image::../images/zwave_unknowDevice2.png[]
 
 Ensuite il faut identifier 2 types de commande.
 
@@ -24,7 +24,7 @@ Il faudra donc savoir si votre module comporte l’un ou l’autre type, et parf
 ==== LES ACTIONS
 Commençons par les actions. Il faudra vous rendre dans l’interface du contrôleur Z-Way (RaZberry) qui se trouve à http://IP_JEEDOM:8083 Ensuite rendez vous dans le mode Expert, puis device control – switches.
 
-image::../images/zwave_unknowDevice3.JPG[]
+image::../images/zwave_unknowDevice3.png[]
 
 En parallèle ouvrez une fenêtre terminale, pour se connecter en SSH à votre Jeedom. Vérifiez que vos logs sont bien activés :
 
@@ -36,13 +36,13 @@ Tapez la commande : tail -f /var/log/z-way-server.log Cela permet d’avoir les 
 
 Maintenant il faut activer une action de votre module Z-Wave, pour cela dans l’interface expert activez une action, par exemple ON. Il suffit alors de retrouver la commande qui apparait à ce moment là dans les logs (en jaune ici).
 
-image::../images/zwave_unknowDevice4.JPG[]
+image::../images/zwave_unknowDevice4.png[]
 
 Elle est composé d’un numéro de device (ici 17) qui doit correspondre à l’id du périphérique récemment ajouté dans Jeedom, le numéro d’instance (ici 0), la classe (ici 0x26) puis enfin la commande (ici Set(255), attention la casse est importante).
 
 Il faudra ensuite reprendre ces informations dans Jeedom.
 
-image::../images/zwave_unknowDevice5.JPG[]
+image::../images/zwave_unknowDevice5.png[]
 
 On retrouve le device ID (dans le champ node ID de la description du module).
 
@@ -52,15 +52,15 @@ Voyons plus précisément les possibilités pour une commande de type action.
 
 Sur la gauche, la colonne nom permet de définir le nom de l’action, et si on le souhaite un icône qui sera présent à la place du texte. Une liste déroulante permet de mettre des noms par défaut.
 
-image::../images/zwave_unknowDevice6.JPG[]
+image::../images/zwave_unknowDevice6.png[]
 
 Après avoir définit le type action, on peut définir un sous type suivant le type d’action à faire.
 
-image::../images/zwave_unknowDevice7.JPG[]
+image::../images/zwave_unknowDevice7.png[]
 
 Vous avez également à votre disposition plusieurs paramètres. Historiser qui permet de d’archiver les états des actions. Afficher qui permet de dire si l’action sera affichée ou non dans le widget, les autres options seront utiles pour des types infos.
 
-image::../images/zwave_unknowDevice8.JPG[]
+image::../images/zwave_unknowDevice8.png[]
 
 Vous pouvez répéter cette opération pour chaque commande. Pour les commandes de type slider il suffit de mettre dans la commande "Set(#slider#)"
 
@@ -70,15 +70,15 @@ Passons maintenant aux commandes de type info.
 
 Ici c’est un peu plus complexe, car il faut lire l’arbre z-wave du module. Pour cela rendez-vous sur la page de votre module, rubrique information.
 
-image::../images/zwave_unknowDevice.9JPG[]
+image::../images/zwave_unknowDevice.9png[]
 
 Puis cliquez sur le petit bouton « arbre » situé en haut à droite à côté du bouton partager.
 
-image::../images/zwave_unknowDevice10.JPG[]
+image::../images/zwave_unknowDevice10.png[]
 
 Vous devriez obtenir un résultat similaire à ceci :
 
-image::../images/zwave_unknowDevice11.JPG[]
+image::../images/zwave_unknowDevice11.png[]
 
 A partir de maintenant il faut chercher dans l’arbre l’information qui vous intéresse. S’il s’agit d’un relevé par exemple de température, les informations sont assez facile à trouver. Si c’est une information de type retour d’état, par exemple ouverture de porte, il faudra alors déclencher le retour d’état à partir de votre module.
 
@@ -86,25 +86,25 @@ Vous trouverez en général les informations sous le schéma suivant : dans inst
 
 Vous aurez également des informations dans les logs au moment de la remontée d’info :
 
-image::../images/zwave_unknowDevice12.JPG[]
+image::../images/zwave_unknowDevice12.png[]
 
 Dans cet exemple de log, c’est la ligne jaune qui nous intéresse, on peut alors récupérer les informations suivantes instance = 0, classe = 49 et commande = data.4.val. Attention le 4 de data.4.val se met entre crochet dans Jeedom.
 
 On obtient donc ceci dans Jeedom :
 
-image::../images/zwave_unknowDevice13.JPG[]
+image::../images/zwave_unknowDevice13.png[]
 
 Comme tout à l’heure plusieurs informations sont à renseigner. On a le nom de la commande, son type ici c’est une info… Le sous type est important, numérique quand il s’agit d’un nombre (par exemple la température), binaire quand il s’agit une info Vrai ou Faux (0 ou 1), et Autre quand on entre dans aucun de ces cas.
 
-image::../images/zwave_unknowDevice14.JPG[]
+image::../images/zwave_unknowDevice14.png[]
 
 Ensuite en dessous de commande, on a plusieurs champs. La valeur de retour d’état, et la durée avant le retour d’état. Ces options sont utiles pour certains modules. En effet certains modules Z-Wave ne gardent pas en mémoire l’état, mais envoient juste un signal comme quoi l’état à changer, un front montant… Ces paramètres permettent de mémoriser cette valeur, et au bout d’un certain temps (durée avant retour) on réinitialise le module avec la valeur du retour d’état.
 
-image::../images/zwave_unknowDevice15.JPG[]
+image::../images/zwave_unknowDevice15.png[]
 
 Ensuite on a les mêmes paramètres que précédemment, Historiser, Afficher, Inverser, et Evènement (toujours le cas pour un module Z-Wave). Enfin on a quelques options, comme l’unité, la valeur min et max que peut prendre une valeur (par défaut 0 et 100).
 
-image::../images/zwave_unknowDevice16.JPG[]
+image::../images/zwave_unknowDevice16.png[]
 
 ==== PARTAGE SUR LE MARKET AVEC LA COMMUNAUTÉ
 Pour finir, un point très important, le partage de votre configuration avec la communauté sur le Market de Jeedom. En partageant votre configuration, vous permettrez aux autres utilisateurs d’utiliser ce module Z-Wave sans avoir à le configurer.
@@ -200,7 +200,7 @@ Tous les champs à compléter sont encadrés de “#”. Voici leur description 
 
 Ces données sont disponibles sur la partie information de votre module sur l’interface Jeedom (en mode expert).
 
-image::../images/zwave_unknowDevice17.JPG[]
+image::../images/zwave_unknowDevice17.png[]
 
 
 ----
@@ -251,21 +251,21 @@ Paramètres (doit être répété autant de fois qu’il y a de paramètres). Ce
 
 Une fois que vous avez créé le fichier JSON, il faut l’envoyer sur votre installation Jeedom. Pour cela cliquez dans la rubrique Information de votre module sur le bouton Envoyer une configuration :
 
-image::../images/zwave_unknowDevice18.JPG[]
+image::../images/zwave_unknowDevice18.png[]
 
 Si votre fichier est correctement écrit, il doit apparaitre maintenant dans la liste des modules Z-Wave, toujours dans la rubrique Information.
 
-image::../images/zwave_unknowDevice19.JPG[]
+image::../images/zwave_unknowDevice19.png[]
 
 Sélectionnez-le, puis faite sauvegarder. Ensuite testez votre module pour savoir si tout fonctionne correctement. Si tout est bon, il n’y a plus qu’à cliquer sur le bouton orange Partager sur la page de votre module rubrique Information.
 
-image::../images/zwave_unknowDevice20.JPG[]
+image::../images/zwave_unknowDevice20.png[]
 
 A noter que pour pouvoir partager un module, il faut que vous soyer préalablement inscrit sur le Market Jeedom, et que votre Jeedom soit relié à votre compte Market. (voir documentation Market).
 
 Une popup va alors s’ouvrir vous demandant quelques renseignements sur ce module.
 
-image::../images/zwave_unknowDevice21.JPG[]
+image::../images/zwave_unknowDevice21.png[]
 
 Donnez le nom complet de votre module Z-Wave, la catégorie Module zwave, si des liens sont disponibles vers une vidéo, le wiki ou le forum ne pas hésiter à les mettre. Enfin, un guide d’utilisation du module si nécessaire, et le Changelog ou vous pouvez y noter les mises à jour que vous effectuerez par la suite.Cliquez sur le bouton vert en haut à droite Envoyer, et votre configuration sera disponible sur le Market !
 

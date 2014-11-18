@@ -8,11 +8,11 @@ image::../images/zwave.JPG[]
  
 En haut à gauche, le menu principal du plugin avec les commandes ainsi que la liste des modules Z-Wave. Pour rentrer dans la configuration d'un module il suffit de cliquer dessus. Certaines options ne sont disponibles qu'en mode Expert.
 
-image::../images/zwave2.JPG[]
+image::../images/zwave2.png[]
 
 Les commandes permettent d'effectuer plusieurs tâches, de gauche à droite : Synchroniser avec le contrôleur Z-Wave, Suivre la queue Z-Wave, Afficher la table de routage Z-Wave, Accéder au Market puis des commandes spécifiques au chipset Z-Wave. En dessous le bouton d'inclusion puis d'exclusion et enfin le bouton ajouter équipement (mode expert uniquement).
 
-image::../images/zwave3.JPG[]
+image::../images/zwave3.png[]
 
 Pourquoi un accès au market? En effet la configuration des modules Z-Wave n'est plus tributaire du logiciel, et il est possible de télécharger de nouvelles configurations sur le Market pour rendre Jeedom compatible avec un nouveau matériel qui vient de sortir.
 
@@ -22,7 +22,7 @@ Le bouton "Ajouter équipement" ne servira que dans des cas très spécifiques, 
 
 Au centre la configuration du module dans Jeedom. On y choisit son nom, sa destination dans l'arborescence de sa domotique, la catégorie du module, la possibilité de rendre inactif le module dans Jeedom, ou encore rendre visible ou invisible le module dans l'interface (utile par exemple pour les Fibaro double commande...)
 
-image::../images/zwave4.JPG[]
+image::../images/zwave4.png[]
 
 A droite de la page, on affiche les informations sur le module. le type de module (automatique), batterie, état, marque etc...
 
@@ -32,21 +32,21 @@ Les mises à jours des modules Z-Wave est centralisé dans le centre de mises à
 
 Deux autres boutons ont leur importance, il s'agit du bouton avec la petite clé, et du bouton "commandes préconfigurées"
 
-image::../images/zwave5.JPG[]
+image::../images/zwave5.png[]
 
 Lorsqu'on clique sur le bouton "commandes préconfigurées" une fenêtre s'affiche présentant les classes préconnues du module. Ceci ne servira qu'en cas de non connaissance du module par Jeedom, et permettra par la suite de développer une configuration pour un module inconnu par Jeedom. (voir chapitre développement)
 
-image::../images/zwave6.JPG[]
+image::../images/zwave6.png[]
 
 Lorsqu'on clique sur le bouton avec la petite clé, on accède à la configuration interne du module Z-Wave. Cette configuration est propre à chaque équipement.
 
 Jeedom propose une interface claire et précise pour modifier ces paramètres qui sont souvent assez obscurs. Ainsi tous les paramètres sont détaillés avec explications, menu déroulant de sélection, valeur par défaut, valeur min et max...etc...
 
-image::../images/zwave6.JPG[]
+image::../images/zwave6.png[]
 
 En laissant sa souris sur un élément on obtient l'explication complète du paramètre.
 
-image::../images/zwave7.JPG[]
+image::../images/zwave7.png[]
 
 Ensuite sur le bas de la fenêtre on a le détail de l'ensemble des commandes (certains éléments ne sont disponible qu'en mode expert)
 
@@ -54,18 +54,18 @@ Pour un module connu par Jeedom ces commandes sont automatiquement remplies. Les
 
 Les paramètres Instance, Class, Commande sont disponibles uniquement en mode Expert, elles servent à rendre compatible un nouveau module Z-Wave avec Jeedom.
 
-image::../images/zwave8.JPG[]
+image::../images/zwave8.png[]
 
 La table de routage Z-Wave.
 
-image::../images/zwave9.JPG[]
+image::../images/zwave9.png[]
 
 La queue Z-Wave.
 
-image::../images/zwave10.JPG[]
+image::../images/zwave10.png[]
 
 Le partage des modules Z-Wave sur le Market Jeedom.
 
-image::../images/zwave11.JPG[]
+image::../images/zwave11.png[]
 
  
