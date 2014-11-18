@@ -1,1 +1,17 @@
+Ce plugin est un des plugins les plus intéressants car il permet de faire du Z-Wave :
+
 image::../images/zwave.JPG[]
+
+L’utilisation est assez simple en haut à gauche 8 boutons permettant de synchroniser la liste des plugins avec le Z-wave, d’inclure un plugin (le bouton passe en vert le temps de l’inclusion et une popup avertit lors de la détection d’un nouveau plugin) et d’en exclure un (idem que pour l’inclusion mais de couleur rouge cette fois), la file d’attente zwave ,la table de routage, de voir les logs du serveur zway, d'administrer celui-ci...
+
+En dessous la liste de tous les module connus, il suffit de cliquer sur un des module de la liste pour éditer la configuration de celui-ci.
+
+Sur la droite on retrouve la configuration du plugin : le nom de celui-ci, l’id dans le Z-wave (cette id est automatiquement remplie lors de la synchronisation avec le Z-wave), l’objet parent du module , s’il est actif et visible et enfin le délai maximal autorisé entre 2 messages (utile si le plugin a du mal à envoyer des informations, ou pour détecter si le plugin n’a plus de piles).  On retrouve aussi quelques informations sur le module : le nom du module et un bouton pour appeler la configuration, la batterie, le dernier message, l’état, la marque et un bouton permettant d’ajouter des commandes pré-configurées (j’y reviendrai).
+
+En dessous on retrouve la liste des commandes existantes sur le module avec dans l’ordre : le nom de la commande, son type puis les informations pour la récupérer dont l’instance, la classe et la commande. Puis viennent d’autres informations pour savoir si la commande est historisée, affichée (on peut avoir besoin d’une commande mais ne pas vouloir l’afficher sur le widget de l’équipement), si cet événement seulement (dans ce cas là Jeedom lui donne une durée de vie infinie en cache et n’essayera jamais de la collecter), si celle-ci n’est pas un événement seulement la durée de vie en cache. Enfin il y les options comme l’unité, le minimum, le maximum, un bouton pour tester la commande et un autre pour la supprimer.
+
+Il est aussi possible de configurer le module, grace à la petite clef à molette à droite : 
+
+Il y a aussi un inspecteur de queue zwave (ça peut être utile pour comprendre pourquoi un ordre n’arrive pas jusqu’au module) :
+
+Et on a aussi une table de routage :
