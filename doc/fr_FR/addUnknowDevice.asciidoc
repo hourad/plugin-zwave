@@ -70,7 +70,7 @@ Passons maintenant aux commandes de type info.
 
 Ici c’est un peu plus complexe, car il faut lire l’arbre z-wave du module. Pour cela rendez-vous sur la page de votre module, rubrique information.
 
-image::../images/zwave_unknowDevice.9png[]
+image::../images/zwave_unknowDevice9.png[]
 
 Puis cliquez sur le petit bouton « arbre » situé en haut à droite à côté du bouton partager.
 
