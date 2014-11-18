@@ -776,7 +776,7 @@ class zwave extends eqLogic {
                 );
             }
             if (isset($results['data']['isFailed'])) {
-                $return['state']['value'] = ($results['data']['isFailed']['value']) ? 'Dead' : $return['state']['value'],
+                $return['state']['value'] = ($results['data']['isFailed']['value']) ? 'Dead' : $return['state']['value'];
             }
             if (isset($deviceConf['name'])) {
                 $return['name'] = array(
