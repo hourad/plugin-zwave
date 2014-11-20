@@ -36,7 +36,7 @@ if (!isConnect('admin')) {
         <tr>
             <td>
     <center>
-        <a class='btn btn-default btn-xs bt_adminRazberryAction' data-command="SerialAPISoftReset()" data-risk="{{Faible}}">{{Redemarrer le razberry}}</a>
+        <a class='btn btn-default btn-xs bt_adminRazberryAction' data-command="SerialAPISoftReset()" data-risk="{{Faible}}">{{Redémarrer le razberry}}</a>
     </center>
 </td>
 <td>
