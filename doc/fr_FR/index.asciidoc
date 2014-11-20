@@ -3,14 +3,22 @@
 === Description
 Plugin permetant d'utiliser le protocole Zwave
 
+'''
 === Configuration
 include::configuration.asciidoc[]
 
+'''
 === Liste des modules connus
 link:https://jeedom.fr/liste_module_zwave.php[ici]
 
+'''
 === Ajouter un module inconnu
 include::addUnknowDevice.asciidoc[]
 
+'''
+=== FAQ
+include::faq.asciidoc[]
+
+'''
 === Changelog
 include::changelog.asciidoc[]
