@@ -1,0 +1,11 @@
+Lors du clique sur le bouton inclusion il ne se passe rien:::
+Cela arrive quand le serveur z-way est dans un état bancale, il est conseillé, en mode expert, dans le menu d'administration du serveur de "Redémarrer le razberry"
+
+Les commandes sont lente à s'éxecuter:::
+Essayé de redemarrer le serveur z-way , en mode expert, dans le menu d'administration du serveur de "Redémarrer le razberry". Si le probleme persiste il est fort probable qu'il y ai un module zwave mal configuré et qu'il envoit trop de données ou de mauvaise données
+
+J'ai une erreur cron::pull:::
+Vérifiez que le serveur z-way est bien demarré en allant sur #IP_SERVER_ZWAY#::8083. Si vous n'obtenez rien faites en ssh : "sudo service z-way-server restart"
+
+Suite à l'inclusion d'un nouveau module j'ai des erreurs 500 sur celui-ci lorsque que j'utilise ses commandes:::
+Il y a une un soucis lors de l'inclusion, il faut la refaire. La cause la plus courante est une trop grande distance entre la box et le module lors de l'inclusion
