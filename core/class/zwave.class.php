@@ -824,9 +824,15 @@ class zwave extends eqLogic {
             'value' => __('Complet', __FILE__),
         );
 
-        if (isset($return['instances']) && is_array($return['instances'])) {
-            foreach ($return['instances'] as $instance) {
-                foreach ($instance['commandClasses'] as $commandClasses) {
+        if (isset($results['instances']) && is_array($results['instances'])) {
+            foreach ($results['instances'] as $instanceID => $instance) {
+                foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
+                    if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
+                        continue;
+                    }
+                    if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
+                        continue;
+                    }
                     if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
                         $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
                     }

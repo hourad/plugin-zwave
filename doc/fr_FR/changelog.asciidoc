@@ -1,0 +1,3 @@
+==== 22/11/2014
+
+- Bugfix sur le calcul de l'état de l'interview
