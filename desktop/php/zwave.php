@@ -24,7 +24,7 @@ if ($controlerState === '') {
 ?>
 
 <div class="row row-overflow">
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="bs-sidebar">
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
                 <center style="margin-bottom: 5px;">
@@ -59,22 +59,22 @@ if ($controlerState === '') {
             </ul>
         </div>
     </div>
-    <div class="col-lg-10 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
+    <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-sm-6">
                 <form class="form-horizontal">
                     <fieldset>
                         <legend>{{Général}}</legend>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">{{Nom de l'équipement}}</label>
-                            <div class="col-lg-8">
+                            <label class="col-sm-4 control-label">{{Nom de l'équipement}}</label>
+                            <div class="col-sm-8">
                                 <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
                                 <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de l'équipement}}"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label" >{{Objet parent}}</label>
-                            <div class="col-lg-8">
+                            <label class="col-sm-4 control-label" >{{Objet parent}}</label>
+                            <div class="col-sm-8">
                                 <select class="eqLogicAttr form-control" data-l1key="object_id">
                                     <option value="">{{Aucun}}</option>
                                     <?php
@@ -86,8 +86,8 @@ if ($controlerState === '') {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">{{Catégorie}}</label>
-                            <div class="col-lg-8">
+                            <label class="col-sm-4 control-label">{{Catégorie}}</label>
+                            <div class="col-sm-8">
                                 <?php
                                 foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                                     echo '<label class="checkbox-inline">';
@@ -98,63 +98,63 @@ if ($controlerState === '') {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">{{Activer}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-4 control-label">{{Activer}}</label>
+                            <div class="col-sm-1">
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>
                             </div>
-                            <label class="col-lg-4 control-label">{{Visible}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-4 control-label">{{Visible}}</label>
+                            <div class="col-sm-1">
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-4 control-label">{{Node ID}}</label>
-                            <div class="col-lg-4">
+                            <label class="col-sm-4 control-label">{{Node ID}}</label>
+                            <div class="col-sm-4">
                                 <input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" />
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-4 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
-                            <div class="col-lg-4">
+                            <label class="col-sm-4 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
+                            <div class="col-sm-4">
                                 <input class="eqLogicAttr form-control" data-l1key="timeout" />
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-4 control-label">{{Fréquence de rafraîchissement des valeurs (cron)}}</label>
-                            <div class="col-lg-4">
+                            <label class="col-sm-4 control-label">{{Fréquence de rafraîchissement des valeurs (cron)}}</label>
+                            <div class="col-sm-4">
                                 <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-sm-1">
                                 <i class="fa fa-question-circle cursor bt_pageHelp floatright" data-name="cronSyntaxe"></i>
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-4 control-label">{{Ne jamais mettre en erreur}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-4 control-label">{{Ne jamais mettre en erreur}}</label>
+                            <div class="col-sm-1">
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
                             </div>
-                            <label class="col-lg-4 control-label">{{Ne pas vérifier la batterie}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-4 control-label">{{Ne pas vérifier la batterie}}</label>
+                            <div class="col-sm-1">
                                 <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-4 control-label">{{Commentaire}}</label>
-                            <div class="col-lg-8">
+                            <label class="col-sm-4 control-label">{{Commentaire}}</label>
+                            <div class="col-sm-8">
                                 <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
                             </div>
                         </div>
                     </fieldset> 
                 </form>
             </div>
-            <div class="col-lg-6">
+            <div class="col-sm-6">
                 <form class="form-horizontal">
                     <fieldset>
                         <legend>{{Informations}}</legend>
 
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">{{Module}}</label>
-                            <div class="col-lg-5">
+                            <label class="col-sm-2 control-label">{{Module}}</label>
+                            <div class="col-sm-5">
                                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                                     <option value="">{{Aucun}}</option>
                                     <?php
@@ -164,7 +164,7 @@ if ($controlerState === '') {
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-sm-5">
                                 <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
                                 <a class="btn btn-warning" id="bt_shareOnMarket"><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
                                 <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Z-wave"><i class="fa fa-tree"></i></a>
@@ -172,66 +172,66 @@ if ($controlerState === '') {
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-2 control-label">{{Envoyer une configuration}}</label>
-                            <div class="col-lg-5">
+                            <label class="col-sm-2 control-label">{{Envoyer une configuration}}</label>
+                            <div class="col-sm-5">
                                 <input id="bt_uploadConfZwave" type="file" name="file" data-url="plugins/zwave/core/ajax/zwave.ajax.php?action=uploadConfZwave">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-2 control-label">{{Marque}}</label>
-                            <div class="col-lg-2">
+                            <label class="col-sm-2 control-label">{{Marque}}</label>
+                            <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="brand"></span>
                             </div>
-                            <label class="col-lg-2 control-label">{{Nom}}</label>
-                            <div class="col-lg-3">
+                            <label class="col-sm-2 control-label">{{Nom}}</label>
+                            <div class="col-sm-3">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="name"></span>
                             </div>
                         </div>
 
                         <div class="form-group expertModeVisible">
-                            <label class="col-lg-2 control-label">{{Fabricant ID}}</label>
-                            <div class="col-lg-2">
+                            <label class="col-sm-2 control-label">{{Fabricant ID}}</label>
+                            <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerId"></span>
                             </div>
-                            <label class="col-lg-2 control-label">{{Type produit}}</label>
-                            <div class="col-lg-2">
+                            <label class="col-sm-2 control-label">{{Type produit}}</label>
+                            <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerProductType"></span>
                             </div>
-                            <label class="col-lg-2 control-label">{{Produit ID}}</label>
-                            <div class="col-lg-2">
+                            <label class="col-sm-2 control-label">{{Produit ID}}</label>
+                            <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerProductId"></span>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-lg-4 control-label">{{Batterie}}</label>
-                                    <div class="col-lg-2">
+                                    <label class="col-sm-4 control-label">{{Batterie}}</label>
+                                    <div class="col-sm-2">
                                         <span class="zwaveInfo tooltips label label-default" data-l1key="battery"></span>
                                     </div>
-                                    <label class="col-lg-4 control-label">{{Interview}}</label>
-                                    <div class="col-lg-2">
+                                    <label class="col-sm-4 control-label">{{Interview}}</label>
+                                    <div class="col-sm-2">
                                         <span class="zwaveInfo tooltips label label-default" data-l1key="interviewComplete"></span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-lg-4 control-label">{{Dernière communication}}</label>
-                                    <div class="col-lg-4">
+                                    <label class="col-sm-4 control-label">{{Dernière communication}}</label>
+                                    <div class="col-sm-4">
                                         <span class="zwaveInfo tooltips label label-default" data-l1key="lastReceived"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-4 control-label">{{Etat}}</label>
-                                    <div class="col-lg-4">
+                                    <label class="col-sm-4 control-label">{{Etat}}</label>
+                                    <div class="col-sm-4">
                                         <span class="zwaveInfo tooltips label label-default" data-l1key="state"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-1"></div>
-                            <div class="col-lg-5">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-5">
                                 <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" />
                             </div>
                         </div>

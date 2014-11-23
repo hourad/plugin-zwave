@@ -58,39 +58,39 @@ $sameDevices = $eqLogic->getSameDevice();
                         <?php } ?>
                     </legend>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">{{Nom de l'équipement}}</label>
-                                <div class="col-lg-8">
+                                <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
+                                <div class="col-sm-8">
                                     <span class="tooltips label label-default"><?php echo $eqLogic->getHumanName() ?></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">{{Nom du module}}</label>
-                                <div class="col-lg-8">
+                                <label class="col-sm-3 control-label">{{Nom du module}}</label>
+                                <div class="col-sm-8">
                                     <span class="tooltips label label-default"><?php echo $device['name'] ?></span>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-lg-3 control-label">{{Marque}}</label>
-                                <div class="col-lg-8">
+                                <label class="col-sm-3 control-label">{{Marque}}</label>
+                                <div class="col-sm-8">
                                     <span class="tooltips label label-default"><?php echo $device['vendor'] ?></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-sm-6">
                             <?php
                             $wakeup = $eqLogic->getWakeUp();
                             if ($wakeup != '-') {
                                 ?>
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">{{Wakeup (seconde)}}</label>
-                                    <div class="col-lg-2">
+                                    <label class="col-sm-3 control-label">{{Wakeup (seconde)}}</label>
+                                    <div class="col-sm-2">
                                         <input class="form-control" id="in_wakeUpTime" value="<?php echo $wakeup; ?>" /> 
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-sm-2">
                                         <a class="btn btn-success" id="bt_valideWakeup">Valider</a>
                                     </div>
                                 </div>
@@ -99,11 +99,11 @@ $sameDevices = $eqLogic->getSameDevice();
                             if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
                                 ?>
                                 <div class="form-group">
-                                    <label class="col-lg-3 control-label">{{Polling (par pas de 30sec)}}</label>
-                                    <div class="col-lg-2">
+                                    <label class="col-sm-3 control-label">{{Polling (par pas de 30sec)}}</label>
+                                    <div class="col-sm-2">
                                         <input class="form-control" id="in_pollingTime" value="<?php echo $eqLogic->getPolling(); ?>" /> 
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-sm-2">
                                         <a class="btn btn-success" id="bt_validePolling">Valider</a>
                                     </div>
                                 </div>
@@ -126,9 +126,9 @@ $sameDevices = $eqLogic->getSameDevice();
                         } else {
                             foreach ($device['parameters'] as $id => $parameter) {
                                 echo '<div class="form-group">';
-                                echo '<label class="col-lg-1 control-label tooltips" title="' . $parameter['description'] . '"><span class="tooltips label label-warning zwaveParameters">' . $id . '</span></label>';
-                                echo '<label class="col-lg-3 control-label tooltips" title="' . $parameter['description'] . '">' . $parameter['name'] . '</span></label>';
-                                echo '<div class="col-lg-3">';
+                                echo '<label class="col-sm-1 control-label tooltips" title="' . $parameter['description'] . '"><span class="tooltips label label-warning zwaveParameters">' . $id . '</span></label>';
+                                echo '<label class="col-sm-3 control-label tooltips" title="' . $parameter['description'] . '">' . $parameter['name'] . '</span></label>';
+                                echo '<div class="col-sm-3">';
                                 switch ($parameter['type']) {
                                     case 'input':
                                         echo '<input class="zwaveParameters form-control" data-l1key="' . $id . '" data-l2key="value"/>';
@@ -142,7 +142,7 @@ $sameDevices = $eqLogic->getSameDevice();
                                         break;
                                 }
                                 echo '</div>';
-                                echo '<div class="col-lg-2">';
+                                echo '<div class="col-sm-2">';
                                 if (isset($parameter['unite'])) {
                                     echo '<span class="tooltips label label-primary tooltips" title="Unité">' . $parameter['unite'] . '</span> ';
                                 }
@@ -157,7 +157,7 @@ $sameDevices = $eqLogic->getSameDevice();
                                 echo '<span class="tooltips label label-info zwaveParameters" data-l1key="' . $id . '" data-l2key="datetime" title="Date"></span> ';
                                 echo '<span class="tooltips label label-warning zwaveParameters" data-l1key="' . $id . '" data-l2key="status" title="Status"></span>';
                                 echo '</div>';
-                                echo '<div class="col-lg-3">';
+                                echo '<div class="col-sm-3">';
                                 echo '<span class="tooltips description"></span> ';
                                 echo '</div>';
                                 echo '</div>';
@@ -175,8 +175,8 @@ $sameDevices = $eqLogic->getSameDevice();
             <form class="form-horizontal">
                 <fieldset>
                     <div class="form-group alert alert-warning">
-                        <label class="col-lg-2 control-label tooltips">{{Opération}}</label>
-                        <div class="col-lg-6">
+                        <label class="col-sm-2 control-label tooltips">{{Opération}}</label>
+                        <div class="col-sm-6">
                             <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;">Forcer re-interview</a>
                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
                             <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Enlever le module défaillant</a>
@@ -184,36 +184,36 @@ $sameDevices = $eqLogic->getSameDevice();
                     </div>
                     <div id="div_configureDeviceParameters">
                         <div class="form-group alert alert-warning">
-                            <label class="col-lg-2 control-label tooltips">{{Ecrire paramètre}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>
+                            <div class="col-sm-1">
                                 <input class="form-control" id="in_parametersId"/>
                             </div>
-                            <label class="col-lg-1 control-label tooltips">{{Taille}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-1 control-label tooltips">{{Taille}}</label>
+                            <div class="col-sm-1">
                                 <input class="zwaveParameters form-control" data-l2key="size" />
                             </div>
-                            <label class="col-lg-1 control-label tooltips">{{Valeur}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-1 control-label tooltips">{{Valeur}}</label>
+                            <div class="col-sm-1">
                                 <input class="zwaveParameters form-control" data-l2key="value" />
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-sm-3">
                                 <a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>
                             </div>
                         </div>
                         <div class="form-group alert alert-success">
-                            <label class="col-lg-2 control-label tooltips">{{Lire paramètre}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>
+                            <div class="col-sm-1">
                                 <input class="form-control" id="in_parametersReadId" />
                             </div>
-                            <label class="col-lg-1 control-label tooltips">{{Taille}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-1 control-label tooltips">{{Taille}}</label>
+                            <div class="col-sm-1">
                                 <span class="zwaveParameters label label-primary" data-l2key="size" ></span>
                             </div>
-                            <label class="col-lg-1 control-label tooltips">{{Valeur}}</label>
-                            <div class="col-lg-1">
+                            <label class="col-sm-1 control-label tooltips">{{Valeur}}</label>
+                            <div class="col-sm-1">
                                 <span class="zwaveParameters label label-primary" data-l2key="value" ></span>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-sm-3">
                                 <a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraichir}}</a>
                                 <a class="btn btn-warning pull-right bt_configureReadParameter" style="color : white;" data-force="1"><i class="fa fa-refresh"></i> {{Demander}}</a>
                             </div>
@@ -234,11 +234,11 @@ $sameDevices = $eqLogic->getSameDevice();
         <form class="form-horizontal">
             <fieldset>
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">{{ Ajouter association}}</label>
-                    <div class="col-lg-2">
+                    <label class="col-sm-3 control-label">{{ Ajouter association}}</label>
+                    <div class="col-sm-2">
                         <select class="form-control" id="in_configureDeviceAddAssociationGroup"></select>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-sm-2">
                         <select class="form-control" id="in_configureDeviceAddAssociationNode">
                             <?php
                             echo '<option value="' . zwave::getZwaveInfo('controller::data::nodeId::value') . '">Jeedom</option>';
@@ -248,7 +248,7 @@ $sameDevices = $eqLogic->getSameDevice();
                             ?>
                         </select>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-sm-1">
                         <a class="btn btn-success" id="bt_configureDeviceAddAssociation"><i class="fa fa-check-circle"></i> {{Ok}}</a>
                     </div>
                 </div>

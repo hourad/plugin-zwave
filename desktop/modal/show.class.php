@@ -33,7 +33,7 @@ include_file('core', 'class.command', 'config', 'zwave');
 ?>
 <div id='div_showClassAlert' style="display: none;"></div>
 <div class="row">
-    <div class="col-lg-2">
+    <div class="col-sm-3">
         <table id="table_class" class="table table-bordered table-condensed tablesorter">
             <thead>
                 <tr>
@@ -60,19 +60,19 @@ include_file('core', 'class.command', 'config', 'zwave');
         </table>
     </div>
 
-    <div class="col-lg-10" id='div_showClassInformations'>
+    <div class="col-sm-9" id='div_showClassInformations'>
         <form class="form-horizontal">
             <fieldset>
                 <legend>{{Informations}} <a class='pull-right btn btn-success btn-xs' style="color : white;" id='bt_addClassCommand'>{{Ajouter}}</a></legend>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">{{Nom}}</label>
-                    <div class="col-lg-8">
+                    <label class="col-sm-2 control-label">{{Nom}}</label>
+                    <div class="col-sm-8">
                         <span class='showClassAttr label label-primary' data-l1key='name'></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">{{Description}}</label>
-                    <div class="col-lg-8">
+                    <label class="col-sm-2 control-label">{{Description}}</label>
+                    <div class="col-sm-8">
                         <div class='showClassAttr label label-info' data-l1key='description'></div>
                     </div>
                 </div>
