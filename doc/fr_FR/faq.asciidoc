@@ -1,1 +1,5 @@
-
+[panel,primary]
+.Comment restorer le z-way-server
+--
+Il faut deja recuperer le backup de celui-ci dans le backup de Jeedom (il se trouve dans plugins_backup/zwave), puis se connecter sur le z-way-server (IP:8083), dans network (en mode expert, disponible en bas à droite) faire une restauration du backup. Puis dans jeedom, sur l'administration du zwave  envoyer des requêtes NIF à tous les modules zwave, et enfin si besoin les réveiller un par un.
+--
