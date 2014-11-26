@@ -28,6 +28,7 @@ if (!is_object($eqLogic)) {
 $device = zwave::devicesParameters($eqLogic->getConfiguration('device'));
 sendVarToJS('configureDeviceId', init('id'));
 $sameDevices = $eqLogic->getSameDevice();
+$info = $eqLogic->getInfo();
 ?>
 <div id='div_configureDeviceAlert' style="display: none;"></div>
 <ul class="nav nav-tabs" role="tablist">
@@ -110,8 +111,11 @@ $sameDevices = $eqLogic->getSameDevice();
                             <?php } ?>
                             <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeur, status...">Forcer re-interview</a>
                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
-                            <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Enlever le module défaillant</a>
-
+                            <?php
+                            if ($info['state']['value'] == 'Dead') {
+                                echo ' <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d\'abord marquer l\'équipement comme sans batterie avant de pouvoir le supprimer">Enlever le module défaillant</a>';
+                            }
+                            ?>
                         </div>
                     </div>
 

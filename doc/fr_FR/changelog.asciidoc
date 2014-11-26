@@ -1,3 +1,7 @@
+==== 26/11/2014
+
+- Amélioration de la suppression d'un péripherique en echec (s'il n'est pas en echec le bouton de suppression dans la configuraiton est supprimé)
+
 ==== 22/11/2014
 
 - Bugfix sur le calcul de l'état de l'interview
