@@ -4,7 +4,7 @@ L'installation du plugin se fait via le menu Général/Plugins en le télécharg
 
 Une fois sur le plugin Z-Wave on arrive sur sa page principale.
 
-image::../images/zwave.JPG[]
+image::../images/zwave_screenshot1.jpg[]
  
 En haut à gauche, le menu principal du plugin avec les commandes ainsi que la liste des modules Z-Wave. Pour rentrer dans la configuration d'un module il suffit de cliquer dessus. Certaines options ne sont disponibles qu'en mode Expert.
 
@@ -54,7 +54,7 @@ Pour un module connu par Jeedom ces commandes sont automatiquement remplies. Les
 
 Les paramètres Instance, Class, Commande sont disponibles uniquement en mode Expert, elles servent à rendre compatible un nouveau module Z-Wave avec Jeedom.
 
-image::../images/zwave8.png[]
+image::../images/zwave_screenshot2.png[]
 
 La table de routage Z-Wave.
 
@@ -66,6 +66,6 @@ image::../images/zwave10.png[]
 
 Le partage des modules Z-Wave sur le Market Jeedom.
 
-image::../images/zwave11.png[]
+image::../images/zwave_screenshot3.png[]
 
  
