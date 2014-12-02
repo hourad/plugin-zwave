@@ -1131,7 +1131,7 @@ class zwave extends eqLogic {
         if (config::byKey('isOpenZwave', 'zwave', 0) != 1) {
             throw new Exception(__('Cette fonction n\'est possible qu\'avec openZwave', __FILE__));
         }
-        if ($_polling === null || !is_numeric($_polling) || $_polling <= 0) {
+        if ($_polling === null || !is_numeric($_polling) || $_polling < 0) {
             throw new Exception(__('La durée de polling doit être un nombre positif', __FILE__));
         }
         self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].SetPolling(' . $_polling . ')');
