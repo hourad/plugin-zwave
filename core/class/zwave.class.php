@@ -1076,6 +1076,23 @@ class zwave extends eqLogic {
         } catch (Exception $ex) {
             
         }
+        if (isset($device['configure']) && is_array($device['configure'])) {
+            try {
+                nodejs::pushUpdate('jeedom::alert', array(
+                    'level' => 'warning',
+                    'message' => __('Execution des commandes post-configuration', __FILE__)
+                ));
+                $replace = array(
+                    '#logicalId#' => $this->getLogicalId()
+                );
+                foreach ($device['configure'] as $configure) {
+                    self::callRazberry(str_replace(array_keys($replace), $replace, $configure));
+                }
+            } catch (Exception $ex) {
+                
+            }
+        }
+
         $this->save();
         nodejs::pushUpdate('jeedom::alert', array(
             'level' => 'warning',

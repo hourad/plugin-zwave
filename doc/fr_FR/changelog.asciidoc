@@ -1,6 +1,16 @@
+==== 07/12/2014
+
+- Possibilité de définir des commandes à envoyer après inclusion dans le fichier de configuration du module : 
+----
+"configure": [
+          "/JS/Run/zway.devices[#logicalId#].SwitchMultilevel.data.supported=true",
+          "/JS/Run/zway.devices.SaveData()"
+    ],
+----
+
 ==== 26/11/2014
 
-- Amélioration de la suppression d'un péripherique en echec (s'il n'est pas en echec le bouton de suppression dans la configuraiton est supprimé)
+- Amélioration de la suppression d'un péripherique en echec (s'il n'est pas en echec le bouton de suppression dans la configuration est supprimé)
 
 ==== 22/11/2014
 

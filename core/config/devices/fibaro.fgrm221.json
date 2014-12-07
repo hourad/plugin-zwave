@@ -5,6 +5,10 @@
         "manufacturerId": 271,
         "manufacturerProductType": 769,
         "manufacturerProductId": 4097,
+        "configure": [
+            "/JS/Run/zway.devices[#logicalId#].SwitchMultilevel.data.supported=true",
+            "/JS/Run/zway.devices.SaveData()"
+        ],
         "commands": [
             {
                 "name": "Descendre",
@@ -15,8 +19,8 @@
                     "class": "0x25",
                     "value": "Set(255)&&sleep(3)&&Get()"
                 },
-                "display" : {
-                    "icon" : "<i class=\"fa fa-arrow-down\"></i>"
+                "display": {
+                    "icon": "<i class=\"fa fa-arrow-down\"></i>"
                 }
             },
             {
@@ -28,8 +32,8 @@
                     "class": "0x25",
                     "value": "Set(0)&&sleep(3)&&Get()"
                 },
-                "display" : {
-                    "icon" : "<i class=\"fa fa-arrow-up\"></i>"
+                "display": {
+                    "icon": "<i class=\"fa fa-arrow-up\"></i>"
                 }
             },
             {
@@ -72,8 +76,8 @@
                     "class": "0x25",
                     "value": "Get()"
                 },
-                "display" : {
-                    "icon" : "<i class=\"fa fa-refresh\"></i>"
+                "display": {
+                    "icon": "<i class=\"fa fa-refresh\"></i>"
                 }
             },
             {
