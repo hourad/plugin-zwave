@@ -98,7 +98,7 @@ $('body').delegate('#bt_shareOnMarket', 'click', function () {
 
 $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
     $('#img_device').attr('src', 'core/img/no_image.gif');
-    $('#img_device').attr('data-original', marketAddr + '/market/zwave/stable/' + $(this).value() + '.jpg');
+    $('#img_device').attr('data-original', marketAddr + '/market/zwave/images/' + $(this).value() + '.jpg');
     $("#img_device").lazyload({
         event: "sporty"
     });

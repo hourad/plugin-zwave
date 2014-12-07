@@ -21,6 +21,7 @@ if ($controlerState === 5) {
 if ($controlerState === '') {
     echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway. Vérifiez que vous avez bien renseigné l\'IP.}}</div>';
 }
+$eqLogics = eqLogic::byType('zwave');
 ?>
 
 <div class="row row-overflow">
@@ -52,19 +53,41 @@ if ($controlerState === '') {
                 <a class="btn btn-default eqLogicAction expertModeVisible" style="width : 100%;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
                 <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="Rechercher" style="width: 100%"/></li>
                 <?php
-                foreach (eqLogic::byType('zwave') as $eqLogic) {
+                foreach ($eqLogics as $eqLogic) {
                     echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
                 }
                 ?>
             </ul>
         </div>
     </div>
+
+    <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
+        <legend>{{Mes équipements Z-Wave}}
+            <span style="font-size: 0.7em;color:#c5c5c5">
+                Vous devez être connecté à internet pour voir les prévisualisation
+            </span>
+        </legend>
+        <div class="eqLogicThumbnailContainer">
+            <?php
+            foreach ($eqLogics as $eqLogic) {
+                echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
+                echo "<center>";
+                $urlPath = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '.jpg';
+                echo '<img class="lazy" src="core/img/no_image.gif" data-original="' . $urlPath . '" height="105" width="95" />';
+                echo "</center>";
+                echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true,true) . '</center></span>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+    </div>
+
     <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
         <div class="row">
             <div class="col-sm-6">
                 <form class="form-horizontal">
                     <fieldset>
-                        <legend>{{Général}}</legend>
+                        <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}</legend>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">{{Nom de l'équipement}}</label>
                             <div class="col-sm-8">
