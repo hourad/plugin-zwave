@@ -67,7 +67,12 @@ $eqLogics = eqLogic::byType('zwave');
                 Vous devez être connecté à internet pour voir les prévisualisation
             </span>
         </legend>
-        <div class="eqLogicThumbnailContainer">
+        <?php
+        if (count($eqLogics) == 0) {
+            echo "<br/><br/><br/><center><span style='color:#767676;font-size:1.2em;font-weight: bold;'>Vous n'avez encore module Z-Wave. Cliquez sur le bouton inclusion  à gauche et suivez la documentation de votre module pour associer celui-ci à Jeedom</span></center>";
+        } else {
+            ?>
+            <div class="eqLogicThumbnailContainer">
             <?php
             foreach ($eqLogics as $eqLogic) {
                 echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
@@ -75,11 +80,12 @@ $eqLogics = eqLogic::byType('zwave');
                 $urlPath = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '.jpg';
                 echo '<img class="lazy" src="core/img/no_image.gif" data-original="' . $urlPath . '" height="105" width="95" />';
                 echo "</center>";
-                echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true,true) . '</center></span>';
+                echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
                 echo '</div>';
             }
             ?>
-        </div>
+            </div>
+            <?php } ?>
     </div>
 
     <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
@@ -100,24 +106,24 @@ $eqLogics = eqLogic::byType('zwave');
                             <div class="col-sm-8">
                                 <select class="eqLogicAttr form-control" data-l1key="object_id">
                                     <option value="">{{Aucun}}</option>
-                                    <?php
-                                    foreach (object::all() as $object) {
-                                        echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
-                                    }
-                                    ?>
+<?php
+foreach (object::all() as $object) {
+    echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
+}
+?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">{{Catégorie}}</label>
                             <div class="col-sm-8">
-                                <?php
-                                foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-                                    echo '<label class="checkbox-inline">';
-                                    echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
-                                    echo '</label>';
-                                }
-                                ?>
+<?php
+foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
+    echo '<label class="checkbox-inline">';
+    echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
+    echo '</label>';
+}
+?>
                             </div>
                         </div>
                         <div class="form-group">
@@ -180,11 +186,11 @@ $eqLogics = eqLogic::byType('zwave');
                             <div class="col-sm-5">
                                 <select class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="device">
                                     <option value="">{{Aucun}}</option>
-                                    <?php
-                                    foreach (zwave::devicesParameters() as $id => $info) {
-                                        echo '<option value="' . $id . '">' . $info['name'] . '</option>';
-                                    }
-                                    ?>
+<?php
+foreach (zwave::devicesParameters() as $id => $info) {
+    echo '<option value="' . $id . '">' . $info['name'] . '</option>';
+}
+?>
                                 </select>
                             </div>
                             <div class="col-sm-5">
