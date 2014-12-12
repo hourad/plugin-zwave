@@ -73,9 +73,12 @@ $eqLogics = eqLogic::byType('zwave');
                 echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
                 echo "<center>";
                 $urlPath = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '.jpg';
-                echo '<img class="lazy" src="core/img/no_image.gif" data-original="' . $urlPath . '" height="105" width="95" />';
+                $urlPath2 = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '_icon.png';
+                $urlPath3 = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '_icon.jpg';
+
+                echo '<img class="lazy" src="/plugins/zwave/doc/images/zwave_icon.png" data-original3="' . $urlPath3 . '" data-original2="' . $urlPath2 . '" data-original="' . $urlPath . '" height="105" width="95" />';
                 echo "</center>";
-                echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true,true) . '</center></span>';
+                echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
                 echo '</div>';
             }
             ?>
