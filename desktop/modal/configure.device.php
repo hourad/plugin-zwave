@@ -32,7 +32,7 @@ $info = $eqLogic->getInfo();
 ?>
 <div id='div_configureDeviceAlert' style="display: none;"></div>
 <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#tab_general" role="tab" data-toggle="tab">{{Générale}}</a></li>
+    <li class="active"><a href="#tab_general" role="tab" data-toggle="tab">{{Général}}</a></li>
     <li><a href="#tab_group" role="tab" data-toggle="tab">{{Groupe}}</a></li>
 </ul>
 <div class="tab-content">
@@ -109,18 +109,18 @@ $info = $eqLogic->getInfo();
                                     </div>
                                 </div>
                             <?php } ?>
-                            <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeur, status...">Forcer re-interview</a>
+                            <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeurs, statut...">Forcer re-interview</a>
                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
                             <?php
                             if ($info['state']['value'] == 'Dead') {
-                                echo ' <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d\'abord marquer l\'équipement comme sans batterie avant de pouvoir le supprimer">Enlever le module défaillant</a>';
+                                echo ' <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d\'abord marquer l\'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>';
                             }
                             ?>
                         </div>
                     </div>
 
                     <legend>{{Configuration}}</legend>
-                    <div class="alert alert-info">{{Certaines valeur de configurations peuvent mettre plusieurs minutes à arriver lors de la premiere récuperation}}
+                    <div class="alert alert-info">{{Certaines valeurs de configuration peuvent mettre plusieurs minutes à être reçues lors de la première récupération}}
                         <a class="btn btn-warning bt_forceRefresh pull-right btn-xs" style="color : white;" title="{{Force le module à renvoyer sa configuration et uniquement sa configuration}}"><i class="fa fa-refresh"></i> {{Forcer la mise à jour}}</a>
                     </div>
                     <div id="div_configureDeviceParameters">
@@ -183,7 +183,7 @@ $info = $eqLogic->getInfo();
                         <div class="col-sm-6">
                             <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;">Forcer re-interview</a>
                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
-                            <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Enlever le module défaillant</a>
+                            <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>
                         </div>
                     </div>
                     <div id="div_configureDeviceParameters">
@@ -218,7 +218,7 @@ $info = $eqLogic->getInfo();
                                 <span class="zwaveParameters label label-primary" data-l2key="value" ></span>
                             </div>
                             <div class="col-sm-3">
-                                <a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraichir}}</a>
+                                <a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraîchir}}</a>
                                 <a class="btn btn-warning pull-right bt_configureReadParameter" style="color : white;" data-force="1"><i class="fa fa-refresh"></i> {{Demander}}</a>
                             </div>
                         </div>
@@ -238,7 +238,7 @@ $info = $eqLogic->getInfo();
         <form class="form-horizontal">
             <fieldset>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">{{ Ajouter association}}</label>
+                    <label class="col-sm-3 control-label">{{Ajouter association}}</label>
                     <div class="col-sm-2">
                         <select class="form-control" id="in_configureDeviceAddAssociationGroup"></select>
                     </div>
@@ -277,7 +277,7 @@ $info = $eqLogic->getInfo();
 
             function changeAssociation(_mode, _group, _node) {
                 $.ajax({// fonction permettant de faire de l'ajax
-                    type: "POST", // methode de transmission des données au fichier php
+                    type: "POST", // méthode de transmission des données au fichier php
                     url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
                     data: {
                         action: "changeAssociation",
@@ -303,7 +303,7 @@ $info = $eqLogic->getInfo();
 
             function loadAssociation() {
                 $.ajax({// fonction permettant de faire de l'ajax
-                    type: "POST", // methode de transmission des données au fichier php
+                    type: "POST", // méthode de transmission des données au fichier php
                     url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
                     data: {
                         action: "getAssociation",
@@ -353,7 +353,7 @@ $info = $eqLogic->getInfo();
 
     $('#bt_validePolling').on('click', function () {
         $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
+            type: "POST", // méthode de transmission des données au fichier php
             url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
             data: {
                 action: "setPolling",
@@ -377,7 +377,7 @@ $info = $eqLogic->getInfo();
 
     $('#bt_valideWakeup').on('click', function () {
         $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
+            type: "POST", // méthode de transmission des données au fichier php
             url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
             data: {
                 action: "setWakeUp",
@@ -406,7 +406,7 @@ $info = $eqLogic->getInfo();
         bootbox.confirm('{{Etes-vous sûr de vouloir effectuer l\'opération :}} <b>' + command + '</b>. {{Le risque de l\'opération est :}}  <b>' + risk + '</b> ?', function (result) {
             if (result) {
                 $.ajax({// fonction permettant de faire de l'ajax
-                    type: "POST", // methode de transmission des données au fichier php
+                    type: "POST", // méthode de transmission des données au fichier php
                     url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
                     data: {
                         action: "deviceAdministation",
@@ -459,7 +459,7 @@ $info = $eqLogic->getInfo();
         bootbox.confirm('{{Etes-vous sûr de vouloir copier la configuration de}} <b>' + $('#sel_copyDeviceConfiguration option:selected').text() + '</b> ?', function (result) {
             if (result) {
                 $.ajax({// fonction permettant de faire de l'ajax
-                    type: "POST", // methode de transmission des données au fichier php
+                    type: "POST", // méthode de transmission des données au fichier php
                     url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
                     data: {
                         action: "copyDeviceConfiguration",
@@ -483,7 +483,7 @@ $info = $eqLogic->getInfo();
     });
     function configureDeviceLoad(_forceRefresh, _parameter_id) {
         $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
+            type: "POST", // méthode de transmission des données au fichier php
             url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
             data: {
                 action: "getDeviceConfiguration",
@@ -507,7 +507,7 @@ $info = $eqLogic->getInfo();
 
     function configureDeviceSave(configurations) {
         $.ajax({// fonction permettant de faire de l'ajax
-            type: "POST", // methode de transmission des données au fichier php
+            type: "POST", // méthode de transmission des données au fichier php
             url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
             data: {
                 action: "setDeviceConfiguration",
@@ -523,7 +523,7 @@ $info = $eqLogic->getInfo();
                     $('#div_configureDeviceAlert').showAlert({message: data.result, level: 'danger'});
                     return;
                 }
-                $('#div_configureDeviceAlert').showAlert({message: '{{Parramètres envoyés avec succès (la prise en compte peut prendre jusqu\'à plusieurs minutes)}}', level: 'success'});
+                $('#div_configureDeviceAlert').showAlert({message: '{{Paramètres envoyés avec succès (la prise en compte peut prendre jusqu\'à plusieurs minutes)}}', level: 'success'});
                 configureDeviceLoad(1);
             }
         });

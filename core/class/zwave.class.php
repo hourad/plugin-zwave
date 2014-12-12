@@ -1127,6 +1127,19 @@ class zwave extends eqLogic {
                 }
             }
         }
+        $device = self::devicesParameters($this->getConfiguration('device'));
+        if (isset($device['configure']) && is_array($device['configure'])) {
+            try {
+                $replace = array(
+                    '#logicalId#' => $this->getLogicalId()
+                );
+                foreach ($device['configure'] as $configure) {
+                    self::callRazberry(str_replace(array_keys($replace), $replace, $configure));
+                }
+            } catch (Exception $ex) {
+                
+            }
+        }
     }
 
     public function getWakeUp() {
