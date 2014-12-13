@@ -19,7 +19,7 @@ if ($controlerState === 5) {
     echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
 }
 if ($controlerState === '') {
-    echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway. Vérifiez que vous avez bien renseigné l\'IP.}}</div>';
+    echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway. Vérifiez que vous avez bien renseigné l\'adresse IP.}}</div>';
 }
 $eqLogics = eqLogic::byType('zwave');
 ?>
@@ -30,23 +30,23 @@ $eqLogics = eqLogic::byType('zwave');
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
                 <center style="margin-bottom: 5px;">
                     <a class="btn btn-default btn-sm tooltips" id="bt_syncEqLogic" title="{{Synchroniser équipement avec le Razberry}}" style="display: inline-block;"><i class="fa fa-refresh"></i> <span class="expertModeHidden">{{Synchroniser}}</span></a>
-                    <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_inspectQueue" title="{{Inspecter la queue Z-wave}}" style="display: inline-block;"><i class="fa fa-exchange fa-rotate-90"></i></a>
+                    <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_inspectQueue" title="{{Inspecter la queue Z-Wave}}" style="display: inline-block;"><i class="fa fa-exchange fa-rotate-90"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_routingTable" title="{{Afficher la table de routage}}" style="display: inline-block;"><i class="fa fa-sitemap"></i></a>
-                    <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du zwave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>
+                    <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du Z-Wave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>
                     <?php if (config::byKey('isOpenZwave', 'zwave', 0) == 0) { ?>
                         <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_showZwayLog" title="{{Log du serveur z-way (valable uniquement si le serveur z-way est local)}}" style="display: inline-block;"><i class="fa fa-file-o"></i></a>
                     <?php } ?>
                 </center>
                 <?php
                 if ($controlerState == 1) {
-                    echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure périphérique Z-wave}}" data-mode="1" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Arrêter inclusion</a>';
+                    echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure périphérique Z-Wave}}" data-mode="1" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Arrêter inclusion</a>';
                 } else {
-                    echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Inclure périphérique Z-wave}}" data-mode="1" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion</a>';
+                    echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Inclure périphérique Z-Wave}}" data-mode="1" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion</a>';
                 }
                 if ($controlerState == 5) {
-                    echo ' <a class="btn btn-danger tooltips changeIncludeState" title="{{Exclure périphérique Z-wave}}" data-mode="0" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Arrêter exclusion</a>';
+                    echo ' <a class="btn btn-danger tooltips changeIncludeState" title="{{Exclure périphérique Z-Wave}}" data-mode="0" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Arrêter exclusion</a>';
                 } else {
-                    echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Exclure périphérique Z-wave}}" data-mode="0" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Mode exclusion</a>';
+                    echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Exclure périphérique Z-Wave}}" data-mode="0" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Mode exclusion</a>';
                 }
                 ?>
                 <a class="btn btn-default eqLogicAction expertModeVisible" style="width : 100%;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
@@ -63,13 +63,13 @@ $eqLogics = eqLogic::byType('zwave');
     <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
         <legend>{{Mes équipements Z-Wave}}
             <span style="font-size: 0.7em;color:#c5c5c5">
-                Vous devez être connecté à internet pour voir les prévisualisation
+                Vous devez être connecté à internet pour voir les prévisualisations
             </span>
         </legend>
         <div class="eqLogicThumbnailContainer">
             <?php
             if (count($eqLogics) == 0) {
-                echo "<br/><br/><br/><center><span style='color:#767676;font-size:1.2em;font-weight: bold;'>Vous n'avez encore module Z-Wave. Cliquez sur le bouton inclusion  à gauche et suivez la documentation de votre module pour associer celui-ci à Jeedom</span></center>";
+                echo "<br/><br/><br/><center><span style='color:#767676;font-size:1.2em;font-weight: bold;'>Vous n'avez pas encore de module Z-Wave. Cliquez sur le bouton inclusion  à gauche et suivez la documentation de votre module pour associer celui-ci à Jeedom</span></center>";
             } else {
                 foreach ($eqLogics as $eqLogic) {
                     echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
@@ -196,8 +196,8 @@ $eqLogics = eqLogic::byType('zwave');
                             <div class="col-sm-5">
                                 <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> {{Market}}</a>
                                 <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
-                                <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Z-wave"><i class="fa fa-tree"></i></a>
-                                <a class="btn btn-default expertModeVisible" id="bt_showClass" title="Voir les classes zwave"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Z-Wave"><i class="fa fa-tree"></i></a>
+                                <a class="btn btn-default expertModeVisible" id="bt_showClass" title="Voir les classes Z-Wave"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                         <div class="form-group expertModeVisible">
@@ -221,7 +221,7 @@ $eqLogics = eqLogic::byType('zwave');
                         </div>
 
                         <div class="form-group expertModeVisible">
-                            <label class="col-sm-2 control-label">{{Fabricant ID}}</label>
+                            <label class="col-sm-2 control-label">{{Identifiant Fabricant}}</label>
                             <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerId"></span>
                             </div>
@@ -229,7 +229,7 @@ $eqLogics = eqLogic::byType('zwave');
                             <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerProductType"></span>
                             </div>
-                            <label class="col-sm-2 control-label">{{Produit ID}}</label>
+                            <label class="col-sm-2 control-label">{{Identifiant Produit}}</label>
                             <div class="col-sm-2">
                                 <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerProductId"></span>
                             </div>
@@ -281,7 +281,7 @@ $eqLogics = eqLogic::byType('zwave');
                     <th style="width: 300px;">{{Nom}}</th>
                     <th style="width: 130px;" class="expertModeVisible">{{Type}}</th>
                     <th style="width: 100px;" class="expertModeVisible">{{Instance ID}}</th>
-                    <th style="width: 100px;" class="expertModeVisible">{{Class}}</th>
+                    <th style="width: 100px;" class="expertModeVisible">{{Classe}}</th>
                     <th style="width: 200px;" class="expertModeVisible">{{Commande}}</th>
                     <th >{{Paramètres}}</th>
                     <th style="width: 100px;">{{Options}}</th>
