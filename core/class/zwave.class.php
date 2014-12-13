@@ -316,10 +316,11 @@ class zwave extends eqLogic {
                     $eqLogic->save();
                     $eqLogic = self::byId($eqLogic->getId());
                     $include_device = $eqLogic->getId();
-
+                    $findConfiguration = false;
                     /* Reconnaissance du module */
                     foreach (self::devicesParameters() as $device_id => $device) {
                         if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
+                            $findConfiguration = true;
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
                                 'message' => __('Périphérique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__)
@@ -352,10 +353,17 @@ class zwave extends eqLogic {
             }
         }
         nodejs::pushUpdate('zwave::includeDevice', $include_device);
-        nodejs::pushUpdate('jeedom::alert', array(
-            'level' => 'warning',
-            'message' => ''
-        ));
+        if (!$findConfiguration) {
+            nodejs::pushUpdate('jeedom::alert', array(
+                'level' => 'warning',
+                'message' => __('Votre module n\'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible', __FILE__)
+            ));
+        } else {
+            nodejs::pushUpdate('jeedom::alert', array(
+                'level' => 'warning',
+                'message' => ''
+            ));
+        }
     }
 
     public static function restartZwayServer($_debug = false) {

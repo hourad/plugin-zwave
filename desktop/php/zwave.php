@@ -32,7 +32,6 @@ $eqLogics = eqLogic::byType('zwave');
                     <a class="btn btn-default btn-sm tooltips" id="bt_syncEqLogic" title="{{Synchroniser équipement avec le Razberry}}" style="display: inline-block;"><i class="fa fa-refresh"></i> <span class="expertModeHidden">{{Synchroniser}}</span></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_inspectQueue" title="{{Inspecter la queue Z-wave}}" style="display: inline-block;"><i class="fa fa-exchange fa-rotate-90"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_routingTable" title="{{Afficher la table de routage}}" style="display: inline-block;"><i class="fa fa-sitemap"></i></a>
-                    <a class="btn btn-default btn-sm tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}" style="display: inline-block;"><i class="fa fa-shopping-cart"></i> <span class="expertModeHidden">{{Market}}</span></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du zwave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>
                     <?php if (config::byKey('isOpenZwave', 'zwave', 0) == 0) { ?>
                         <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_showZwayLog" title="{{Log du serveur z-way (valable uniquement si le serveur z-way est local)}}" style="display: inline-block;"><i class="fa fa-file-o"></i></a>
@@ -195,8 +194,8 @@ $eqLogics = eqLogic::byType('zwave');
                                 </select>
                             </div>
                             <div class="col-sm-5">
+                                <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> {{Market}}</a>
                                 <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
-                                <a class="btn btn-warning" id="bt_shareOnMarket"><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
                                 <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Z-wave"><i class="fa fa-tree"></i></a>
                                 <a class="btn btn-default expertModeVisible" id="bt_showClass" title="Voir les classes zwave"><i class="fa fa-eye"></i></a>
                             </div>
@@ -205,6 +204,9 @@ $eqLogics = eqLogic::byType('zwave');
                             <label class="col-sm-2 control-label">{{Envoyer une configuration}}</label>
                             <div class="col-sm-5">
                                 <input id="bt_uploadConfZwave" type="file" name="file" data-url="plugins/zwave/core/ajax/zwave.ajax.php?action=uploadConfZwave">
+                            </div>
+                            <div class="col-sm-5">
+                                <a class="btn btn-warning tooltips" id="bt_shareOnMarket" title="{{Partager}}"><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
                             </div>
                         </div>
                         <div class="form-group">
