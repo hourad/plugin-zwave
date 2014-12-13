@@ -302,6 +302,7 @@ class zwave extends eqLogic {
         $findDevice = array();
         $include_device = '';
         $razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+        $findConfiguration = true;
         foreach ($results['devices'] as $nodeId => $result) {
             $findDevice[$nodeId] = $nodeId;
             if ($nodeId != $razberry_id) {
