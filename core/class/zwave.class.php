@@ -1012,7 +1012,14 @@ class zwave extends eqLogic {
             'level' => 'warning',
             'message' => __('Création des commandes', __FILE__)
         ));
-        foreach ($device['commands'] as $command) {
+
+        if (isset($device['commands_openzwave']) && config::byKey('isOpenZwave', 'zwave', 0) == 1) {
+            $commands = $device['commands_openzwave'];
+        } else {
+            $commands = $device['commands'];
+        }
+
+        foreach ($commands as $command) {
             if (!isset($command['configuration']['instanceId'])) {
                 $command['configuration']['instanceId'] = 0;
             }
