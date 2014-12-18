@@ -206,7 +206,8 @@ $eqLogics = eqLogic::byType('zwave');
                                 <input id="bt_uploadConfZwave" type="file" name="file" data-url="plugins/zwave/core/ajax/zwave.ajax.php?action=uploadConfZwave">
                             </div>
                             <div class="col-sm-5">
-                                <a class="btn btn-warning tooltips" id="bt_shareOnMarket" title="{{Partager}}"><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
+                                <a class="btn btn-warning tooltips" id="bt_shareOnMarket" title="{{Partager}}" ><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
+                                <a class="btn btn-success eqLogicAction" data-action="export"><i class="fa fa-cloud-download"></i> {{Exporter}}</a>
                             </div>
                         </div>
                         <div class="form-group">

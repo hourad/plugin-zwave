@@ -43,7 +43,7 @@ try {
         zwave::restartZwayServer(true);
         ajax::success();
     }
-    
+
     if (init('action') == 'restartZwayServer') {
         zwave::restartZwayServer();
         ajax::success();
