@@ -23,13 +23,13 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
 ?>
 <div id='div_inspectQueueAlert' style="display: none;"></div>
-<span class='pull-right'>{{Rafraichis à :}} <span id='span_inspectQueueRefreshTIme' class='label label-primary' style="font-size: 1.2em;"></span></span><br/><br/>
+<span class='pull-right'>{{Rafraichi à :}} <span id='span_inspectQueueRefreshTIme' class='label label-primary' style="font-size: 1.2em;"></span></span><br/><br/>
 <table id="table_zwaveQueue" class="table table-bordered table-condensed tablesorter">
     <thead>
         <tr>
             <th>{{Nombre d'envoi(s)}}</th>
             <th>{{Timeout}}</th>
-            <th>{{Logical ID}}</th>
+            <th>{{ID logique}}</th>
             <th>{{Nom}}</th>
             <th>{{Description}}</th>
             <th>{{Statut}}</th>
