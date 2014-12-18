@@ -1023,6 +1023,9 @@ class zwave extends eqLogic {
             if (!isset($command['configuration']['instanceId'])) {
                 $command['configuration']['instanceId'] = 0;
             }
+            if (!isset($command['configuration']['class'])) {
+                $command['configuration']['class'] = '';
+            }
             $cmd = null;
             foreach ($this->getCmd() as $liste_cmd) {
                 if ($liste_cmd->getConfiguration('instanceId', 0) == $command['configuration']['instanceId'] &&
