@@ -5,10 +5,6 @@
         "manufacturerId": 271,
         "manufacturerProductType": 769,
         "manufacturerProductId": 4097,
-        "configure": [
-            "/JS/Run/zway.devices[#logicalId#].SwitchMultilevel.data.supported=true",
-            "/JS/Run/zway.devices.SaveData()"
-        ],
         "commands": [
             {
                 "name": "Descendre",
@@ -19,8 +15,8 @@
                     "class": "0x25",
                     "value": "Set(255)&&sleep(3)&&Get()"
                 },
-                "display": {
-                    "icon": "<i class=\"fa fa-arrow-down\"></i>"
+                "display" : {
+                    "icon" : "<i class=\"fa fa-arrow-down\"></i>"
                 }
             },
             {
@@ -32,8 +28,8 @@
                     "class": "0x25",
                     "value": "Set(0)&&sleep(3)&&Get()"
                 },
-                "display": {
-                    "icon": "<i class=\"fa fa-arrow-up\"></i>"
+                "display" : {
+                    "icon" : "<i class=\"fa fa-arrow-up\"></i>"
                 }
             },
             {
@@ -76,8 +72,8 @@
                     "class": "0x25",
                     "value": "Get()"
                 },
-                "display": {
-                    "icon": "<i class=\"fa fa-refresh\"></i>"
+                "display" : {
+                    "icon" : "<i class=\"fa fa-refresh\"></i>"
                 }
             },
             {
@@ -88,6 +84,73 @@
                 "configuration": {
                     "class": "0x32",
                     "value": "Reset()"
+                }
+            }
+        ],
+        "commands_openzwave" : [
+            {
+                "name" : "Up",
+                "type" : "action",
+                "subtype" : "other",
+                "isVisible" : 1,
+                "configuration" :
+                {
+                    "instanceId" : "0",
+                    "class" : "0x26",
+                    "value" : "Set(0)"
+                },
+                "display" :
+                {
+                    "icon" : "<i class=\"fa fa-arrow-up\"></i>"
+                }
+            },
+            {
+                "name" : "Down",
+                "type" : "action",
+                "subtype" : "other",
+                "isVisible" : 1,
+                "configuration" :
+                {
+                    "instanceId" : "0",
+                    "class" : "0x26",
+                    "value" : "Set(99)"
+                },
+                "display" :
+                {
+                    "icon" : "<i class=\"fa fa-arrow-down\"></i>"
+                }
+            },
+            {
+                "name" : "Etat",
+                "type" : "info",
+                "subtype" : "numeric",
+                "isVisible" : 0,
+                "eventOnly" : 1,
+                "configuration" :
+                {
+                    "instanceId" : "0",
+                    "class" : "0x26",
+                    "value" : "data[0].val"
+                }
+            },
+            {
+                "name" : "Positionnement",
+                "type" : "action",
+                "subtype" : "slider",
+                "isVisible" : 1,
+                "value" : "Etat",
+                "configuration" :
+                {
+                    "instanceId" : "0",
+                    "class" : "0x26",
+                    "value" : "Set(#slider#)",
+                    "minValue" : 0,
+                    "maxValue" : 99
+                },
+                "template" :
+                {
+                    "dashboard" : "tooltip",
+                    "mobile" : "tooltip"
                 }
             }
         ],

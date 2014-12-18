@@ -1,0 +1,208 @@
+{
+    "philio.psm02": {
+        "name": "Philio PSM02 4 en 1",
+        "vendor": "Philio",
+        "manufacturerId": 316,
+        "manufacturerProductType": 2,
+        "manufacturerProductId": 2,
+        "commands": [
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x30",
+                    "value": "data[12].level"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "presence",
+                    "mobile": "presence"
+                }
+            },
+            {
+                "name": "Ouverture",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x30",
+                    "value": "data[10].level"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "door",
+                    "mobile": "door"
+                }
+            },
+            {
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x31",
+                    "value": "data[1].val",
+                    "unite": "°C"
+                }
+            },
+            {
+                "name": "Luminosité",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x31",
+                    "value": "data[3].val",
+                    "unite": "%"
+                }
+            },
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "eventOnly": 0,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x80",
+                    "value": "data.last",
+                    "unite": "%"
+                }
+            }
+        ],
+        "commands_openzwave": [
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x30",
+                    "value": "data[0].level",
+                    "returnStateTime": "1",
+                    "returnStateValue": "0"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "presence",
+                    "mobile": "presence"
+                }
+            },
+            {
+                "name": "Ouverture",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x30",
+                    "value": "data[1].level"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "door",
+                    "mobile": "door"
+                }
+            },
+            {
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x31",
+                    "value": "data[1].val",
+                    "unite": "°C"
+                }
+            },
+            {
+                "name": "Luminosité",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "eventOnly": 1,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x31",
+                    "value": "data[3].val",
+                    "unite": "%"
+                }
+            },
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "isHistorized": 0,
+                "eventOnly": 0,
+                "configuration": {
+                    "instanceId": 0,
+                    "class": "0x80",
+                    "value": "data.last",
+                    "unite": "%"
+                }
+            }
+        ],
+        "configuration": {
+            "refreshDelay": "*/10 * * * *"
+        },
+        "parameters": {
+            "2": {
+                "name": "Niveau Basic",
+                "description": "Réglage de la valeur de commande de base pour allumer la lumière. Le 0xFF (-1) des moyens allumer la lumière. Pour les équipements gradateur",
+                "default": "255",
+                "type": "input",
+                "min": "0",
+                "max": "255"
+            },
+            "3": {
+                "name": "Sensibilité du PIR",
+                "description": "Réglages de la sensibilité du PIR. 0 signifie désactiver le PIR. 1 signifie la sensibilité la plus faible, 99 signifie la plus haute sensibilité. La haute sensibilité permet de détecter des longues distances, mais il ya plus de signal de bruit dans l environnement, il sera re-déclenchera trop tot.",
+                "default": "70",
+                "type": "input",
+                "min": "0",
+                "max": "99"
+            },
+            "4": {
+                "name": "Seuil de lumière",
+                "description": "Réglage du seuil d éclairement de la lumière. 0 signifie éteindre l éclairage et jamais allumer la lumière. 1 signifie plus sombre. 99 signifie brillants. 100 toujours allumer la lumière.",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "100"
+            }
+        }
+    }
+}

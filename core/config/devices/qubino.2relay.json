@@ -1,0 +1,476 @@
+
+{
+	"qubino.2relay" :
+	{
+		"name" : "Qubino Flush 2 relay",
+		"vendor" : "Qubino",
+		"manufacturerId" : 345,
+		"manufacturerProductType" : 2,
+		"manufacturerProductId" : 1,
+		"commands" : [
+			{
+				"name" : "On Full",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 0,
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x25",
+					"value" : "Set(255)"
+				}
+			},
+			{
+				"name" : "Off Full",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 0,
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x25",
+					"value" : "Set(0)"
+				}
+			},
+			{
+				"name" : "On 1",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 1,
+					"class" : "0x25",
+					"value" : "Set(255)"
+				}
+			},
+			{
+				"name" : "Off 1",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 1,
+					"class" : "0x25",
+					"value" : "Set(0)"
+				}
+			},
+			{
+				"name" : "Etat 1",
+				"type" : "info",
+				"subtype" : "binary",
+				"isVisible" : 1,
+				"isHistorized" : 0,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : 1,
+					"class" : "0x25",
+					"value" : "data.level"
+				}
+			},
+			{
+				"name" : "On 2",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 2,
+					"class" : "0x25",
+					"value" : "Set(255)"
+				}
+			},
+			{
+				"name" : "Off 2",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 2,
+					"class" : "0x25",
+					"value" : "Set(0)"
+				}
+			},
+			{
+				"name" : "Etat 2",
+				"type" : "info",
+				"subtype" : "binary",
+				"isVisible" : 1,
+				"isHistorized" : 0,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : 2,
+					"class" : "0x25",
+					"value" : "data.level"
+				}
+			},
+			{
+				"name" : "Température",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 1,
+				"isHistorized" : 1,
+				"eventOnly" : 1,
+				"unite" : "°C",
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x31",
+					"value" : "data[1].val"
+				}
+			},
+			{
+				"name" : "Power",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 1,
+				"isHistorized" : 1,
+				"eventOnly" : 1,
+				"unite" : "W",
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x32",
+					"value" : "data[2].val",
+					"minValue" : 0,
+					"maxValue" : 1840
+				}
+			},
+			{
+				"name" : "Consommation",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 1,
+				"isHistorized" : 1,
+				"eventOnly" : 1,
+				"unite" : "kWh",
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x32",
+					"value" : "data[0].val"
+				}
+			},
+			{
+				"name" : "Reset",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x32",
+					"value" : "Reset()"
+				}
+			}
+			
+		],
+		"commands_openzwave" : [
+			{
+				"name" : "On Full",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 0,
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x25",
+					"value" : "Set(255)"
+				}
+			},
+			{
+				"name" : "Off Full",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 0,
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x25",
+					"value" : "Set(0)"
+				}
+			},
+			{
+				"name" : "On 1",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 1,
+					"class" : "0x25",
+					"value" : "Set(255)"
+				}
+			},
+			{
+				"name" : "Off 1",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 1,
+					"class" : "0x25",
+					"value" : "Set(0)"
+				}
+			},
+			{
+				"name" : "Etat 1",
+				"type" : "info",
+				"subtype" : "binary",
+				"isVisible" : 1,
+				"isHistorized" : 0,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : 1,
+					"class" : "0x25",
+					"value" : "data.level"
+				}
+			},
+			{
+				"name" : "On 2",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 2,
+					"class" : "0x25",
+					"value" : "Set(255)"
+				}
+			},
+			{
+				"name" : "Off 2",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 2,
+					"class" : "0x25",
+					"value" : "Set(0)"
+				}
+			},
+			{
+				"name" : "Etat 2",
+				"type" : "info",
+				"subtype" : "binary",
+				"isVisible" : 1,
+				"isHistorized" : 0,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : 2,
+					"class" : "0x25",
+					"value" : "data.level"
+				}
+			},
+			{
+				"name" : "Température",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 1,
+				"isHistorized" : 1,
+				"eventOnly" : 1,
+				"unite" : "°C",
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x31",
+					"value" : "data[1].val"
+				}
+			},
+			{
+				"name" : "Power",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 1,
+				"isHistorized" : 1,
+				"eventOnly" : 1,
+				"unite" : "W",
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x32",
+					"value" : "data[8].val",
+					"minValue" : 0,
+					"maxValue" : 1840
+				}
+			},
+			{
+				"name" : "Consommation",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 1,
+				"isHistorized" : 1,
+				"eventOnly" : 1,
+				"unite" : "kWh",
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x32",
+					"value" : "data[0].val"
+				}
+			},
+			{
+				"name" : "Reset",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : 0,
+					"class" : "0x32",
+					"value" : "Reset()"
+				}
+			}
+			
+		],
+		"parameters" :
+		{
+			"1" :
+			{
+				"name" : "Type de contact sur l'entrée switch 1",
+				"default" : "1",
+				"type" : "select",
+				"value" :
+				{
+					"0" :
+					{
+						"name" : "0 - interrupteur mono-stable (bouton poussoir)"
+					},
+					"1" :
+					{
+						"name" : "1 - interrupteur bi-stable"
+					}
+				}
+			},
+			"2" :
+			{
+				"name" : "Type de contact sur l'entrée switch 2",
+				"default" : "1",
+				"type" : "select",
+				"value" :
+				{
+					"0" :
+					{
+						"name" : "0 - interrupteur mono-stable (bouton poussoir)"
+					},
+					"1" :
+					{
+						"name" : "1 - interrupteur bi-stable"
+					}
+				}
+			},
+			"10" :
+			{
+				"name" : "Commande ALL ON \/ ALL OFF",
+				"default" : "255",
+				"type" : "select",
+				"value" :
+				{
+					"0" :
+					{
+						"name" : "0 - ALL ON désactivé, ALL OFF désactivé"
+					},
+					"1" :
+					{
+						"name" : "1 - ALL ON désactivé, ALL OFF activé"
+					},
+					"2" :
+					{
+						"name" : "2 - ALL ON activé, ALL OFF désactivé"
+					},
+					"255" :
+					{
+						"name" : "255 - ALL ON activé, ALL OFF activé"
+					}
+				}
+			},
+			"11" :
+			{
+				"name" : "Extinction automatique du relai Q1 après délai",
+				"description" : " délai avant l'arret autmatique du relai Q1: 1 - 65535 = 0,01 secondes - 655,35 sec. Auto OFF activé, avec le délai défini, le pas est de 10 ms.",
+				"default" : "0",
+				"type" : "input",
+				"unite": "ms",
+                		"min": "1",
+                		"max": "65535"
+			},
+			"12" :
+			{
+				"name" : "Extinction automatique du relai Q2 après délai",
+				"description" : " délai avant l'arret autmatique du relai Q2: 1 - 65535 = 0,01 secondes - 655,35 sec. Auto OFF activé, avec le délai défini, le pas est de 10 ms.",
+				"default" : "0",
+				"type" : "input",
+				"unite": "ms",
+                		"min": "1",
+                		"max": "65535"
+			},
+			"30" :
+			{
+				"name" : "Conserver l'état des relais Q1 et Q2 après une coupure de courant",
+				"default" : "0",
+				"type" : "select",
+				"value" :
+				{
+					"0" :
+					{
+						"name" : "0 - le module encastrable 2 relais mémorise son état (il reprend le dernier état connu avant la coupure de courant)"
+					},
+					"1" :
+					{
+						"name" : "1 - le module encastrable 2 relais ne mémorise pas son état, après une coupure de courant il retourne à la position (off)"
+					}
+				}
+			},
+			"40" :
+			{
+				"name" : "Envoi de rapport d'energie instantanée en Watts pour Q1",
+				"description" : "La valeur est en pourcentage 0 - 100 = 0% - 100%",
+				"default" : "1",
+				"type" : "input",
+				"unite": "%",
+                		"min": "1",
+                		"max": "100"
+				
+			},
+			"41" :
+			{
+				"name" : "Envoi de rapport d'energie instantanée en Watts pour Q2",
+				"description" : "La valeur est en pourcentage 0 - 100 = 0% - 100%",
+				"default" : "1",
+				"type" : "input",
+				"unite": "%",
+                		"min": "1",
+                		"max": "100"
+			},
+			"42" :
+			{
+				"name" : "Rapports d'énergies à un intervalle défini par Q1",
+				"descrpition" : "La valeur est l'intervalle de temps (0 - 65535) en s; pour lequel un rapport d'energie est envoyé.",
+				"default" : "300",
+				"type" : "input",
+				"unite": "s",
+                		"min": "1",
+                		"max": "65535"
+				
+			},
+			"43" :
+			{
+				"name" : "Rapports d'énergies à un intervalle défini par Q2",
+				"description" : "La valeur est l'intervalle de temps (0 - 65535) en s; pour lequel un rapport d'energie est envoyé.",
+				"default" : "300",
+				"type" : "input",
+				"unite": "s",
+                		"min": "1",
+                		"max": "65535"
+			}
+		}
+	}
+}

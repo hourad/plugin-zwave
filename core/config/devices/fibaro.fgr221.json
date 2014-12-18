@@ -1,0 +1,260 @@
+
+{
+	"fibaro.fgr221" :
+	{
+		"name" : "Fibaro FGR-221 v2.1",
+		"vendor" : "Fibar Group",
+		"manufacturerId" : 271,
+		"manufacturerProductType" : 768,
+		"manufacturerProductId" : 4106,
+		"commands" : [
+			{
+				"name" : "Niveau",
+				"type" : "info",
+				"subtype" : "binary",
+				"isVisible" : 1,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "data.level.value",
+					"minValue" : 0,
+					"maxValue" : 99
+				},
+				"display" :
+				{
+					"invertBinary" : "1"
+				},
+				"template" :
+				{
+					"dashboard" : "store",
+					"mobile" : "store"
+				}
+			},
+			{
+				"name" : "Up",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "StartLevelChange(0)&&sleep(3)&&Get()"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa-arrow-up\"></i>"
+				}
+			},
+			{
+				"name" : "Stop",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "StopLevelChange()"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa fa-pause\"></i>"
+				}
+			},
+			{
+				"name" : "Down",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "StartLevelChange(1)&&sleep(3)&&Get()"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa-arrow-down\"></i>"
+				}
+			},
+			{
+				"name" : "Etat",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 0,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "data.level"
+				}
+			},
+			{
+				"name" : "Positionnement",
+				"type" : "action",
+				"subtype" : "slider",
+				"isVisible" : 1,
+				"value" : "Etat",
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "Set(#slider#)&&sleep(15)&&Get()",
+					"minValue" : 0,
+					"maxValue" : 99
+				},
+				"template" :
+				{
+					"dashboard" : "tooltip",
+					"mobile" : "tooltip"
+				}
+			},
+			{
+				"name" : "Up Scenario",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 0,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "StartLevelChange(0)"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa-arrow-up\"></i>"
+				}
+			},
+			{
+				"name" : "Down Scenario",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 0,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "StartLevelChange(1)"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa-arrow-down\"></i>"
+				}
+			}
+		],
+		"commands_openzwave" : [
+			{
+				"name" : "Up",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "Set(0)"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa-arrow-up\"></i>"
+				}
+			},
+			{
+				"name" : "Down",
+				"type" : "action",
+				"subtype" : "other",
+				"isVisible" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "Set(99)"
+				},
+				"display" :
+				{
+					"icon" : "<i class=\"fa fa-arrow-down\"></i>"
+				}
+			},
+			{
+				"name" : "Etat",
+				"type" : "info",
+				"subtype" : "numeric",
+				"isVisible" : 0,
+				"eventOnly" : 1,
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "data[0].val"
+				}
+			},
+			{
+				"name" : "Positionnement",
+				"type" : "action",
+				"subtype" : "slider",
+				"isVisible" : 1,
+				"value" : "Etat",
+				"configuration" :
+				{
+					"instanceId" : "0",
+					"class" : "0x26",
+					"value" : "Set(#slider#)",
+					"minValue" : 0,
+					"maxValue" : 99
+				},
+				"template" :
+				{
+					"dashboard" : "tooltip",
+					"mobile" : "tooltip"
+				}
+			}
+		],
+		"parameters" :
+		{
+			"10" :
+			{
+				"name" : "Désactiver le positionnement direct du volet",
+				"description" : "",
+				"default" : "0",
+				"type" : "select",
+				"value" :
+				{
+					"0" :
+					{
+						"name" : "Active la fonction de positionnement direct du volet"
+					},
+					"1" :
+					{
+						"name" : "Désactive la fonction de positionnement direct du volet"
+					}
+				}
+			},
+			"14" :
+			{
+				"name" : "Compatibilité commutateurs bi-stables",
+				"description" : "",
+				"default" : "0",
+				"type" : "select",
+				"value" :
+				{
+					"0" :
+					{
+						"name" : "Deux boutons poussoirs impulsionnels (mono-stable)"
+					},
+					"1" :
+					{
+						"name" : "Commutateur Marche / Arrêt (bi-stable)"
+					},
+					"2" :
+					{
+						"name" : "Un seul bouton poussoir impulsionnel (mono-stable)"
+					}
+				}
+			}
+		}
+	}
+}

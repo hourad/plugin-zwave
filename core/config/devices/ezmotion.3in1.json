@@ -49,6 +49,50 @@
                 }
             }
         ],
+        "commands_openzwave": [
+            {
+                "name": "Luminosité",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "instanceId": 1,
+                    "value": "data[3].val"
+                }
+            },
+            {
+                "name": "Température",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "instanceId": 2,
+                    "value": "data[1].val"
+                }
+            },
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "binary",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x31",
+                    "instanceId": 0,
+                    "value": "data[2].val",
+                    "returnStateTime": "4",
+                    "returnStateValue": "0"
+                },
+                "display": {
+                    "invertBinary": "1"
+                },
+                "template": {
+                    "dashboard": "presence",
+                    "mobile": "presence"
+                }
+            }
+        ],
         "parameters": {
             "1": {
                 "name": "Sensibilité",

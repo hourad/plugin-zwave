@@ -57,8 +57,68 @@
                 "subtype": "numeric",
                 "isVisible": 1,
                 "configuration": {
-                    "class": "",
                     "instanceId": "1&&2",
+                    "value": "pilotWire"
+                },
+                "template": {
+                    "dashboard": "heatPiloteWire",
+                    "mobile": "heatPiloteWire"
+                }
+            }
+        ],
+        "commands_openzwave": [
+            {
+                "name": "Confort",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "0&&1",
+                    "value": "Set(0)&&Set(0)"
+                }
+            },
+            {
+                "name": "Eco",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "0&&1",
+                    "value": "Set(255)&&Set(255)"
+                }
+            },
+            {
+                "name": "Hors Gel",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "0&&1",
+                    "value": "Set(0)&&Set(255)"
+                }
+            },
+            {
+                "name": "Off",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "class": "0x25",
+                    "instanceId": "0&&1",
+                    "value": "Set(255)&&Set(0)"
+                }
+            },
+            {
+                "name": "Etat",
+                "type": "info",
+                "logicalId": "pilotWire",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "configuration": {
+                    "instanceId": "0&&1",
                     "value": "pilotWire"
                 },
                 "template": {

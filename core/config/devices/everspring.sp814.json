@@ -1,0 +1,120 @@
+{
+    "everspring.sp814": {
+        "name": "Everspring SP814 Motion Detector",
+        "vendor": "Everspring Group",
+        "manufacturerId": 96,
+        "manufacturerProductType": 1,
+        "manufacturerProductId": 2,
+        "commands": [
+			{
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "%",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x80",
+                    "value": "data.last"
+                }
+            },
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x30",
+                    "value": "data[1].level"
+                }
+            }
+        ],
+        "commands_openzwave": [
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "%",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x80",
+                    "value": "data.last"
+                }
+            },
+            {
+                "name": "Présence",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 1,
+                "unite": "",
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x30",
+                    "value": "data[0].val"
+                }
+            }
+        ],
+        "parameters": {
+            "1": {
+                "name": "Basic Set Level",
+                "description": "Set basic set value to be on or off",
+                "default": "99",
+                "type": "input",
+                "min": "0",
+                "max": "99"
+            },
+            "2": {
+                "name": "Enabling/Disabling Sensor Detecting Function",
+                "description": "Enable or Disable the detecting function",
+                "default": "1",
+                "type": "input",
+                "min": "0",
+                "max": "1",
+                "unite": ""
+            },
+            "3": {
+                "name": "Sensitivity Level",
+                "description": "Adjust the sensitivity",
+                "default": "6",
+                "type": "input",
+                "min": "1",
+                "max": "10",
+                "unite": ""
+            },
+            "4": {
+                "name": "Re-trigger Interval Setting",
+                "description": "Adjust interval of re-triggered after the detector has been triggered",
+                "default": "5",
+                "type": "input",
+                "min": "5",
+                "max": "3600",
+                "unite": "sec"
+            },
+            "5": {
+                "name": "Lux Level",
+                "description": "Set a detecting percentage of lux level",
+                "default": "10",
+                "type": "input",
+                "min": "1",
+                "max": "100",
+                "unite": "%"
+            },
+            "6": {
+                "name": "On-Off Duration",
+                "description": "Determines how long the module/lightning should stay ON",
+                "default": "5",
+                "type": "input",
+                "min": "5",
+                "max": "3600",
+                "unite": "sec"
+            }
+        }
+    }
+}    
