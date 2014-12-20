@@ -275,7 +275,6 @@ class zwave extends eqLogic {
                             }
                         }
                     } else if (count($explodeKey) > 5) {
-                        $attribut = implode('.', array_slice($explodeKey, 6));
                         if ($eqLogic->getConfiguration('device') == 'fibaro.fgrgb101' && dechex($explodeKey[5]) == '26') {
                             foreach ($eqLogic->getCmd('info') as $cmd) {
                                 if ($cmd->getConfiguration('value') == '#color#') {
@@ -293,6 +292,7 @@ class zwave extends eqLogic {
                             }
                             continue;
                         }
+                        $attribut = implode('.', array_slice($explodeKey, 6));
                         foreach ($eqLogic->getCmd('info') as $cmd) {
                             if ($cmd->getConfiguration('instanceId') == $explodeKey[3] && $cmd->getConfiguration('class') == '0x' . dechex($explodeKey[5])) {
                                 $configurationValue = str_replace(array(']', '['), array('', '.'), $cmd->getConfiguration('value'));
@@ -1290,8 +1290,6 @@ class zwaveCmd extends cmd {
                         }
                     }
                 }
-                break;
-            default:
                 break;
         }
         return $value;
