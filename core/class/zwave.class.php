@@ -224,7 +224,7 @@ class zwave extends eqLogic {
                                     }
                                 }
                             }
-                            if(!$found){
+                            if (!$found) {
                                 $eqLogic->forceUpdate(true);
                             }
                         }
@@ -978,6 +978,19 @@ class zwave extends eqLogic {
                 if (isset($configuration['size']) && isset($configuration['value']) && is_numeric($configuration['size']) && is_numeric($configuration['value'])) {
                     self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].commandClasses[0x70].Set(' . $id . ',' . $configuration['value'] . ',' . $configuration['size'] . ')');
                 }
+            }
+        }
+        $device = self::devicesParameters($this->getConfiguration('device'));
+        if (is_array($device) && isset($device['configure']) && is_array($device['configure'])) {
+            try {
+                $replace = array(
+                    '#logicalId#' => $this->getLogicalId()
+                );
+                foreach ($device['configure'] as $configure) {
+                    self::callRazberry(str_replace(array_keys($replace), $replace, $configure));
+                }
+            } catch (Exception $ex) {
+                
             }
         }
         return true;
