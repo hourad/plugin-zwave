@@ -1,0 +1,121 @@
+{
+    "mchome.mhs412": {
+        "name": "MCO Home MH-S412 [Double]",
+        "vendor": "MCO Home",
+        "manufacturerId": 351,
+        "manufacturerProductType": 16642,
+        "manufacturerProductId": 514,
+        "category": {
+            "light": "1"
+        },
+        "groups": {
+            "associate": [3]
+        },
+        "commands": [
+            {
+                "logicalId": "0.0x25",
+                "name": "Etat",
+                "type": "info",
+                "subType": "binary",
+                "isHistorized": "0",
+                "eventOnly": "1",
+                "configuration": {
+                    "instanceId": "1",
+                    "class": "0x25",
+                    "value": "data.level"
+                },
+                "isVisible": "0"
+            },
+            {
+                "logicalId": "0.0x25",
+                "name": "On",
+                "type": "action",
+                "subType": "other",
+                "isHistorized": "0",
+                "eventOnly": "0",
+                "configuration": {
+                    "instanceId": "1",
+                    "class": "0x25",
+                    "value": "Set(255)"
+                },
+                "template": {
+                    "dashboard": "light",
+                    "mobile": "light"
+                },
+                "value": "Etat",
+                "isVisible": "1"
+            },
+            {
+                "logicalId": "0.0x25",
+                "name": "Off",
+                "type": "action",
+                "subType": "other",
+                "isHistorized": "0",
+                "eventOnly": "0",
+                "configuration": {
+                    "instanceId": "1",
+                    "class": "0x25",
+                    "value": "Set(0)"
+                },
+                "template": {
+                    "dashboard": "light",
+                    "mobile": "light"
+                },
+                "value": "Etat",
+                "isVisible": "1"
+            },
+             {
+                "logicalId": "0.0x25",
+                "name": "Etat2",
+                "type": "info",
+                "subType": "binary",
+                "isHistorized": "0",
+                "eventOnly": "1",
+                "configuration": {
+                    "instanceId": "2",
+                    "class": "0x25",
+                    "value": "data.level"
+                },
+                "isVisible": "0"
+            },
+            {
+                "logicalId": "0.0x25",
+                "name": "On2",
+                "type": "action",
+                "subType": "other",
+                "isHistorized": "0",
+                "eventOnly": "0",
+                "configuration": {
+                    "instanceId": "2",
+                    "class": "0x25",
+                    "value": "Set(255)"
+                },
+                "template": {
+                    "dashboard": "light",
+                    "mobile": "light"
+                },
+                "value": "Etat2",
+                "isVisible": "1"
+            },
+            {
+                "logicalId": "0.0x25",
+                "name": "Off2",
+                "type": "action",
+                "subType": "other",
+                "isHistorized": "0",
+                "eventOnly": "0",
+                "configuration": {
+                    "instanceId": "2",
+                    "class": "0x25",
+                    "value": "Set(0)"
+                },
+                "template": {
+                    "dashboard": "light",
+                    "mobile": "light"
+                },
+                "value": "Etat2",
+                "isVisible": "1"
+            }
+        ]
+    }
+}

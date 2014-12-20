@@ -95,7 +95,6 @@ class zwave extends eqLogic {
         if (!is_array($results)) {
             return;
         }
-
         foreach ($results as $key => $result) {
             if ($key == 'controller.data.controllerState') {
                 nodejs::pushUpdate('zwave::' . $key, $result['value']);
@@ -164,7 +163,6 @@ class zwave extends eqLogic {
                     ));
                 }
             } else if ($key == 'devices') {
-
                 foreach ($result as $device_id => $data) {
                     if (!isset($data['updateTime']) || $data['updateTime'] >= $cache->getValue(0)) {
                         $eqLogic = self::byLogicalId($device_id, 'zwave');
@@ -213,7 +211,24 @@ class zwave extends eqLogic {
                 }
                 if ($explodeKey[1] == 1) {
                     if (isset($results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId'])) {
-                        $explodeKey[1] = $results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId']['value'];
+                        $eqLogic = self::byLogicalId($results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId']['value'], 'zwave');
+                        if (is_object($eqLogic)) {
+                            $found = false;
+                            foreach ($eqLogic->getCmd('info') as $cmd) {
+                                if ($cmd->getConfiguration('instanceId') == $explodeKey[3]) {
+                                    $found = true;
+                                    try {
+                                        $cmd->forceUpdate();
+                                    } catch (Exception $e) {
+                                        
+                                    }
+                                }
+                            }
+                            if(!$found){
+                                $eqLogic->forceUpdate(true);
+                            }
+                        }
+                        continue;
                     }
                 }
                 $eqLogic = self::byLogicalId($explodeKey[1], 'zwave');
@@ -666,7 +681,7 @@ class zwave extends eqLogic {
 
     /*     * *********************Methode d'instance************************* */
 
-    public function forceUpdate() {
+    public function forceUpdate($_commandOnly = false) {
         foreach ($this->getCmd() as $cmd) {
             try {
                 $cmd->forceUpdate();
@@ -674,10 +689,12 @@ class zwave extends eqLogic {
                 
             }
         }
-        try {
-            self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
-        } catch (Exception $e) {
-            
+        if (!$_commandOnly) {
+            try {
+                self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
+            } catch (Exception $e) {
+                
+            }
         }
     }
 
@@ -1209,6 +1226,10 @@ class zwave extends eqLogic {
             }
             if (isset($export['configuration']) && count($export['configuration']) == 0) {
                 unset($export['configuration']);
+            }
+            if (isset($export['cmd'])) {
+                $export['commands'] = $export['cmd'];
+                unset($export['cmd']);
             }
             return array(
                 'todo.todo' => $export
