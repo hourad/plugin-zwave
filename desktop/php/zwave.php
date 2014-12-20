@@ -78,7 +78,7 @@ $eqLogics = eqLogic::byType('zwave');
                     $urlPath2 = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '_icon.png';
                     $urlPath3 = config::byKey('market::address') . '/market/zwave/images/' . $eqLogic->getConfiguration('device') . '_icon.jpg';
 
-                    echo '<img class="lazy" src="/plugins/zwave/doc/images/zwave_icon.png" data-original3="' . $urlPath3 . '" data-original2="' . $urlPath2 . '" data-original="' . $urlPath . '" height="105" width="95" />';
+                    echo '<img class="lazy" src="plugins/zwave/doc/images/zwave_icon.png" data-original3="' . $urlPath3 . '" data-original2="' . $urlPath2 . '" data-original="' . $urlPath . '" height="105" width="95" />';
                     echo "</center>";
                     echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
                     echo '</div>';
