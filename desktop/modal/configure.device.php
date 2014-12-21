@@ -92,7 +92,7 @@ $info = $eqLogic->getInfo();
                                         <input class="form-control" id="in_wakeUpTime" value="<?php echo $wakeup; ?>" /> 
                                     </div>
                                     <div class="col-sm-2">
-                                        <a class="btn btn-success" id="bt_valideWakeup">Valider</a>
+                                        <a class="btn btn-success" id="bt_valideWakeup"><i class="fa fa-check"></i> Valider</a>
                                     </div>
                                 </div>
                                 <?php
@@ -105,15 +105,20 @@ $info = $eqLogic->getInfo();
                                         <input class="form-control" id="in_pollingTime" value="<?php echo $eqLogic->getPolling(); ?>" /> 
                                     </div>
                                     <div class="col-sm-2">
-                                        <a class="btn btn-success" id="bt_validePolling">Valider</a>
+                                        <a class="btn btn-success" id="bt_validePolling"><i class="fa fa-check"></i> Valider</a>
                                     </div>
                                 </div>
                             <?php } ?>
-                            <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeurs, statut...">Forcer re-interview</a>
-                            <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
+                            <?php
+                            if (count($device['configure']) > 0) {
+                                echo ' <a class="btn btn-default expertModeVisible tooltips" id="bt_deviceConfigureResendConfigurationCommand" style="margin-left: 5px;"><i class="fa fa-magnet"></i> Renvoyer commande(s) de configuration</a>';
+                            }
+                            ?>
+                            <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeurs, statut..."><i class="fa fa-refresh"></i> Forcer re-interview</a>
+                            <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;"><i class="fa fa-times"></i> Marquer comme sans batterie</a>
                             <?php
                             if ($info['state']['value'] == 'Dead') {
-                                echo ' <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d\'abord marquer l\'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>';
+                                echo ' <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d\'abord marquer l\'équipement comme sans batterie avant de pouvoir le supprimer"><i class="fa fa-trash"></i> Supprimer le module défaillant</a>';
                             }
                             ?>
                         </div>
@@ -481,6 +486,30 @@ $info = $eqLogic->getInfo();
             }
         });
     });
+
+    $('#bt_deviceConfigureResendConfigurationCommand').on('click', function () {
+        $.ajax({// fonction permettant de faire de l'ajax
+            type: "POST", // méthode de transmission des données au fichier php
+            url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
+            data: {
+                action: "resendDeviceConfiguration",
+                id: configureDeviceId,
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error, $('#div_configureDeviceAlert'));
+            },
+            success: function (data) { // si l'appel a bien fonctionné
+                if (data.state != 'ok') {
+                    $('#div_configureDeviceAlert').showAlert({message: data.result, level: 'danger'});
+                    return;
+                }
+                $('#div_configureDeviceAlert').showAlert({message: 'Opération réussie', level: 'success'});
+            }
+        });
+    });
+
+
     function configureDeviceLoad(_forceRefresh, _parameter_id) {
         $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // méthode de transmission des données au fichier php

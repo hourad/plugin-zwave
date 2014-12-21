@@ -980,19 +980,7 @@ class zwave extends eqLogic {
                 }
             }
         }
-        $device = self::devicesParameters($this->getConfiguration('device'));
-        if (is_array($device) && isset($device['configure']) && is_array($device['configure'])) {
-            try {
-                $replace = array(
-                    '#logicalId#' => $this->getLogicalId()
-                );
-                foreach ($device['configure'] as $configure) {
-                    self::callRazberry(str_replace(array_keys($replace), $replace, $configure));
-                }
-            } catch (Exception $ex) {
-                
-            }
-        }
+        $this->applyDeviceConfigurationCommand();
         return true;
     }
 
@@ -1131,12 +1119,7 @@ class zwave extends eqLogic {
                     'level' => 'warning',
                     'message' => __('Execution des commandes post-configuration', __FILE__)
                 ));
-                $replace = array(
-                    '#logicalId#' => $this->getLogicalId()
-                );
-                foreach ($device['configure'] as $configure) {
-                    self::callRazberry(str_replace(array_keys($replace), $replace, $configure));
-                }
+                $this->applyDeviceConfigurationCommand();
             } catch (Exception $ex) {
                 
             }
@@ -1147,6 +1130,22 @@ class zwave extends eqLogic {
             'level' => 'warning',
             'message' => ''
         ));
+    }
+
+    public function applyDeviceConfigurationCommand() {
+        $device = self::devicesParameters($this->getConfiguration('device'));
+        if (is_array($device) && isset($device['configure']) && is_array($device['configure'])) {
+            try {
+                $replace = array(
+                    '#logicalId#' => $this->getLogicalId()
+                );
+                foreach ($device['configure'] as $configure) {
+                    self::callRazberry(str_replace(array_keys($replace), $replace, $configure));
+                }
+            } catch (Exception $ex) {
+                
+            }
+        }
     }
 
     public function markAsBatteryFailed() {
