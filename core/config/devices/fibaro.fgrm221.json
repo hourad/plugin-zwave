@@ -7,16 +7,50 @@
         "manufacturerProductId": 4097,
         "commands": [
             {
+                "name": "Etat",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "eventOnly": 1,
+                "unite": "%",
+                "configuration": {
+                    "instanceId": "0",
+                    "class": "0x26",
+                    "value": "data.level",
+                    "minValue": 0,
+                    "maxValue": 99
+                },
+                "template": {
+                    "dashboard": "store",
+                    "mobile": "store"
+                }
+            },
+            {
                 "name": "Descendre",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 1,
                 "configuration": {
-                    "class": "0x25",
-                    "value": "Set(255)&&sleep(3)&&Get()"
+                    "instanceId": "0",
+                    "class": "0x26",
+                    "value": "StartLevelChange(1)"
                 },
-                "display" : {
-                    "icon" : "<i class=\"fa fa-arrow-down\"></i>"
+                "display": {
+                    "icon": "<i class=\"fa fa-arrow-down\"><\/i>"
+                }
+            },
+            {
+                "name": "Stop",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration": {
+                    "instanceId": "0",
+                    "class": "0x26",
+                    "value": "StopLevelChange()"
+                },
+                "display": {
+                    "icon": "<i class=\"fa fa-pause\"><\/i>"
                 }
             },
             {
@@ -25,36 +59,68 @@
                 "subtype": "other",
                 "isVisible": 1,
                 "configuration": {
-                    "class": "0x25",
-                    "value": "Set(0)&&sleep(3)&&Get()"
+                    "instanceId": "0",
+                    "class": "0x26",
+                    "value": "StartLevelChange(0)"
                 },
-                "display" : {
-                    "icon" : "<i class=\"fa fa-arrow-up\"></i>"
+                "display": {
+                    "icon": "<i class=\"fa fa-arrow-up\"><\/i>"
                 }
             },
             {
-                "name": "Etat",
-                "type": "info",
-                "subtype": "binary",
+                "name": "Rafraichir",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 0,
+                "configuration": {
+                    "instanceId": "0",
+                    "class": "0x26",
+                    "value": "Get()"
+                },
+                "display": {
+                    "icon": "<i class=\"fa fa-refresh\"><\/i>"
+                }
+            },
+            {
+                "name": "Niveau",
+                "type": "action",
+                "subtype": "slider",
                 "isVisible": 1,
+                "value": "Etat",
+                "configuration": {
+                    "instanceId": "0",
+                    "class": "0x26",
+                    "value": "Set(#slider#)",
+                    "minValue": 0,
+                    "maxValue": 99
+                }
+            },
+            {
+                "name": "Puissance",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "unite": "W",
                 "eventOnly": 1,
                 "configuration": {
-                    "class": "0x25",
-                    "value": "data.level"
+                    "instanceId": "0",
+                    "class": "0x31",
+                    "value": "data[4].level"
                 },
                 "template": {
-                    "dashboard": "store",
-                    "mobile": "store"
+                    "dashboard": "tile",
+                    "mobile": "tile"
                 }
             },
             {
                 "name": "Consommation",
                 "type": "info",
                 "subtype": "numeric",
-                "isVisible": 1,
+                "isVisible": 0,
                 "unite": "kWh",
                 "eventOnly": 1,
                 "configuration": {
+                    "instanceId": "0",
                     "class": "0x32",
                     "value": "data[0].level"
                 },
@@ -64,95 +130,87 @@
                 }
             },
             {
-                "name": "Rafraichir",
-                "type": "action",
-                "subtype": "other",
-                "isVisible": 1,
-                "configuration": {
-                    "class": "0x25",
-                    "value": "Get()"
-                },
-                "display" : {
-                    "icon" : "<i class=\"fa fa-refresh\"></i>"
-                }
-            },
-            {
                 "name": "Reset",
                 "type": "action",
                 "subtype": "other",
                 "isVisible": 0,
                 "configuration": {
+                    "instanceId": "0",
                     "class": "0x32",
                     "value": "Reset()"
                 }
             }
         ],
-        "commands_openzwave" : [
+        "commands_openzwave": [
             {
-                "name" : "Up",
-                "type" : "action",
-                "subtype" : "other",
-                "isVisible" : 1,
-                "configuration" :
-                {
-                    "instanceId" : "0",
-                    "class" : "0x26",
-                    "value" : "Set(0)"
-                },
-                "display" :
-                {
-                    "icon" : "<i class=\"fa fa-arrow-up\"></i>"
-                }
+                "name": "Up",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration":
+                        {
+                            "instanceId": "0",
+                            "class": "0x26",
+                            "value": "Set(0)"
+                        },
+                "display":
+                        {
+                            "icon": "<i class=\"fa fa-arrow-up\"></i>"
+                        }
             },
             {
-                "name" : "Down",
-                "type" : "action",
-                "subtype" : "other",
-                "isVisible" : 1,
-                "configuration" :
-                {
-                    "instanceId" : "0",
-                    "class" : "0x26",
-                    "value" : "Set(99)"
-                },
-                "display" :
-                {
-                    "icon" : "<i class=\"fa fa-arrow-down\"></i>"
-                }
+                "name": "Down",
+                "type": "action",
+                "subtype": "other",
+                "isVisible": 1,
+                "configuration":
+                        {
+                            "instanceId": "0",
+                            "class": "0x26",
+                            "value": "Set(99)"
+                        },
+                "display":
+                        {
+                            "icon": "<i class=\"fa fa-arrow-down\"></i>"
+                        }
             },
             {
-                "name" : "Etat",
-                "type" : "info",
-                "subtype" : "numeric",
-                "isVisible" : 0,
-                "eventOnly" : 1,
-                "configuration" :
-                {
-                    "instanceId" : "0",
-                    "class" : "0x26",
-                    "value" : "data[0].val"
-                }
+                "name": "Etat",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 0,
+                "eventOnly": 1,
+                "configuration":
+                        {
+                            "instanceId": "0",
+                            "class": "0x26",
+                            "value": "data[0].val"
+                        }
             },
             {
-                "name" : "Positionnement",
-                "type" : "action",
-                "subtype" : "slider",
-                "isVisible" : 1,
-                "value" : "Etat",
-                "configuration" :
-                {
-                    "instanceId" : "0",
-                    "class" : "0x26",
-                    "value" : "Set(#slider#)",
-                    "minValue" : 0,
-                    "maxValue" : 99
-                },
-                "template" :
-                {
-                    "dashboard" : "tooltip",
-                    "mobile" : "tooltip"
-                }
+                "name": "Positionnement",
+                "type": "action",
+                "subtype": "slider",
+                "isVisible": 1,
+                "value": "Etat",
+                "configuration":
+                        {
+                            "instanceId": "0",
+                            "class": "0x26",
+                            "value": "Set(#slider#)",
+                            "minValue": 0,
+                            "maxValue": 99
+                        },
+                "template":
+                        {
+                            "dashboard": "tooltip",
+                            "mobile": "tooltip"
+                        }
             }
+        ],
+        "configure": [
+            "/JS/Run/zway.devices[#logicalId#].SwitchMultilevel.data.supported=true",
+            "/JS/Run/zway.devices.SaveData()"
         ],
         "parameters": {
             "3": {
