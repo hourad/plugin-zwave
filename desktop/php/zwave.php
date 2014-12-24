@@ -188,7 +188,9 @@ $eqLogics = eqLogic::byType('zwave');
                                     <option value="">{{Aucun}}</option>
                                     <?php
                                     foreach (zwave::devicesParameters() as $id => $info) {
-                                        echo '<option value="' . $id . '">' . $info['name'] . '</option>';
+                                        if (isset($info['name'])) {
+                                            echo '<option value="' . $id . '">' . $info['name'] . '</option>';
+                                        }
                                     }
                                     ?>
                                 </select>
