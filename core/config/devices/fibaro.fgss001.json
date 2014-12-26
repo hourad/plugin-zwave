@@ -1,5 +1,5 @@
 {
-  "fibaro.fgfs101v2": {
+  "fibaro.fgss001": {
     "name": "Fibaro Smoke Sensor FGSS-001 V2",
     "vendor": "Fibar Group",
     "manufacturerId": 271,
@@ -227,13 +227,13 @@
             "name": "Broadcasts (envoi des messages) désactivés"
           },
           {
-            "name": "Broadcast defum�e (I GROUPE D’ASSOCIATION) activé, broadcast du capteur anti-sabotage désactivé (II GROUPE D’ASSOCIATION)"
+            "name": "Broadcast defumée (I GROUPE D’ASSOCIATION) activé, broadcast du capteur anti-sabotage désactivé (II GROUPE D’ASSOCIATION)"
           },
           {
-            "name": "Broadcast de fum�e désactivé, broadcast du capteur anti-sabotage activé"
+            "name": "Broadcast de fumée désactivé, broadcast du capteur anti-sabotage activé"
           },
           {
-            "name": "Broadcast de fum�e activé, broadcast du capteur anti-sabotage activé"
+            "name": "Broadcast de fumée activé, broadcast du capteur anti-sabotage activé"
           }
         ]
       },
