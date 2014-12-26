@@ -5,6 +5,9 @@
         "manufacturerId": 271,
         "manufacturerProductType": 769,
         "manufacturerProductId": 4097,
+        "groups": {
+            "associate": [3]
+        },        
         "commands": [
             {
                 "name": "Etat",
