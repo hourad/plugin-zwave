@@ -346,6 +346,50 @@
                     }
                 ]
             },
+            "62": {
+                "name": "Couleur si charge \u00e9teinte",
+                "description": "",
+                "default": "8",
+                "type": "select",
+                "value": [
+                    {
+                        "name": "Couleur de l`anneau",
+                        "description": " Celle de la derniere puissance mesur\u00e9e quand le dispositif \u00e9tait activ\u00e9."
+                    },
+                    {
+                        "name": "Blanc",
+                        "description": ""
+                    },
+                    {
+                        "name": "Rouge",
+                        "description": ""
+                    },
+                    {
+                        "name": "Vert",
+                        "description": ""
+                    },
+                    {
+                        "name": "Bleu",
+                        "description": ""
+                    },
+                    {
+                        "name": "Jaune",
+                        "description": ""
+                    },
+                    {
+                        "name": "Cyan",
+                        "description": ""
+                    },
+                    {
+                        "name": "Manjenta",
+                        "description": ""
+                    },
+                    {
+                        "name": "Eteint",
+                        "description": ""
+                    }
+                ]
+            },            
             "63": {
                 "name": "Couleur si alarme",
                 "description": "",
