@@ -22,7 +22,7 @@ sendVarToJs('jeeNetwork_id', '');
 if (config::byKey('zwaveAddr', 'zwave') != '127.0.0.1' && config::byKey('zwaveAddr', 'zwave') != 'localhost') {
     $jeeNetwork = jeeNetwork::byPlugin('zwave');
     if (count($jeeNetwork) == 0) {
-        throw new Exception(__('Le serveur zway n\'est pas en local ou le serveur distant n\'a pas Jeedom d\'installé en mode esclave', __FILE__));
+        throw new Exception(__('Le serveur zway n\'est pas en local.', __FILE__));
     }
     sendVarToJs('jeeNetwork_id', $jeeNetwork[0]->getId());
 }
