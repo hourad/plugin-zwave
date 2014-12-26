@@ -51,6 +51,9 @@ function zwave_update() {
             $cron->remove();
         }
     }
+    foreach (zwave::byType('zwave') as $zwave) {
+        $zwave->save();
+    }
 }
 
 function zwave_remove() {

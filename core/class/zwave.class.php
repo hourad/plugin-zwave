@@ -164,41 +164,28 @@ class zwave extends eqLogic {
                 }
             } else if ($key == 'devices') {
                 foreach ($result as $device_id => $data) {
-                    if (!isset($data['updateTime']) || $data['updateTime'] >= $cache->getValue(0)) {
-                        $eqLogic = self::byLogicalId($device_id, 'zwave');
-                        if (is_object($eqLogic)) {
-                            if ($eqLogic->getConfiguration('device') == 'fibaro.fgrgb101' && dechex($class) == '26') {
-                                foreach ($eqLogic->getCmd('info') as $cmd) {
-                                    if ($cmd->getConfiguration('value') == "#color#") {
-                                        $cmd->event($cmd->getRGBColor());
-                                        break;
+                    $eqLogic = self::byLogicalId($device_id, 'zwave');
+                    if (is_object($eqLogic)) {
+                        if ($eqLogic->getConfiguration('device') == 'fibaro.fgs221.pilote') {
+                            foreach ($eqLogic->searchCmdByConfiguration('pilotWire', 'info') as $cmd) {
+                                $cmd->event($cmd->getPilotWire());
+                                break;
+                            }
+                            continue;
+                        }
+                        foreach ($eqLogic->getCmd('info') as $cmd) {
+                            $class_id = hexdec($cmd->getConfiguration('class'));
+                            $instance_id = $cmd->getConfiguration('instanceId', 0);
+                            if (isset($data['instances'][$instance_id]['commandClasses'][$class_id])) {
+                                $data_values = explode('.', str_replace(array(']', '['), array('', '.'), $cmd->getConfiguration('value')));
+                                $value = $data['instances'][$instance_id]['commandClasses'][$class_id];
+                                foreach ($data_values as $data_value) {
+                                    if (isset($value[$data_value])) {
+                                        $value = $value[$data_value];
                                     }
                                 }
-                                continue;
-                            }
-                            if ($eqLogic->getConfiguration('device') == 'fibaro.fgs221.pilote') {
-                                foreach ($eqLogic->getCmd('info') as $cmd) {
-                                    if ($cmd->getConfiguration('value') == 'pilotWire') {
-                                        $cmd->event($cmd->getPilotWire());
-                                        break;
-                                    }
-                                }
-                                continue;
-                            }
-                            foreach ($eqLogic->getCmd('info') as $cmd) {
-                                $class_id = hexdec($cmd->getConfiguration('class'));
-                                $instance_id = $cmd->getConfiguration('instanceId', 0);
-                                if (isset($data['instances'][$instance_id]['commandClasses'][$class_id])) {
-                                    $data_values = explode('.', str_replace(array(']', '['), array('', '.'), $cmd->getConfiguration('value')));
-                                    $value = $data['instances'][$instance_id]['commandClasses'][$class_id];
-                                    foreach ($data_values as $data_value) {
-                                        if (isset($value[$data_value])) {
-                                            $value = $value[$data_value];
-                                        }
-                                    }
-                                    if (!isset($value['updateTime']) || $value['updateTime'] >= $cache->getValue(0)) {
-                                        $cmd->handleUpdateValue($value);
-                                    }
+                                if (!isset($value['updateTime']) || $value['updateTime'] >= $cache->getValue(0)) {
+                                    $cmd->handleUpdateValue($value);
                                 }
                             }
                         }
@@ -228,42 +215,29 @@ class zwave extends eqLogic {
                                 $eqLogic->forceUpdate(true);
                             }
                         }
-                        continue;
                     }
+                    continue;
                 }
                 $eqLogic = self::byLogicalId($explodeKey[1], 'zwave');
                 if (is_object($eqLogic)) {
                     if (isset($value['hasCode'])) {
-                        foreach ($eqLogic->getCmd('info') as $cmd) {
-                            if (strpos($cmd->getConfiguration('value'), 'code') !== false) {
-                                $cmd->event($cmd->execute());
-                                break;
-                            }
+                        foreach ($eqLogic->searchCmdByConfiguration('code', 'info') as $cmd) {
+                            $cmd->event($cmd->execute());
+                            break;
                         }
                         continue;
                     }
                     if (count($explodeKey) == 5) {
                         foreach ($result as $class => $value) {
-                            if ($eqLogic->getConfiguration('device') == 'fibaro.fgrgb101' && dechex($class) == '26') {
-                                foreach ($eqLogic->getCmd('info') as $cmd) {
-                                    if ($cmd->getConfiguration('value') == '#color#') {
-                                        $cmd->event($cmd->getRGBColor());
-                                        break;
-                                    }
-                                }
-                                continue;
-                            }
                             if ($eqLogic->getConfiguration('device') == 'fibaro.fgs221.pilote') {
-                                foreach ($eqLogic->getCmd('info') as $cmd) {
-                                    if ($cmd->getConfiguration('value') == 'pilotWire') {
-                                        $cmd->event($cmd->getPilotWire());
-                                        break;
-                                    }
+                                foreach ($eqLogic->searchCmdByConfiguration('pilotWire', 'info') as $cmd) {
+                                    $cmd->event($cmd->getPilotWire());
+                                    break;
                                 }
                                 continue;
                             }
                             foreach ($eqLogic->getCmd('info') as $cmd) {
-                                if ($cmd->getConfiguration('instanceId') == $explodeKey[3] && $cmd->getConfiguration('class') == '0x' . dechex($class)) {
+                                foreach ($eqLogic->getCmd('info', $explodeKey[3] . '.0x' . dechex($explodeKey[5]), null, true) as $cmd) {
                                     $configurationValues = explode('.', str_replace(array(']', '['), array('', '.'), $cmd->getConfiguration('value')));
                                     foreach ($configurationValues as $configurationValue) {
                                         if (isset($value[$configurationValue])) {
@@ -275,30 +249,17 @@ class zwave extends eqLogic {
                             }
                         }
                     } else if (count($explodeKey) > 5) {
-                        if ($eqLogic->getConfiguration('device') == 'fibaro.fgrgb101' && dechex($explodeKey[5]) == '26') {
-                            foreach ($eqLogic->getCmd('info') as $cmd) {
-                                if ($cmd->getConfiguration('value') == '#color#') {
-                                    $cmd->event($cmd->getRGBColor());
-                                }
-                            }
-                            continue;
-                        }
                         if ($eqLogic->getConfiguration('device') == 'fibaro.fgs221.pilote') {
-                            foreach ($eqLogic->getCmd('info') as $cmd) {
-                                if ($cmd->getConfiguration('value') == 'pilotWire') {
-                                    $cmd->event($cmd->getPilotWire());
-                                    break;
-                                }
+                            foreach ($eqLogic->searchCmdByConfiguration('pilotWire', 'info') as $cmd) {
+                                $cmd->event($cmd->getPilotWire());
+                                break;
                             }
                             continue;
                         }
                         $attribut = implode('.', array_slice($explodeKey, 6));
-                        foreach ($eqLogic->getCmd('info') as $cmd) {
-                            if ($cmd->getConfiguration('instanceId') == $explodeKey[3] && $cmd->getConfiguration('class') == '0x' . dechex($explodeKey[5])) {
-                                $configurationValue = str_replace(array(']', '['), array('', '.'), $cmd->getConfiguration('value'));
-                                if (strpos($configurationValue, $attribut) !== false) {
-                                    $cmd->handleUpdateValue($result);
-                                }
+                        foreach ($eqLogic->getCmd('info', $explodeKey[3] . '.0x' . dechex($explodeKey[5]), null, true) as $cmd) {
+                            if (strpos(str_replace(array(']', '['), array('', '.'), $cmd->getConfiguration('value')), $attribut) !== false) {
+                                $cmd->handleUpdateValue($result);
                             }
                         }
                     }
@@ -1223,7 +1184,7 @@ class zwave extends eqLogic {
         }
     }
 
-    public function export() {
+    public function export($_withCmd = true) {
         if ($this->getConfiguration('device') != '') {
             return array(
                 $this->getConfiguration('device') => self::devicesParameters($this->getConfiguration('device'))
@@ -1418,6 +1379,9 @@ class zwaveCmd extends cmd {
     }
 
     public function preSave() {
+        if ($this->getConfiguration('instanceId') === '') {
+            $this->setConfiguration('instanceId', '0');
+        }
         $this->setLogicalId($this->getConfiguration('instanceId') . '.' . $this->getConfiguration('class'));
     }
 
