@@ -78,7 +78,20 @@
                     "dashboard": "vibration",
                     "mobile": "vibration"
                 }
-            }
+            },
+	    {
+		"name": "Batterie",
+		"type": "info",
+		"subtype": "numeric",
+		"isVisible": 1,
+		"isHistorized": 0,
+		"unite": "%",
+		"eventOnly": 0,
+		"configuration": {
+			"class": "0x80",
+			"value": "data.last"
+		}
+	   }            
         ],
         "commands_openzwave": [
             {
