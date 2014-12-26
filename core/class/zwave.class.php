@@ -43,21 +43,23 @@ class zwave extends eqLogic {
     public static function callRazberry($_url) {
         $url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':8083' . $_url;
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $url,
+            CURLOPT_HEADER => false,
+            CURLOPT_RETURNTRANSFER => true
+        ));
         $result = curl_exec($ch);
-        if (strpos($result, 'Error 500: Server Error') === 0 || strpos($result, 'Error 500: Internal Server Error') === 0) {
-            if (strpos($result, 'Code took too long to return result') === false) {
-                throw new Exception('Echec de la commande : ' . $_url . '. Erreur : ' . $result, 500);
-            }
-        }
         if (curl_errno($ch)) {
             $curl_error = curl_error($ch);
             curl_close($ch);
             throw new Exception(__('Echec de la requete http : ', __FILE__) . $url . ' Curl error : ' . $curl_error, 404);
         }
         curl_close($ch);
+        if (strpos($result, 'Error 500: Server Error') === 0 || strpos($result, 'Error 500: Internal Server Error') === 0) {
+            if (strpos($result, 'Code took too long to return result') === false) {
+                throw new Exception('Echec de la commande : ' . $_url . '. Erreur : ' . $result, 500);
+            }
+        }
         if (is_json($result)) {
             return json_decode($result, true);
         } else {
@@ -1391,6 +1393,9 @@ class zwaveCmd extends cmd {
 
     public function sendZwaveResquest($_url) {
         $result = zwave::callRazberry($_url);
+        if ($this->getType() == 'action') {
+            return;
+        }
         if (is_array($result)) {
             $value = self::handleResult($result);
             if (isset($result['updateTime'])) {
