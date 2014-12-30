@@ -117,13 +117,6 @@ class zwave extends eqLogic {
                 if ($result['value'] != null) {
                     $eqLogic = self::byLogicalId($result['value'], 'zwave');
                     if (!is_object($eqLogic)) {
-                        for ($i = 0; $i < 15; $i++) {
-                            nodejs::pushUpdate('jeedom::alert', array(
-                                'level' => 'warning',
-                                'message' => __('Un périphérique Z-Wave vient d\'être inclus. Logical ID : ', __FILE__) . $result['value'] . __('. Pause de ', __FILE__) . (15 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
-                            ));
-                            sleep(1);
-                        }
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
                             'message' => __('Début de l\'intégration', __FILE__)
@@ -138,13 +131,6 @@ class zwave extends eqLogic {
                 if (isset($result['lastIncludedDevice']) && $result['lastIncludedDevice']['value'] != null) {
                     $eqLogic = self::byLogicalId($result['value'], 'zwave');
                     if (!is_object($eqLogic)) {
-                        for ($i = 0; $i < 15; $i++) {
-                            nodejs::pushUpdate('jeedom::alert', array(
-                                'level' => 'warning',
-                                'message' => __('Un périphérique Z-Wave vient d\'être inclus. Logical ID : ', __FILE__) . $result['value'] . __('. Pause de ', __FILE__) . (15 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
-                            ));
-                            sleep(1);
-                        }
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
                             'message' => __('Début de l\'intégration', __FILE__)
