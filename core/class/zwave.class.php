@@ -289,10 +289,10 @@ class zwave extends eqLogic {
                     $eqLogic->setIsVisible(1);
                     $eqLogic->save();
                     $eqLogic->InterviewForce();
-                    for ($i = 0; $i < 20; $i++) {
+                    for ($i = 0; $i < 60; $i++) {
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
-                            'message' => __('. Pause de ', __FILE__) . (20 - $i) . __(' pour interview forcé du module', __FILE__)
+                            'message' => __('. Pause de ', __FILE__) . (60 - $i) . __(' pour interview forcé du module', __FILE__)
                         ));
                         sleep(1);
                     }
