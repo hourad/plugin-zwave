@@ -5,6 +5,9 @@
         "manufacturerId": 134,
         "manufacturerProductType": 2,
         "manufacturerProductId": 5,
+        "groups": {
+            "associate": [1]
+        },
         "commands": [
             {
                 "name": "Présence",
@@ -207,7 +210,7 @@
                 "description": "",
                 "default": "0",
                 "type": "input",
-                "set": "225"
+                "set": "224"
             },
             "102": {
                 "name": "Type d'informations à envoyer lors transmissions à intervalles régulières au groupe 2",

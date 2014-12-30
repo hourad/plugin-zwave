@@ -5,10 +5,8 @@
         "manufacturerId": 271,
         "manufacturerProductType": 2048,
         "manufacturerProductId": 4097,
-	"groups": {
-	    "associate": [1],
-	    "associate": [2],
-            "associate": [3]
+        "groups": {
+            "associate": [1, 2, 3]
         },
         "commands": [
             {
@@ -68,30 +66,30 @@
                 "configuration": {
                     "class": "0x9C",
                     "value": "data[0].sensorState.value",
-		    "maxValue": 255,
+                    "maxValue": 255,
                     "minValue": 0
                 },
                 "display": {
                     "invertBinary": "1"
                 },
-		"template": {
+                "template": {
                     "dashboard": "vibration",
                     "mobile": "vibration"
                 }
             },
-	    {
-		"name": "Batterie",
-		"type": "info",
-		"subtype": "numeric",
-		"isVisible": 1,
-		"isHistorized": 0,
-		"unite": "%",
-		"eventOnly": 0,
-		"configuration": {
-			"class": "0x80",
-			"value": "data.last"
-		}
-	   }            
+            {
+                "name": "Batterie",
+                "type": "info",
+                "subtype": "numeric",
+                "isVisible": 1,
+                "isHistorized": 0,
+                "unite": "%",
+                "eventOnly": 0,
+                "configuration": {
+                    "class": "0x80",
+                    "value": "data.last"
+                }
+            }
         ],
         "commands_openzwave": [
             {
@@ -123,10 +121,10 @@
                 "configuration": {
                     "class": "0x9C",
                     "value": "data[0].sensorState.value",
-            "maxValue": 255,
+                    "maxValue": 255,
                     "minValue": 0
                 },
-        "template": {
+                "template": {
                     "dashboard": "vibration",
                     "mobile": "vibration"
                 }
@@ -182,7 +180,7 @@
                 "min": "8",
                 "max": "255"
             },
-	    "2": {
+            "2": {
                 "name": "INERTIE DU DETECTEUR DE MOUVEMENT (BLIND TIME)",
                 "description": "Temps pour lequel le capteur PIR sera « aveugle » aux mouvements. Ce paramètre détermine le temps minimum après lequel le capteur PIR sera prêt à détecter un nouveau mouvement. Plus ce temps est important, plus la vie de la batterie sera longue. Vous pouvez réduire cette valeur dès que vous avez besoin que le capteur PIR détecte un mouvement plus rapidement. Le temps d’inertie devrait être plus petit que celui qui figure dans le paramètre 6 (temps de maintien du mouvement). Par défaut 15 = 8 sec",
                 "default": "15",
@@ -190,7 +188,7 @@
                 "min": "0",
                 "max": "15"
             },
-	    "3": {
+            "3": {
                 "name": "PULSE COUNTER DU CAPTEUR PIR",
                 "description": "Définition du nombre de mouvements qu`il faudrait effectuer (en théorie) pour que le capteur PIR détecte le mouvement. Plus cette valeur est haute, moins le capteur PIR sera sensible. Il n`est pas recommandé de modifier ce paramètre. Par défaut 1 = 2 pulsions",
                 "default": "1",
@@ -198,7 +196,7 @@
                 "min": "0",
                 "max": "3"
             },
-	    "4": {
+            "4": {
                 "name": "WINDOW TIME DU CAPTEUR PIR",
                 "description": "Ce paramètre détermine le temps pendant lequel il doit y avoir un nombre de mouvements déterminé (paramètre 3) pour que le capteur détecte le mouvement. Théoriquement plus cette valeur est grande, plus le capteur PIR est sensible (il n’est pas recommandé de modifier ce paramètre). Par défaut 2 = 12 sec",
                 "default": "2",
@@ -206,7 +204,7 @@
                 "min": "0",
                 "max": "3"
             },
-	    "6": {
+            "6": {
                 "name": "TEMPS DE MAINTIEN DU MOUVEMENT",
                 "description": "L`alarme du mouvement détectée sera retirée dans le contrôleur et les dispositifs associés après le temps défini dans ce paramètre. Chaque mouvement suivant fera prolonger ce temps et recommencer son calcul. Dans le cas de petites valeurs, de moins de 10 secondes, il faut corriger de manière appropriée le paramètre 2 (le paramètre « Blind Time » du capteur PIR). Par défaut 2 = 12 sec",
                 "default": "30",
@@ -235,7 +233,7 @@
                     }
                 ]
             },
-	    "9": {
+            "9": {
                 "name": "LIMITE DE FONCTIONNEMEMT JOUR ET NUIT",
                 "description": "Ce paramètre définit la limite du niveau de luminosité pour le paramètre 8.",
                 "default": "200",
@@ -415,31 +413,31 @@
                         "name": "Mode Flash",
                         "description": "La LED clignote blanc pendant 10 secondes"
                     },
-		    {
+                    {
                         "name": "Blanc",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Rouge",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Vert",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Bleu",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Jaune",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Cyan",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Magenta",
                         "description": ""
                     },
@@ -451,31 +449,31 @@
                         "name": "Mode Flash",
                         "description": "La LED clignote blanc pendant 10 secondes"
                     },
-		    {
+                    {
                         "name": "Blanc",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Rouge",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Vert",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Bleu",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Jaune",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Cyan",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Magenta",
                         "description": ""
                     },
@@ -487,31 +485,31 @@
                         "name": "Mode Flash",
                         "description": "La LED clignote blanc pendant 10 secondes"
                     },
-		    {
+                    {
                         "name": "Blanc",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Rouge",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Vert",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Bleu",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Jaune",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Cyan",
                         "description": ""
                     },
-		    {
+                    {
                         "name": "Magenta",
                         "description": ""
                     }
