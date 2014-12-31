@@ -50,7 +50,7 @@ $('#bt_showClass').on('click', function () {
 });
 
 $('#bt_showZwayLog').on('click', function () {
-    $('#md_modal').dialog({title: "{{Log z-way-serveur}}"});
+    $('#md_modal').dialog({title: "{{Log du serveur Zway}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.log').dialog('open');
 });
 
@@ -60,7 +60,7 @@ $('#bt_configureDevice').on('click', function () {
 });
 
 $('#bt_inspectQueue').on('click', function () {
-    $('#md_modal').dialog({title: "{{Queue Z-wave}}"});
+    $('#md_modal').dialog({title: "{{Queue Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=inspect.queue').dialog('open');
 });
 
@@ -70,7 +70,7 @@ $('#bt_routingTable').on('click', function () {
 });
 
 $('#bt_displayZwaveData').on('click', function () {
-    $('#md_modal').dialog({title: "{{Arbre Zwave de l'équipement}}"});
+    $('#md_modal').dialog({title: "{{Arbre Z-Wave de l'équipement}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=zwave.data&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
@@ -125,14 +125,14 @@ $('body').one('nodeJsConnect', function () {
         if (_options == 1) {
             $('.changeIncludeState[data-mode=1]').removeClass('btn-default').addClass('btn-success');
             $('.changeIncludeState[data-mode=1]').attr('data-state', 0);
-            $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Arreter inclusion');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode inclusion. Recliquez sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
+            $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Arrêter l\'inclusion');
+            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
         }
         if (_options == 5) {
             $('.changeIncludeState[data-mode=0]').removeClass('btn-default').addClass('btn-danger');
             $('.changeIncludeState[data-mode=0]').attr('data-state', 0);
-            $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90"></i> Arreter exclusion');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode exclusion. Recliquez sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
+            $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90"></i> Arrêter l\'exclusion');
+            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
         }
     });
 
@@ -153,7 +153,7 @@ $('body').one('nodeJsConnect', function () {
 
 function printModuleInfo(_id) {
     $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
+        type: "POST", // méthode de transmission des données au fichier php
         url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
         data: {
             action: "getModuleInfo",
@@ -184,7 +184,7 @@ function printModuleInfo(_id) {
 
 function syncEqLogicWithRazberry() {
     $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
+        type: "POST", // méthode de transmission des données au fichier php
         url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
         data: {
             action: "syncEqLogicWithRazberry",
@@ -205,7 +205,7 @@ function syncEqLogicWithRazberry() {
 
 function changeIncludeState(_mode, _state) {
     $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des données au fichier php
+        type: "POST", // méthode de transmission des données au fichier php
         url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
         data: {
             action: "changeIncludeState",
