@@ -82,7 +82,7 @@ $('#bt_adminRazberry').on('click', function () {
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
 $('body').delegate('#bt_getFromMarket', 'click', function () {
-    $('#md_modal').dialog({title: "{{Partager sur le market}}"});
+    $('#md_modal').dialog({title: "{{Market module zwave}}"});
     $('#md_modal').load('index.php?v=d&modal=market.list&type=zwave').dialog('open');
 });
 
