@@ -18,11 +18,15 @@
 if (!isConnect('admin')) {
     throw new Exception('{{401 - Accès non autorisé}}');
 }
+$infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 ?>
 <div id='div_adminRazberryAlert' style="display: none;"></div>
 
 <center>
-    <span class="label label-info"> Version Z-Way : <?php echo zwave::getZwaveInfo('controller::data::softwareRevisionVersion::value'); ?> </span>
+    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> Version Z-Way : <?php echo $infos['controller']['data']['softwareRevisionVersion']['value']; ?></span>
+    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> Version puce zwave : <?php echo $infos['controller']['data']['ZWaveChip']['value']; ?> </span>
+    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> SDK : <?php echo $infos['controller']['data']['SDK']['value']; ?> </span>
+    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> API Version : <?php echo $infos['controller']['data']['APIVersion']['value']; ?> </span>
 </center><br/>
 
 <table class="table table-bordered table-condensed">
@@ -87,15 +91,15 @@ if (!isConnect('admin')) {
             <td>
                 <center>
                     <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(0)" data-risk="{{Moyen}}"> {{EU}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(1)" data-risk="{{Moyen}}"> {{RU}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(2)" data-risk="{{Moyen}}"> {{IN}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(6)" data-risk="{{Moyen}}"> {{CN}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(10)" data-risk="{{Moyen}}"> {{MY}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(4)" data-risk="{{Moyen}}"> {{ANZ/BR}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(5)" data-risk="{{Moyen}}"> {{HK}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(5)" data-risk="{{Moyen}}"> {{KR}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(8)" data-risk="{{Moyen}}"> {{JP}}</a>
-                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ControllerChange(3)" data-risk="{{Moyen}}"> {{US}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(1)" data-risk="{{Moyen}}"> {{RU}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(2)" data-risk="{{Moyen}}"> {{IN}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(6)" data-risk="{{Moyen}}"> {{CN}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(10)" data-risk="{{Moyen}}"> {{MY}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(4)" data-risk="{{Moyen}}"> {{ANZ/BR}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(5)" data-risk="{{Moyen}}"> {{HK}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(5)" data-risk="{{Moyen}}"> {{KR}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(8)" data-risk="{{Moyen}}"> {{JP}}</a>
+                    <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(3)" data-risk="{{Moyen}}"> {{US}}</a>
                 </center>        
             </td>
             <td>
@@ -116,6 +120,17 @@ if (!isConnect('admin')) {
                 privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire du 
                 réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire 
                 Enfin fonction est remis une des télécommandes.}}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <center>
+                    <a class='btn btn-default btn-xs bt_adminRazberryAction' data-command="controller.SetLearnMode(1)" data-risk="{{Moyen}}">{{M'inclure dans un reseaux zwave}}</a>
+                </center>
+            </td>
+            <td>
+                {{M'inclure dans un nouveau reseaux Zwave (pour etre controleur secondaire par exemple)}}
             </td>
         </tr>
     </tbody>
