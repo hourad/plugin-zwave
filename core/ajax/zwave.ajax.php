@@ -156,7 +156,7 @@ try {
             ajax::success($eqLogic->markAsBatteryFailed());
         }
         if (init('command') == 'InterviewForce') {
-            ajax::success($eqLogic->InterviewForce());
+            ajax::success($eqLogic->InterviewForce(init('instanceId'),init('classId')));
         }
     }
 

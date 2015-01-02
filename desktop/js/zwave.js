@@ -49,6 +49,16 @@ $('#bt_showClass').on('click', function () {
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.class&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
+$('#bt_healthRazberry').on('click', function () {
+    $('#md_modal').dialog({title: "{{Santé du Z-Wave}}"});
+    $('#md_modal').load('index.php?v=d&plugin=zwave&modal=network.health').dialog('open');
+});
+
+$('#bt_showInterview').on('click', function () {
+    $('#md_modal2').dialog({title: "{{Interview}}"});
+    $('#md_modal2').load('index.php?v=d&plugin=zwave&modal=interview.result&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
+});
+
 $('#bt_showZwayLog').on('click', function () {
     $('#md_modal').dialog({title: "{{Log du serveur Zway}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.log').dialog('open');

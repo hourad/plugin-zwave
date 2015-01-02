@@ -1,3 +1,8 @@
+==== 02/01/2015
+
+- Ajout d'un apercu de la santé du réseaux zwave
+- Amélioration du statut de l'interview
+
 ==== 07/12/2014
 
 - Possibilité de définir des commandes à envoyer après inclusion dans le fichier de configuration du module : 
