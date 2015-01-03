@@ -274,354 +274,337 @@ class zwave extends eqLogic {
                     $eqLogic->setLogicalId($nodeId);
                     $eqLogic->setIsVisible(1);
                     $eqLogic->save();
-                    $eqLogic->InterviewForce();
-                    for ($i = 0; $i < 60; $i++) {
+                    try {
+                      $eqLogic->InterviewForce();
+                      for ($i = 0; $i < 60; $i++) {
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
                             'message' => __('. Pause de ', __FILE__) . (60 - $i) . __(' pour interview forcé du module', __FILE__)
                             ));
                         sleep(1);
                     }
-                    $include_device = $eqLogic->getId();
-                    $findConfiguration = false;
-                    /* Reconnaissance du module */
-                    foreach (self::devicesParameters() as $device_id => $device) {
-                        if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
-                            $findConfiguration = true;
+                } catch ( Exception $e) {
+                    log::add('zwave','debug','Error interview force : '.print_r($e,true));
+                }
+                $include_device = $eqLogic->getId();
+                $findConfiguration = false;
+                /* Reconnaissance du module */
+                foreach (self::devicesParameters() as $device_id => $device) {
+                    if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
+                        $findConfiguration = true;
+                        nodejs::pushUpdate('jeedom::alert', array(
+                            'level' => 'warning',
+                            'message' => __('Périphérique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__)
+                            ));
+                        $eqLogic->setConfiguration('device', $device_id);
+                        $eqLogic->save();
+                        for ($i = 0; $i < 5; $i++) {
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
-                                'message' => __('Périphérique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__)
+                                'message' => __('. Pause de ', __FILE__) . (5 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
                                 ));
-                            $eqLogic->setConfiguration('device', $device_id);
-                            $eqLogic->save();
-                            for ($i = 0; $i < 5; $i++) {
-                                nodejs::pushUpdate('jeedom::alert', array(
-                                    'level' => 'warning',
-                                    'message' => __('. Pause de ', __FILE__) . (5 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
-                                    ));
-                                sleep(1);
-                            }
-                            nodejs::pushUpdate('jeedom::alert', array(
-                                'level' => 'warning',
-                                'message' => __('Mise à jour forcée des valeurs des commandes', __FILE__)
-                                ));
-                            $eqLogic->forceUpdate();
-                            break;
+                            sleep(1);
                         }
+                        nodejs::pushUpdate('jeedom::alert', array(
+                            'level' => 'warning',
+                            'message' => __('Mise à jour forcée des valeurs des commandes', __FILE__)
+                            ));
+                        $eqLogic->forceUpdate();
+                        break;
                     }
                 }
             }
         }
-        if (config::byKey('autoRemoveExcludeDevice', 'zwave') == 1 && count($findDevice) > 1) {
-            foreach (self::byType('zwave') as $eqLogic) {
-                if (!isset($findDevice[$eqLogic->getLogicalId()])) {
-                    $eqLogic->remove();
+    }
+    if (config::byKey('autoRemoveExcludeDevice', 'zwave') == 1 && count($findDevice) > 1) {
+        foreach (self::byType('zwave') as $eqLogic) {
+            if (!isset($findDevice[$eqLogic->getLogicalId()])) {
+                $eqLogic->remove();
+            }
+        }
+    }
+    nodejs::pushUpdate('zwave::includeDevice', $include_device);
+    if (!$findConfiguration) {
+        nodejs::pushUpdate('jeedom::alert', array(
+            'level' => 'warning',
+            'message' => __('Votre module n\'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible', __FILE__)
+            ));
+    } else {
+        nodejs::pushUpdate('jeedom::alert', array(
+            'level' => 'warning',
+            'message' => ''
+            ));
+    }
+}
+
+public static function restartZwayServer($_debug = false) {
+    if ($_debug) {
+        $cmd = 'sudo su -; ';
+        $cmd .= 'killall -9 z-way-server; ';
+        $cmd .= 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/z-way-server/libs; ';
+        $cmd .= '&& cd /opt/z-way-server; ';
+        $cmd .= './z-way-server >> ' . log::getPathToLog('zwavecmd') . ' 2>&1 &';
+    } else {
+        $output = array();
+        $retval = 0;
+        exec('sudo killall -9 z-way-server; sudo service z-way-server start', $output, $retval);
+        if ($retval != 0) {
+            throw new Exception(__('Impossible de redémarrer le serveur zway (problème de droits ?) : ', __FILE__) . print_r($output, true));
+        }
+    }
+}
+
+public static function changeIncludeState($_mode, $_state) {
+    if ($_mode == 1) {
+        self::callRazberry('/ZWaveAPI/Run/controller.AddNodeToNetwork(' . $_state . ')');
+    } else {
+        self::callRazberry('/ZWaveAPI/Run/controller.RemoveNodeFromNetwork(' . $_state . ')');
+    }
+}
+
+public static function getCommandClassInfo($_class) {
+    global $listClassCommand;
+    include_file('core', 'class.command', 'config', 'zwave');
+    if (isset($listClassCommand[$_class])) {
+        return $listClassCommand[$_class];
+    }
+    return array();
+}
+
+public static function cron() {
+        //Rafraichissement des valeurs des modules
+    foreach (eqLogic::byType('zwave') as $eqLogic) {
+        if ($eqLogic->getIsEnable() == 1) {
+            $scheduler = $eqLogic->getConfiguration('refreshDelay', '');
+            if ($scheduler != '') {
+                try {
+                    $c = new Cron\CronExpression($scheduler, new Cron\FieldFactory);
+                    if ($c->isDue()) {
+                        try {
+                            foreach ($eqLogic->getCmd() as $cmd) {
+                                $cmd->forceUpdate();
+                            }
+                        } catch (Exception $exc) {
+                            log::add('zwave', 'error', __('Erreur pour ', __FILE__) . $eqLogic->getHumanName() . ' : ' . $exc->getMessage());
+                        }
+                    }
+                } catch (Exception $exc) {
+                    log::add('zwave', 'error', __('Expression cron non valide pour ', __FILE__) . $eqLogic->getHumanName() . ' : ' . $scheduler);
                 }
             }
         }
-        nodejs::pushUpdate('zwave::includeDevice', $include_device);
-        if (!$findConfiguration) {
-            nodejs::pushUpdate('jeedom::alert', array(
-                'level' => 'warning',
-                'message' => __('Votre module n\'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible', __FILE__)
-                ));
-        } else {
-            nodejs::pushUpdate('jeedom::alert', array(
-                'level' => 'warning',
-                'message' => ''
-                ));
+    }
+    if (config::byKey('jeeNetwork::mode') == 'slave') {
+        $cron = cron::byClassAndFunction('zwave', 'pull');
+        if (is_object($cron)) {
+            $cron->remove();
         }
     }
+}
 
-    public static function restartZwayServer($_debug = false) {
-        if ($_debug) {
-            $cmd = 'sudo su -; ';
-            $cmd .= 'killall -9 z-way-server; ';
-            $cmd .= 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/z-way-server/libs; ';
-            $cmd .= '&& cd /opt/z-way-server; ';
-            $cmd .= './z-way-server >> ' . log::getPathToLog('zwavecmd') . ' 2>&1 &';
-        } else {
-            $output = array();
-            $retval = 0;
-            exec('sudo killall -9 z-way-server; sudo service z-way-server start', $output, $retval);
-            if ($retval != 0) {
-                throw new Exception(__('Impossible de redémarrer le serveur zway (problème de droits ?) : ', __FILE__) . print_r($output, true));
+public static function cronDaily() {
+    foreach (zwave::byType('zwave') as $eqLogic) {
+        if ($eqLogic->getConfiguration('noBatterieCheck') != 1) {
+            try {
+                self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
+                $info = $eqLogic->getInfo();
+                if (isset($info['battery']) && $info['battery'] !== '') {
+                    $eqLogic->batteryStatus($info['battery']['value']);
+                }
+            } catch (Exception $exc) {
+
             }
         }
     }
+}
 
-    public static function changeIncludeState($_mode, $_state) {
-        if ($_mode == 1) {
-            self::callRazberry('/ZWaveAPI/Run/controller.AddNodeToNetwork(' . $_state . ')');
+public static function inspectQueue() {
+    $results = self::callRazberry('/ZWaveAPI/InspectQueue');
+    $return = array();
+    foreach ($results as $result) {
+        $queue = array();
+        $queue['timeout'] = $result[0];
+        $queue['id'] = $result[2];
+        $eqLogic = zwave::byLogicalId($queue['id'], 'zwave');
+        $queue['name'] = '';
+        if (is_object($eqLogic)) {
+            $queue['name'] = $eqLogic->getHumanName();
+        }
+        $queue['description'] = $result[3];
+        $queue['status'] = $result[4];
+        if ($queue['status'] == null) {
+            $queue['status'] = '';
+        }
+        $status = $result[1];
+        if ($status[1] == 1) {
+            $queue['status'] .= ' [Wait wakeup]';
+        }
+        $queue['sendCount'] = $status[0];
+        $return[] = $queue;
+    }
+    return $return;
+}
+
+public static function getRoutingTable() {
+    $results = self::callRazberry('/ZWaveAPI/Data/0');
+    $razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+    $return = array();
+    $nb = count($results['devices']);
+    foreach ($results['devices'] as $id => $device) {
+        $return[$id] = $device;
+        if ($id == $razberry_id) {
+            $return[$id]['name'] = 'Razberry';
         } else {
-            self::callRazberry('/ZWaveAPI/Run/controller.RemoveNodeFromNetwork(' . $_state . ')');
+            $return[$id]['name'] = $id;
+            if ($nb < 25) {
+                $eqLogic = zwave::byLogicalId($id, 'zwave');
+                if (is_object($eqLogic)) {
+                    $return[$id]['name'] = $eqLogic->getHumanName();
+                }
+            }
+        }
+    }
+    return $return;
+}
+
+public static function updateRoute() {
+    self::callRazberry('/ZWaveAPI/Run/controller.RequestNetworkUpdate()');
+    foreach (eqLogic::byType('zwave') as $eqLogic) {
+        self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()');
+    }
+}
+
+public static function devicesParameters($_device = '') {
+    $path = dirname(__FILE__) . '/../config/devices';
+    if (isset($_device) && $_device != '') {
+        $files = ls($path, $_device . '.json', false, array('files', 'quiet'));
+        if (count($files) == 1) {
+            try {
+                $content = file_get_contents($path . '/' . $files[0]);
+                if (is_json($content)) {
+                    $deviceConfiguration = json_decode($content, true);
+                    return $deviceConfiguration[$_device];
+                }
+                return array();
+            } catch (Exception $e) {
+                return array();
+            }
+        }
+    }
+    $files = ls($path, '*.json', false, array('files', 'quiet'));
+    $return = array();
+    foreach ($files as $file) {
+        try {
+            $content = file_get_contents($path . '/' . $file);
+            if (is_json($content)) {
+                $return += json_decode($content, true);
+            }
+        } catch (Exception $e) {
+
         }
     }
 
-    public static function getCommandClassInfo($_class) {
-        global $listClassCommand;
-        include_file('core', 'class.command', 'config', 'zwave');
-        if (isset($listClassCommand[$_class])) {
-            return $listClassCommand[$_class];
+    if (isset($_device) && $_device != '') {
+        if (isset($return[$_device])) {
+            return $return[$_device];
         }
         return array();
     }
+    return $return;
+}
 
-    public static function cron() {
-        //Rafraichissement des valeurs des modules
-        foreach (eqLogic::byType('zwave') as $eqLogic) {
-            if ($eqLogic->getIsEnable() == 1) {
-                $scheduler = $eqLogic->getConfiguration('refreshDelay', '');
-                if ($scheduler != '') {
-                    try {
-                        $c = new Cron\CronExpression($scheduler, new Cron\FieldFactory);
-                        if ($c->isDue()) {
-                            try {
-                                foreach ($eqLogic->getCmd() as $cmd) {
-                                    $cmd->forceUpdate();
-                                }
-                            } catch (Exception $exc) {
-                                log::add('zwave', 'error', __('Erreur pour ', __FILE__) . $eqLogic->getHumanName() . ' : ' . $exc->getMessage());
-                            }
-                        }
-                    } catch (Exception $exc) {
-                        log::add('zwave', 'error', __('Expression cron non valide pour ', __FILE__) . $eqLogic->getHumanName() . ' : ' . $scheduler);
-                    }
-                }
-            }
-        }
-        if (config::byKey('jeeNetwork::mode') == 'slave') {
-            $cron = cron::byClassAndFunction('zwave', 'pull');
-            if (is_object($cron)) {
-                $cron->remove();
-            }
+/*     * *************************MARKET**************************************** */
+
+public static function shareOnMarket(&$market) {
+    $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
+    if (!file_exists($moduleFile)) {
+        throw new Exception('Impossible de trouver le fichier de configuration ' . $moduleFile);
+    }
+    $tmp = dirname(__FILE__) . '/../../../../tmp/' . $market->getLogicalId() . '.zip';
+    if (file_exists($tmp)) {
+        if (!unlink($tmp)) {
+            throw new Exception(__('Impossible de supprimer : ', __FILE__) . $tmp . __('. Vérifiez les droits', __FILE__));
         }
     }
+    if (!create_zip($moduleFile, $tmp)) {
+        throw new Exception(__('Echec de création du zip. Répertoire source : ', __FILE__) . $moduleFile . __(' / Répertoire cible : ', __FILE__) . $tmp);
+    }
+    return $tmp;
+}
 
-    public static function cronDaily() {
+public static function getFromMarket(&$market, $_path) {
+    $cibDir = dirname(__FILE__) . '/../config/devices/';
+    if (!file_exists($cibDir)) {
+        throw new Exception(__('Impossible d\'installer la configuration du module le répertoire n\'existe pas : ', __FILE__) . $cibDir);
+    }
+    $zip = new ZipArchive;
+    if ($zip->open($_path) === TRUE) {
+        $zip->extractTo($cibDir . '/');
+        $zip->close();
+    } else {
+        throw new Exception('Impossible de décompresser le zip : ' . $_path);
+    }
+    $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
+    if (!file_exists($moduleFile)) {
+        throw new Exception(__('Echec de l\'installation. Impossible de trouver le module ', __FILE__) . $moduleFile);
+    }
+
+    foreach (eqLogic::byTypeAndSearhConfiguration('zwave', $market->getLogicalId()) as $eqLogic) {
+        $eqLogic->applyModuleConfiguration();
+    }
+}
+
+public static function removeFromMarket(&$market) {
+    $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
+    if (!file_exists($moduleFile)) {
+        throw new Exception(__('Echec lors de la suppression. Impossible de trouver le module ', __FILE__) . $moduleFile);
+    }
+    if (!unlink($moduleFile)) {
+        throw new Exception(__('Impossible de supprimer le fichier :  ', __FILE__) . $moduleFile . '. Veuillez vérifier les droits');
+    }
+}
+
+public static function listMarketObject() {
+    $return = array();
+    foreach (zwave::devicesParameters() as $logical_id => $name) {
+        $return[] = $logical_id;
+    }
+    return $return;
+}
+
+/*     * *************************BACKUP/RESTORATION**************************************** */
+
+public static function backup($_path) {
+    if (config::byKey('isOpenZwave', 'zwave', 0) == 0) {
+        file_put_contents($_path . '/zway.zbk', fopen('http://' . config::byKey('zwaveAddr', 'zwave') . ':8083/ZWaveAPI/Backup', 'r'));
+    }
+}
+
+public static function restore() {
+    self::adminRazberry('RequestNodeInformation', true);
+    self::adminRazberry('InterviewForce', true);
+}
+
+/*     * ************************************************************* */
+
+public static function adminRazberry($_command, $_ignoreError = false) {
+    if ($_command == 'RequestNodeInformation()') {
         foreach (zwave::byType('zwave') as $eqLogic) {
-            if ($eqLogic->getConfiguration('noBatterieCheck') != 1) {
+            if ($eqLogic->getLogicalId() != 1) {
                 try {
-                    self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
-                    $info = $eqLogic->getInfo();
-                    if (isset($info['battery']) && $info['battery'] !== '') {
-                        $eqLogic->batteryStatus($info['battery']['value']);
-                    }
-                } catch (Exception $exc) {
-
-                }
-            }
-        }
-    }
-
-    public static function inspectQueue() {
-        $results = self::callRazberry('/ZWaveAPI/InspectQueue');
-        $return = array();
-        foreach ($results as $result) {
-            $queue = array();
-            $queue['timeout'] = $result[0];
-            $queue['id'] = $result[2];
-            $eqLogic = zwave::byLogicalId($queue['id'], 'zwave');
-            $queue['name'] = '';
-            if (is_object($eqLogic)) {
-                $queue['name'] = $eqLogic->getHumanName();
-            }
-            $queue['description'] = $result[3];
-            $queue['status'] = $result[4];
-            if ($queue['status'] == null) {
-                $queue['status'] = '';
-            }
-            $status = $result[1];
-            if ($status[1] == 1) {
-                $queue['status'] .= ' [Wait wakeup]';
-            }
-            $queue['sendCount'] = $status[0];
-            $return[] = $queue;
-        }
-        return $return;
-    }
-
-    public static function getRoutingTable() {
-        $results = self::callRazberry('/ZWaveAPI/Data/0');
-        $razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
-        $return = array();
-        $nb = count($results['devices']);
-        foreach ($results['devices'] as $id => $device) {
-            $return[$id] = $device;
-            if ($id == $razberry_id) {
-                $return[$id]['name'] = 'Razberry';
-            } else {
-                $return[$id]['name'] = $id;
-                if ($nb < 25) {
-                    $eqLogic = zwave::byLogicalId($id, 'zwave');
-                    if (is_object($eqLogic)) {
-                        $return[$id]['name'] = $eqLogic->getHumanName();
-                    }
-                }
-            }
-        }
-        return $return;
-    }
-
-    public static function updateRoute() {
-        self::callRazberry('/ZWaveAPI/Run/controller.RequestNetworkUpdate()');
-        foreach (eqLogic::byType('zwave') as $eqLogic) {
-            self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()');
-        }
-    }
-
-    public static function devicesParameters($_device = '') {
-        $path = dirname(__FILE__) . '/../config/devices';
-        if (isset($_device) && $_device != '') {
-            $files = ls($path, $_device . '.json', false, array('files', 'quiet'));
-            if (count($files) == 1) {
-                try {
-                    $content = file_get_contents($path . '/' . $files[0]);
-                    if (is_json($content)) {
-                        $deviceConfiguration = json_decode($content, true);
-                        return $deviceConfiguration[$_device];
-                    }
-                    return array();
-                } catch (Exception $e) {
-                    return array();
-                }
-            }
-        }
-        $files = ls($path, '*.json', false, array('files', 'quiet'));
-        $return = array();
-        foreach ($files as $file) {
-            try {
-                $content = file_get_contents($path . '/' . $file);
-                if (is_json($content)) {
-                    $return += json_decode($content, true);
-                }
-            } catch (Exception $e) {
-
-            }
-        }
-
-        if (isset($_device) && $_device != '') {
-            if (isset($return[$_device])) {
-                return $return[$_device];
-            }
-            return array();
-        }
-        return $return;
-    }
-
-    /*     * *************************MARKET**************************************** */
-
-    public static function shareOnMarket(&$market) {
-        $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
-        if (!file_exists($moduleFile)) {
-            throw new Exception('Impossible de trouver le fichier de configuration ' . $moduleFile);
-        }
-        $tmp = dirname(__FILE__) . '/../../../../tmp/' . $market->getLogicalId() . '.zip';
-        if (file_exists($tmp)) {
-            if (!unlink($tmp)) {
-                throw new Exception(__('Impossible de supprimer : ', __FILE__) . $tmp . __('. Vérifiez les droits', __FILE__));
-            }
-        }
-        if (!create_zip($moduleFile, $tmp)) {
-            throw new Exception(__('Echec de création du zip. Répertoire source : ', __FILE__) . $moduleFile . __(' / Répertoire cible : ', __FILE__) . $tmp);
-        }
-        return $tmp;
-    }
-
-    public static function getFromMarket(&$market, $_path) {
-        $cibDir = dirname(__FILE__) . '/../config/devices/';
-        if (!file_exists($cibDir)) {
-            throw new Exception(__('Impossible d\'installer la configuration du module le répertoire n\'existe pas : ', __FILE__) . $cibDir);
-        }
-        $zip = new ZipArchive;
-        if ($zip->open($_path) === TRUE) {
-            $zip->extractTo($cibDir . '/');
-            $zip->close();
-        } else {
-            throw new Exception('Impossible de décompresser le zip : ' . $_path);
-        }
-        $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
-        if (!file_exists($moduleFile)) {
-            throw new Exception(__('Echec de l\'installation. Impossible de trouver le module ', __FILE__) . $moduleFile);
-        }
-
-        foreach (eqLogic::byTypeAndSearhConfiguration('zwave', $market->getLogicalId()) as $eqLogic) {
-            $eqLogic->applyModuleConfiguration();
-        }
-    }
-
-    public static function removeFromMarket(&$market) {
-        $moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
-        if (!file_exists($moduleFile)) {
-            throw new Exception(__('Echec lors de la suppression. Impossible de trouver le module ', __FILE__) . $moduleFile);
-        }
-        if (!unlink($moduleFile)) {
-            throw new Exception(__('Impossible de supprimer le fichier :  ', __FILE__) . $moduleFile . '. Veuillez vérifier les droits');
-        }
-    }
-
-    public static function listMarketObject() {
-        $return = array();
-        foreach (zwave::devicesParameters() as $logical_id => $name) {
-            $return[] = $logical_id;
-        }
-        return $return;
-    }
-
-    /*     * *************************BACKUP/RESTORATION**************************************** */
-
-    public static function backup($_path) {
-        if (config::byKey('isOpenZwave', 'zwave', 0) == 0) {
-            file_put_contents($_path . '/zway.zbk', fopen('http://' . config::byKey('zwaveAddr', 'zwave') . ':8083/ZWaveAPI/Backup', 'r'));
-        }
-    }
-
-    public static function restore() {
-        self::adminRazberry('RequestNodeInformation', true);
-        self::adminRazberry('InterviewForce', true);
-    }
-
-    /*     * ************************************************************* */
-
-    public static function adminRazberry($_command, $_ignoreError = false) {
-        if ($_command == 'RequestNodeInformation()') {
-            foreach (zwave::byType('zwave') as $eqLogic) {
-                if ($eqLogic->getLogicalId() != 1) {
-                    try {
-                        self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeInformation()');
-                    } catch (Exception $e) {
-                        if (!$_ignoreError) {
-                            throw $e;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        if ($_command == 'SerialAPISoftReset()') {
-            try {
-                self::callRazberry('/ZWaveAPI/Run/' . $_command);
-            } catch (Exception $e) {
-                if (!$_ignoreError) {
-                    throw $e;
-                }
-            }
-            return true;
-        }
-        if ($_command == 'InterviewForce') {
-            foreach (eqLogic::byType('zwave') as $eqLogic) {
-                try {
-                    $eqLogic->InterviewForce();
+                    self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeInformation()');
                 } catch (Exception $e) {
                     if (!$_ignoreError) {
                         throw $e;
                     }
                 }
             }
-            return true;
         }
+        return true;
+    }
+    if ($_command == 'SerialAPISoftReset()') {
         try {
-            self::callRazberry('/ZWaveAPI/Run/controller.' . $_command);
+            self::callRazberry('/ZWaveAPI/Run/' . $_command);
         } catch (Exception $e) {
             if (!$_ignoreError) {
                 throw $e;
@@ -629,197 +612,218 @@ class zwave extends eqLogic {
         }
         return true;
     }
-
-    /*     * *********************Methode d'instance************************* */
-
-    public function forceUpdate($_commandOnly = false) {
-        foreach ($this->getCmd() as $cmd) {
+    if ($_command == 'InterviewForce') {
+        foreach (eqLogic::byType('zwave') as $eqLogic) {
             try {
-                $cmd->forceUpdate();
+                $eqLogic->InterviewForce();
             } catch (Exception $e) {
-
-            }
-        }
-        if (!$_commandOnly) {
-            try {
-                self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
-            } catch (Exception $e) {
-
-            }
-        }
-    }
-
-    public function getAssociation() {
-        $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[133].data');
-        if (!isset($results['supported']) || !isset($results['supported']['value']) || $results['supported']['value'] == false) {
-            throw new Exception(__('Ce module ne supporte pas la notion de groupe', __FILE__));
-        }
-        $hasGroup = false;
-        $razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
-        foreach ($results as $group => &$values) {
-            if (is_numeric($group)) {
-                $hasGroup = true;
-                $info_group = array();
-                foreach ($values['nodes']['value'] as $node) {
-                    if ($node == $razberry_id) {
-                        $info_group[] = array('id' => $node, 'name' => 'Jeedom');
-                    } else {
-                        $eqLogic = zwave::byLogicalId($node);
-                        if (is_object($eqLogic)) {
-                            $info_group[] = array('id' => $node, 'name' => $eqLogic->getHumanName());
-                        } else {
-                            $info_group[] = array('id' => $node, 'name' => $node);
-                        }
-                    }
+                if (!$_ignoreError) {
+                    throw $e;
                 }
-                $values['nodes']['value'] = $info_group;
-            }
-        }
-        if (!$hasGroup) {
-            self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[133].Get()');
-            throw new Exception(__('Aucun groupe trouvé, veuillez retester dans 10 min le temps d\'interroger le module', __FILE__));
-        }
-        return $results;
-    }
-
-    public function changeAssociation($_mode, $_group, $_node = 1) {
-        if ($_node == '' || !is_numeric($_node)) {
-            throw new Exception(__('Vous devez mettre un node ID non vide et qui soit numérique', __FILE__));
-        }
-        if ($_group == '' || !is_numeric($_group)) {
-            throw new Exception(__('Vous devez mettre un groupe non vide et qui soit numérique', __FILE__));
-        }
-        if ($_mode == 'remove') {
-            self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x85].Remove(' . $_group . ',' . $_node . ')');
-        }
-        if ($_mode == 'add') {
-
-            self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x85].Set(' . $_group . ',' . $_node . ')');
-        }
-        sleep(2);
-    }
-
-    public function getAvailableCommandClass() {
-        $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].commandClasses');
-        $return = array();
-        foreach ($results as $class => $value) {
-            $return[] = '0x' . dechex(intval($class));
-        }
-        return $return;
-    }
-
-    public function ping() {
-        $info = $this->getInfo();
-        if ($info['state']['value'] == 'Réveillé') {
-            $cmds = $this->getCmd();
-            $cmds[0]->forceUpdate();
-            if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-2 minutes' . date('Y-m-d H:i:s')))) {
-                sleep(5);
-            }
-            if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-2 minutes' . date('Y-m-d H:i:s')))) {
-                return false;
-            }
-        } else {
-            if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-' . $this->getTimeout() . ' minutes' . date('Y-m-d H:i:s')))) {
-                return false;
             }
         }
         return true;
     }
-
-    public function getInfo($_infos = '') {
-        $deviceConf = self::devicesParameters($this->getConfiguration('device'));
-        $return = array();
-        if (!is_numeric($this->getLogicalId())) {
-            return $return;
-        }
-        if($_infos == ''){
-            $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . ']');
-        }else{
-            $results = $_infos['devices'][$this->getLogicalId()];
-        }
-        if ($this->getConfiguration('noBatterieCheck') != 1 && isset($results['instances']) && isset($results['instances'][0]) &&
-            isset($results['instances'][0]['commandClasses']) && isset($results['instances'][0]['commandClasses'][128]) &&
-            isset($results['instances'][0]['commandClasses'][128]['data']['supported']) && $results['instances'][0]['commandClasses'][128]['data']['supported']['value'] === true) {
-            $return['battery'] = array(
-                'value' => $results['instances'][0]['commandClasses'][128]['data']['last']['value'],
-                'datetime' => date('Y-m-d H:i:s', $results['instances'][0]['commandClasses'][128]['data']['last']['updateTime']),
-                'unite' => '%',
-                );
-    }
-
-    if (isset($results['data'])) {
-        if (isset($results['data']['isAwake'])) {
-            $return['state'] = array(
-                'value' => ($results['data']['isAwake']['value']) ? 'Réveillé' : 'Endormi',
-                'datetime' => date('Y-m-d H:i:s', $results['data']['isAwake']['updateTime']),
-                );
-        }
-        if (isset($results['data']['isFailed'])) {
-            $return['state']['value'] = ($results['data']['isFailed']['value']) ? 'Dead' : $return['state']['value'];
-        }
-        if (isset($deviceConf['name'])) {
-            $return['name'] = array(
-                'value' => $deviceConf['name'],
-                'datetime' => date('Y-m-d H:i:s'),
-                );
-        }
-        if (isset($deviceConf['vendor'])) {
-            $return['brand'] = array(
-                'value' => $deviceConf['vendor'],
-                'datetime' => date('Y-m-d H:i:s'),
-                );
-        } else {
-            if (isset($results['data']['vendorString'])) {
-                $return['brand'] = array(
-                    'value' => $results['data']['vendorString']['value'],
-                    'datetime' => date('Y-m-d H:i:s', $results['data']['vendorString']['updateTime']),
-                    );
-            }
-        }
-
-        if (isset($results['data']['lastReceived'])) {
-            $return['lastReceived'] = array(
-                'value' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
-                'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
-                );
-        }
-        if (isset($results['data']['manufacturerId'])) {
-            $return['manufacturerId'] = array(
-                'value' => $results['data']['manufacturerId']['value'],
-                );
-        }
-        if (isset($results['data']['manufacturerProductType'])) {
-            $return['manufacturerProductType'] = array(
-                'value' => $results['data']['manufacturerProductType']['value'],
-                );
-        }
-        if (isset($results['data']['manufacturerProductId'])) {
-            $return['manufacturerProductId'] = array(
-                'value' => $results['data']['manufacturerProductId']['value'],
-                );
+    try {
+        self::callRazberry('/ZWaveAPI/Run/controller.' . $_command);
+    } catch (Exception $e) {
+        if (!$_ignoreError) {
+            throw $e;
         }
     }
-    $return['interviewComplete'] = array(
-        'value' => __('Complet', __FILE__),
-        );
+    return true;
+}
 
-    if (isset($results['instances']) && is_array($results['instances'])) {
-        foreach ($results['instances'] as $instanceID => $instance) {
-            foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
-                if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
-                    continue;
-                }
-                if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
-                    continue;
-                }
-                if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
-                    $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
+/*     * *********************Methode d'instance************************* */
+
+public function forceUpdate($_commandOnly = false) {
+    foreach ($this->getCmd() as $cmd) {
+        try {
+            $cmd->forceUpdate();
+        } catch (Exception $e) {
+
+        }
+    }
+    if (!$_commandOnly) {
+        try {
+            self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
+        } catch (Exception $e) {
+
+        }
+    }
+}
+
+public function getAssociation() {
+    $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[133].data');
+    if (!isset($results['supported']) || !isset($results['supported']['value']) || $results['supported']['value'] == false) {
+        throw new Exception(__('Ce module ne supporte pas la notion de groupe', __FILE__));
+    }
+    $hasGroup = false;
+    $razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+    foreach ($results as $group => &$values) {
+        if (is_numeric($group)) {
+            $hasGroup = true;
+            $info_group = array();
+            foreach ($values['nodes']['value'] as $node) {
+                if ($node == $razberry_id) {
+                    $info_group[] = array('id' => $node, 'name' => 'Jeedom');
+                } else {
+                    $eqLogic = zwave::byLogicalId($node);
+                    if (is_object($eqLogic)) {
+                        $info_group[] = array('id' => $node, 'name' => $eqLogic->getHumanName());
+                    } else {
+                        $info_group[] = array('id' => $node, 'name' => $node);
+                    }
                 }
             }
+            $values['nodes']['value'] = $info_group;
         }
+    }
+    if (!$hasGroup) {
+        self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[133].Get()');
+        throw new Exception(__('Aucun groupe trouvé, veuillez retester dans 10 min le temps d\'interroger le module', __FILE__));
+    }
+    return $results;
+}
+
+public function changeAssociation($_mode, $_group, $_node = 1) {
+    if ($_node == '' || !is_numeric($_node)) {
+        throw new Exception(__('Vous devez mettre un node ID non vide et qui soit numérique', __FILE__));
+    }
+    if ($_group == '' || !is_numeric($_group)) {
+        throw new Exception(__('Vous devez mettre un groupe non vide et qui soit numérique', __FILE__));
+    }
+    if ($_mode == 'remove') {
+        self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x85].Remove(' . $_group . ',' . $_node . ')');
+    }
+    if ($_mode == 'add') {
+
+        self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[0x85].Set(' . $_group . ',' . $_node . ')');
+    }
+    sleep(2);
+}
+
+public function getAvailableCommandClass() {
+    $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].commandClasses');
+    $return = array();
+    foreach ($results as $class => $value) {
+        $return[] = '0x' . dechex(intval($class));
     }
     return $return;
+}
+
+public function ping() {
+    $info = $this->getInfo();
+    if ($info['state']['value'] == 'Réveillé') {
+        $cmds = $this->getCmd();
+        $cmds[0]->forceUpdate();
+        if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-2 minutes' . date('Y-m-d H:i:s')))) {
+            sleep(5);
+        }
+        if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-2 minutes' . date('Y-m-d H:i:s')))) {
+            return false;
+        }
+    } else {
+        if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-' . $this->getTimeout() . ' minutes' . date('Y-m-d H:i:s')))) {
+            return false;
+        }
+    }
+    return true;
+}
+
+public function getInfo($_infos = '') {
+    $deviceConf = self::devicesParameters($this->getConfiguration('device'));
+    $return = array();
+    if (!is_numeric($this->getLogicalId())) {
+        return $return;
+    }
+    if($_infos == ''){
+        $results = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . ']');
+    }else{
+        $results = $_infos['devices'][$this->getLogicalId()];
+    }
+    if ($this->getConfiguration('noBatterieCheck') != 1 && isset($results['instances']) && isset($results['instances'][0]) &&
+        isset($results['instances'][0]['commandClasses']) && isset($results['instances'][0]['commandClasses'][128]) &&
+        isset($results['instances'][0]['commandClasses'][128]['data']['supported']) && $results['instances'][0]['commandClasses'][128]['data']['supported']['value'] === true) {
+        $return['battery'] = array(
+            'value' => $results['instances'][0]['commandClasses'][128]['data']['last']['value'],
+            'datetime' => date('Y-m-d H:i:s', $results['instances'][0]['commandClasses'][128]['data']['last']['updateTime']),
+            'unite' => '%',
+            );
+}
+
+if (isset($results['data'])) {
+    if (isset($results['data']['isAwake'])) {
+        $return['state'] = array(
+            'value' => ($results['data']['isAwake']['value']) ? 'Réveillé' : 'Endormi',
+            'datetime' => date('Y-m-d H:i:s', $results['data']['isAwake']['updateTime']),
+            );
+    }
+    if (isset($results['data']['isFailed'])) {
+        $return['state']['value'] = ($results['data']['isFailed']['value']) ? 'Dead' : $return['state']['value'];
+    }
+    if (isset($deviceConf['name'])) {
+        $return['name'] = array(
+            'value' => $deviceConf['name'],
+            'datetime' => date('Y-m-d H:i:s'),
+            );
+    }
+    if (isset($deviceConf['vendor'])) {
+        $return['brand'] = array(
+            'value' => $deviceConf['vendor'],
+            'datetime' => date('Y-m-d H:i:s'),
+            );
+    } else {
+        if (isset($results['data']['vendorString'])) {
+            $return['brand'] = array(
+                'value' => $results['data']['vendorString']['value'],
+                'datetime' => date('Y-m-d H:i:s', $results['data']['vendorString']['updateTime']),
+                );
+        }
+    }
+
+    if (isset($results['data']['lastReceived'])) {
+        $return['lastReceived'] = array(
+            'value' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
+            'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
+            );
+    }
+    if (isset($results['data']['manufacturerId'])) {
+        $return['manufacturerId'] = array(
+            'value' => $results['data']['manufacturerId']['value'],
+            );
+    }
+    if (isset($results['data']['manufacturerProductType'])) {
+        $return['manufacturerProductType'] = array(
+            'value' => $results['data']['manufacturerProductType']['value'],
+            );
+    }
+    if (isset($results['data']['manufacturerProductId'])) {
+        $return['manufacturerProductId'] = array(
+            'value' => $results['data']['manufacturerProductId']['value'],
+            );
+    }
+}
+$return['interviewComplete'] = array(
+    'value' => __('Complet', __FILE__),
+    );
+
+if (isset($results['instances']) && is_array($results['instances'])) {
+    foreach ($results['instances'] as $instanceID => $instance) {
+        foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
+            if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
+                continue;
+            }
+            if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
+                continue;
+            }
+            if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
+                $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
+            }
+        }
+    }
+}
+return $return;
 }
 
 public function getSameDevice() {
@@ -894,23 +898,29 @@ public function setDeviceConfigurationFromDevice($_device_id) {
     }
     try {
         $this->setDeviceConfiguration($device->getDeviceConfiguration());
-    } catch (Exception $exc) {
+    } catch (Exception $e) {
         log::add('zwave', 'error', $e->getMessage());
     }
     try {
-        $this->setWakeUp($device->getWakeUp());
-    } catch (Exception $exc) {
+        if(is_numeric($device->getWakeUp()) && $device->getWakeUp() > 0){
+            $this->setWakeUp($device->getWakeUp());
+        }
+    } catch (Exception $e) {
         log::add('zwave', 'error', $e->getMessage());
     }
     try {
         foreach ($this->getAssociation() as $group => $values) {
-            foreach ($values['nodes']['value'] as $node) {
-                $this->changeAssociation('remove', $group, $node);
+            if(is_numeric($group)){
+                foreach ($values['nodes']['value'] as $node) {
+                    $this->changeAssociation('remove', $group, $node['id']);
+                }
             }
         }
         foreach ($device->getAssociation() as $group => $values) {
-            foreach ($values['nodes']['value'] as $node) {
-                $this->changeAssociation('add', $group, $node);
+            if(is_numeric($group)){
+                foreach ($values['nodes']['value'] as $node) {
+                    $this->changeAssociation('add', $group, $node['id']);
+                }
             }
         }
     } catch (Exception $e) {

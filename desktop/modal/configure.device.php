@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 /* This file is part of Jeedom.
  *
@@ -111,7 +110,7 @@ $info = $eqLogic->getInfo();
                                 </div>
                                 <?php } ?>
                                 <?php
-                                if (count($device['configure']) > 0) {
+                                if (isset($device['configure']) && count($device['configure']) > 0) {
                                     echo ' <a class="btn btn-default expertModeVisible tooltips" id="bt_deviceConfigureResendConfigurationCommand" style="margin-left: 5px;"><i class="fa fa-magnet"></i> Renvoyer commande(s) de configuration</a>';
                                 }
                                 ?>
@@ -564,3 +563,4 @@ function configureDeviceLoad(_forceRefresh, _parameter_id) {
 <script>
     configureDeviceLoad();
 </script>
+<?php } ?>
