@@ -46,7 +46,7 @@ $info = $eqLogic->getInfo();
                     <legend>Informations                 
 
                         <?php if (count($sameDevices) > 1) { ?>
-                        <a class="btn btn-warning btn-xs pull-right" style="color : white;" id="bt_copyDeviceConfiguration"><i class="fa fa-files-o"></i> {{Copier}}</a>
+                        <a class="btn btn-warning btn-sm pull-right" style="color : white;" id="bt_copyDeviceConfiguration"><i class="fa fa-files-o"></i> {{Copier}}</a>
                         <select class='form-control input-sm pull-right' id='sel_copyDeviceConfiguration' style='display: inline-block;width : 250px;font-size : 0.6em;'>
                             <?php
                             foreach ($sameDevices as $sameDevice) {

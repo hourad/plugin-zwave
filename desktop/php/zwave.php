@@ -8,7 +8,7 @@ include_file('3rdparty', 'jquery.fileupload/jquery.fileupload', 'js');
 sendVarToJS('eqType', 'zwave');
 sendVarToJS('marketAddr', config::byKey('market::address'));
 
-$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
+//$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
 if ($controlerState === 0) {
     echo '<div id="div_inclusionAlert"></div>';
 }
