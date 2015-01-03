@@ -108,10 +108,6 @@ class zwave extends eqLogic {
                         ));
                     sleep(5);
                     self::syncEqLogicWithRazberry();
-                    nodejs::pushUpdate('jeedom::alert', array(
-                        'level' => 'warning',
-                        'message' => ''
-                        ));
                 }
             } else if ($key == 'controller.data.lastIncludedDevice') {
                 if ($result['value'] != null) {
@@ -119,8 +115,9 @@ class zwave extends eqLogic {
                     if (!is_object($eqLogic)) {
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
-                            'message' => __('Début de l\'intégration', __FILE__)
+                            'message' => __('Nouveau module Z-Wave détecté. Début de l\'intégration', __FILE__)
                             ));
+                        sleep(5);
                         self::syncEqLogicWithRazberry();
                     }
                 }
@@ -133,8 +130,9 @@ class zwave extends eqLogic {
                     if (!is_object($eqLogic)) {
                         nodejs::pushUpdate('jeedom::alert', array(
                             'level' => 'warning',
-                            'message' => __('Début de l\'intégration', __FILE__)
+                            'message' => __('Nouveau module Z-Wave détecté. Début de l\'intégration', __FILE__)
                             ));
+                        sleep(5);
                         self::syncEqLogicWithRazberry();
                     }
                 }
@@ -145,10 +143,6 @@ class zwave extends eqLogic {
                         ));
                     sleep(5);
                     self::syncEqLogicWithRazberry();
-                    nodejs::pushUpdate('jeedom::alert', array(
-                        'level' => 'warning',
-                        'message' => ''
-                        ));
                 }
             } else if ($key == 'devices') {
                 foreach ($result as $device_id => $data) {
@@ -265,29 +259,28 @@ class zwave extends eqLogic {
         foreach ($results['devices'] as $nodeId => $result) {
             $findDevice[$nodeId] = $nodeId;
             if ($nodeId != $razberry_id) {
-                $data = $result['data'];
-                if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
-                    $eqLogic = new eqLogic();
-                    $eqLogic->setEqType_name('zwave');
-                    $eqLogic->setIsEnable(1);
-                    $eqLogic->setName('Device ' . $nodeId);
-                    $eqLogic->setLogicalId($nodeId);
-                    $eqLogic->setIsVisible(1);
-                    $eqLogic->save();
-                    try {
-                      $eqLogic->InterviewForce();
-                      for ($i = 0; $i < 60; $i++) {
-                        nodejs::pushUpdate('jeedom::alert', array(
-                            'level' => 'warning',
-                            'message' => __('. Pause de ', __FILE__) . (60 - $i) . __(' pour interview forcé du module', __FILE__)
-                            ));
-                        sleep(1);
-                    }
-                } catch ( Exception $e) {
-                    log::add('zwave','debug','Error interview force : '.print_r($e,true));
+               if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
+                $eqLogic = new eqLogic();
+                $eqLogic->setEqType_name('zwave');
+                $eqLogic->setIsEnable(1);
+                $eqLogic->setName('Device ' . $nodeId);
+                $eqLogic->setLogicalId($nodeId);
+                $eqLogic->setIsVisible(1);
+                $eqLogic->save();
+                $eqLogic = zwave::byId($eqLogic->getId());
+                $eqLogic->InterviewForce();
+                for ($i = 0; $i < 60; $i++) {
+                    nodejs::pushUpdate('jeedom::alert', array(
+                        'level' => 'warning',
+                        'message' => __('Pause de ', __FILE__) . (60 - $i) . __(' pour interview forcé du module', __FILE__)
+                        ));
+                    sleep(1);
                 }
                 $include_device = $eqLogic->getId();
                 $findConfiguration = false;
+                $result = self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
+                $data = $result['data'];
+                print_r($data);
                 /* Reconnaissance du module */
                 foreach (self::devicesParameters() as $device_id => $device) {
                     if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
@@ -301,7 +294,7 @@ class zwave extends eqLogic {
                         for ($i = 0; $i < 5; $i++) {
                             nodejs::pushUpdate('jeedom::alert', array(
                                 'level' => 'warning',
-                                'message' => __('. Pause de ', __FILE__) . (5 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
+                                'message' => __('Pause de ', __FILE__) . (5 - $i) . __(' secondes pour synchronisation avec le module', __FILE__)
                                 ));
                             sleep(1);
                         }
@@ -1132,7 +1125,7 @@ public function InterviewForce($instanceId = '',$_classId = '') {
         if (isset($results['instances'])) {
             foreach ($results['instances'] as $instance_id => $instance) {
                 foreach ($instance['commandClasses'] as $commandClasses_id => $commandClasses) {
-                    if (isset($commandClasses['interviewDone']) && isset($commandClasses['interviewDone']['value']) && $commandClasses['interviewDone']['value'] == true) {
+                    if (isset($commandClasses['data']['interviewDone']) && isset($commandClasses['data']['interviewDone']['value']) && $commandClasses['data']['interviewDone']['value'] != true) {
                         try {
                             self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[' . $instance_id . '].commandClasses[' . $commandClasses_id . '].Interview()');
                         } catch (Exception $e) {
