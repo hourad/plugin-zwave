@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 /* This file is part of Jeedom.
  *
@@ -563,4 +564,3 @@ function configureDeviceLoad(_forceRefresh, _parameter_id) {
 <script>
     configureDeviceLoad();
 </script>
-<?php } ?>
