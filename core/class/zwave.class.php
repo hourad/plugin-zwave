@@ -259,7 +259,7 @@ class zwave extends eqLogic {
         foreach ($results['devices'] as $nodeId => $result) {
             $findDevice[$nodeId] = $nodeId;
             if ($nodeId != $razberry_id) {
-               if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
+             if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
                 $eqLogic = new eqLogic();
                 $eqLogic->setEqType_name('zwave');
                 $eqLogic->setIsEnable(1);
@@ -464,6 +464,9 @@ public static function updateRoute() {
     self::callRazberry('/ZWaveAPI/Run/controller.RequestNetworkUpdate()');
     foreach (eqLogic::byType('zwave') as $eqLogic) {
         self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()');
+        if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
+            sleep(10);
+        }
     }
 }
 
