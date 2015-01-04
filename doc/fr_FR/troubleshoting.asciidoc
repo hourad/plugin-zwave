@@ -21,3 +21,9 @@ Vérifiez que le serveur z-way est bien demarré en allant sur #IP_SERVER_ZWAY#:
 --
 Il y a une un soucis lors de l'inclusion, il faut la refaire. La cause la plus courante est une trop grande distance entre la box et le module lors de l'inclusion
 --
+
+[panel,danger]
+.Je n'arrive pas à inclure un seul module, la diode du razberry s'allume pourtant en rouge
+--
+Il semble avoir un soucis de configuration de fréquences sur certain razberry, il faut aller Sur Plugin -> Protocole Domotique -> Zwave, puis en mode expert, cliqué à gauche sur l'administration avancée du Z-Wave (petites roues crantées), et dans la colonne action cliquer sur le bouton de la région vous concernant (EU pour la France)
+--
