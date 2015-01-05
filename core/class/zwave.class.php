@@ -465,7 +465,7 @@ public static function updateRoute() {
     foreach (eqLogic::byType('zwave') as $eqLogic) {
         self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()');
         if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
-            sleep(10);
+            sleep(20);
         }
     }
 }
