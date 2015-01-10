@@ -145,7 +145,11 @@ $info = $eqLogic->getInfo();
                                         case 'select':
                                         echo '<select class = "zwaveParameters form-control" data-l1key="' . $id . '" data-l2key="value">';
                                         foreach ($parameter['value'] as $value => $details) {
-                                            echo '<option value="' . $value . '" data-description="' . $details['description'] . '">' . $details['name'] . '</option>';
+                                            if(isset($details['description'] )){
+                                                echo '<option value="' . $value . '" data-description="' . $details['description'] . '">' . $details['name'] . '</option>';
+                                            }else{
+                                                echo '<option value="' . $value . '" data-description="">' . $details['name'] . '</option>';
+                                            }
                                         }
                                         echo '</select>';
                                         break;
@@ -186,11 +190,11 @@ $info = $eqLogic->getInfo();
                         <div class="form-group alert alert-warning">
                             <label class="col-sm-2 control-label tooltips">{{Opération}}</label>
                             <div class="col-sm-6">
-                               <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
-                               <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>
-                           </div>
-                       </div>
-                       <div id="div_configureDeviceParameters">
+                             <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
+                             <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>
+                         </div>
+                     </div>
+                     <div id="div_configureDeviceParameters">
                         <div class="form-group alert alert-warning">
                             <label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>
                             <div class="col-sm-1">
