@@ -27,3 +27,16 @@ Il y a une un soucis lors de l'inclusion, il faut la refaire. La cause la plus c
 --
 Il semble avoir un soucis de configuration de fréquences sur certain razberry, il faut aller Sur Plugin -> Protocole Domotique -> Zwave, puis en mode expert, cliqué à gauche sur l'administration avancée du Z-Wave (petites roues crantées), et dans la colonne action cliquer sur le bouton de la région vous concernant (EU pour la France)
 --
+
+
+ 
+[panel,danger]
+.J'ai une page blanche suite a la mise à jour du zway 2.0
+--
+En SSH faites : 
+----
+sudo service mongoose stop
+sudo update-rc.d mongoose remove
+sudo service nginx restart
+----
+--
