@@ -43,7 +43,7 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 				echo "<td><a class='btn btn-xs btn-danger bt_showInterview' data-id='".$eqLogic->getId()."'>".$info['interviewComplete']['value']."</a></td>";
 			}
 			echo "<td>".$info['state']['value']."</td>";
-			if($info['battery']['value'] == ''){
+			if(!isset($info['battery']) || $info['battery']['value'] == ''){
 				echo "<td>NA</td>";
 			}else{
 				if($info['battery']['value'] < 10){
