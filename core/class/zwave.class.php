@@ -27,7 +27,7 @@ class zwave extends eqLogic {
 
     public static function sick() {
         echo "Server zwave : " . config::byKey('zwaveAddr', 'zwave') . "\n";
-        echo "Port : 8083\n";
+        echo "Port : ".config::byKey('zwavePort', 'zwave',8083)."\n";
         echo "Is openZwave : " . config::byKey('isOpenZwave', 'zwave', 0) . "\n";
         echo "Test connection to zwave server...";
         try {
@@ -41,7 +41,7 @@ class zwave extends eqLogic {
     }
 
     public static function callRazberry($_url) {
-        $url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':8083' . $_url;
+        $url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':'.config::byKey('zwavePort', 'zwave',8083) . $_url;
         $ch = curl_init();
         curl_setopt_array($ch, array(
             CURLOPT_URL => $url,
@@ -259,7 +259,7 @@ class zwave extends eqLogic {
         foreach ($results['devices'] as $nodeId => $result) {
             $findDevice[$nodeId] = $nodeId;
             if ($nodeId != $razberry_id) {
-             if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
+               if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
                 $eqLogic = new eqLogic();
                 $eqLogic->setEqType_name('zwave');
                 $eqLogic->setIsEnable(1);
@@ -572,7 +572,7 @@ public static function listMarketObject() {
 
 public static function backup($_path) {
     if (config::byKey('isOpenZwave', 'zwave', 0) == 0) {
-        file_put_contents($_path . '/zway.zbk', fopen('http://' . config::byKey('zwaveAddr', 'zwave') . ':8083/ZWaveAPI/Backup', 'r'));
+        file_put_contents($_path . '/zway.zbk', fopen('http://' . config::byKey('zwaveAddr', 'zwave') . ':'.config::byKey('zwavePort', 'zwave',8083).'/ZWaveAPI/Backup', 'r'));
     }
 }
 

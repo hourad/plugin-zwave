@@ -37,6 +37,12 @@ if (!isConnect()) {
                 <input class="configKey form-control" data-l1key="zwaveAddr" />
             </div>
         </div>
+         <div class="form-group">
+            <label class="col-lg-4 control-label">Zway port</label>
+            <div class="col-lg-2">
+                <input class="configKey form-control" data-l1key="zwavePort" value="8083" />
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-lg-4 control-label">Supprimer automatiquement les périphériques exclus</label>
             <div class="col-lg-4">
