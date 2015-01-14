@@ -23,11 +23,12 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 <table class="table table-condensed">
 	<thead>
 		<tr>
-			<th>Module</th>
-			<th>ID</th>
-			<th>Interview</th>
-			<th>Statut</th>
-			<th>Batterie</th>
+			<th>{{Module}}</th>
+			<th>{{ID}}</th>
+			<th>{{Interview}}</th>
+			<th>{{Statut}}</th>
+			<th>{{Batterie}}</th>
+			<th>{{Dernière communication}}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -47,11 +48,12 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 				echo "<td>NA</td>";
 			}else{
 				if($info['battery']['value'] < 10){
-					echo "<td><span class='label label-danger'>".$info['battery']['value']." %</span></td>";
+					echo "<td><span class='label label-danger' title=".$info['battery']['datetime'].">".$info['battery']['value']." %</span></td>";
 				}else{
-					echo "<td><span class='label label-success'>".$info['battery']['value']." %</span></td>";
+					echo "<td><span class='label label-success' title=".$info['battery']['datetime'].">".$info['battery']['value']." %</span></td>";
 				}
 			}
+			echo "<td>".$info['lastReceived']['value']."</td>";
 			echo "</tr>";
 		}
 		?>
