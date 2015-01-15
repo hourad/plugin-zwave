@@ -1474,7 +1474,7 @@ class zwaveCmd extends cmd {
             }
             return $result;
         }
-        if ($this->getConfiguration('instanceId') != '') {
+        if ($this->getConfiguration('instanceId') != '' && ($this->getConfiguration('class') != '0x70')) {
             $request .= '.instances[' . $this->getConfiguration('instanceId') . ']';
         }
         $request .= '.commandClasses[' . $this->getConfiguration('class') . ']';
