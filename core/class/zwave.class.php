@@ -259,7 +259,7 @@ class zwave extends eqLogic {
         foreach ($results['devices'] as $nodeId => $result) {
             $findDevice[$nodeId] = $nodeId;
             if ($nodeId != $razberry_id) {
-               if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
+             if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
                 $eqLogic = new eqLogic();
                 $eqLogic->setEqType_name('zwave');
                 $eqLogic->setIsEnable(1);
@@ -806,15 +806,17 @@ $return['interviewComplete'] = array(
 
 if (isset($results['instances']) && is_array($results['instances'])) {
     foreach ($results['instances'] as $instanceID => $instance) {
-        foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
-            if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
-                continue;
-            }
-            if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
-                continue;
-            }
-            if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
-                $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
+        if (isset($instance['commandClasses']) && is_array($instance['commandClasses'])) {
+            foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
+                if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
+                    continue;
+                }
+                if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
+                    continue;
+                }
+                if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
+                    $return['interviewComplete']['value'] = __('Incomplet', __FILE__);
+                }
             }
         }
     }
