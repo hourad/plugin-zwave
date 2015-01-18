@@ -16,7 +16,7 @@
  */
 
 
-$('#bt_uploadConfZwave').fileupload({
+ $('#bt_uploadConfZwave').fileupload({
     replaceFileInput: false,
     dataType: 'json',
     done: function (e, data) {
@@ -32,71 +32,71 @@ $('#bt_uploadConfZwave').fileupload({
     }
 });
 
-$(".li_eqLogic").on('click', function () {
+ $(".li_eqLogic").on('click', function () {
     printModuleInfo($(this).attr('data-eqLogic_id'));
     return false;
 });
 
-$('#bt_syncEqLogic').on('click', function () {
+ $('#bt_syncEqLogic').on('click', function () {
     syncEqLogicWithRazberry();
 });
-$('.changeIncludeState').on('click', function () {
+ $('.changeIncludeState').on('click', function () {
     changeIncludeState($(this).attr('data-mode'), $(this).attr('data-state'));
 });
 
-$('#bt_showClass').on('click', function () {
+ $('#bt_showClass').on('click', function () {
     $('#md_modal').dialog({title: "{{Classes du périphérique}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.class&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_healthRazberry').on('click', function () {
+ $('#bt_healthRazberry').on('click', function () {
     $('#md_modal').dialog({title: "{{Santé du Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=network.health').dialog('open');
 });
 
-$('#bt_showInterview').on('click', function () {
+ $('#bt_showInterview').on('click', function () {
     $('#md_modal2').dialog({title: "{{Interview}}"});
     $('#md_modal2').load('index.php?v=d&plugin=zwave&modal=interview.result&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_showZwayLog').on('click', function () {
+ $('#bt_showZwayLog').on('click', function () {
     $('#md_modal').dialog({title: "{{Log du serveur Zway}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.log').dialog('open');
 });
 
-$('#bt_configureDevice').on('click', function () {
+ $('#bt_configureDevice').on('click', function () {
     $('#md_modal').dialog({title: "{{Configuration du périphérique}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=configure.device&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_inspectQueue').on('click', function () {
+ $('#bt_inspectQueue').on('click', function () {
     $('#md_modal').dialog({title: "{{Queue Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=inspect.queue').dialog('open');
 });
 
-$('#bt_routingTable').on('click', function () {
+ $('#bt_routingTable').on('click', function () {
     $('#md_modal').dialog({title: "{{Table de routage}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=routing.table').dialog('open');
 });
 
-$('#bt_displayZwaveData').on('click', function () {
+ $('#bt_displayZwaveData').on('click', function () {
     $('#md_modal').dialog({title: "{{Arbre Z-Wave de l'équipement}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=zwave.data&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_adminRazberry').on('click', function () {
+ $('#bt_adminRazberry').on('click', function () {
     $('#md_modal').dialog({title: "{{Actions avancées}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=admin.razberry').dialog('open');
 });
 
-$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+ $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
-$('body').delegate('#bt_getFromMarket', 'click', function () {
+ $('body').delegate('#bt_getFromMarket', 'click', function () {
     $('#md_modal').dialog({title: "{{Market module zwave}}"});
     $('#md_modal').load('index.php?v=d&modal=market.list&type=zwave').dialog('open');
 });
 
-$('body').delegate('#bt_shareOnMarket', 'click', function () {
+ $('body').delegate('#bt_shareOnMarket', 'click', function () {
     var logicalId = $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').value();
     if (logicalId == '') {
         $('#div_alert').showAlert({message: '{{Vous devez d\'abord sélectionner une configuration à partager}}', level: 'danger'});
@@ -106,7 +106,7 @@ $('body').delegate('#bt_shareOnMarket', 'click', function () {
     $('#md_modal').load('index.php?v=d&modal=market.send&type=zwave&logicalId=' + encodeURI(logicalId) + '&name=' + encodeURI($('.eqLogicAttr[data-l1key=configuration][data-l2key=device] option:selected').text())).dialog('open');
 });
 
-$('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
+ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
     $('#img_device').attr('src', 'core/img/no_image.gif');
     $('#img_device').attr('data-original', marketAddr + '/market/zwave/images/' + $(this).value() + '.jpg');
     $("#img_device").lazyload({
@@ -115,7 +115,7 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', func
     $("#img_device").trigger("sporty");
 });
 
-$('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
+ $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
     if ($(this).value() == 'info') {
         $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateValue]').show();
         $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateTime]').show();
@@ -125,8 +125,8 @@ $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
     }
 });
 
-/**********************Node js requests *****************************/
-$('body').one('nodeJsConnect', function () {
+ /**********************Node js requests *****************************/
+ $('body').one('nodeJsConnect', function () {
     socket.on('zwave::controller.data.controllerState', function (_options) {
         $('.changeIncludeState').addClass('btn-default').removeClass('btn-success btn-danger').attr('data-state', 1);
         $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
@@ -146,19 +146,41 @@ $('body').one('nodeJsConnect', function () {
         }
     });
 
-    setTimeout(function () {
-        socket.on('zwave::includeDevice', function (_options) {
-            if (modifyWithoutSave) {
-                $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclus/exclu. Veuillez réactualiser la page}}', level: 'warning'});
+setTimeout(function () {
+    socket.on('zwave::includeDevice', function (_options) {
+        if (modifyWithoutSave) {
+            $('#div_inclusionAlert').showAlert({message: '{{Un périphérique vient d\'être inclus/exclu. Veuillez réactualiser la page}}', level: 'warning'});
+        } else {
+            if (_options == '') {
+                window.location.reload();
             } else {
-                if (_options == '') {
-                    window.location.reload();
-                } else {
-                    window.location.href = 'index.php?v=d&p=zwave&m=zwave&id=' + _options;
-                }
+                window.location.href = 'index.php?v=d&p=zwave&m=zwave&id=' + _options;
             }
-        });
-    }, 3000);
+        }
+    });
+}, 3000);
+});
+
+$('#bt_autoDetectModule').on('click',function(){
+ $.ajax({// fonction permettant de faire de l'ajax
+        type: "POST", // méthode de transmission des données au fichier php
+        url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
+        data: {
+            action: "autoDetectModule",
+            id: $('.eqLogicAttr[data-l1key=id]').value(),
+        },
+        dataType: 'json',
+        global: false,
+        error: function (request, status, error) {
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) { // si l'appel a bien fonctionné
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+    }
+});
 });
 
 function printModuleInfo(_id) {
@@ -175,21 +197,21 @@ function printModuleInfo(_id) {
             handleAjaxError(request, status, error);
         },
         success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            $('.zwaveInfo').value('');
-            for (var i in data.result) {
-                var value = data.result[i]['value'];
-                if (isset(data.result[i]['unite'])) {
-                    value += ' ' + data.result[i]['unite'];
-                }
-                $('.zwaveInfo[data-l1key=' + i + ']').value(value);
-                $('.zwaveInfo[data-l1key=' + i + ']').attr('title', data.result[i]['datetime']);
-            }
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
         }
-    });
+        $('.zwaveInfo').value('');
+        for (var i in data.result) {
+            var value = data.result[i]['value'];
+            if (isset(data.result[i]['unite'])) {
+                value += ' ' + data.result[i]['unite'];
+            }
+            $('.zwaveInfo[data-l1key=' + i + ']').value(value);
+            $('.zwaveInfo[data-l1key=' + i + ']').attr('title', data.result[i]['datetime']);
+        }
+    }
+});
 }
 
 function syncEqLogicWithRazberry() {
@@ -204,13 +226,13 @@ function syncEqLogicWithRazberry() {
             handleAjaxError(request, status, error);
         },
         success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            window.location.reload();
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
         }
-    });
+        window.location.reload();
+    }
+});
 }
 
 function changeIncludeState(_mode, _state) {
@@ -227,12 +249,12 @@ function changeIncludeState(_mode, _state) {
             handleAjaxError(request, status, error);
         },
         success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_alert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
+        if (data.state != 'ok') {
+            $('#div_alert').showAlert({message: data.result, level: 'danger'});
+            return;
         }
-    });
+    }
+});
 }
 
 function addCmdToTable(_cmd) {

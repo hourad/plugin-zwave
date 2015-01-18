@@ -203,8 +203,9 @@ $eqLogics = eqLogic::byType('zwave');
                                 <div class="col-sm-5">
                                     <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> {{Market}}</a>
                                     <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
-                                    <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="Voir l'arbre Z-Wave"><i class="fa fa-tree"></i></a>
-                                    <a class="btn btn-default expertModeVisible" id="bt_showClass" title="Voir les classes Z-Wave"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="{{Voir l'arbre Z-Wave}}"><i class="fa fa-tree"></i></a>
+                                    <a class="btn btn-default expertModeVisible" id="bt_showClass" title="{{Voir les classes Z-Wave}}"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-default expertModeVisible" id="bt_autoDetectModule" title="{{Detecter automatiquement le modele du module}}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="form-group expertModeVisible">

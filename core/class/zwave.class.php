@@ -280,7 +280,6 @@ class zwave extends eqLogic {
                 $findConfiguration = false;
                 $result = self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
                 $data = $result['data'];
-                print_r($data);
                 /* Reconnaissance du module */
                 foreach (self::devicesParameters() as $device_id => $device) {
                     if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
