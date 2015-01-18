@@ -125,6 +125,12 @@
     }
 });
 
+ $('#bt_cronGenerator').on('click',function(){
+    jeedom.getCronSelectModal({},function (result) {
+        $('.eqLogicAttr[data-l1key=configuration][data-l2key=refreshDelay]').value(result.value);
+    });
+});
+
  /**********************Node js requests *****************************/
  $('body').one('nodeJsConnect', function () {
     socket.on('zwave::controller.data.controllerState', function (_options) {

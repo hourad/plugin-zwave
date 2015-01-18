@@ -159,7 +159,7 @@ $eqLogics = eqLogic::byType('zwave');
                                     <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
                                 </div>
                                 <div class="col-sm-1">
-                                    <i class="fa fa-question-circle cursor bt_pageHelp floatright" data-name="cronSyntaxe"></i>
+                                    <i class="fa fa-question-circle cursor floatright" id="bt_cronGenerator"></i>
                                 </div>
                             </div>
                             <div class="form-group expertModeVisible">
