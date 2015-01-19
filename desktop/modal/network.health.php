@@ -28,6 +28,7 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 			<th>{{Interview}}</th>
 			<th>{{Statut}}</th>
 			<th>{{Batterie}}</th>
+			<th>{{Wakeup time}}</th>
 			<th>{{Dernière communication}}</th>
 		</tr>
 	</thead>
@@ -53,6 +54,7 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 					echo "<td><span class='label label-success' title=".$info['battery']['datetime'].">".$info['battery']['value']." %</span></td>";
 				}
 			}
+			echo "<td>".$info['wakup']['value']."</td>";
 			echo "<td>".$info['lastReceived']['value']."</td>";
 			echo "</tr>";
 		}

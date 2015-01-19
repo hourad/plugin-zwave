@@ -777,27 +777,35 @@ if (isset($results['data'])) {
         }
     }
 
-    if (isset($results['data']['lastReceived'])) {
-        $return['lastReceived'] = array(
-            'value' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
-            'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
-            );
-    }
-    if (isset($results['data']['manufacturerId'])) {
-        $return['manufacturerId'] = array(
-            'value' => $results['data']['manufacturerId']['value'],
-            );
-    }
-    if (isset($results['data']['manufacturerProductType'])) {
-        $return['manufacturerProductType'] = array(
-            'value' => $results['data']['manufacturerProductType']['value'],
-            );
-    }
-    if (isset($results['data']['manufacturerProductId'])) {
-        $return['manufacturerProductId'] = array(
-            'value' => $results['data']['manufacturerProductId']['value'],
-            );
-    }
+
+    if (isset($results['instances'][0]) && isset($results['instances'][0]['commandClasses'][132])) {
+      $return['wakup'] = array(
+        'value' => $results['instances'][0]['commandClasses'][132]['data']['interval']['value'],
+        'datetime' => date('Y-m-d H:i:s', $results['instances'][0]['commandClasses'][132]['data']['updateTime']),
+        );
+  }
+
+  if (isset($results['data']['lastReceived'])) {
+    $return['lastReceived'] = array(
+        'value' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
+        'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
+        );
+}
+if (isset($results['data']['manufacturerId'])) {
+    $return['manufacturerId'] = array(
+        'value' => $results['data']['manufacturerId']['value'],
+        );
+}
+if (isset($results['data']['manufacturerProductType'])) {
+    $return['manufacturerProductType'] = array(
+        'value' => $results['data']['manufacturerProductType']['value'],
+        );
+}
+if (isset($results['data']['manufacturerProductId'])) {
+    $return['manufacturerProductId'] = array(
+        'value' => $results['data']['manufacturerProductId']['value'],
+        );
+}
 }
 $return['interviewComplete'] = array(
     'value' => __('Complet', __FILE__),
