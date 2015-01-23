@@ -11,7 +11,7 @@ sendVarToJS('marketAddr', config::byKey('market::address'));
 try{
     $controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
 }catch(Exception $e){
-     $controlerState = 0;
+   $controlerState = 0;
 }
 if ($controlerState === 0) {
     echo '<div id="div_inclusionAlert"></div>';
@@ -58,7 +58,9 @@ $eqLogics = eqLogic::byType('zwave');
                     <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="Rechercher" style="width: 100%"/></li>
                     <?php
                     foreach ($eqLogics as $eqLogic) {
-                        echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
+                        echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true);
+                        echo '<span class="badge pull-right tooltips expertModeVisible" title="ID logique de l\'équipement">'.$eqLogic->getLogicalId().'</span>';
+                        echo '</a></li>';
                     }
                     ?>
                 </ul>

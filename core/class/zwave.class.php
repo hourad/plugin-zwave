@@ -259,7 +259,7 @@ class zwave extends eqLogic {
         foreach ($results['devices'] as $nodeId => $result) {
             $findDevice[$nodeId] = $nodeId;
             if ($nodeId != $razberry_id) {
-             if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
+               if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
                 $eqLogic = new eqLogic();
                 $eqLogic->setEqType_name('zwave');
                 $eqLogic->setIsEnable(1);
@@ -401,7 +401,7 @@ public static function cronDaily() {
                 self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].instances[0].commandClasses[0x80].Get()');
                 $info = $eqLogic->getInfo();
                 if (isset($info['battery']) && $info['battery'] !== '') {
-                    $eqLogic->batteryStatus($info['battery']['value']);
+                    $eqLogic->batteryStatus($info['battery']['value'],$info['battery']['datetime']);
                 }
             } catch (Exception $exc) {
 
