@@ -59,7 +59,7 @@ $eqLogics = eqLogic::byType('zwave');
                     <?php
                     foreach ($eqLogics as $eqLogic) {
                         echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true);
-                        echo '<span class="badge pull-right tooltips expertModeVisible" title="ID logique de l\'équipement">'.$eqLogic->getLogicalId().'</span>';
+                       // echo '<span class="badge pull-right tooltips expertModeVisible" title="ID logique de l\'équipement">'.$eqLogic->getLogicalId().'</span>';
                         echo '</a></li>';
                     }
                     ?>
