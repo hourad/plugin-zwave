@@ -227,7 +227,7 @@ $eqLogics = eqLogic::byType('zwave');
                                 </div>
                                 <label class="col-sm-2 control-label">{{Nom}}</label>
                                 <div class="col-sm-3">
-                                    <span class="zwaveInfo tooltips label label-default" data-l1key="name"></span>
+                                    <span class="zwaveInfo tooltips label label-default" data-l1key="name" style="word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"></span>
                                 </div>
                             </div>
 
