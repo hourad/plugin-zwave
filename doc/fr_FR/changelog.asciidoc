@@ -1,3 +1,8 @@
+==== 25/01/2015
+
+- Amélioration de la santé du zwave
+- Correction de bugs
+
 ==== 02/01/2015
 
 - Ajout d'un apercu de la santé du réseaux zwave
