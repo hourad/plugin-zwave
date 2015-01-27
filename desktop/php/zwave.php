@@ -11,7 +11,7 @@ sendVarToJS('marketAddr', config::byKey('market::address'));
 try{
     $controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
 }catch(Exception $e){
-   $controlerState = 0;
+ $controlerState = 0;
 }
 if ($controlerState === 0) {
     echo '<div id="div_inclusionAlert"></div>';
@@ -186,7 +186,11 @@ $eqLogics = eqLogic::byType('zwave');
                 <div class="col-sm-6">
                     <form class="form-horizontal">
                         <fieldset>
-                            <legend>{{Informations}}</legend>
+                            <legend>{{Informations}}
+                                <i id="bt_autoDetectModule" class="fa fa-search expertModeVisible pull-right tooltips cursor" title="{{Detecter automatiquement le modele du module}}"></i>
+                                <i id="bt_displayZwaveData" title="{{Voir l'arbre Z-Wave}}" class="fa fa-tree expertModeVisible pull-right tooltips cursor"></i>
+                                <i  id="bt_showClass" title="{{Voir les classes Z-Wave}}" class="fa fa-eye expertModeVisible pull-right tooltips cursor"></i>
+                            </legend>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{{Module}}</label>
@@ -205,9 +209,6 @@ $eqLogics = eqLogic::byType('zwave');
                                 <div class="col-sm-5">
                                     <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> {{Market}}</a>
                                     <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
-                                    <a class="btn btn-default expertModeVisible" id="bt_displayZwaveData" title="{{Voir l'arbre Z-Wave}}"><i class="fa fa-tree"></i></a>
-                                    <a class="btn btn-default expertModeVisible" id="bt_showClass" title="{{Voir les classes Z-Wave}}"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-default expertModeVisible" id="bt_autoDetectModule" title="{{Detecter automatiquement le modele du module}}"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="form-group expertModeVisible">
@@ -222,11 +223,13 @@ $eqLogics = eqLogic::byType('zwave');
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{{Marque}}</label>
-                                <div class="col-sm-2">
+                                <div class="col-sm-10">
                                     <span class="zwaveInfo tooltips label label-default" data-l1key="brand"></span>
                                 </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">{{Nom}}</label>
-                                <div class="col-sm-3">
+                                <div class="col-sm-10">
                                     <span class="zwaveInfo tooltips label label-default" data-l1key="name" style="word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"></span>
                                 </div>
                             </div>
