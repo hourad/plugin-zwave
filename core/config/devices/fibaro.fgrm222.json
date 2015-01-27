@@ -36,7 +36,7 @@
                 "configuration": {
                     "instanceId": "0",
                     "class": "0x26",
-                    "value": "StartLevelChange(1)"
+                    "value": "StartLevelChange(0)"
                 },
                 "display": {
                     "icon": "<i class=\"fa fa-arrow-down\"><\/i>"
@@ -64,7 +64,7 @@
                 "configuration": {
                     "instanceId": "0",
                     "class": "0x26",
-                    "value": "StartLevelChange(0)"
+                    "value": "StartLevelChange(1)"
                 },
                 "display": {
                     "icon": "<i class=\"fa fa-arrow-up\"><\/i>"
