@@ -207,7 +207,7 @@ $eqLogics = eqLogic::byType('zwave');
                                     </select>
                                 </div>
                                 <div class="col-sm-5">
-                                    <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> {{Market}}</a>
+                                    <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{Market}}</span></a>
                                     <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
                                 </div>
                             </div>
@@ -217,8 +217,8 @@ $eqLogics = eqLogic::byType('zwave');
                                     <input id="bt_uploadConfZwave" type="file" name="file" data-url="plugins/zwave/core/ajax/zwave.ajax.php?action=uploadConfZwave">
                                 </div>
                                 <div class="col-sm-5">
-                                    <a class="btn btn-success eqLogicAction" data-action="export"><i class="fa fa-cloud-download"></i> {{Exporter}}</a>
-                                    <a class="btn btn-warning tooltips" id="bt_shareOnMarket" title="{{Partager}}" ><i class="fa fa-cloud-upload"></i> {{Partager}}</a>
+                                    <a class="btn btn-success eqLogicAction" data-action="export"><i class="fa fa-cloud-download"></i> <span class="hidden-xs hidden-sm hidden-md">{{Exporter}}</span></a>
+                                    <a class="btn btn-warning tooltips" id="bt_shareOnMarket" title="{{Partager}}" ><i class="fa fa-cloud-upload"></i> <span class="hidden-xs hidden-sm hidden-md">{{Partager}}</span></a>
                                 </div>
                             </div>
                             <div class="form-group">
