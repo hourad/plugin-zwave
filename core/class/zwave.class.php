@@ -1165,7 +1165,11 @@ public function InterviewForce($instanceId = '',$_classId = '') {
 
 public function getWakeUp() {
     try {
-        return self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[132].data.interval.value');
+        $result = self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].instances[0].commandClasses[132].data.interval.value');
+        if(!is_numeric(intval($result))){
+            return '-';
+        }
+        return $result;
     } catch (Exception $e) {
         return '-';
     }
