@@ -582,6 +582,7 @@ public static function restore() {
 
 /*     * ************************************************************* */
 
+
 public static function adminRazberry($_command, $_ignoreError = false) {
     if ($_command == 'RequestNodeInformation()') {
         foreach (zwave::byType('zwave') as $eqLogic) {
@@ -619,14 +620,23 @@ public static function adminRazberry($_command, $_ignoreError = false) {
         }
         return true;
     }
-    try {
-        self::callRazberry('/ZWaveAPI/Run/controller.' . $_command);
-    } catch (Exception $e) {
-        if (!$_ignoreError) {
-            throw $e;
-        }
+    if ($_command == 'cureZwaveNetwork') {
+      self::adminRazberry('SendNodeInformation()');
+      sleep(2);
+      self::adminRazberry('RequestNodeInformation()');
+      sleep(20);
+      self::adminRazberry('InterviewForce');
+      self::updateRoute();
+      return true;
+  }
+  try {
+    self::callRazberry('/ZWaveAPI/Run/controller.' . $_command);
+} catch (Exception $e) {
+    if (!$_ignoreError) {
+        throw $e;
     }
-    return true;
+}
+return true;
 }
 
 /*     * *********************Methode d'instance************************* */

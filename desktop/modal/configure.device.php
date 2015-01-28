@@ -84,7 +84,7 @@ $info = $eqLogic->getInfo();
                         <div class="col-sm-6">
                             <?php
                             $wakeup = $eqLogic->getWakeUp();
-                            if ($wakeup != '-') {
+                            if ($wakeup != '-' && is_numeric($wakeup)) {
                                 ?>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">{{Wakeup (seconde)}}</label>

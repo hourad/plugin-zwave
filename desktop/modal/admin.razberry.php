@@ -53,6 +53,16 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
         <tr>
             <td>
                 <center>
+                    <a class='btn btn-warning btn-xs bt_adminRazberryAction' data-command="cureZwaveNetwork" data-risk="{{Moyenne}}">{{Soigner le reseaux Zwave automatiquement}}</a>
+                </center>
+            </td>
+            <td>
+                {{Permet de lancer une tentative de soin automatique du reseaux zwave (envoi du NIF, demande de tous les NIF, interview de tous les modules et mise à jour des routes). Cela peut paralyser le reseaux zwave pendant plusieurs minutes/heures}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <center>
                     <a class='btn btn-default btn-xs bt_adminRazberryAction' data-command="SendNodeInformation()" data-risk="{{Faible}}">{{Envoyer mon NIF}}</a>
                 </center>
             </td>

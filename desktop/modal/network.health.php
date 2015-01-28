@@ -39,7 +39,7 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 			echo "<tr>";
 			echo "<td><a href='index.php?v=d&m=zwave&p=zwave&id=".$eqLogic->getId()."'>".$eqLogic->getHumanName()."</a></td>";
 			echo "<td>".$eqLogic->getLogicalId()."</td>";
-			if($info['interviewComplete']['value'] == __('Complet', __FILE__)){
+			if($info['interviewComplete']['value'] == __('Complete', __FILE__)){
 				echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='".$eqLogic->getId()."'>".$info['interviewComplete']['value']."</a></td>";
 			}else{
 				echo "<td><a class='btn btn-xs btn-danger bt_showInterview' data-id='".$eqLogic->getId()."'>".$info['interviewComplete']['value']."</a></td>";
@@ -54,7 +54,11 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 					echo "<td><span class='label label-success' title=".$info['battery']['datetime'].">".$info['battery']['value']." %</span></td>";
 				}
 			}
-			echo "<td>".$info['wakup']['value']."</td>";
+			if(isset($info['wakup']['value'])){
+				echo "<td>".$info['wakup']['value']."</td>";
+			}else{
+				echo "<td>-</td>";
+			}
 			echo "<td>".$info['lastReceived']['value']."</td>";
 			echo "</tr>";
 		}
