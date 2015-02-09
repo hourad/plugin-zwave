@@ -130,92 +130,90 @@ $info = $eqLogic->getInfo();
                         </div>
                         <div id="div_configureDeviceParameters">
                             <?php
-                            if (count($device['parameters']) == 0) {
-                                echo '<div class="alert alert-info">{{Il n\'y a aucun paramètre de configuration pour ce module}}</div>';
-                                echo '<div class="form-group alert alert-warning">';
-                                echo '<label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>';
-                                echo '<div class="col-sm-1">';
-                                echo '<input class="form-control" id="in_parametersId"/>';
-                                echo '</div>';
-                                echo '<label class="col-sm-1 control-label tooltips">{{Taille}}</label>';
-                                echo '<div class="col-sm-1">';
-                                echo '<input class="zwaveParameters form-control" data-l2key="size" />';
-                                echo '</div>';
-                                echo '<label class="col-sm-1 control-label tooltips">{{Valeur}}</label>';
-                                echo '<div class="col-sm-1">';
-                                echo '<input class="zwaveParameters form-control" data-l2key="value" />';
-                                echo '</div>';
+                            foreach ($device['parameters'] as $id => $parameter) {
+                                echo '<div class="form-group">';
+                                echo '<label class="col-sm-1 control-label tooltips" title="' . $parameter['description'] . '"><span class="tooltips label label-warning zwaveParameters">' . $id . '</span></label>';
+                                echo '<label class="col-sm-3 control-label tooltips" title="' . $parameter['description'] . '">' . $parameter['name'] . '</span></label>';
                                 echo '<div class="col-sm-3">';
-                                echo '<a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '<div class="form-group alert alert-success">';
-                                echo '<label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>';
-                                echo '<div class="col-sm-1">';
-                                echo '<input class="form-control" id="in_parametersReadId" />';
-                                echo '</div>';
-                                echo '<label class="col-sm-1 control-label tooltips">{{Taille}}</label>';
-                                echo '<div class="col-sm-1">';
-                                echo '<span class="zwaveParameters label label-primary" data-l2key="size" ></span>';
-                                echo '</div>';
-                                echo '<label class="col-sm-1 control-label tooltips">{{Valeur}}</label>';
-                                echo '<div class="col-sm-1">';
-                                echo '<span class="zwaveParameters label label-primary" data-l2key="value" ></span>';
-                                echo '</div>';
-                                echo '<div class="col-sm-3">';
-                                echo '<a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraîchir}}</a>';
-                                echo '<a class="btn btn-warning pull-right bt_configureReadParameter" style="color : white;" data-force="1"><i class="fa fa-refresh"></i> {{Demander}}</a>';
-                                echo '</div>';
-                                echo '</div>';
-                            } else {
-                                foreach ($device['parameters'] as $id => $parameter) {
-                                    echo '<div class="form-group">';
-                                    echo '<label class="col-sm-1 control-label tooltips" title="' . $parameter['description'] . '"><span class="tooltips label label-warning zwaveParameters">' . $id . '</span></label>';
-                                    echo '<label class="col-sm-3 control-label tooltips" title="' . $parameter['description'] . '">' . $parameter['name'] . '</span></label>';
-                                    echo '<div class="col-sm-3">';
-                                    switch ($parameter['type']) {
-                                        case 'input':
-                                        echo '<input class="zwaveParameters form-control" data-l1key="' . $id . '" data-l2key="value"/>';
-                                        break;
-                                        case 'select':
-                                        echo '<select class = "zwaveParameters form-control" data-l1key="' . $id . '" data-l2key="value">';
-                                        foreach ($parameter['value'] as $value => $details) {
-                                            if(isset($details['description'] )){
-                                                echo '<option value="' . $value . '" data-description="' . $details['description'] . '">' . $details['name'] . '</option>';
-                                            }else{
-                                                echo '<option value="' . $value . '" data-description="">' . $details['name'] . '</option>';
-                                            }
+                                switch ($parameter['type']) {
+                                    case 'input':
+                                    echo '<input class="zwaveParameters form-control" data-l1key="' . $id . '" data-l2key="value"/>';
+                                    break;
+                                    case 'select':
+                                    echo '<select class = "zwaveParameters form-control" data-l1key="' . $id . '" data-l2key="value">';
+                                    foreach ($parameter['value'] as $value => $details) {
+                                        if(isset($details['description'] )){
+                                            echo '<option value="' . $value . '" data-description="' . $details['description'] . '">' . $details['name'] . '</option>';
+                                        }else{
+                                            echo '<option value="' . $value . '" data-description="">' . $details['name'] . '</option>';
                                         }
-                                        echo '</select>';
-                                        break;
                                     }
-                                    echo '</div>';
-                                    echo '<div class="col-sm-2">';
-                                    if (isset($parameter['unite'])) {
-                                        echo '<span class="tooltips label label-primary tooltips" title="Unité">' . $parameter['unite'] . '</span> ';
-                                    }
-                                    if (isset($parameter['min']) || isset($parameter['max'])) {
-                                        echo '<span class="tooltips label label-primary tooltips" title="[min-max]">[' . $parameter['min'] . '-' . $parameter['max'] . ']</span> ';
-                                    }
-
-                                    if (isset($parameter['default'])) {
-                                        echo '<span class="tooltips label label-primary tooltips" title="Défaut">' . $parameter['default'] . '</span> ';
-                                    }
-                                    echo '<span class="tooltips label label-default zwaveParameters" data-l1key="' . $id . '" data-l2key="size" title="Taille en byte"></span> ';
-                                    echo '<span class="tooltips label label-info zwaveParameters" data-l1key="' . $id . '" data-l2key="datetime" title="Date"></span> ';
-                                    echo '<span class="tooltips label label-warning zwaveParameters" data-l1key="' . $id . '" data-l2key="status" title="Status"></span>';
-                                    echo '</div>';
-                                    echo '<div class="col-sm-3">';
-                                    echo '<span class="tooltips description"></span> ';
-                                    echo '</div>';
-                                    echo '</div>';
+                                    echo '</select>';
+                                    break;
                                 }
+                                echo '</div>';
+                                echo '<div class="col-sm-2">';
+                                if (isset($parameter['unite'])) {
+                                    echo '<span class="tooltips label label-primary tooltips" title="Unité">' . $parameter['unite'] . '</span> ';
+                                }
+                                if (isset($parameter['min']) || isset($parameter['max'])) {
+                                    echo '<span class="tooltips label label-primary tooltips" title="[min-max]">[' . $parameter['min'] . '-' . $parameter['max'] . ']</span> ';
+                                }
+
+                                if (isset($parameter['default'])) {
+                                    echo '<span class="tooltips label label-primary tooltips" title="Défaut">' . $parameter['default'] . '</span> ';
+                                }
+                                echo '<span class="tooltips label label-default zwaveParameters" data-l1key="' . $id . '" data-l2key="size" title="Taille en byte"></span> ';
+                                echo '<span class="tooltips label label-info zwaveParameters" data-l1key="' . $id . '" data-l2key="datetime" title="Date"></span> ';
+                                echo '<span class="tooltips label label-warning zwaveParameters" data-l1key="' . $id . '" data-l2key="status" title="Status"></span>';
+                                echo '</div>';
+                                echo '<div class="col-sm-3">';
+                                echo '<span class="tooltips description"></span> ';
+                                echo '</div>';
+                                echo '</div>';
                             }
+                            echo '<a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSend"><i class="fa fa-check"></i> {{Appliquer}}</a>';
+                            echo '<legend>Configuration avancée</legend>';
+                            echo '<div class="form-group alert alert-warning">';
+                            echo '<label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>';
+                            echo '<div class="col-sm-1">';
+                            echo '<input class="form-control" id="in_parametersId"/>';
+                            echo '</div>';
+                            echo '<label class="col-sm-1 control-label tooltips">{{Taille}}</label>';
+                            echo '<div class="col-sm-1">';
+                            echo '<input class="zwaveParameters form-control" data-l2key="size" />';
+                            echo '</div>';
+                            echo '<label class="col-sm-1 control-label tooltips">{{Valeur}}</label>';
+                            echo '<div class="col-sm-1">';
+                            echo '<input class="zwaveParameters form-control" data-l2key="value" />';
+                            echo '</div>';
+                            echo '<div class="col-sm-3">';
+                            echo '<a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<div class="form-group alert alert-success">';
+                            echo '<label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>';
+                            echo '<div class="col-sm-1">';
+                            echo '<input class="form-control" id="in_parametersReadId" />';
+                            echo '</div>';
+                            echo '<label class="col-sm-1 control-label tooltips">{{Taille}}</label>';
+                            echo '<div class="col-sm-1">';
+                            echo '<span class="zwaveParameters label label-primary" data-l2key="size" ></span>';
+                            echo '</div>';
+                            echo '<label class="col-sm-1 control-label tooltips">{{Valeur}}</label>';
+                            echo '<div class="col-sm-1">';
+                            echo '<span class="zwaveParameters label label-primary" data-l2key="value" ></span>';
+                            echo '</div>';
+                            echo '<div class="col-sm-3">';
+                            echo '<a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraîchir}}</a>';
+                            echo '<a class="btn btn-warning pull-right bt_configureReadParameter" style="color : white;" data-force="1"><i class="fa fa-refresh"></i> {{Demander}}</a>';
+                            echo '</div>';
+                            echo '</div>';
                             ?>
                         </div>
                     </fieldset>
                 </form>
-                <a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSend"><i class="fa fa-check"></i> {{Appliquer}}</a>
+                
 
                 <?php } else { ?>
                 <legend>{{Informations}} </legend>

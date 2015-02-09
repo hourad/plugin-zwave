@@ -11,7 +11,7 @@ Essayé de redemarrer le serveur z-way , en mode expert, dans le menu d'administ
 --
 
 [panel,danger]
-.J'ai une erreur cron::pull
+.J'ai une erreur zwave::pull
 --
 Vérifiez que le serveur z-way est bien demarré en allant sur #IP_SERVER_ZWAY#::8083. Si vous n'obtenez rien faites en ssh : "sudo service z-way-server restart"
 --

@@ -460,13 +460,13 @@ public static function getRoutingTable() {
 }
 
 public static function updateRoute() {
-    self::callRazberry('/ZWaveAPI/Run/controller.RequestNetworkUpdate()');
-    foreach (eqLogic::byType('zwave') as $eqLogic) {
-        self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()');
-        if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
-            sleep(20);
-        }
-    }
+   self::callRazberry('/ZWaveAPI/Run/controller.RequestNetworkUpdate()');
+   if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
+       self::callRazberry('/ZWaveAPI/Run/controller.HealthNetwork()');
+   }
+   foreach (eqLogic::byType('zwave') as $eqLogic) {
+    self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()');
+}
 }
 
 public static function devicesParameters($_device = '') {
