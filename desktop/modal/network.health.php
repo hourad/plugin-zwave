@@ -34,35 +34,39 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 	</thead>
 	<tbody>
 		<?php
-		foreach (zwave::byType('zwave') as $eqLogic) {
-			$info = $eqLogic->getInfo($infos);
-			echo "<tr>";
-			echo "<td><a href='index.php?v=d&m=zwave&p=zwave&id=".$eqLogic->getId()."'>".$eqLogic->getHumanName()."</a></td>";
-			echo "<td>".$eqLogic->getLogicalId()."</td>";
-			if($info['interviewComplete']['value'] == __('Complete', __FILE__)){
-				echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='".$eqLogic->getId()."'>".$info['interviewComplete']['value']."</a></td>";
-			}else{
-				echo "<td><a class='btn btn-xs btn-danger bt_showInterview' data-id='".$eqLogic->getId()."'>".$info['interviewComplete']['value']."</a></td>";
-			}
-			echo "<td>".$info['state']['value']."</td>";
-			if(!isset($info['battery']) || $info['battery']['value'] == ''){
-				echo "<td>NA</td>";
-			}else{
-				if($info['battery']['value'] < 10){
-					echo "<td><span class='label label-danger' title=".$info['battery']['datetime'].">".$info['battery']['value']." %</span></td>";
-				}else{
-					echo "<td><span class='label label-success' title=".$info['battery']['datetime'].">".$info['battery']['value']." %</span></td>";
-				}
-			}
-			if(isset($info['wakup']['value'])){
-				echo "<td>".$info['wakup']['value']."</td>";
-			}else{
-				echo "<td>-</td>";
-			}
-			echo "<td>".$info['lastReceived']['value']."</td>";
-			echo "</tr>";
+foreach (zwave::byType('zwave') as $eqLogic) {
+	$info = $eqLogic->getInfo($infos);
+	echo "<tr>";
+	echo "<td><a href='index.php?v=d&m=zwave&p=zwave&id=" . $eqLogic->getId() . "'>" . $eqLogic->getHumanName() . "</a></td>";
+	echo "<td>" . $eqLogic->getLogicalId() . "</td>";
+	if ($info['interviewComplete']['value'] == __('Complete', __FILE__)) {
+		echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+	} else {
+		echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+	}
+	if ($info['state']['value'] == 'Dead') {
+		echo "<td><span class='label label-danger' title=" . $info['state']['datetime'] . ">" . $info['state']['value'] . "</span></td>";
+	} else {
+		echo "<td><span class='label label-success' title=" . $info['state']['datetime'] . ">" . $info['state']['value'] . "</span></td>";
+	}
+	if (!isset($info['battery']) || $info['battery']['value'] == '') {
+		echo "<td>NA</td>";
+	} else {
+		if ($info['battery']['value'] < 10) {
+			echo "<td><span class='label label-danger' title=" . $info['battery']['datetime'] . ">" . $info['battery']['value'] . " %</span></td>";
+		} else {
+			echo "<td><span class='label label-success' title=" . $info['battery']['datetime'] . ">" . $info['battery']['value'] . " %</span></td>";
 		}
-		?>
+	}
+	if (isset($info['wakup']['value'])) {
+		echo "<td>" . $info['wakup']['value'] . "</td>";
+	} else {
+		echo "<td>-</td>";
+	}
+	echo "<td>" . $info['lastReceived']['value'] . "</td>";
+	echo "</tr>";
+}
+?>
 	</tbody>
 </table>
 
