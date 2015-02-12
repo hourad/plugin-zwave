@@ -107,15 +107,49 @@
 });
 
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
-    $('#img_device').attr('src', 'core/img/no_image.gif');
-    $('#img_device').attr('data-original', marketAddr + '/market/zwave/images/' + $(this).value() + '.jpg');
-    $("#img_device").lazyload({
-        event: "sporty"
-    });
-    $("#img_device").trigger("sporty");
+    var logicalId = $(this).value();
+    console.log(logicalId);
+   $('#img_device').attr('src', 'core/img/no_image.gif');
+   $("<img>", {
+    src: marketAddr + '/market/zwave/images/' + logicalId + '.jpg',
+    error: function () {
+        $("<img>", {
+            src: marketAddr + '/market/zwave/images/' + logicalId + '_icon.png',
+            error: function () {
+                $("<img>", {
+                    src: marketAddr + '/market/zwave/images/' + logicalId + '_icon.jpg',
+                    error: function () {
+
+                    },
+                    load: function () {
+                        $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '_icon.jpg');
+                        $('#img_device').lazyload({
+                            event: "sporty"
+                        });
+                        $('#img_device').trigger("sporty");
+                    }
+                });
+            },
+            load: function () {
+                $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '_icon.png');
+                $('#img_device').lazyload({
+                    event: "sporty"
+                });
+                $('#img_device').trigger("sporty");
+            }
+        });
+    },
+    load: function () {
+        $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '.jpg');
+        $('#img_device').lazyload({
+            event: "sporty"
+        });
+        $('#img_device').trigger("sporty");
+    }
+});
 });
 
- $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
+$('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
     if ($(this).value() == 'info') {
         $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateValue]').show();
         $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateTime]').show();
@@ -125,14 +159,14 @@
     }
 });
 
- $('#bt_cronGenerator').on('click',function(){
+$('#bt_cronGenerator').on('click',function(){
     jeedom.getCronSelectModal({},function (result) {
         $('.eqLogicAttr[data-l1key=configuration][data-l2key=refreshDelay]').value(result.value);
     });
 });
 
- /**********************Node js requests *****************************/
- $('body').one('nodeJsConnect', function () {
+/**********************Node js requests *****************************/
+$('body').one('nodeJsConnect', function () {
     socket.on('zwave::controller.data.controllerState', function (_options) {
         $('.changeIncludeState').addClass('btn-default').removeClass('btn-success btn-danger').attr('data-state', 1);
         $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
