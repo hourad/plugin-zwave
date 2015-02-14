@@ -11,7 +11,7 @@ sendVarToJS('marketAddr', config::byKey('market::address'));
 try{
     $controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
 }catch(Exception $e){
- $controlerState = 0;
+   $controlerState = 0;
 }
 if ($controlerState === 0) {
     echo '<div id="div_inclusionAlert"></div>';
@@ -236,16 +236,14 @@ $eqLogics = eqLogic::byType('zwave');
 
                             <div class="form-group expertModeVisible">
                                 <label class="col-sm-2 control-label">{{Identifiant Fabricant}}</label>
-                                <div class="col-sm-2">
-                                    <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerId"></span>
+                                <div class="col-sm-4">
+                                    <span class="zwaveInfo tooltips label label-default tooltips" title="{{Identifiant Fabricant}}" data-l1key="manufacturerId"></span>
+                                    <span class="zwaveInfo tooltips label label-default tooltips" title="{{Type produit}}" data-l1key="manufacturerProductType"></span>
+                                    <span class="zwaveInfo tooltips label label-default tooltips" title="{{Identifiant Produit}}" data-l1key="manufacturerProductId"></span>
                                 </div>
-                                <label class="col-sm-2 control-label">{{Type produit}}</label>
+                                <label class="col-sm-2 control-label">{{Batterie}}</label>
                                 <div class="col-sm-2">
-                                    <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerProductType"></span>
-                                </div>
-                                <label class="col-sm-2 control-label">{{Identifiant Produit}}</label>
-                                <div class="col-sm-2">
-                                    <span class="zwaveInfo tooltips label label-default" data-l1key="manufacturerProductId"></span>
+                                    <span class="zwaveInfo tooltips label label-default" data-l1key="battery"></span>
                                 </div>
                             </div>
 
@@ -253,10 +251,7 @@ $eqLogics = eqLogic::byType('zwave');
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="col-sm-4 control-label">{{Batterie}}</label>
-                                        <div class="col-sm-2">
-                                            <span class="zwaveInfo tooltips label label-default" data-l1key="battery"></span>
-                                        </div>
+
                                         <label class="col-sm-4 control-label">{{Interview}}</label>
                                         <div class="col-sm-2">
                                             <a class="btn btn-default" id="bt_showInterview" ><i class="fa fa-eye"></i> <span class="zwaveInfo" data-l1key="interviewComplete"></span></a>
