@@ -174,7 +174,7 @@ $info = $eqLogic->getInfo();
                             }
                             echo '<a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSend"><i class="fa fa-check"></i> {{Appliquer}}</a>';
                             echo '<legend>Configuration avancée</legend>';
-                            echo '<div class="form-group alert alert-warning">';
+                            echo '<div class="form-group alert alert-warning" id="div_configureDeviceSendParameter">';
                             echo '<label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>';
                             echo '<div class="col-sm-1">';
                             echo '<input class="form-control" id="in_parametersId"/>';
@@ -191,7 +191,7 @@ $info = $eqLogic->getInfo();
                             echo '<a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>';
                             echo '</div>';
                             echo '</div>';
-                            echo '<div class="form-group alert alert-success">';
+                            echo '<div class="form-group alert alert-success" id="div_configureDeviceReadParameter">';
                             echo '<label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>';
                             echo '<div class="col-sm-1">';
                             echo '<input class="form-control" id="in_parametersReadId" />';
@@ -228,7 +228,7 @@ $info = $eqLogic->getInfo();
                            </div>
                        </div>
                        <div id="div_configureDeviceParameters">
-                        <div class="form-group alert alert-warning">
+                        <div class="form-group alert alert-warning" id="div_configureDeviceSendParameter">
                             <label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>
                             <div class="col-sm-1">
                                 <input class="form-control" id="in_parametersId"/>
@@ -245,7 +245,7 @@ $info = $eqLogic->getInfo();
                                 <a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>
                             </div>
                         </div>
-                        <div class="form-group alert alert-success">
+                        <div class="form-group alert alert-success" id="div_configureDeviceReadParameter">
                             <label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>
                             <div class="col-sm-1">
                                 <input class="form-control" id="in_parametersReadId" />
@@ -480,7 +480,8 @@ $('#bt_configureDeviceSendGeneric').on('click', function () {
     var param_id = $('#in_parametersId').value();
     $(this).closest('.form-group').find('.zwaveParameters[data-l2key=size]').attr('data-l1key', param_id);
     $(this).closest('.form-group').find('.zwaveParameters[data-l2key=value]').attr('data-l1key', param_id);
-    var configurations = $('#div_configureDeviceParameters').getValues('.zwaveParameters');
+    var configurations = $('#div_configureDeviceSendParameter').getValues('.zwaveParameters');
+    console.log(configurations);
     configureDeviceSave(configurations[0]);
 });
 $('.bt_forceRefresh').on('click', function () {
