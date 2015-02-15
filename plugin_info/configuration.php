@@ -26,46 +26,46 @@ if (!isConnect()) {
     <fieldset>
         <?php
         try {
-            echo '<div class="alert alert-success">Le z-way-server est en marche</div>';
+            echo '<div class="alert alert-success">{{Le z-way-server est en marche}}</div>';
         } catch (Exception $e) {
-            echo '<div class="alert alert-danger">Le z-way-server ne tourne pas</div>';
+            echo '<div class="alert alert-danger">{{Le z-way-server ne tourne pas}}</div>';
         }
         ?>
         <div class="form-group">
-            <label class="col-lg-4 control-label">Zway IP</label>
+            <label class="col-lg-4 control-label">{{Zway IP}}</label>
             <div class="col-lg-2">
                 <input class="configKey form-control" data-l1key="zwaveAddr" />
             </div>
         </div>
          <div class="form-group">
-            <label class="col-lg-4 control-label">Zway port</label>
+            <label class="col-lg-4 control-label">{{Zway port}}</label>
             <div class="col-lg-2">
                 <input class="configKey form-control" data-l1key="zwavePort" value="8083" />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">Supprimer automatiquement les périphériques exclus</label>
+            <label class="col-lg-4 control-label">{{Supprimer automatiquement les périphériques exclus}}</label>
             <div class="col-lg-4">
                 <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">J'utilise un serveur openzwave</label>
+            <label class="col-lg-4 control-label">{{J'utilise un serveur openzwave}}</label>
             <div class="col-lg-4">
                 <input type="checkbox" class="configKey" data-l1key="isOpenZwave" />
             </div>
         </div>
         <?php if (config::byKey('zwaveAddr', 'zwave') == '127.0.0.1' || config::byKey('zwaveAddr', 'zwave') == 'localhost') { ?>
             <div class="form-group">
-                <label class="col-lg-4 control-label">Arrêt/Redémarrage</label>
+                <label class="col-lg-4 control-label">{{Arrêt/Redémarrage}}</label>
                 <div class="col-lg-2">
-                    <a class="btn btn-warning" id="bt_restartZwayServer"><i class='fa fa-stop'></i> Arrêter/Redemarrer le z-way-server</a> 
+                    <a class="btn btn-warning" id="bt_restartZwayServer"><i class='fa fa-stop'></i> {{Arrêter/Redemarrer le z-way-server}}</a> 
                 </div>
             </div>
             <div class="form-group expertModeVisible">
-                <label class="col-lg-4 control-label">Lancer en debug</label>
+                <label class="col-lg-4 control-label">{{Lancer en debug}}</label>
                 <div class="col-lg-2">
-                    <a class="btn btn-danger" id="bt_launchZwayServerInDebug"><i class="fa fa-exclamation-triangle"></i> Lancer en mode debug</a> 
+                    <a class="btn btn-danger" id="bt_launchZwayServerInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a> 
                 </div>
             </div>
             <script>
@@ -85,16 +85,16 @@ if (!isConnect()) {
                                 $('#div_alert').showAlert({message: data.result, level: 'danger'});
                                 return;
                             }
-                            $('#div_alert').showAlert({message: 'Le z-way-server a été correctement arrêté : il se relancera automatiquement dans 1 minute', level: 'success'});
+                            $('#div_alert').showAlert({message: '{{Le z-way-server a été correctement arrêté : il se relancera automatiquement dans 1 minute}}', level: 'success'});
                             $('#ul_plugin .li_plugin[data-plugin_id=zwave]').click();
                         }
                     });
                 });
 
                 $('#bt_launchZwayServerInDebug').on('click', function () {
-                    bootbox.confirm('Etes-vous sur de vouloir lancer le z-way-ser en mode debug ? N\'oubliez pas d\arrêter/redémarrer le démon une fois terminé', function (result) {
+                    bootbox.confirm('{{Etes-vous sur de vouloir lancer le z-way-ser en mode debug ? N\'oubliez pas d\arrêter/redémarrer le démon une fois terminé}}', function (result) {
                         if (result) {
-                            $('#md_modal').dialog({title: "Z-Way-Server en mode debug"});
+                            $('#md_modal').dialog({title: "{{Z-Way-Server en mode debug}}"});
                             $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.debug').dialog('open');
                         }
                     });
