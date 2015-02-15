@@ -28,9 +28,9 @@ image::../images/zwave_unknowDevice3.png[]
 
 En parallèle ouvrez une fenêtre terminale, pour se connecter en SSH à votre Jeedom. Vérifiez que vos logs sont bien activés :
 
-sudo vi /opt/z-way-server/config.xml Il doit y avoir: log-level=0 http-log-level=0
+sudo vi /opt/z-way-server/config.xml Il doit y avoir: log-level=0
 
-Pour couper les logs il faut remettre: log-level=6 http-log-level=4
+Pour couper les logs il faut remettre: log-level=6
 
 Tapez la commande : tail -f /var/log/z-way-server.log Cela permet d’avoir les logs du contrôleur Z-Wave en temps réel.
 
