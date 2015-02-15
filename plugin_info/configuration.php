@@ -26,6 +26,7 @@ if (!isConnect()) {
     <fieldset>
         <?php
         try {
+            $controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
             echo '<div class="alert alert-success">{{Le z-way-server est en marche}}</div>';
         } catch (Exception $e) {
             echo '<div class="alert alert-danger">{{Le z-way-server ne tourne pas}}</div>';
