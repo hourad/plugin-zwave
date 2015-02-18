@@ -67,9 +67,11 @@
         "Vous devez d\\'abord sélectionner une configuration à partager": "At first, you should select a configuration to share",
         "Vous êtes en mode inclusion. Recliquez sur le bouton d\\'inclusion pour sortir de ce mode": "You are in inclusion mode. Re-clic on the inclusion button to quit this mode.",
         "Vous êtes en mode exclusion. Recliquez sur le bouton d\\'exclusion pour sortir de ce mode": "You are in exclusion mode. Re-clic on the exclusion button to quit this mode.",
-        "Un périphérique vient d\\'etre inclu\/exclu. Veuillez réactualiser la page": "A component is just included/excluded. Please refresh the page",
+        "Un périphérique vient d\\'etre inclu\/exclu. Veuillez réactualiser la page": "A component is just included\/excluded. Please refresh the page",
         "Valeur retour d\\'état": "Value of status return",
-        "Durée avant retour d\\'état (min)": "Duration before status return (min)"
+        "Durée avant retour d\\'état (min)": "Duration before status return (min)",
+        "Log z-way-serveur": "Log z-way-serveur",
+        "Un périphérique vient d\\'être inclu\/exclu. Veuillez réactualiser la page": "Un périphérique vient d\\'être inclu\/exclu. Veuillez réactualiser la page"
     },
     "plugins\/zwave\/mobile\/html\/zwave.html": {
         "Inclusion": "Inclusion",
@@ -78,6 +80,48 @@
     },
     "plugins\/zwave\/core\/class\/zwave.class.php": {
         "Complet": "Complete",
-        "Incomplet": "Incomplete"
+        "Incomplet": "Incomplete",
+        "Echec de la requete http : ": "Echec de la requete http : ",
+        "Impossible de redemarrer le serveur zway (probleme de droits ?) : ": "Impossible de redemarrer le serveur zway (probleme de droits ?) : ",
+        "Un périphérique Z-Wave vient d'être inclu. Logical ID : ": "Un périphérique Z-Wave vient d'être inclu. Logical ID : ",
+        ". Pause de ": ". Pause de ",
+        " secondes pour synchronisation avec le module": " secondes pour synchronisation avec le module",
+        "Début de l'integration": "Début de l'integration",
+        "Péripherique reconnu : ": "Péripherique reconnu : ",
+        "). Configuration en cours veuillez patienter...": "). Configuration en cours veuillez patienter...",
+        "Mise en place des groupes par défaut": "Mise en place des groupes par défaut",
+        "Création des commandes": "Création des commandes",
+        "Récupération de la configuration d'origine du module": "Récupération de la configuration d'origine du module",
+        "Mise à jour forcé des valeurs des commandes": "Mise à jour forcé des valeurs des commandes",
+        "Envoi de la configuration optimisée Jeedom": "Envoi de la configuration optimisée Jeedom"
+    },
+    "plugins\/zwave\/desktop\/modal\/configure.device.php": {
+        "Générale": "Générale",
+        "Nom du module": "Nom du module",
+        "Marque": "Marque",
+        "Wakeup (seconde)": "Wakeup (seconde)",
+        "sans risque": "sans risque",
+        "risquée": "risquée",
+        "Certaines valeur de configurations peuvent mettre plusieurs minutes à arriver lors de la premiere récuperation": "Certaines valeur de configurations peuvent mettre plusieurs minutes à arriver lors de la premiere récuperation",
+        "Force le module a renvoyer sa configuration et uniquement sa configuration": "Force le module a renvoyer sa configuration et uniquement sa configuration",
+        "Forcer la mise à jour": "Forcer la mise à jour",
+        "Appliquer": "Appliquer",
+        "Association": "Association",
+        " Ajouter association": " Ajouter association",
+        "Ok": "Ok",
+        "Numéro de groupe": "Numéro de groupe",
+        "Membre": "Membre",
+        "Opération reussi": "Opération reussi",
+        "Etes-vous sûr de vouloir effectuer l\\'opération :": "Etes-vous sûr de vouloir effectuer l\\'opération :",
+        "Le risque de l\\'opération est :": "Le risque de l\\'opération est :",
+        "Etes-vous sûr de vouloir copier la configuration de": "Etes-vous sûr de vouloir copier la configuration de",
+        "Parrametres envoyés avec succes (la prise en compte peut prendre jusqu\\'à plusieurs minutes)": "Parrametres envoyés avec succes (la prise en compte peut prendre jusqu\\'à plusieurs minutes)",
+        "Copier": "Copier"
+    },
+    "plugins\/zwave\/desktop\/modal\/inspect.queue.php": {
+        "Rafraichis à :": "Rafraichis à :",
+        "Nombre d'envoi(s)": "Nombre d'envoi(s)",
+        "Timeout": "Timeout",
+        "Logical ID": "Logical ID"
     }
 }
