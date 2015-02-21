@@ -1213,18 +1213,75 @@ class zwave extends eqLogic {
 				$this->getConfiguration('device') => self::devicesParameters($this->getConfiguration('device')),
 			);
 		} else {
+			$info = $this->getInfo();
 			$export = parent::export();
 			if (isset($export['configuration']['device'])) {
 				unset($export['configuration']['device']);
 			}
+			if (isset($export['configuration']['createtime'])) {
+				unset($export['configuration']['createtime']);
+			}
+			if (isset($export['configuration']['updatetime'])) {
+				unset($export['configuration']['updatetime']);
+			}
 			if (isset($export['configuration']['applyDevice'])) {
 				unset($export['configuration']['applyDevice']);
+			}
+			if (isset($export['eqType_name'])) {
+				unset($export['eqType_name']);
+			}
+			if (isset($export['_object'])) {
+				unset($export['_object']);
 			}
 			if (isset($export['configuration']) && count($export['configuration']) == 0) {
 				unset($export['configuration']);
 			}
+			if (!isset($export['vendor'])) {
+				$export['vendor'] = $info['brand']['value'];
+			}
+			if (!isset($export['manufacturerId'])) {
+				$export['manufacturerId'] = $info['manufacturerId']['value'];
+			}
+			if (!isset($export['manufacturerProductType'])) {
+				$export['manufacturerProductType'] = $info['manufacturerProductType']['value'];
+			}
+			if (!isset($export['manufacturerProductId'])) {
+				$export['manufacturerProductId'] = $info['manufacturerProductId']['value'];
+			}
 			if (isset($export['cmd'])) {
 				$export['commands'] = $export['cmd'];
+				foreach ($export['commands'] as &$cmd) {
+					if (isset($cmd['eqType'])) {
+						unset($cmd['eqType']);
+					}
+					if (isset($cmd['_eqLogic'])) {
+						unset($cmd['_eqLogic']);
+					}
+					if (isset($cmd['display']['doNotShowNameOnDashboard'])) {
+						unset($cmd['display']['doNotShowNameOnDashboard']);
+					}
+					if (isset($cmd['display']['doNotShowNameOnView'])) {
+						unset($cmd['display']['doNotShowNameOnView']);
+					}
+					if (isset($cmd['display']['doNotShowStatOnDashboard'])) {
+						unset($cmd['display']['doNotShowStatOnDashboard']);
+					}
+					if (isset($cmd['display']['doNotShowStatOnView'])) {
+						unset($cmd['display']['doNotShowStatOnView']);
+					}
+					if (isset($cmd['display']['doNotShowStatOnMobile'])) {
+						unset($cmd['display']['doNotShowStatOnMobile']);
+					}
+					if (isset($cmd['display']['forceReturnLineBefore'])) {
+						unset($cmd['display']['forceReturnLineBefore']);
+					}
+					if (isset($cmd['display']['forceReturnLineAfter'])) {
+						unset($cmd['display']['forceReturnLineAfter']);
+					}
+					if (isset($cmd['display']['parameters']) && count($cmd['display']['parameters']) == 0) {
+						unset($cmd['display']['parameters']);
+					}
+				}
 				unset($export['cmd']);
 			}
 			return array(
