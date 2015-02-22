@@ -1,3 +1,7 @@
+==== 21/02/2015
+
+- Amélioration de l'export de configuration
+
 ==== 28/01/2015
 
 - Ajout d'un bouton pour tenter de soigner le reseaux zwave automatiquement

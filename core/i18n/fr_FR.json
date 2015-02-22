@@ -1,7 +1,12 @@
 {
     "plugins\/zwave\/core\/class\/zwave.class.php": {
         "Complet": "Complet",
-        "Incomplet": "Incomplet"
+        "Incomplet": "Incomplet",
+        "Nouveau module Z-Wave détecté. Début de l'intégration": "Nouveau module Z-Wave détecté. Début de l'intégration",
+        "Pause de ": "Pause de ",
+        " pour interview forcé du module": " pour interview forcé du module",
+        "Votre module n'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible": "Votre module n'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible",
+        "Un périphérique Z-Wave vient d'être exclu. Logical ID : ": "Un périphérique Z-Wave vient d'être exclu. Logical ID : "
     },
     "plugins\/zwave\/desktop\/modal\/network.health.php": {
         "Complete": "Complete",
@@ -166,6 +171,23 @@
     },
     "plugins\/zwave\/desktop\/modal\/interview.result.php": {
         "Complet": "Complet",
-        "Forcer (re)interview": "Forcer (re)interview"
+        "Forcer (re)interview": "Forcer (re)interview",
+        "Incomplet": "Incomplet"
+    },
+    "plugins\/zwave\/plugin_info\/configuration.php": {
+        "Le z-way-server est en marche": "Le z-way-server est en marche",
+        "Zway IP": "Zway IP",
+        "Zway port": "Zway port",
+        "Supprimer automatiquement les périphériques exclus": "Supprimer automatiquement les périphériques exclus",
+        "J'utilise un serveur openzwave": "J'utilise un serveur openzwave"
+    },
+    "plugins\/zwave\/mobile\/html\/zwave.html": {
+        "Inclusion": "Inclusion",
+        "Exclusion": "Exclusion",
+        "Valider": "Valider"
+    },
+    "plugins\/zwave\/plugin_info\/info.xml": {
+        "Plugin pour envoyer des ordres Z-Wave": "Plugin pour envoyer des ordres Z-Wave",
+        "Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http:\/\/razberry.z-wave.me\/) faites :\n        - \"wget -q -O - razberry.z-wave.me\/install | sudo bash\"\n    ": "Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http:\/\/razberry.z-wave.me\/) faites :\n        - \"wget -q -O - razberry.z-wave.me\/install | sudo bash\"\n    "
     }
 }
