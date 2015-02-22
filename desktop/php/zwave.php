@@ -227,32 +227,32 @@ foreach (zwave::devicesParameters() as $id => $info) {
             <div class="col-sm-2">
                 <span class="zwaveInfo tooltips label label-default" data-l1key="brand"></span>
             </div>
-            <label class="col-sm-2 control-label">{{Nom}}</label>
-            <div class="col-sm-4">
+            <label class="col-sm-3 control-label">{{Nom}}</label>
+            <div class="col-sm-3">
                 <span class="zwaveInfo tooltips label label-default" data-l1key="name" style="word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"></span>
             </div>
         </div>
 
         <div class="form-group expertModeVisible">
             <label class="col-sm-2 control-label">{{Identifiant}}</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <span class="zwaveInfo tooltips label label-default tooltips" title="{{Identifiant Fabricant}}" data-l1key="manufacturerId"></span>
                 <span class="zwaveInfo tooltips label label-default tooltips" title="{{Type produit}}" data-l1key="manufacturerProductType"></span>
                 <span class="zwaveInfo tooltips label label-default tooltips" title="{{Identifiant Produit}}" data-l1key="manufacturerProductId"></span>
             </div>
-            <label class="col-sm-2 control-label">{{Batterie}}</label>
-            <div class="col-sm-2">
-                <span class="zwaveInfo tooltips label label-default" data-l1key="battery"></span>
-            </div>
-            <label class="col-sm-2 control-label">{{Etat}}</label>
+             <label class="col-sm-2 control-label">{{Etat}}</label>
             <div class="col-sm-2">
                 <span class="zwaveInfo tooltips label label-default" data-l1key="state"></span>
+            </div>
+            <label class="col-sm-2 control-label">{{Batterie}}</label>
+            <div class="col-sm-1">
+                <span class="zwaveInfo tooltips label label-default" data-l1key="battery"></span>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">{{Interview}}</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
             <a class="btn btn-default btn-sm" id="bt_showInterview" ><i class="fa fa-eye"></i> <span class="zwaveInfo" data-l1key="interviewComplete"></span></a>
             </div>
             <label class="col-sm-2 control-label">{{Communication}}</label>
@@ -261,7 +261,7 @@ foreach (zwave::devicesParameters() as $id => $info) {
             </div>
         </div>
         <center>
-            <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" />
+            <img src="core/img/no_image.gif" data-original=".jpg" id="img_device" class="img-responsive" style="max-height : 250px;"/>
         </center>
     </fieldset>
 </form>
