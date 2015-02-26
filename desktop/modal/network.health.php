@@ -19,6 +19,11 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
+try {
+	$communicationStatistics = zwave::callRazberry('/ZWaveAPI/CommunicationStatistics');
+} catch (Exception $e) {
+	$communicationStatistics = array();
+}
 ?>
 <table class="table table-condensed">
 	<thead>
@@ -29,6 +34,9 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
 			<th>{{Statut}}</th>
 			<th>{{Batterie}}</th>
 			<th>{{Wakeup time}}</th>
+			<th>{{Paquet total}}</th>
+			<th>{{% OK}}</th>
+			<th>{{Temporisation (ms)}}</th>
 			<th>{{Dernière communication}}</th>
 		</tr>
 	</thead>
@@ -63,6 +71,47 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 	} else {
 		echo "<td>-</td>";
 	}
+	echo "<td>";
+	if (isset($communicationStatistics[$eqLogic->getLogicalId()])) {
+		echo count($communicationStatistics[$eqLogic->getLogicalId()]);
+	}
+	echo "</td>";
+	echo "<td>";
+	if (isset($communicationStatistics[$eqLogic->getLogicalId()]) && count($communicationStatistics[$eqLogic->getLogicalId()]) > 0) {
+		$nbOk = 0;
+		$mintime = 99999999;
+		$avgtime = 0;
+		$maxtime = 0;
+		foreach ($communicationStatistics[$eqLogic->getLogicalId()] as $packet) {
+			if ($packet['delivered']) {
+				$nbOk++;
+				$avgtime += $packet['deliveryTime'];
+				if ($maxtime < $packet['deliveryTime']) {
+					$maxtime = $packet['deliveryTime'];
+				}
+				if ($mintime > $packet['deliveryTime']) {
+					$mintime = $packet['deliveryTime'];
+				}
+			}
+		}
+		$avgtime = round($avgtime / $nbOk);
+		$pourcentOk = round($nbOk / count($communicationStatistics[$eqLogic->getLogicalId()]) * 100);
+		if ($pourcentOk == 100) {
+			echo "<span class='label label-success'>" . $pourcentOk . " %</span>";
+		} elseif ($pourcentOk > 75) {
+			echo "<span class='label label-warning'>" . $pourcentOk . " %</span>";
+		} else {
+			echo "<span class='label label-danger'>" . $pourcentOk . " %</span>";
+		}
+	}
+	echo "<td>";
+	if (isset($communicationStatistics[$eqLogic->getLogicalId()]) && count($communicationStatistics[$eqLogic->getLogicalId()]) > 0) {
+		echo "<span class='label label-success tooltips' title='Temps de livraison minimum'>" . $mintime . "</span> ";
+		echo "<span class='label label-primary tooltips' title='Temps de livraison moyen'>" . $avgtime . "</span> ";
+		echo "<span class='label label-danger tooltips' title='Temps de livraison maximum'>" . $maxtime . "</span>";
+	}
+	echo "</td>";
+	echo "</td>";
 	echo "<td>" . $info['lastReceived']['value'] . "</td>";
 	echo "</tr>";
 }
@@ -71,6 +120,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 </table>
 
 <script>
+	initTooltips();
 	$('.bt_showInterview').on('click',function(){
 		$('#md_modal2').dialog({title: "{{Interview}}"});
 		$('#md_modal2').load('index.php?v=d&plugin=zwave&modal=interview.result&id=' + $(this).attr('data-id')).dialog('open');
