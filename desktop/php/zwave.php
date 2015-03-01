@@ -170,7 +170,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                 <div class="col-sm-1">
                     <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
                 </div>
-                <label class="col-sm-4 control-label">{{vérifier la batterie}}</label>
+                <label class="col-sm-4 control-label">{{Ne pas vérifier la batterie}}</label>
                 <div class="col-sm-1">
                     <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
                 </div>
