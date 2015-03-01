@@ -1,0 +1,274 @@
+Wir werden sehen, wie man ein Z-Wave-Modul, das noch nicht von Jeedom erkannt wird, die noch nicht vorhandene Datei konfiguriert um sie auf dem Markt zu teilen.
+
+Es giebt 2 möglichkeiten dies zu entwickeln:
+
+- Konfigurieren des Z-Wave-Modul auf Ihrem Jeedom.
+- Teilen Sie Ihre Konfiguration mit der Gemeinschaft auf dem Markt.
+
+Diese Aufgaben sind nicht komplex, erfordern jedoch gewisse Fertigkeiten.
+
+Zuallererst muss man Ihr Modul Z-Wave hinzufügen. 
+
+image::../images/zwave_unknowDevice.png[]
+
+Dafür rufen Sie die Dokumentation des Z-Wave Plugin auf. Wir müssen dafür sorgen, dass die Inclusion erfolgreich war, und dass das Interview beendet ist. (sonst erzwingen Sie das Interview, sei es auf dem Modul oder an der Schnittstelle mit der linken Zahnrad-Menütaste im Expertenmodus)
+
+image::../images/zwave_unknowDevice2.png[]
+
+Dann müssen wir zwei Arten von Befehlen identifizieren.
+
+Aktionen (beispielsweise ein/aus).
+Informationen (zB. Temperatur).
+Man wird also wissen müssen, ob Ihr Modul den einen oder den anderen Typ und manchmal 2 enthält. Entsprechend dem Befehlstyp ist die Gestalt verschieden, wir werden das weiter unten sehen.
+
+==== Die Aktionen
+Beginnen Sie mit Aktionen. Sie müssen auf der Schnittstelle des Z-Way-Controller (Razberry) unter http://IP_JEEDOM:8083 gehen. Gehen Sie dann zum Expertenmodus und Gerätesteuerung - Schalter.
+
+image::../images/zwave_unknowDevice3.png[]
+
+Parallel öffnen Sie ein Terminal-Fenster, um auf Jeedom mit SSH zu verbinden. Überprüfen Sie, dass Ihre Protokolle aktiviert sind:
+
+sudo vi /opt/z-way-server/config.xml Es muss sein: log-level=0 http-log-level=0
+
+Um die Protokolle schneiden müssen eingereicht werden: log-level=6 http-log-level=4
+
+Geben Sie den Befehl: tail -f /var/log/z-way-server.log Das ermöglicht, die logs des Z-Waves-Servers in Echtzeit zu haben. 
+
+Man muss jetzt eine Aktion Ihres Z-Waves Moduls aktivieren, aktiviere dafür in der Expertenschnittstelle eine Aktion, zum Beispiel ON. Dann finden Sie einfach den Befehl, der an dieser Stelle in den Protokollen (hier gelb) erscheint.
+
+image::../images/zwave_unknowDevice4.png[]
+
+Es besteht aus einer Gerätenummer (hier 17) muss die ID des neu hinzugefügten Gerätes in Jeedom entsprechen, die Instanznummer (hier: 0), Klasse (hier 0x26) und schließlich den Befehl ( hier Set (255), achtung die stelle ist wichtig ).
+
+Man benötigt diese Information dann in Jeedom.
+
+image::../images/zwave_unknowDevice5.png[]
+
+Wir finden die Geräte-ID (im Feld node ID der Beschreibung des Moduls) wieder.
+
+Sie müssen einen neuen Befehl (mit der grünen Taste Add) hinzufügen und füllen Sie die Felder "Instance ID", "Klasse" und "Befehl" mit den zuvor ermittelten Werten (vergessen Sie nicht, einen Namen einen Typ (Aktion gesehen, dass man hier eine Aktion will)und einen Subtyp für den Befehl zu geben).
+
+Sehen wir uns die Möglichkeiten für eine Befehl des Typs Handlung genauer an. 
+
+Auf der linken Seite wird die Spaltennamen verwendet, um den Namen der Aktion zu definieren, und falls gewünscht ein Symbol, das anstelle von Text vorhanden sein wird. Eine Dropdown-Liste ermöglicht einen Standardnamen auszuwählen.
+
+image::../images/zwave_unknowDevice6.png[]
+
+Nachdem der Aktionstyp definiert wurde, können wir einen Subtyp nach Art der Aktion definieren.
+
+image::../images/zwave_unknowDevice7.png[]
+
+Sie haben ebenfalls mehrere Parameter zu Ihrer Verfügung. Chronisieren ermöglicht, Aktionen und Zuständen zu archivieren. Ansicht, bedeudet ob die Aktion innerhalb des Widgets angezeigt werden soll, werden andere Optionen hilfreich für Typen info sein.
+
+image::../images/zwave_unknowDevice8.png[]
+
+Sie können dies für jeden Befehl wiederholen. Für Typ Schieberegler nur das Kommando setzen "Set(#slider#)"
+
+
+==== Information
+Kommen wir jetzt zu den Infotyp Befehl. 
+
+Das ist hier ein bisschen komplexer, denn man muss den Z-Wave Baum des Moduls lesen.  Pour cela rendez-vous sur la page de votre module, rubrique information.
+
+image::../images/zwave_unknowDevice9.png[]
+
+Dann klicken Sie auf die Taste mit dem kleine Baum, in der oberen rechten Ecke.
+
+image::../images/zwave_unknowDevice10.png[]
+
+Sie sollten ein ähnliches Ergebnis wie dieses haben:
+
+image::../images/zwave_unknowDevice11.png[]
+
+Ab jetzt muss man die Information, die Sie interessiert, im Baum suchen. Wenn es sich zum Beispiel um die Temperatur handelt, sind die Informationen ziemlich leicht zu finden. Falls das eine Zustands Information von Rückkehrtyp ist, zum Beispiel Öffnung der Tür, wird man also die Rückkehr vom Zustand Ihres Moduls auslösen müssen. 
+
+Sie können allgemeine Informationen in der folgenden Abbildung zu finden: Beispiel die Instanznummer, dann in "data" und "commandClass" die Klassenzahl, Achtung hier in dezimal, nicht hex. Für jede Klasse müssen Sie die Tabelle "data" und "level" suchen.
+
+Sie werden ebenfalls Informationen in den logs zur Zeit des Meldungsausganges haben: 
+
+image::../images/zwave_unknowDevice12.png[]
+
+In diesem Beispiel ist die gelbe Linie in unserem Protokoll, die uns interessiert, dann können wir die folgenden Informationen zB instances=0, commandClasses=49 und Befehl=data.4.val abzurufen. Achtung le 4 de data.4.val se met entre crochet dans Jeedom.
+
+Man erhält also das in Jeedom:
+
+image::../images/zwave_unknowDevice13.png[]
+
+Wie mehrere Informationen gerade zu informieren sind. On a le nom de la commande, son type ici c’est une info… Le sous type est important, numérique quand il s’agit d’un nombre (par exemple la température), binaire quand il s’agit une info Vrai ou Faux (0 ou 1), et Autre quand on entre dans aucun de ces cas.
+
+image::../images/zwave_unknowDevice14.png[]
+
+Dann Unterhalb der Befehle, hat man mehrere Felder.  Der Wert von Zustandsrückkehr und die Dauer vor der Zustandsrückkehr. Diese Optionen sind für gewisse Module nützlich. Wirklich behalten bestimmte Z-Wave Module den Zustand nicht im Gedächtnis, sondern schicken ein Signal was den veränderten Zustand anzeigt, eine ansteigende Flanke …  Diese Parameter ermöglichen, sich diesen Wert einzuprägen, und am Ende einer gewissen Zeit (Dauer vor Rückkehr) setzt man das Modul zurück mit dem Wert der Zustandsrückkehr. 
+
+image::../images/zwave_unknowDevice15.png[]
+
+Man hat die gleichen Parameter dann wie vorher, Chronik, Ansicht, Inverse, und Ereignis (der Fall für einen Modul Z-Wave immer). Schließlich haben wir einige Optionen, wie die Einheit, die min und max, die einen Wert (Default 0 bis 100) stattfinden.
+
+image::../images/zwave_unknowDevice16.png[]
+
+==== auf dem Markt mit der Gemeinschaft Teilen
+Schließlich ist ein sehr wichtiger Punkt, Ihre Einstellungen mit der Gemeinschaft auf dem Jeedom Markt zu teilen. Indem Sie Ihre Konfiguration teilen, werden Sie den anderen Benutzern erlauben, dieses Z-Wave Modul zu benutzen, ohne es zu konfigurieren zu müssen. 
+
+Für jedes Z-Wave-Modul gibt es eine Konfigurationsdatei im JSON Format. Diese Konfigurationsdatei muss einen Namen in einem ganz bestimmten Format haben: Marke.name_des_Moduls.json z.B. für einen Everspring AD142 everspring.ad142.json (vermeiden Sie alle Sonderzeichen und Akzente).
+
+Nachdem Sie vorher ihre Handgemachte Konfiguration getestet haben, können Sie sich an die Erstellung der Datei machen. 
+
+Hier ist eine Beispieldatei für die Konfiguration eines Moduls in JSON. Sie können eine solche Datei hier herunterladen. (kursiv Linien nach nicht obligatorischer Modul)
+
+
+----
+{ 
+"#marque#.#nom_module#": { 
+"name": "#nom commun#", 
+"vendor": "#marque#", 
+
+"manufacturerId": "#manufacturerId#", 
+"manufacturerProductType": "#manufacturerProductType#", 
+"manufacturerProductId": "#manufacturerProductId#", 
+"groups": { 
+"associate": [#numero_group#] 
+}, 
+"commands": [ 
+{ 
+"name": "#nom cmd#", 
+"type": "#type cmd#", 
+"subtype": "#sous type cmd#", 
+"isVisible": "#visibilité cmd#", 
+"isHistorized": "#historisation cmd#", 
+"eventOnly": "#événement cmd#", 
+"configuration": { 
+"instanceId": "#instance cmd#", 
+"class": "#class cmd#", 
+"value": "#valeur cmd#", 
+"minValue" : "#max valeur cmd#", 
+"returnStateTime": "#valeur retour etat#", 
+"returnStateValue": "#durée avant etat#" 
+}, 
+"display": { 
+"invertBinary": "#inverte binaire#" 
+}, 
+"template": { 
+"dashboard": "#widget dashboard#", 
+"mobile": "#widget mobile#" 
+} 
+} 
+], 
+
+"parameters": { 
+"#id parametre#": { 
+"name" : "#nom parametre#", 
+"default" : "#valeur par défaut#", 
+"type" : "select", 
+"value" : { 
+"#valeur 1#" : { 
+"name" : "#nom valeur 1#", 
+"description" : "#description paramètre 1#", 
+}, 
+"#valeur 2#" : { 
+"name" : "#nom valeur 2#", 
+"description" : "#description paramètre 2#", 
+} 
+} 
+}, 
+"2": { 
+"name" : "#nom paramètre#", 
+"description" : "#description paramètre#", 
+"default" : "#valeur par défaut#", 
+"type" : "input", 
+"unite" : "#unité#", 
+"min" : "#min#", 
+"max" : "#max#", 
+}, 
+} 
+} 
+}
+----
+
+Sie können ebenfalls ein schon realisiertes Modul auf der Markt Webseite herrunter laden.
+
+Sie müssen aus der manuellen Konfiguration Teile übernehmen und die neue Datei erstellen. Hier sind einige Details über die Dateistruktur.
+
+Füllen Sie alle Felder mit "#" umrahmt. Hier ist ihre Beschreibung (sehen Sie alle Felder mit einem * sind Pflichtfelder) :
+
+
+- #marque#.#nom_module# : den Namen und die Marke des Moduls, Achtung!! muss gleiche sein wie der Namen der Datei  
+- #nom commun# : Der allgemeine Name des Moduls 
+- #marque# : Die Modul Marke 
+- #manufacturerId# : Hersteller-ID 
+- #manufacturerProductType# : Produkttyp 
+- #manufacturerProductId# : Product ID
+
+Diese Daten sind auf dem Informationsteil Ihres Moduls auf der Jeedom Schnittstelle (in Experten Modus) verfügbar. 
+
+image::../images/zwave_unknowDevice17.png[]
+
+
+----
+"groups": { 
+"associate": [#numero_group#] 
+},
+----
+
+Die Option der Gruppe ermöglicht, am Z-Wave Modul eine Gruppe der Zugehörigkeit zu definieren, in # numero_group # zu definieren.  Diese Zeilen sind nicht erforderlich, wenn Sie sie nicht brauchen, um die Modulgruppe ändern.
+
+Befehls (werden so oft wiederholt , wie es Befehle giebt):
+
+
+- #nom cmd# : Befehlsname 
+- #type cmd# : Befehls Typ (Informationen oder Aktion oder andere) 
+- #sous type cmd# : Unter Typ ( numerische oder binäre oder andere oder Farbe oder Nachricht oder Schieberegler ) 
+- #visibilité cmd# : Sichtbarkeit (1 oder 0) 
+- #historisation cmd# : Befehl Protokollierung (1 oder 0) 
+- #événement cmd# : nur Ereignis (1 oder 0) 
+- #instance cmd# : Befehl Instanz (Standart 0) 
+- #class cmd# : Befehls Klasse (in hex oder decimal) 
+- #valeur cmd# : Auftragswert 
+- #min valeur cmd# : Befehl min (wenn Typ info standardmäßig 0) 
+- #max valeur cmd# : Befehl max (wenn Typ info standardmäßig 100) 
+- #inverte binaire# : Inversion du retour binaire lors de l’affichage seulement (uniquement possible sur une commande de type info/binaire) (1 oder 0) 
+- #valeur retour etat# : Rückgabewert Status (1 oder 0) (die Zeile ist nicht erforderlich) 
+- #durée avant etat# : Zeit vor der Rückkehr in der Minute (die Zeile ist nicht erforderlich)
+
+Wenn Sie eine Standard-Widget auf Ihr Modul zuweisen möchten sie die Vorlage(nicht obligatorisch)
+
+- #widget dashboard# : Für das  Modul das Standard-Widget auf dem Armaturenbrett anwenden 
+- #widget mobile# : Für das  Modul das Standard-Widget auf dem Mobilen Modus anwenden
+
+Parameter (muss so oft wiederholt werden, wie es Parameter gibt). Dies sind die Parameter des Z-Wave-Modul Herstellers, diese finden Sie in der Dokumentation zu Ihrem Modul. Es gibt zwei Arten von Parametern, hier sind die Gemeinsamkeiten
+
+- #id paramètre# : ID Parameter 
+- #nom paramètre# : Parameter Name 
+- #valeur par défaut# : Standartwert 
+- #description paramètre# : Parameter Beschreibung 
+- Wählen Sie (alle Werte, die Sie wollen): 
+* #valeur 1# : Wert für Auswahl 1 
+* #nom valeur 1# : Name der Auswahl 1 
+- #description paramètre1# : Beschreibung der Auswahl 1 
+- Input 
+- #unité# : Unit Parameter 
+- #min# : Minimum möglicher Parameter 
+- #max# : Maximum möglicher Parameter
+
+Sobald Sie die JSON-Datei erstellt haben, müssen Sie sie zu Ihrer Jeedom Installation zu senden. Dafür klicken Sie in der Rubrik Information Ihres Moduls auf den Button "Senden Sie eine Konfiguration": 
+
+image::../images/zwave_unknowDevice18.png[]
+
+Wenn Ihre Datei korrekt geschrieben ist, sollte sie nun in der Liste der Z-Wave-Module angezeigt werden, immer unter Informationen.
+
+image::../images/zwave_unknowDevice19.png[]
+
+Wählen Sie sie aus, dann speichere wieder. Dann testen Sie Ihr Modul um zu sehen, ob alles richtig funktioniert. Wenn alles gut ist, klicke auf den orangefarbenen Button um zu Teilen.
+
+image::../images/zwave_unknowDevice20.png[]
+
+Beachten Sie, wenn Sie ein Modul teilen wollen, müssen Sie zuvor auf dem Jeedom Markt registriert und mit Ihrem Jeedom Markt-Konto verbunden sein.(siehe Markt Dokumentation).
+
+Ein Popup-Fenster öffnet sich, dann wird gefragt welche Informationen es über dieses Modul giebt.
+
+image::../images/zwave_unknowDevice21.png[]
+
+Geben Sie den vollständigen Namen des Z-Wave-Modul, Z-Wave-Modul Kategorie wenn Links zur Verfügung ist, ein Video, ein Wiki,  ein Forum. Schließlich ein Benutzerhandbuch für das Modul und das Changelog, oder Sie können die Updates ankündigen die Sie danach noch machen möchten. Klicken Sie auf die grüne Schaltfläche oben rechts E-Mail und Ihre Konfiguration wird auf dem Markt zur Verfügung stehen!
+
+Ihre Konfiguration wird als BETA angezeigt werden. Zögern Sie nicht, uns über das Forum, oder per E-Mail zu kontaktieren contact@jeedom.com, wenn die Konfiguration bereit ist ins STABILE-Release zu gehen. Sie können auch auf die Markt Webseite gehen, um ein Foto zu Ihrer Konfiguration hinzuzufügen.
+
+Sie haben nun ein unbekanntes Jeedom Modul reingestellt und mit der Gemeinschaft auf dem Markt geteilt.

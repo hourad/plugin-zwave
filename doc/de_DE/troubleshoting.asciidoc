@@ -1,0 +1,42 @@
+[panel,danger]
+.Bei klicken auf den Inclusions Knopf geschieht nichts.
+--
+Dies geschieht, wenn der Z-Wave-Server in einem wackeligen Zustand ist, ist es ratsam im Expertenmodus, auf Administrationsmenü-Server "Restart Razberry" zu klicken.
+--
+
+[panel,danger]
+.Aufträge laufen zu langsam ab.
+--
+Versucht, den Z-Wave-Server im Expertenmodus neu starten, im Administrationsmenü-Server "Restart Razberry." Besteht das Problem weiterhin ist es wahrscheinlich, dass es ein falsch konfiguriertes Z-Wave Modul giebt und es zu viele Daten oder falsche Daten sendet.
+--
+
+[panel,danger]
+.Ich habe einen Cron Fehler::pull
+--
+Stellen Sie sicher, dass die Z-Wave-Server richtig Startet, indem Sie #IP_ZWAY_SERVER::#8083 eingeben. Falls Sie nichts erhalten, versuchen Sie in ssh, : "sudo service z-way-server restart"
+--
+
+[panel,danger]
+.Infolge der Inclusion eines neuen Moduls habe ich Fehler 500 auf diesem, wenn ich seine Befehle benutze
+--
+Es ist ein einmaliges Problem bei der Inclusion, sie muss erneut gemacht werden. Die häufigste Ursache ist ein zu großer Abstand zwischen der Box und dem Modul bei der Inclusion.
+--
+
+[panel,danger]
+.Es gelingt mir nicht, ein einziges Modul hinzuzufügen, die Diode vom Razberry geht jedoch Rot an.
+--
+Er scheint ein Problem mit der Konfiguration von Frequenzen im Razberry zugeben, gehen Sie auf Plugin -> Home Automation Protokoll -> Zwave und im Expertenmodus, auf die Verwaltung der erweiterte Z-Wave (kleines Zahnrad) der linken Maustaste und in der Spalte Aktion klicken Sie auf die Region, die Sie auf die Schaltfläche (EU für Frankreich)
+--
+
+
+ 
+[panel,danger]
+.Ich habe eine leere Seite nach dem Zway Update 2.0
+--
+In SSH vornehmen : 
+----
+sudo service mongoose stop
+sudo update-rc.d mongoose remove
+sudo service nginx restart
+----
+--

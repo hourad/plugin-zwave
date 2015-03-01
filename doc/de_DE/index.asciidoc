@@ -1,0 +1,28 @@
+== Z-Wave
+
+=== Beschreibung
+Plugin, um das Z-Wave Protokoll zu verwenden 
+
+'''
+=== Konfiguration
+include::configuration.asciidoc[]
+
+'''
+=== Liste der bekannten Module
+link:https://jeedom.fr/liste_module_zwave.php[ici]
+
+'''
+=== Unbekannte Module hinzufügen
+include::addUnknowDevice.asciidoc[]
+
+'''
+=== FAQ
+include::faq.asciidoc[]
+
+'''
+=== Fehlersuche
+include::troubleshoting.asciidoc[]
+
+'''
+=== Changelog
+include::changelog.asciidoc[]

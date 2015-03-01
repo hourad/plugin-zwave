@@ -1,0 +1,71 @@
+Das Z-Wave-Plugin ermöglicht es, Jeedom kompatible mit dem Z-Wave Home-Automation-Protokoll zu machen. Es erlaubt Ihnen auch, die Z-Wave-Module zu konfigurieren und neue hinzu zufügen. Achtung ! Dieses Plugin ist vorerst nur mit der RaZberry Karte kompatibel! 
+
+Die Installation des Plugins wird über das Hauptmenü Allgemein/Plugins vorgenommen, indem Sie es aus dem Markt laden, im Anschluss wird es Installiert(roter Rahmen). Wenn Sie fertig sind einfach das Plugin aktivieren.
+
+Einmal auf Plugin/Z-Wave klicken kommt man auf seine Hauptseite. 
+
+image::../images/zwave_screenshot1.jpg[]
+ 
+Oben links das Hauptmenü des Plugins mit den Bedienelementen und der Liste der Z-Wave-Module. Um die Konfiguration eines Moduls einzugeben, klicken Sie einfach darauf. Bestimmte Optionen sind nur im Experten Modus verfügbar.
+
+image::../images/zwave2.png[]
+
+Die Befehle werden verwendet um verschiedene Aufgaben durchzuführen, von links nach rechts: mit Z-Wave-Controller synchronisieren, Z-Wave Warteschlange verfolgen, Z-Wave-Routing-Tabelle anzeigen, Befehle für Z-Wave-Chipsatz, Übersicht der Gesundheit und Z-Wave Server Protokolle. Unterhalb die Buttons der Inklusion und Exklusion, und schließlich der Geräte hinzufügen Button (Expertenmodus).
+
+image::../images/zwave3.png[]
+
+Warum ein Zugang zum Market? Tatsächlich ist die Konfiguration des Z-Wave-Module nicht mehr abhängig von der Software, und es ist möglich, neue Konfigurationen vom Markt herunterladen um Jeedom kompatibel mit neuer Hardware zu machen, die gerade neu heraus kommt.
+
+Das Hinzufügen eines Moduls wird mit dem Drücken des Inklusions Buttons und entsprechend dem Inklusionsverfahren in der Dokumentation des Moduls vorgenommen. Das Modul wird automatisch in der Liste angezeigt, wenn es Jeedom bekannt ist wird es automatisch konfiguriert werden.
+
+Das "Gerät hinzufügen" wird nur in sehr spezifischen Fällen verwendet werden, deshalb ist es nur im Expertenmodus zur Verfügung. Il n'est d'aucune utilité pour ajouter et inclure un nouveau périphérique Z-Wave.
+
+In der Jeedom Mitte ist die Modulkonfiguration. Der Namen wird festgelegt, sein Ziel im Automatisierung-Baum, Modultyp, der Fähigkeit das Modul in Jeedom wird festgelegt, oder mann macht es Schnittstellenmodul sichtbar oder unsichtbar (nützlich zB für Fibaro Dual ...)
+
+image::../images/zwave4.png[]
+
+Auf der rechten Seite der Seite, zeigt es Informationen über das Modul. Der Modultyp (automatisch), Batteriestatus, Marke etc....
+
+Direkt neben dem Modultyp die "Teilen"-Taste(orange) erlaubt es, für die Gemeinschaft auf dem Markt ein unbekanntes Z-Wave-Module Jeedom zur Verfügung zu stellen, was wir gerade erstellt haben. Es ist mit diesem Button auch möglich, dass man seine Schöpfung auf dem Market auf den neuesten Stand bringen kann. 
+
+Les mises à jours des modules Z-Wave est centralisé dans le centre de mises à jour disponible dans le menu Général/Administration
+
+Zwei andere Buttons haben ihre Bedeutung, es handelt sich um den Button mit dem kleinen Schlüssel und um den Button "vor konfigurierte Aufträge" 
+
+image::../images/zwave5.png[]
+
+Durch Klicken auf die "vorkonfigurierten Befehle" erscheint ein Fenster, das die vorbekannt Klassen des Moduls. Das wird nur im Falle eine unbekannten Modules von Jeedom nützen und wird in der Folge ermöglichen, eine Beschreibung für ein unbekanntes Modul für Jeedom zu entwickeln. (siehe Kapitel Entwicklung)
+
+image::../images/zwave6.png[]
+
+Ein Klick auf die Schaltfläche mit dem kleinen Schlüssel ermöglicht den Zugriff auf die interne Konfiguration des Z-Wave-Moduls. Diese Konfiguration ist für jedes Gerät.
+
+Jeedom bietet ein klares und präzises Interface an, um diese Parameter zu ändern, die oft ziemlich unklar sind.  Alle Einstellungen werden mit ausführlich Erklärungen Dropdown-Menü Auswahl, Standardwert, Min- und Max-Wert ... etc ...angezeigt
+
+image::../images/zwave6.png[]
+
+Indem Sie die Maus auf ein Element zeigen kommt eine vollständige Erklärung des Parameters.
+
+image::../images/zwave7.png[]
+
+Dann auf dem unteren Rand des Fensters sind die Details aller Befehle (einige Artikel sind nur im Expertenmodus verfügbar)
+
+Für ein von Jeedom bekanntes Modul sind diese Befehle automatisch erfüllt. Nützliche Parameter sind zu chronisieren, Anzeigen(Kontrolle), Ereignis (die auf dem Modul angeforderten Informationen zu erzwingen).
+
+Die Parameter Instanz, Klasse, Befehl sind nur im Expertenmodus zur Verfügung, sie werden verwendet, um es Jeedom kompatibel mit neuen Z-Wave-Modul zu machen.
+
+image::../images/zwave_screenshot2.png[]
+
+Die Z-Wave Routing-Tabelle.
+
+image::../images/zwave9.png[]
+
+Die Z-Wave Warteschlange.
+
+image::../images/zwave10.png[]
+
+Z-Wave-Module auf dem Jeedom Markt freigeben.
+
+image::../images/zwave_screenshot3.png[]
+
+ 

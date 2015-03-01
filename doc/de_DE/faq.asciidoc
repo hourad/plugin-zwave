@@ -1,0 +1,5 @@
+[panel,primary]
+.Wie kann ich den Z-Wave-Server wiederherstellen
+--
+Es sollte bereits eine Jeedom Sicherung zur Wiederherstellung des Backup vorhanden sein(es befindet sich in plugins_backup/zwave ), verbinden Sie dann den Z-Wave-Server (IP:8083), im Netzwerk (Experte, verfügbar unten rechts), um die Sicherung wieder herzustellen. Dann wird in Jeedom in der Z-Wave Verwaltung eine NIF Anforderungen an alle Z-Wave Modulen gesendet und bei Bedarf werden die Module nacheinander geweckt.
+--
