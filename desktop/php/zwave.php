@@ -201,7 +201,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                         <?php
 foreach (zwave::devicesParameters() as $id => $info) {
 	if (isset($info['name'])) {
-		echo '<option value="' . $id . '">' . $info['name'] . '</option>';
+		echo '<option value="' . $id . '" >' . $info['name'] . '</option>';
 	}
 }
 ?>

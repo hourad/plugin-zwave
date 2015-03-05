@@ -108,7 +108,6 @@
 
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
     var logicalId = $(this).value();
-    console.log(logicalId);
    $('#img_device').attr('src', 'core/img/no_image.gif');
    $("<img>", {
     src: marketAddr + '/market/zwave/images/' + logicalId + '.jpg',
