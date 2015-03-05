@@ -514,6 +514,10 @@ class zwave extends eqLogic {
 		if (!file_exists($moduleFile)) {
 			throw new Exception('Impossible de trouver le fichier de configuration ' . $moduleFile);
 		}
+		$confFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.php';
+		if (file_exists($confFile)) {
+			$moduleFile = array($moduleFile, $confFile);
+		}
 		$tmp = dirname(__FILE__) . '/../../../../tmp/' . $market->getLogicalId() . '.zip';
 		if (file_exists($tmp)) {
 			if (!unlink($tmp)) {
@@ -555,6 +559,10 @@ class zwave extends eqLogic {
 		}
 		if (!unlink($moduleFile)) {
 			throw new Exception(__('Impossible de supprimer le fichier :  ', __FILE__) . $moduleFile . '. Veuillez vérifier les droits');
+		}
+		$confFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.php';
+		if (file_exists($confFile)) {
+			unlink($confFile);
 		}
 	}
 
