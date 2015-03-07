@@ -507,7 +507,7 @@ class zwave extends eqLogic {
 		return $return;
 	}
 
-/*     * *************************MARKET**************************************** */
+	/*     * *************************MARKET**************************************** */
 
 	public static function shareOnMarket(&$market) {
 		$moduleFile = dirname(__FILE__) . '/../config/devices/' . $market->getLogicalId() . '.json';
@@ -574,7 +574,7 @@ class zwave extends eqLogic {
 		return $return;
 	}
 
-/*     * *************************BACKUP/RESTORATION**************************************** */
+	/*     * *************************BACKUP/RESTORATION**************************************** */
 
 	public static function backup($_path) {
 		if (config::byKey('isOpenZwave', 'zwave', 0) == 0) {
@@ -587,7 +587,7 @@ class zwave extends eqLogic {
 		self::adminRazberry('InterviewForce', true);
 	}
 
-/*     * ************************************************************* */
+	/*     * ************************************************************* */
 
 	public static function adminRazberry($_command, $_ignoreError = false) {
 		if ($_command == 'RequestNodeInformation()') {
@@ -645,7 +645,7 @@ class zwave extends eqLogic {
 		return true;
 	}
 
-/*     * *********************Methode d'instance************************* */
+	/*     * *********************Methode d'instance************************* */
 
 	public function forceUpdate($_commandOnly = false) {
 		foreach ($this->getCmd() as $cmd) {
@@ -1071,6 +1071,13 @@ class zwave extends eqLogic {
 						}
 					}
 				}
+			}
+		}
+		if (isset($device['wakeup']) && is_numeric($device['wakeup']) && $device['wakeup'] > 1) {
+			try {
+				$this->setWakeUp($device['wakeup']);
+			} catch (Exception $ex) {
+
 			}
 		}
 
