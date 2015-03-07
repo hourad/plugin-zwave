@@ -27,6 +27,7 @@ if (!is_object($eqLogic)) {
 }
 $device = zwave::devicesParameters($eqLogic->getConfiguration('device'));
 sendVarToJS('configureDeviceId', init('id'));
+sendVarToJS('configureDeviceLogicalId', $eqLogic->getLogicalId());
 $sameDevices = $eqLogic->getSameDevice();
 $info = $eqLogic->getInfo();
 ?>
@@ -46,96 +47,96 @@ if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->ge
 if (is_array($device) && count($device) != 0 && $eqLogic->getConfiguration('device') != '') {
 	?>
 
-            <form class="form-horizontal">
-                <fieldset>
-                    <legend>Informations
+           <form class="form-horizontal">
+            <fieldset>
+                <legend>Informations
 
-                        <?php if (count($sameDevices) > 1) {
+                    <?php if (count($sameDevices) > 1) {
 		?>
-                        <a class="btn btn-warning btn-sm pull-right" style="color : white;" id="bt_copyDeviceConfiguration"><i class="fa fa-files-o"></i> {{Copier}}</a>
-                        <select class='form-control input-sm pull-right' id='sel_copyDeviceConfiguration' style='display: inline-block;width : 250px;font-size : 0.6em;'>
-                            <?php
+                      <a class="btn btn-warning btn-sm pull-right" style="color : white;" id="bt_copyDeviceConfiguration"><i class="fa fa-files-o"></i> {{Copier}}</a>
+                      <select class='form-control input-sm pull-right' id='sel_copyDeviceConfiguration' style='display: inline-block;width : 250px;font-size : 0.6em;'>
+                        <?php
 foreach ($sameDevices as $sameDevice) {
 			if ($eqLogic->getId() != $sameDevice->getId()) {
 				echo '<option value="' . $sameDevice->getId() . '">' . $sameDevice->getHumanName() . '</option>';
 			}
 		}
 		?>
-                        </select>
-                        <?php }?>
-                    </legend>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
-                                <div class="col-sm-8">
-                                    <span class="tooltips label label-default"><?php echo $eqLogic->getHumanName()?></span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">{{Nom du module}}</label>
-                                <div class="col-sm-8">
-                                    <span class="tooltips label label-default"><?php echo $device['name']?></span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">{{Marque}}</label>
-                                <div class="col-sm-8">
-                                    <span class="tooltips label label-default"><?php echo $device['vendor']?></span>
-                                </div>
-                            </div>
+                </select>
+                <?php }?>
+            </legend>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">{{Nom de l'équipement}}</label>
+                        <div class="col-sm-8">
+                            <span class="tooltips label label-default"><?php echo $eqLogic->getHumanName()?></span>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">{{Nom du module}}</label>
+                        <div class="col-sm-8">
+                            <span class="tooltips label label-default"><?php echo $device['name']?></span>
+                        </div>
+                    </div>
 
-                        <div class="col-sm-6">
-                            <?php
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">{{Marque}}</label>
+                        <div class="col-sm-8">
+                            <span class="tooltips label label-default"><?php echo $device['vendor']?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <?php
 $wakeup = $eqLogic->getWakeUp();
 	if ($wakeup != '-' && is_numeric($wakeup)) {
 		?>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{Wakeup (seconde)}}</label>
-                                    <div class="col-sm-2">
-                                        <input class="form-control" id="in_wakeUpTime" value="<?php echo $wakeup;?>" />
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-success" id="bt_valideWakeup"><i class="fa fa-check"></i> Valider</a>
-                                    </div>
-                                </div>
-                                <?php
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">{{Wakeup (seconde)}}</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="in_wakeUpTime" value="<?php echo $wakeup;?>" />
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-success" id="bt_valideWakeup"><i class="fa fa-check"></i> Valider</a>
+                        </div>
+                    </div>
+                    <?php
 }
 	if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
 		?>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{Polling (par pas de 30sec)}}</label>
-                                    <div class="col-sm-2">
-                                        <input class="form-control" id="in_pollingTime" value="<?php echo $eqLogic->getPolling();?>" />
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-success" id="bt_validePolling"><i class="fa fa-check"></i> Valider</a>
-                                    </div>
-                                </div>
-                                <?php }?>
-                                <?php
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">{{Polling (par pas de 30sec)}}</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="in_pollingTime" value="<?php echo $eqLogic->getPolling();?>" />
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-success" id="bt_validePolling"><i class="fa fa-check"></i> Valider</a>
+                    </div>
+                </div>
+                <?php }?>
+                <?php
 if (isset($device['configure']) && count($device['configure']) > 0) {
 		echo ' <a class="btn btn-default expertModeVisible tooltips" id="bt_deviceConfigureResendConfigurationCommand" style="margin-left: 5px;"><i class="fa fa-magnet"></i> Renvoyer commande(s) de configuration</a>';
 	}
 	?>
-                                <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeurs, statut..."><i class="fa fa-refresh"></i> Forcer re-interview</a>
-                                <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;"><i class="fa fa-times"></i> Marquer comme sans batterie</a>
-                                <?php
+              <a class="btn btn-success expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="InterviewForce" style="color: white;" title="Force le module à renvoyer toutes ses données : configuration, valeurs, statut..."><i class="fa fa-refresh"></i> Forcer re-interview</a>
+              <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;"><i class="fa fa-times"></i> Marquer comme sans batterie</a>
+              <?php
 if ($info['state']['value'] == 'Dead') {
 		echo ' <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d\'abord marquer l\'équipement comme sans batterie avant de pouvoir le supprimer"><i class="fa fa-trash"></i> Supprimer le module défaillant</a>';
 	}
 	?>
-                            </div>
-                        </div>
+          </div>
+      </div>
 
-                        <legend>{{Configuration}}</legend>
-                        <div class="alert alert-info">{{Certaines valeurs de configuration peuvent mettre plusieurs minutes à être reçues lors de la première récupération}}
-                            <a class="btn btn-warning bt_forceRefresh pull-right btn-xs" style="color : white;" title="{{Force le module à renvoyer sa configuration et uniquement sa configuration}}"><i class="fa fa-refresh"></i> {{Forcer la mise à jour}}</a>
-                        </div>
-                        <div id="div_configureDeviceParameters">
-                            <?php
+      <legend>{{Configuration}}</legend>
+      <div class="alert alert-info">{{Certaines valeurs de configuration peuvent mettre plusieurs minutes à être reçues lors de la première récupération}}
+        <a class="btn btn-warning bt_forceRefresh pull-right btn-xs" style="color : white;" title="{{Force le module à renvoyer sa configuration et uniquement sa configuration}}"><i class="fa fa-refresh"></i> {{Forcer la mise à jour}}</a>
+    </div>
+    <div id="div_configureDeviceParameters">
+        <?php
 foreach ($device['parameters'] as $id => $parameter) {
 		echo '<div class="form-group">';
 		echo '<label class="col-sm-1 control-label tooltips" title="' . $parameter['description'] . '"><span class="tooltips label label-warning zwaveParameters">' . $id . '</span></label>';
@@ -216,126 +217,124 @@ foreach ($device['parameters'] as $id => $parameter) {
 	echo '</div>';
 	echo '</div>';
 	?>
-                        </div>
-                    </fieldset>
-                </form>
+</div>
+</fieldset>
+</form>
 
 
-                <?php } else {?>
-                <legend>{{Informations}} </legend>
-                <div id='div_configureDeviceAlert' style="display: none;"></div>
-                <form class="form-horizontal">
-                    <fieldset>
-                        <div class="form-group alert alert-warning">
-                            <label class="col-sm-2 control-label tooltips">{{Opération}}</label>
-                            <div class="col-sm-6">
-                               <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
-                               <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>
-                           </div>
-                       </div>
-                       <div id="div_configureDeviceParameters">
-                        <div class="form-group alert alert-warning" id="div_configureDeviceSendParameter">
-                            <label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>
-                            <div class="col-sm-1">
-                                <input class="form-control" id="in_parametersId"/>
-                            </div>
-                            <label class="col-sm-1 control-label tooltips">{{Taille}}</label>
-                            <div class="col-sm-1">
-                                <input class="zwaveParameters form-control" data-l2key="size" />
-                            </div>
-                            <label class="col-sm-1 control-label tooltips">{{Valeur}}</label>
-                            <div class="col-sm-1">
-                                <input class="zwaveParameters form-control" data-l2key="value" />
-                            </div>
-                            <div class="col-sm-3">
-                                <a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>
-                            </div>
-                        </div>
-                        <div class="form-group alert alert-success" id="div_configureDeviceReadParameter">
-                            <label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>
-                            <div class="col-sm-1">
-                                <input class="form-control" id="in_parametersReadId" />
-                            </div>
-                            <label class="col-sm-1 control-label tooltips">{{Taille}}</label>
-                            <div class="col-sm-1">
-                                <span class="zwaveParameters label label-primary" data-l2key="size" ></span>
-                            </div>
-                            <label class="col-sm-1 control-label tooltips">{{Valeur}}</label>
-                            <div class="col-sm-1">
-                                <span class="zwaveParameters label label-primary" data-l2key="value" ></span>
-                            </div>
-                            <div class="col-sm-3">
-                                <a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraîchir}}</a>
-                                <a class="btn btn-warning pull-right bt_configureReadParameter" style="color : white;" data-force="1"><i class="fa fa-refresh"></i> {{Demander}}</a>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            <?php }?>
+<?php } else {?>
+<legend>{{Informations}} </legend>
+<div id='div_configureDeviceAlert' style="display: none;"></div>
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group alert alert-warning">
+            <label class="col-sm-2 control-label tooltips">{{Opération}}</label>
+            <div class="col-sm-6">
+               <a class="btn btn-warning expertModeVisible bt_deviceConfigurationAdministration" data-risk="{{sans risque}}" data-command="markBatteryFailed" style="color: white;">Marquer comme sans batterie</a>
+               <a class="btn btn-danger expertModeVisible bt_deviceConfigurationAdministration tooltips" data-risk="{{risquée}}" data-command="removeFailed" style="color: white;margin-left: 5px;" title="Vous devez d'abord marquer l'équipement comme sans batterie avant de pouvoir le supprimer">Supprimer le module défaillant</a>
+           </div>
+       </div>
+       <div id="div_configureDeviceParameters">
+        <div class="form-group alert alert-warning" id="div_configureDeviceSendParameter">
+            <label class="col-sm-2 control-label tooltips">{{Ecrire paramètre}}</label>
+            <div class="col-sm-1">
+                <input class="form-control" id="in_parametersId"/>
+            </div>
+            <label class="col-sm-1 control-label tooltips">{{Taille}}</label>
+            <div class="col-sm-1">
+                <input class="zwaveParameters form-control" data-l2key="size" />
+            </div>
+            <label class="col-sm-1 control-label tooltips">{{Valeur}}</label>
+            <div class="col-sm-1">
+                <input class="zwaveParameters form-control" data-l2key="value" />
+            </div>
+            <div class="col-sm-3">
+                <a class="btn btn-success pull-right" style="color : white;" id="bt_configureDeviceSendGeneric"><i class="fa fa-check"></i> {{Appliquer}}</a>
+            </div>
         </div>
-
-
- <div class="tab-pane" id="tab_spe"><br/>
-<?php
-if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.php')) {
-	include dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.php';
-}
-?>
+        <div class="form-group alert alert-success" id="div_configureDeviceReadParameter">
+            <label class="col-sm-2 control-label tooltips">{{Lire paramètre}}</label>
+            <div class="col-sm-1">
+                <input class="form-control" id="in_parametersReadId" />
+            </div>
+            <label class="col-sm-1 control-label tooltips">{{Taille}}</label>
+            <div class="col-sm-1">
+                <span class="zwaveParameters label label-primary" data-l2key="size" ></span>
+            </div>
+            <label class="col-sm-1 control-label tooltips">{{Valeur}}</label>
+            <div class="col-sm-1">
+                <span class="zwaveParameters label label-primary" data-l2key="value" ></span>
+            </div>
+            <div class="col-sm-3">
+                <a class="btn btn-success pull-right bt_configureReadParameter" style="color : white;" data-force="0"><i class="fa fa-refresh"></i> {{Rafraîchir}}</a>
+                <a class="btn btn-warning pull-right bt_configureReadParameter" style="color : white;" data-force="1"><i class="fa fa-refresh"></i> {{Demander}}</a>
+            </div>
+        </div>
+    </div>
+</fieldset>
+</form>
+<?php }?>
 </div>
 
+<?php
+if (file_exists(dirname(__FILE__) . '/../../core/config/devices/' . $eqLogic->getConfiguration('device') . '.php')) {?>
+<script>
+    $('#tab_spe').load('plugins/zwave/core/config/devices/<?php echo $eqLogic->getConfiguration('device');?>.php?id='+configureDeviceId+'&logical_id=<?php echo $eqLogic->getLogicalId();?>');
+</script>
+<?php }?>
+<div class="tab-pane" id="tab_spe"><br/>
 
+</div>
 
-
-        <div class="tab-pane" id="tab_group"><br/>
-            <div id='div_configureDeviceAssociation' style="display: none;"></div>
-            <?php
+<div class="tab-pane" id="tab_group"><br/>
+    <div id='div_configureDeviceAssociation' style="display: none;"></div>
+    <?php
 if (isset($device['groups']) && isset($device['groups']['description'])) {
 	echo '<div class="alert alert-info">' . $device['groups']['description'] . '</div>';
 }
 ?>
-            <legend>{{Association}}</legend>
-            <form class="form-horizontal">
-                <fieldset>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">{{Ajouter association}}</label>
-                        <div class="col-sm-2">
-                            <select class="form-control" id="in_configureDeviceAddAssociationGroup"></select>
-                        </div>
-                        <div class="col-sm-2">
-                            <select class="form-control" id="in_configureDeviceAddAssociationNode">
-                                <?php
+   <legend>{{Association}}</legend>
+   <form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">{{Ajouter association}}</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="in_configureDeviceAddAssociationGroup"></select>
+            </div>
+            <div class="col-sm-2">
+                <select class="form-control" id="in_configureDeviceAddAssociationNode">
+                    <?php
 echo '<option value="' . zwave::getZwaveInfo('controller::data::nodeId::value') . '">Jeedom</option>';
 foreach (zwave::byType('zwave') as $zwave) {
 	echo '<option value="' . $zwave->getLogicalId() . '">' . $zwave->getHumanName() . '</option>';
 }
 ?>
-                            </select>
-                        </div>
-                        <div class="col-sm-1">
-                            <a class="btn btn-success" id="bt_configureDeviceAddAssociation"><i class="fa fa-check-circle"></i> {{Ok}}</a>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            <table id="table_configureDeviceAssociation" class="table table-bordered table-condensed">
-                <thead>
-                    <tr>
-                        <th>{{Numéro de groupe}}</th>
-                        <th>{{Membre}}</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+               </select>
+           </div>
+           <div class="col-sm-1">
+            <a class="btn btn-success" id="bt_configureDeviceAddAssociation"><i class="fa fa-check-circle"></i> {{Ok}}</a>
+        </div>
+    </div>
+</fieldset>
+</form>
+<table id="table_configureDeviceAssociation" class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>{{Numéro de groupe}}</th>
+            <th>{{Membre}}</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-            <script>
-                $('#bt_configureDeviceAddAssociation').on('click', function () {
-                    changeAssociation('add', $('#in_configureDeviceAddAssociationGroup').value(), $('#in_configureDeviceAddAssociationNode').value())
-                });
+<script>
+    $('#bt_configureDeviceAddAssociation').on('click', function () {
+        changeAssociation('add', $('#in_configureDeviceAddAssociationGroup').value(), $('#in_configureDeviceAddAssociationNode').value())
+    });
 
-                loadAssociation();
+    loadAssociation();
 
-                function changeAssociation(_mode, _group, _node) {
+    function changeAssociation(_mode, _group, _node) {
                 $.ajax({// fonction permettant de faire de l'ajax
                     type: "POST", // méthode de transmission des données au fichier php
                     url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
