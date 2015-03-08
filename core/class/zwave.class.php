@@ -279,6 +279,39 @@ class zwave extends eqLogic {
 					$findConfiguration = false;
 					$result = self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
 					$data = $result['data'];
+
+					if (is_numeric($data['manufacturerId']['value']) && is_numeric($data['manufacturerProductType']['value']) && is_numeric($data['manufacturerProductId']['value'])) {
+						nodejs::pushUpdate('jeedom::alert', array(
+							'level' => 'warning',
+							'message' => __('Recherche, si nécessaire, de la configuration sur le market', __FILE__),
+						));
+						try {
+							$market_rpc = market::getJsonRpc();
+							if ($market_rpc->sendRequest('market::searchZwaveModuleConf', array('manufacturerId' => $data['manufacturerId']['value'], 'manufacturerProductType' => $data['manufacturerProductType']['value'], 'manufacturerProductId' => $data['manufacturerProductId']['value']))) {
+								$market = market::construct($market_rpc->getResult());
+								$update = update::byLogicalId($market->getLogicalId());
+								if (!is_object($update)) {
+									if ($market->getStatus('stable') == 1) {
+										nodejs::pushUpdate('jeedom::alert', array(
+											'level' => 'warning',
+											'message' => __('Configuration trouvée en stable : ', __FILE__) . $market->getName() . __(' installation en cours', __FILE__),
+										));
+										$market->install();
+									} else if ($market->getStatus('beta') == 1) {
+										nodejs::pushUpdate('jeedom::alert', array(
+											'level' => 'warning',
+											'message' => __('Configuration trouvée en beta : ', __FILE__) . $market->getName() . __(' installation en cours', __FILE__),
+										));
+										$market->install('beta');
+									}
+								}
+							}
+
+						} catch (Exception $e) {
+
+						}
+					}
+
 					/* Reconnaissance du module */
 					foreach (self::devicesParameters() as $device_id => $device) {
 						if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
