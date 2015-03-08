@@ -56,6 +56,48 @@ try {
 		}
 		$result = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
 		$data = $result['data'];
+
+		if (isset($data['manufacturerId']['value']) && isset($data['manufacturerProductType']['value']) && isset($data['manufacturerProductId']['value'])) {
+			nodejs::pushUpdate('jeedom::alert', array(
+				'level' => 'warning',
+				'message' => __('Recherche, si nécessaire, de la configuration sur le market', __FILE__),
+			));
+			sleep(1);
+			try {
+				$market_rpc = market::getJsonRpc();
+				if ($market_rpc->sendRequest('market::searchZwaveModuleConf', array('manufacturerId' => $data['manufacturerId']['value'], 'manufacturerProductType' => $data['manufacturerProductType']['value'], 'manufacturerProductId' => $data['manufacturerProductId']['value']))) {
+					foreach ($market_rpc->getResult() as $logicalId => $result) {
+						if (isset($result['id'])) {
+							$markets[$logicalId] = market::construct($result);
+						}
+					}
+					if (count($markets) == 1) {
+						$market = $markets[0];
+						$update = update::byLogicalId($market->getLogicalId());
+						if (!is_object($update)) {
+							if ($market->getStatus('stable') == 1) {
+								nodejs::pushUpdate('jeedom::alert', array(
+									'level' => 'warning',
+									'message' => __('Configuration trouvée en stable : ', __FILE__) . $market->getName() . __(' installation en cours', __FILE__),
+								));
+								sleep(1);
+								$market->install();
+							} else if ($market->getStatus('beta') == 1) {
+								nodejs::pushUpdate('jeedom::alert', array(
+									'level' => 'warning',
+									'message' => __('Configuration trouvée en beta : ', __FILE__) . $market->getName() . __(' installation en cours', __FILE__),
+								));
+								sleep(1);
+								$market->install('beta');
+							}
+						}
+					}
+				}
+			} catch (Exception $e) {
+
+			}
+		}
+
 		$deviceFound = false;
 		foreach (zwave::devicesParameters() as $device_id => $device) {
 			if ($device['manufacturerId'] == $data['manufacturerId']['value'] && $device['manufacturerProductType'] == $data['manufacturerProductType']['value'] && $device['manufacturerProductId'] == $data['manufacturerProductId']['value']) {
@@ -64,6 +106,7 @@ try {
 					'level' => 'warning',
 					'message' => __('Périphérique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__),
 				));
+				sleep(1);
 				$eqLogic->setConfiguration('device', $device_id);
 				$eqLogic->save();
 				for ($i = 0; $i < 5; $i++) {

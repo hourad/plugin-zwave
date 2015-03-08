@@ -289,9 +289,13 @@ class zwave extends eqLogic {
 						try {
 							$market_rpc = market::getJsonRpc();
 							if ($market_rpc->sendRequest('market::searchZwaveModuleConf', array('manufacturerId' => $data['manufacturerId']['value'], 'manufacturerProductType' => $data['manufacturerProductType']['value'], 'manufacturerProductId' => $data['manufacturerProductId']['value']))) {
-								$results = $market_rpc->getResult();
-								if (count($results) == 1) {
-									$market = market::construct($results[0]);
+								foreach ($market_rpc->getResult() as $logicalId => $result) {
+									if (isset($result['id'])) {
+										$markets[$logicalId] = market::construct($result);
+									}
+								}
+								if (count($markets) == 1) {
+									$market = $markets[0];
 									$update = update::byLogicalId($market->getLogicalId());
 									if (!is_object($update)) {
 										if ($market->getStatus('stable') == 1) {
@@ -299,12 +303,14 @@ class zwave extends eqLogic {
 												'level' => 'warning',
 												'message' => __('Configuration trouvée en stable : ', __FILE__) . $market->getName() . __(' installation en cours', __FILE__),
 											));
+											sleep(1);
 											$market->install();
 										} else if ($market->getStatus('beta') == 1) {
 											nodejs::pushUpdate('jeedom::alert', array(
 												'level' => 'warning',
 												'message' => __('Configuration trouvée en beta : ', __FILE__) . $market->getName() . __(' installation en cours', __FILE__),
 											));
+											sleep(1);
 											$market->install('beta');
 										}
 									}
@@ -323,6 +329,7 @@ class zwave extends eqLogic {
 								'level' => 'warning',
 								'message' => __('Périphérique reconnu : ', __FILE__) . $device['name'] . '!! (Manufacturer ID : ' . $data['manufacturerId']['value'] . ', Product type : ' . $data['manufacturerProductType']['value'] . ', Product ID : ' . $data['manufacturerProductId']['value'] . __('). Configuration en cours veuillez patienter...', __FILE__),
 							));
+							sleep(1);
 							$eqLogic->setConfiguration('device', $device_id);
 							$eqLogic->save();
 							for ($i = 0; $i < 5; $i++) {
