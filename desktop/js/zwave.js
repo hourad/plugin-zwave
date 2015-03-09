@@ -108,43 +108,56 @@
 
  $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
     var logicalId = $(this).value();
-   $('#img_device').attr('src', 'core/img/no_image.gif');
-   $("<img>", {
-    src: marketAddr + '/market/zwave/images/' + logicalId + '.jpg',
-    error: function () {
-        $("<img>", {
-            src: marketAddr + '/market/zwave/images/' + logicalId + '_icon.png',
-            error: function () {
-                $("<img>", {
-                    src: marketAddr + '/market/zwave/images/' + logicalId + '_icon.jpg',
-                    error: function () {
+    $('#bt_deviceDocumentation').hide();
 
-                    },
-                    load: function () {
-                        $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '_icon.jpg');
-                        $('#img_device').lazyload({
-                            event: "sporty"
-                        });
-                        $('#img_device').trigger("sporty");
-                    }
-                });
-            },
-            load: function () {
-                $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '_icon.png');
-                $('#img_device').lazyload({
-                    event: "sporty"
-                });
-                $('#img_device').trigger("sporty");
+    jeedom.market.byLogicalId({
+        logicalId : logicalId,
+        global : false,
+        success : function(data){
+            if(isset(data.link) && isset(data.link['doc_'+jeedom_langage])){
+                $('#bt_deviceDocumentation').show();
+                $('#bt_deviceDocumentation').attr('href',data.link['doc_'+jeedom_langage]);
             }
-        });
-    },
-    load: function () {
-        $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '.jpg');
-        $('#img_device').lazyload({
-            event: "sporty"
-        });
-        $('#img_device').trigger("sporty");
-    }
+        }
+    });
+
+    $('#img_device').attr('src', 'core/img/no_image.gif');
+    $("<img>", {
+        src: marketAddr + '/market/zwave/images/' + logicalId + '.jpg',
+        error: function () {
+            $("<img>", {
+                src: marketAddr + '/market/zwave/images/' + logicalId + '_icon.png',
+                error: function () {
+                    $("<img>", {
+                        src: marketAddr + '/market/zwave/images/' + logicalId + '_icon.jpg',
+                        error: function () {
+
+                        },
+                        load: function () {
+                            $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '_icon.jpg');
+                            $('#img_device').lazyload({
+                                event: "sporty"
+                            });
+                            $('#img_device').trigger("sporty");
+                        }
+                    });
+                },
+                load: function () {
+                    $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '_icon.png');
+                    $('#img_device').lazyload({
+                        event: "sporty"
+                    });
+                    $('#img_device').trigger("sporty");
+                }
+            });
+},
+load: function () {
+    $('#img_device').attr("data-original", marketAddr + '/market/zwave/images/' + logicalId + '.jpg');
+    $('#img_device').lazyload({
+        event: "sporty"
+    });
+    $('#img_device').trigger("sporty");
+}
 });
 });
 

@@ -210,6 +210,7 @@ foreach (zwave::devicesParameters() as $id => $info) {
               <div class="col-sm-5">
                 <a class="btn btn-success tooltips" id="bt_getFromMarket" title="{{Récupérer du market}}"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{Market}}</span></a>
                 <a class="btn btn-default" id="bt_configureDevice" title='{{Configurer}}'><i class="fa fa-wrench"></i></a>
+                <a class="btn btn-default" id="bt_deviceDocumentation" title='{{Documentation du module}}' target="_blank"><i class="fa fa-book"></i></a>
             </div>
         </div>
         <div class="form-group expertModeVisible">

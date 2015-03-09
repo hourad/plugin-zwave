@@ -1088,6 +1088,9 @@ class zwave extends eqLogic {
 					$cmd->setEqLogic_id($this->getId());
 				} else {
 					$command['name'] = $cmd->getName();
+					if (isset($command['display'])) {
+						unset($command['display']);
+					}
 				}
 				utils::a2o($cmd, $command);
 				if (isset($command['value'])) {
