@@ -5,11 +5,11 @@
         "Nouveau module Z-Wave détecté. Début de l'intégration": "Nouveau module Z-Wave détecté. Début de l'intégration",
         "Pause de ": "Pause de ",
         " pour interview forcé du module": " pour interview forcé du module",
-        "Votre module n'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible": "Votre module n'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible",
+        "Votre module n'est pas reconnu, veuillez récupérer sa configuration sur le market si celle ci est disponible": "Votre module n'est pas reconnu, veuillez récupérer sa configuration sur le market si celle-ci est disponible",
         "Un périphérique Z-Wave vient d'être exclu. Logical ID : ": "Un périphérique Z-Wave vient d'être exclu. Logical ID : "
     },
     "plugins\/zwave\/desktop\/modal\/network.health.php": {
-        "Complete": "Complete",
+        "Complete": "Complète",
         "Module": "Module",
         "ID": "ID",
         "Interview": "Interview",
@@ -44,11 +44,11 @@
         "Ne pas vérifier la batterie": "Ne pas vérifier la batterie",
         "Commentaire": "Commentaire",
         "Informations": "Informations",
-        "Detecter automatiquement le modele du module": "Detecter automatiquement le modele du module",
+        "Detecter automatiquement le modele du module": "Détecter automatiquement le modèle du module",
         "Voir l'arbre Z-Wave": "Voir l'arbre Z-Wave",
         "Voir les classes Z-Wave": "Voir les classes Z-Wave",
         "Module": "Module",
-        "Récupérer du market": "Récupérer du market",
+        "Récupérer du market": "Récupérer du Market",
         "Market": "Market",
         "Configurer": "Configurer",
         "Envoyer une configuration": "Envoyer une configuration",
@@ -97,15 +97,15 @@
         "Ok": "Ok",
         "Numéro de groupe": "Numéro de groupe",
         "Membre": "Membre",
-        "Opération reussi": "Opération reussi",
-        "Etes-vous sûr de vouloir effectuer l\\'opération :": "Etes-vous sûr de vouloir effectuer l\\'opération :",
-        "Le risque de l\\'opération est :": "Le risque de l\\'opération est :",
-        "Etes-vous sûr de vouloir copier la configuration de": "Etes-vous sûr de vouloir copier la configuration de",
-        "Paramètres envoyés avec succès (la prise en compte peut prendre jusqu\\'à plusieurs minutes)": "Paramètres envoyés avec succès (la prise en compte peut prendre jusqu\\'à plusieurs minutes)"
+        "Opération réussie": "Opération réussie",
+        "Etes-vous sûr de vouloir effectuer l'opération :": "Êtes-vous sûr de vouloir effectuer l'opération :",
+        "Le risque de l'opération est :": "Le risque de l'opération est :",
+        "Etes-vous sûr de vouloir copier la configuration de": "Êtes-vous sûr de vouloir copier la configuration de",
+        "Paramètres envoyés avec succès (la prise en compte peut prendre jusqu'à plusieurs minutes)": "Paramètres envoyés avec succès (la prise en compte peut prendre jusqu'à plusieurs minutes)"
     },
     "plugins\/zwave\/desktop\/modal\/inspect.queue.php": {
-        "Rafraichis à :": "Rafraichis à :",
-        "Nombre d'envoi(s)": "Nombre d'envoi(s)",
+        "Rafraichi à :": "Rafraichi à :",
+        "Nombre d'envois": "Nombre d'envois",
         "Timeout": "Timeout",
         "Logical ID": "Logical ID",
         "Nom": "Nom",
@@ -120,7 +120,7 @@
         "Au moins 2 routes avec un saut": "Au moins 2 routes avec un saut",
         "Moins de 2 routes avec un saut": "Moins de 2 routes avec un saut",
         "Toutes les routes ont plus d'un saut": "Toutes les routes ont plus d'un saut",
-        "Demande de mise à jour des routes envoyée (cela peut mettre jusqu\\'à plusieurs minutes)": "Demande de mise à jour des routes envoyée (cela peut mettre jusqu\\'à plusieurs minutes)",
+        "Demande de mise à jour des routes envoyée (cela peut mettre jusqu'à plusieurs minutes)": "Demande de mise à jour des routes envoyée (cela peut mettre jusqu'à plusieurs minutes)",
         "Nom": "Nom"
     },
     "plugins\/zwave\/desktop\/modal\/admin.razberry.php": {
@@ -135,7 +135,7 @@
         "Envoyer mon NIF": "Envoyer mon NIF",
         "Dans certaines configurations réseau il peut être nécessaire d'envoyer le Node Id  \r\n                du contrôleur Z-Way. Ceci est particulièrement utile pour l'utilisation de certaines télécommandes pour la scène \r\n                activation. Se référer au manuel de la télécommande pour donner plus d'\r\n                informations quand et comment utiliser cette fonction.": "Dans certaines configurations réseau il peut être nécessaire d'envoyer le Node Id  \r\n                du contrôleur Z-Way. Ceci est particulièrement utile pour l'utilisation de certaines télécommandes pour la scène \r\n                activation. Se référer au manuel de la télécommande pour donner plus d'\r\n                informations quand et comment utiliser cette fonction.",
         "Demander tous les NIF": "Demander tous les NIF",
-        "Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut \r\n                être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable coller comme par exemple Aeon Labs Z-Stick. Les appareils fonctionnant sur secteur retourneront leur FNI immédiatement, les dispositifs à piles vont réagir après la prochaine activation.": "Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut \r\n                être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable coller comme par exemple Aeon Labs Z-Stick. Les appareils fonctionnant sur secteur retourneront leur FNI immédiatement, les dispositifs à piles vont réagir après la prochaine activation.",
+        "Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut \r\n                être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable coller comme par exemple Aeon Labs Z-Stick. Les appareils fonctionnant sur secteur retourneront leur NIF immédiatement, les dispositifs à piles vont réagir après la prochaine activation.": "Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut \r\n                être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable coller comme par exemple Aeon Labs Z-Stick. Les appareils fonctionnant sur secteur retourneront leur NIF immédiatement, les dispositifs à piles vont réagir après la prochaine activation.",
         "Forcer re-interview": "Forcer re-interview",
         "Force tous les modules à renvoyer toutes leurs informations": "Force tous les modules à renvoyer toutes leurs informations",
         "Moyen": "Moyen",
@@ -154,11 +154,11 @@
         "Démarrer le changement du contrôleur primaire": "Démarrer le changement du contrôleur primaire",
         "Arrêter le changement du contrôleur primaire": "Arrêter le changement du contrôleur primaire",
         "La fonction de changement de contrôleur permet le transfert de la fonction primaire à un autre contrôleur du\r\n                réseau. La fonction fonctionne comme une fonction d'inclusion normale, mais remettra le primaire \r\n                privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire du \r\n                réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire \r\n                Enfin fonction est remis une des télécommandes.": "La fonction de changement de contrôleur permet le transfert de la fonction primaire à un autre contrôleur du\r\n                réseau. La fonction fonctionne comme une fonction d'inclusion normale, mais remettra le primaire \r\n                privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire du \r\n                réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire \r\n                Enfin fonction est remis une des télécommandes.",
-        "M'inclure dans un reseaux zwave": "M'inclure dans un reseaux zwave",
-        "M'inclure dans un nouveau reseaux Zwave (pour etre controleur secondaire par exemple)": "M'inclure dans un nouveau reseaux Zwave (pour etre controleur secondaire par exemple)",
-        "Etes-vous sûr de vouloir effectuer l\\'opération :": "Etes-vous sûr de vouloir effectuer l\\'opération :",
-        "Le risque de l\\'opération est :": "Le risque de l\\'opération est :",
-        "Opération lancée avec succès. En fonction de l\\'opération celle-ci peut mettre plusieurs minutes à se réaliser.": "Opération lancée avec succès. En fonction de l\\'opération celle-ci peut mettre plusieurs minutes à se réaliser."
+        "M'inclure dans un réseau Z-Wave": "M'inclure dans un réseau Z-Wave",
+        "M'inclure dans un nouveau reseau Z-Wave (pour être contrôleur secondaire par exemple)": "M'inclure dans un nouveau réseau Z-Wave (pour être contrôleur secondaire par exemple)",
+        "Etes-vous sûr de vouloir effectuer l'opération :": "Etes-vous sûr de vouloir effectuer l'opération :",
+        "Le risque de l'opération est :": "Le risque de l'opération est :",
+        "Opération lancée avec succès. En fonction de l'opération celle-ci peut mettre plusieurs minutes à se réaliser.": "Opération lancée avec succès. En fonction de l'opération celle-ci peut mettre plusieurs minutes à se réaliser."
     },
     "plugins\/zwave\/desktop\/modal\/show.class.php": {
         "Classes": "Classes",
@@ -179,7 +179,7 @@
         "Zway IP": "Zway IP",
         "Zway port": "Zway port",
         "Supprimer automatiquement les périphériques exclus": "Supprimer automatiquement les périphériques exclus",
-        "J'utilise un serveur openzwave": "J'utilise un serveur openzwave"
+        "J'utilise un serveur openzwave": "J'utilise un serveur Openzwave"
     },
     "plugins\/zwave\/mobile\/html\/zwave.html": {
         "Inclusion": "Inclusion",
