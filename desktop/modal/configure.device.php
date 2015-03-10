@@ -107,7 +107,7 @@ $wakeup = $eqLogic->getWakeUp();
 	if (config::byKey('isOpenZwave', 'zwave', 0) == 1) {
 		?>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">{{Polling (par pas de 30sec)}}</label>
+                    <label class="col-sm-3 control-label">{{Polling (par pas de 30 sec)}}</label>
                     <div class="col-sm-2">
                         <input class="form-control" id="in_pollingTime" value="<?php echo $eqLogic->getPolling();?>" />
                     </div>
@@ -170,9 +170,9 @@ foreach ($device['parameters'] as $id => $parameter) {
 		if (isset($parameter['default'])) {
 			echo '<span class="tooltips label label-primary tooltips" title="Défaut">' . $parameter['default'] . '</span> ';
 		}
-		echo '<span class="tooltips label label-default zwaveParameters" data-l1key="' . $id . '" data-l2key="size" title="Taille en byte"></span> ';
+		echo '<span class="tooltips label label-default zwaveParameters" data-l1key="' . $id . '" data-l2key="size" title="Taille en octets"></span> ';
 		echo '<span class="tooltips label label-info zwaveParameters" data-l1key="' . $id . '" data-l2key="datetime" title="Date"></span> ';
-		echo '<span class="tooltips label label-warning zwaveParameters" data-l1key="' . $id . '" data-l2key="status" title="Status"></span>';
+		echo '<span class="tooltips label label-warning zwaveParameters" data-l1key="' . $id . '" data-l2key="status" title="Statut"></span>';
 		echo '</div>';
 		echo '<div class="col-sm-3">';
 		echo '<span class="tooltips description"></span> ';
@@ -354,7 +354,7 @@ foreach (zwave::byType('zwave') as $zwave) {
                         $('#div_configureDeviceAlert').showAlert({message: data.result, level: 'danger'});
                         return;
                     }
-                    $('#div_configureDeviceAlert').showAlert({message: '{{Opération reussi}}', level: 'success'});
+                    $('#div_configureDeviceAlert').showAlert({message: '{{Opération réussie}}', level: 'success'});
                     loadAssociation();
                 }
             });
