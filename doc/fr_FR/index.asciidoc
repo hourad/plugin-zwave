@@ -9,7 +9,7 @@ include::configuration.asciidoc[]
 
 '''
 === Liste des modules connus
-link:https://jeedom.fr/liste_module_zwave.php[ici]
+link:http://doc.jeedom.fr/fr_FR/doc_zwave_module_list.html[ici]
 
 '''
 === Ajouter un module inconnu
@@ -24,5 +24,5 @@ include::faq.asciidoc[]
 include::troubleshoting.asciidoc[]
 
 '''
-=== Changelog
-include::changelog.asciidoc[]
+=== Configuration du port dans le zway server
+include::configurePort.asciidoc[]

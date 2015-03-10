@@ -1,0 +1,23 @@
+Voici comment reconfigurer le port  du zwave si vous avez l'erreur "Can not handle data"
+
+Connectez vous sur IP_ZWAY:8083, puis :  
+
+image::../images/zwave_configurePort_1.JPG[]
+
+image::../images/zwave_configurePort_2.JPG[]
+
+IMPORTANT: Ici cliquez d'abord sur automation, si vous avez un zway binding alors tout est bon, sinon faites la suite de la doc.
+
+image::../images/zwave_configurePort_3.JPG[]
+
+image::../images/zwave_configurePort_4.JPG[]
+
+image::../images/zwave_configurePort_5.JPG[]
+
+image::../images/zwave_configurePort_6.JPG[]
+
+Le port a renseigner est /dev/ttyAMA0 pour un rpi
+
+image::../images/zwave_configurePort_7.JPG[]
+
+Redemarrer le systeme et ca devrait etre bon
