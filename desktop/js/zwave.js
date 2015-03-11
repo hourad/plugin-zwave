@@ -42,13 +42,15 @@
 });
  $('.changeIncludeState').on('click', function () {
     var nbZwayServer = 0;
+    var serverId = 1;
     for(var i in listServerZway){
         if(listServerZway[i].name != null){
+            serverId = listServerZway[i].serverId
             nbZwayServer++
         }
     }
     if(nbZwayServer < 2){
-        changeIncludeState($(this).attr('data-mode'), $(this).attr('data-state'));
+        changeIncludeState($(this).attr('data-mode'), $(this).attr('data-state'),serverId);
     }else{
         var options = '';
         var mode = $(this).attr('data-mode');
