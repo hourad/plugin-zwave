@@ -16,13 +16,21 @@
  */
 
 if (!isConnect('admin')) {
-   throw new Exception('{{401 - Accès non autorisé}}');
+	throw new Exception('{{401 - Accès non autorisé}}');
 }
 include_file('3rdparty', 'jquery.tablesorter/theme.bootstrap', 'css');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
 ?>
 <div id='div_inspectQueueAlert' style="display: none;"></div>
+<span class='pull-left'><select class="form-control" style="width : 200px;" id="sel_inspectQueuServerId">
+    <?php
+foreach (zwave::listServerZway() as $id => $server) {
+	echo '<option value="' . $id . '">' . $server['name'] . '</option>';
+}
+?>
+</select>
+</span>
 <span class='pull-right'>{{Rafraichi à :}} <span id='span_inspectQueueRefreshTIme' class='label label-primary' style="font-size: 1.2em;"></span></span><br/><br/>
 <table id="table_zwaveQueue" class="table table-bordered table-condensed tablesorter">
     <thead>
@@ -50,6 +58,7 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'j
             url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
             data: {
                 action: "inspectQueue",
+                serverId: $('#sel_inspectQueuServerId').value(),
             },
             dataType: 'json',
             global: false,

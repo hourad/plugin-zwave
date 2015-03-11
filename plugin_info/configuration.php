@@ -33,22 +33,26 @@ try {
 }
 ?>
         <div class="form-group">
-            <label class="col-lg-4 control-label">{{Serveur Z-wave IP}}</label>
+        <label class="col-lg-3 control-label">{{Serveur Z-wave nom}}</label>
+            <div class="col-lg-2">
+                <input class="configKey form-control" data-l1key="zwaveName1" />
+            </div>
+            <label class="col-lg-1 control-label">{{IP}}</label>
             <div class="col-lg-2">
                 <input class="configKey form-control" data-l1key="zwaveAddr1" />
             </div>
             <label class="col-lg-1 control-label">{{Port}}</label>
-            <div class="col-lg-2">
+            <div class="col-lg-1">
                 <input class="configKey form-control" data-l1key="zwavePort1" value="8083" />
             </div>
-             <label class="col-lg-2 control-label">{{Openzwave}}</label>
+            <label class="col-lg-1 control-label">{{Openzwave}}</label>
             <div class="col-lg-1">
                 <input type="checkbox" class="configKey" data-l1key="isOpenZwave1" />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">{{Supprimer automatiquement les périphériques exclus}}</label>
-            <div class="col-lg-4">
+            <label class="col-lg-3 control-label">{{Supprimer automatiquement les périphériques exclus}}</label>
+            <div class="col-lg-3">
                 <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
             </div>
         </div>
@@ -57,13 +61,13 @@ try {
         </div>
         <?php if (config::byKey('zwaveAddr', 'zwave') == '127.0.0.1' || config::byKey('zwaveAddr', 'zwave') == 'localhost') {?>
             <div class="form-group">
-                <label class="col-lg-4 control-label">{{Arrêt/Redémarrage}}</label>
+                <label class="col-lg-3 control-label">{{Arrêt/Redémarrage}}</label>
                 <div class="col-lg-2">
                     <a class="btn btn-warning" id="bt_restartZwayServer"><i class='fa fa-stop'></i> {{Arrêter/Redemarrer le z-way-server}}</a>
                 </div>
             </div>
             <div class="form-group expertModeVisible">
-                <label class="col-lg-4 control-label">{{Lancer en debug}}</label>
+                <label class="col-lg-3 control-label">{{Lancer en debug}}</label>
                 <div class="col-lg-2">
                     <a class="btn btn-danger" id="bt_launchZwayServerInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
                 </div>

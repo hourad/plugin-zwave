@@ -56,7 +56,7 @@ try {
 		if (!is_object($eqLogic)) {
 			throw new Exception(__('Zwave eqLogic non trouvé : ', __FILE__) . init('id'));
 		}
-		$result = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
+		$result = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $eqLogic->getConfiguration('serverID', 1));
 		$data = $result['data'];
 
 		if (isset($data['manufacturerId']['value']) && isset($data['manufacturerProductType']['value']) && isset($data['manufacturerProductId']['value'])) {
@@ -166,15 +166,15 @@ try {
 	}
 
 	if (init('action') == 'inspectQueue') {
-		ajax::success(zwave::inspectQueue());
+		ajax::success(zwave::inspectQueue(init('serverId', 1)));
 	}
 
 	if (init('action') == 'getRoutingTable') {
-		ajax::success(zwave::getRoutingTable());
+		ajax::success(zwave::getRoutingTable(init('serverId', 1)));
 	}
 
 	if (init('action') == 'updateRoute') {
-		ajax::success(zwave::updateRoute());
+		ajax::success(zwave::updateRoute(init('serverId', 1)));
 	}
 
 	if (init('action') == 'copyDeviceConfiguration') {
@@ -209,7 +209,7 @@ try {
 	}
 
 	if (init('action') == 'getZwaveInfo') {
-		ajax::success(zwave::getZwaveInfo(init('path')));
+		ajax::success(zwave::getZwaveInfo(init('path'), init('serverId', 1)));
 	}
 
 	if (init('action') == 'getAssociation') {
@@ -253,7 +253,7 @@ try {
 	}
 
 	if (init('action') == 'callRazberry') {
-		ajax::success(zwave::callRazberry(init('call')));
+		ajax::success(zwave::callRazberry(init('call'), init('serverId', 1)));
 	}
 
 	if (init('action') == 'uploadConfZwave') {

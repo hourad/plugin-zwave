@@ -51,21 +51,23 @@ class zwave extends eqLogic {
 		return self::$_nbZwaveServer;
 	}
 
+	public static function listServerZway() {
+		$return = array();
+		for ($i = 1; $i <= self::getNbZwaveServer(); $i++) {
+			$return[$i] = array(
+				'name' => config::byKey('zwaveName' . $i, 'zwave', config::byKey('zwaveAddr' . $i, 'zwave')),
+				'addr' => config::byKey('zwaveAddr' . $i, 'zwave'),
+				'port' => config::byKey('zwavePort' . $i, 'zwave'),
+			);
+		}
+		return $return;
+	}
+
 	public static function callRazberry($_url, $_serverId = 1) {
 		if (self::$_curl == null) {
 			self::$_curl = curl_init();
 		}
-		switch ($_serverId) {
-			case 1:
-				$url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':' . config::byKey('zwavePort', 'zwave', 8083) . $_url;
-				break;
-			case 2:
-				$url = 'http://' . config::byKey('zwaveAddr2', 'zwave') . ':' . config::byKey('zwavePort2', 'zwave', 8083) . $_url;
-				break;
-			default:
-				$url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':' . config::byKey('zwavePort', 'zwave', 8083) . $_url;
-				break;
-		}
+		$url = 'http://' . config::byKey('zwaveAddr' . $_serverId, 'zwave') . ':' . config::byKey('zwavePort' . $_serverId, 'zwave', 8083) . $_url;
 		$ch = self::$_curl;
 		curl_setopt_array($ch, array(
 			CURLOPT_URL => $url,
@@ -269,7 +271,7 @@ class zwave extends eqLogic {
 				}
 			}
 			if (isset($results['updateTime'])) {
-				//cache::set('zwave::lastUpdate' . $serverID, $results['updateTime'], 0);
+				cache::set('zwave::lastUpdate' . $serverID, $results['updateTime'], 0);
 			} else {
 				cache::set('zwave::lastUpdate' . $serverID, 0, 0);
 			}
@@ -544,7 +546,9 @@ class zwave extends eqLogic {
 			self::callRazberry('/ZWaveAPI/Run/controller.HealthNetwork()', $_serverId);
 		}
 		foreach (eqLogic::byType('zwave') as $eqLogic) {
-			self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()', $_serverId);
+			if ($eqLogic->getConfiguration('serverID', 1) == $_serverId) {
+				self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()', $_serverId);
+			}
 		}
 	}
 
