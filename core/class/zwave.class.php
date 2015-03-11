@@ -22,6 +22,8 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 class zwave extends eqLogic {
 	/*     * *************************Attributs****************************** */
 
+	private static $_curl = null;
+
 	/*     * ***********************Methode static*************************** */
 
 	public static function sick() {
@@ -40,8 +42,12 @@ class zwave extends eqLogic {
 	}
 
 	public static function callRazberry($_url) {
+		if (self::$_curl == null) {
+			self::$_curl = curl_init();
+		}
+
 		$url = 'http://' . config::byKey('zwaveAddr', 'zwave') . ':' . config::byKey('zwavePort', 'zwave', 8083) . $_url;
-		$ch = curl_init();
+		$ch = self::$_curl;
 		curl_setopt_array($ch, array(
 			CURLOPT_URL => $url,
 			CURLOPT_HEADER => false,
@@ -50,10 +56,10 @@ class zwave extends eqLogic {
 		$result = curl_exec($ch);
 		if (curl_errno($ch)) {
 			$curl_error = curl_error($ch);
-			curl_close($ch);
+			//curl_close($ch);
 			throw new Exception(__('Echec de la requete http : ', __FILE__) . $url . ' Curl error : ' . $curl_error, 404);
 		}
-		curl_close($ch);
+		//curl_close($ch);
 		if (strpos($result, 'Error 500: Server Error') === 0 || strpos($result, 'Error 500: Internal Server Error') === 0) {
 			if (strpos($result, 'Code took too long to return result') === false) {
 				throw new Exception('Echec de la commande : ' . $_url . '. Erreur : ' . $result, 500);

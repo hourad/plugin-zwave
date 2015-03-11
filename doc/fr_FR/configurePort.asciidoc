@@ -1,4 +1,4 @@
-Voici comment reconfigurer le port  du zwave si vous avez l'erreur "Can not handle data"
+Voici comment reconfigurer le port  du zwave si vous avez l'erreur "Error handling data from server"
 
 Connectez vous sur IP_ZWAY:8083, puis :  
 
