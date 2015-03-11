@@ -19,10 +19,10 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 $eqLogic = zwave::byId(init('id'));
-if(!is_object($eqLogic)){
-	throw new Exception(__('Equipement Z-Wave introuvable : ',__FILE__).init('id'));
+if (!is_object($eqLogic)) {
+	throw new Exception(__('Equipement Z-Wave introuvable : ', __FILE__) . init('id'));
 }
-$results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
+$results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $eqLogic->getConfiguration('serveurID', 1));
 ?>
 <div id='div_zwaveInterviewResult' style="display: none;"></div>
 <table class="table table-condensed">
@@ -36,27 +36,27 @@ $results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId
 	</thead>
 	<tbody>
 		<?php
-		foreach ($results['instances'] as $instanceID => $instance) {
-			foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
-				if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
-					continue;
-				}
-				if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
-					continue;
-				}
-				echo "<tr>";
-				echo "<td>$instanceID</td>";
-				echo "<td>".$commandClasses['name']."</td>";
-				if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
-					echo "<td><span class='label label-danger'>{{Incomplet}}</span></td>";
-				}else{
-					echo "<td><span class='label label-success'>{{Complet}}</span></td>";
-				}
-				echo "<td><a class='btn btn-primary btn-xs forceInterview' data-instance='$instanceID' data-class='$ccId' data-id='".$eqLogic->getId()."'><i class='fa fa-retweet'></i> {{Forcer (re)interview}}</a></td>";
-				echo "</tr>";
-			}
+foreach ($results['instances'] as $instanceID => $instance) {
+	foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
+		if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
+			continue;
 		}
-		?>
+		if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
+			continue;
+		}
+		echo "<tr>";
+		echo "<td>$instanceID</td>";
+		echo "<td>" . $commandClasses['name'] . "</td>";
+		if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
+			echo "<td><span class='label label-danger'>{{Incomplet}}</span></td>";
+		} else {
+			echo "<td><span class='label label-success'>{{Complet}}</span></td>";
+		}
+		echo "<td><a class='btn btn-primary btn-xs forceInterview' data-instance='$instanceID' data-class='$ccId' data-id='" . $eqLogic->getId() . "'><i class='fa fa-retweet'></i> {{Forcer (re)interview}}</a></td>";
+		echo "</tr>";
+	}
+}
+?>
 	</tbody>
 </table>
 

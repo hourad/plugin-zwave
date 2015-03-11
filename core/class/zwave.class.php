@@ -24,6 +24,7 @@ class zwave extends eqLogic {
 
 	private static $_curl = null;
 	private static $_nbZwaveServer = 1;
+	private static $_listZwaveServer = null;
 
 	/*     * ***********************Methode static*************************** */
 
@@ -52,22 +53,28 @@ class zwave extends eqLogic {
 	}
 
 	public static function listServerZway() {
-		$return = array();
-		for ($i = 1; $i <= self::getNbZwaveServer(); $i++) {
-			$return[$i] = array(
-				'name' => config::byKey('zwaveName' . $i, 'zwave', config::byKey('zwaveAddr' . $i, 'zwave')),
-				'addr' => config::byKey('zwaveAddr' . $i, 'zwave'),
-				'port' => config::byKey('zwavePort' . $i, 'zwave'),
-			);
+		if (self::$_listZwaveServer == null) {
+			self::$_listZwaveServer = array();
+			for ($i = 1; $i <= self::getNbZwaveServer(); $i++) {
+				self::$_listZwaveServer[$i] = array(
+					'name' => config::byKey('zwaveName' . $i, 'zwave', config::byKey('zwaveAddr' . $i, 'zwave')),
+					'addr' => config::byKey('zwaveAddr' . $i, 'zwave'),
+					'port' => config::byKey('zwavePort' . $i, 'zwave', 8083),
+					'openzwave' => config::byKey('isOpenZwave' . $i, 'zwave', 0),
+				);
+			}
 		}
-		return $return;
+		return self::$_listZwaveServer;
 	}
 
 	public static function callRazberry($_url, $_serverId = 1) {
 		if (self::$_curl == null) {
 			self::$_curl = curl_init();
 		}
-		$url = 'http://' . config::byKey('zwaveAddr' . $_serverId, 'zwave') . ':' . config::byKey('zwavePort' . $_serverId, 'zwave', 8083) . $_url;
+		if (self::$_listZwaveServer == null) {
+			self::listServerZway();
+		}
+		$url = 'http://' . self::$_listZwaveServer[$_serverId]['addr'] . ':' . self::$_listZwaveServer[$_serverId]['port'] . $_url;
 		$ch = self::$_curl;
 		curl_setopt_array($ch, array(
 			CURLOPT_URL => $url,
@@ -661,8 +668,10 @@ class zwave extends eqLogic {
 	/*     * *************************BACKUP/RESTORATION**************************************** */
 
 	public static function backup($_path) {
-		if (config::byKey('isOpenZwave', 'zwave', 0) == 0) {
-			file_put_contents($_path . '/zway.zbk', fopen('http://' . config::byKey('zwaveAddr', 'zwave') . ':' . config::byKey('zwavePort', 'zwave', 8083) . '/ZWaveAPI/Backup', 'r'));
+		foreach (self::listServerZway() as $id => $server) {
+			if ($server['openzwave'] == 0) {
+				file_put_contents($_path . '/zway_' . $server['name'] . '.zbk', fopen('http://' . $server['addr'] . ':' . $server['port'] . '/ZWaveAPI/Backup', 'r'));
+			}
 		}
 	}
 

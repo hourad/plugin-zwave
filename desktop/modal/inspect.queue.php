@@ -23,13 +23,14 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
 ?>
 <div id='div_inspectQueueAlert' style="display: none;"></div>
-<span class='pull-left'><select class="form-control" style="width : 200px;" id="sel_inspectQueuServerId">
-    <?php
+<span class='pull-left'>
+    <select class="form-control" style="width : 200px;" id="sel_inspectQueuServerId">
+        <?php
 foreach (zwave::listServerZway() as $id => $server) {
 	echo '<option value="' . $id . '">' . $server['name'] . '</option>';
 }
 ?>
-</select>
+   </select>
 </span>
 <span class='pull-right'>{{Rafraichi à :}} <span id='span_inspectQueueRefreshTIme' class='label label-primary' style="font-size: 1.2em;"></span></span><br/><br/>
 <table id="table_zwaveQueue" class="table table-bordered table-condensed tablesorter">
@@ -66,50 +67,50 @@ foreach (zwave::listServerZway() as $id => $server) {
                 handleAjaxError(request, status, error, $('#div_inspectQueueAlert'));
             },
             success: function(data) { // si l'appel a bien fonctionné
-                if (data.state != 'ok') {
-                    $('#div_inspectQueueAlert').showAlert({message: data.result, level: 'danger'});
-                    return;
-                }
-                $('#table_zwaveQueue tbody').empty();
-                var tr = '';
-                for (var i in data.result) {
-                    tr += '<tr>';
-                    tr += '<td>';
-                    tr += data.result[i].sendCount;
-                    tr += '</td>';
-                    tr += '<td>';
-                    tr += data.result[i].timeout;
-                    tr += '</td>';
-                    tr += '<td>';
-                    tr += data.result[i].id;
-                    tr += '</td>';
-                    tr += '<td>';
-                    tr += data.result[i].name;
-                    tr += '</td>';
-                    tr += '<td>';
-                    tr += data.result[i].description;
-                    tr += '</td>';
-                    tr += '<td>';
-                    tr += data.result[i].status;
-                    tr += '</td>';
-                    tr += '</tr>';
-                }
-                $('#table_zwaveQueue tbody').append(tr);
-                $('#table_zwaveQueue').trigger('update');
-                var date = new Date();
-                var hour = date.getHours();
-                var minute = date.getMinutes();
-                var seconde = date.getSeconds();
-                var horloge = (hour < 10) ? '0' + hour : hour;
-                horloge += ':';
-                horloge += (minute < 10) ? '0' + minute : minute;
-                horloge += ':';
-                horloge += (seconde < 10) ? '0' + seconde : seconde;
-                $('#span_inspectQueueRefreshTIme').text(horloge);
-                if ($('#table_zwaveQueue').is(':visible')) {
-                    setTimeout(updateZwaveQueue, 1000);
-                }
+            if (data.state != 'ok') {
+                $('#div_inspectQueueAlert').showAlert({message: data.result, level: 'danger'});
+                return;
             }
-        });
-    }
+            $('#table_zwaveQueue tbody').empty();
+            var tr = '';
+            for (var i in data.result) {
+                tr += '<tr>';
+                tr += '<td>';
+                tr += data.result[i].sendCount;
+                tr += '</td>';
+                tr += '<td>';
+                tr += data.result[i].timeout;
+                tr += '</td>';
+                tr += '<td>';
+                tr += data.result[i].id;
+                tr += '</td>';
+                tr += '<td>';
+                tr += data.result[i].name;
+                tr += '</td>';
+                tr += '<td>';
+                tr += data.result[i].description;
+                tr += '</td>';
+                tr += '<td>';
+                tr += data.result[i].status;
+                tr += '</td>';
+                tr += '</tr>';
+            }
+            $('#table_zwaveQueue tbody').append(tr);
+            $('#table_zwaveQueue').trigger('update');
+            var date = new Date();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var seconde = date.getSeconds();
+            var horloge = (hour < 10) ? '0' + hour : hour;
+            horloge += ':';
+            horloge += (minute < 10) ? '0' + minute : minute;
+            horloge += ':';
+            horloge += (seconde < 10) ? '0' + seconde : seconde;
+            $('#span_inspectQueueRefreshTIme').text(horloge);
+            if ($('#table_zwaveQueue').is(':visible')) {
+                setTimeout(updateZwaveQueue, 1000);
+            }
+        }
+    });
+}
 </script>

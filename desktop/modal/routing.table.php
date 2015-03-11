@@ -16,10 +16,19 @@
  */
 
 if (!isConnect('admin')) {
-    throw new Exception('{{401 - Accès non autorisé}}');
+	throw new Exception('{{401 - Accès non autorisé}}');
 }
 ?>
 <div id='div_routingTableAlert' style="display: none;"></div>
+<span class='pull-left'>
+    <select class="form-control" style="width : 200px;" id="sel_routingTableServerId">
+        <?php
+foreach (zwave::listServerZway() as $id => $server) {
+	echo '<option value="' . $id . '">' . $server['name'] . '</option>';
+}
+?>
+   </select>
+</span>
 <a class='btn btn-warning btn-xs pull-right' id='bt_routingTableForceUpdate' style='color : white;'>{{Forcer la mise à jour des routes}}</a><br/><br/>
 
 <div id="div_routingTable"></div>
@@ -59,6 +68,7 @@ if (!isConnect('admin')) {
             url: "plugins/zwave/core/ajax/zwave.ajax.php",
             data: {
                 action: "updateRoute",
+                serverId: $('#sel_routingTableServerId').value(),
             },
             dataType: 'json',
             error: function (request, status, error) {
@@ -80,6 +90,7 @@ if (!isConnect('admin')) {
         url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
         data: {
             action: "getRoutingTable",
+            serverId: $('#sel_routingTableServerId').value(),
         },
         dataType: 'json',
         error: function (request, status, error) {
