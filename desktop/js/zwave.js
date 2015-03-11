@@ -41,62 +41,104 @@
     syncEqLogicWithRazberry();
 });
  $('.changeIncludeState').on('click', function () {
-    changeIncludeState($(this).attr('data-mode'), $(this).attr('data-state'));
+    var nbZwayServer = 0;
+    for(var i in listServerZway){
+        nbZwayServer++
+    }
+    if(nbZwayServer < 2){
+        changeIncludeState($(this).attr('data-mode'), $(this).attr('data-state'));
+    }else{
+        var options = '';
+        var mode = $(this).attr('data-mode');
+        var state =  $(this).attr('data-state');
+        for(var i in listServerZway){
+            options += '<option value="'+i+'">'+listServerZway[i].name+'</option>';
+        }
+        bootbox.dialog({
+            title: "Choix du server z-wave",
+            message: '<div class="row">  ' +
+            '<div class="col-md-12"> ' +
+            '<form class="form-horizontal" onsubmit="return false;"> ' +
+            '<div class="form-group"> ' +
+            '<label class="col-md-4 control-label">{{Serveur}}</label> ' +
+            '<div class="col-md-4"> ' +
+            '<select id="sel_serverZway" class="form-control input-md"> ' +
+            options +
+            '</select> ' +
+            '</div> ' +
+            '</div> ' +
+            '</form> </div>  </div>',
+            buttons: {
+              "Annuler": {
+                className: "btn-default",
+                callback: function () {
+                }
+            },
+            success: {
+                label: "D'accord",
+                className: "btn-primary",
+                callback: function () {
+                  changeIncludeState(mode, state,$('#sel_serverZway').value());
+              }
+          },
+      }
+  });
+}
 });
 
- $('#bt_showClass').on('click', function () {
+$('#bt_showClass').on('click', function () {
     $('#md_modal').dialog({title: "{{Classes du périphérique}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.class&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
- $('#bt_healthRazberry').on('click', function () {
+$('#bt_healthRazberry').on('click', function () {
     $('#md_modal').dialog({title: "{{Santé du Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=network.health').dialog('open');
 });
 
- $('#bt_showInterview').on('click', function () {
+$('#bt_showInterview').on('click', function () {
     $('#md_modal2').dialog({title: "{{Interview}}"});
     $('#md_modal2').load('index.php?v=d&plugin=zwave&modal=interview.result&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
- $('#bt_showZwayLog').on('click', function () {
+$('#bt_showZwayLog').on('click', function () {
     $('#md_modal').dialog({title: "{{Log du serveur Zway}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.log').dialog('open');
 });
 
- $('#bt_configureDevice').on('click', function () {
+$('#bt_configureDevice').on('click', function () {
     $('#md_modal').dialog({title: "{{Configuration du périphérique}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=configure.device&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
- $('#bt_inspectQueue').on('click', function () {
+$('#bt_inspectQueue').on('click', function () {
     $('#md_modal').dialog({title: "{{Queue Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=inspect.queue').dialog('open');
 });
 
- $('#bt_routingTable').on('click', function () {
+$('#bt_routingTable').on('click', function () {
     $('#md_modal').dialog({title: "{{Table de routage}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=routing.table').dialog('open');
 });
 
- $('#bt_displayZwaveData').on('click', function () {
+$('#bt_displayZwaveData').on('click', function () {
     $('#md_modal').dialog({title: "{{Arbre Z-Wave de l'équipement}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=zwave.data&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
- $('#bt_adminRazberry').on('click', function () {
+$('#bt_adminRazberry').on('click', function () {
     $('#md_modal').dialog({title: "{{Actions avancées}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=admin.razberry').dialog('open');
 });
 
- $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
- $('body').delegate('#bt_getFromMarket', 'click', function () {
+$('body').delegate('#bt_getFromMarket', 'click', function () {
     $('#md_modal').dialog({title: "{{Market module zwave}}"});
     $('#md_modal').load('index.php?v=d&modal=market.list&type=zwave').dialog('open');
 });
 
- $('body').delegate('#bt_shareOnMarket', 'click', function () {
+$('body').delegate('#bt_shareOnMarket', 'click', function () {
     var logicalId = $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').value();
     if (logicalId == '') {
         $('#div_alert').showAlert({message: '{{Vous devez d\'abord sélectionner une configuration à partager}}', level: 'danger'});
@@ -106,7 +148,7 @@
     $('#md_modal').load('index.php?v=d&modal=market.send&type=zwave&logicalId=' + encodeURI(logicalId) + '&name=' + encodeURI($('.eqLogicAttr[data-l1key=configuration][data-l2key=device] option:selected').text())).dialog('open');
 });
 
- $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
+$('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', function () {
     var logicalId = $(this).value();
     $('#bt_deviceDocumentation').hide();
 
@@ -180,21 +222,24 @@ $('#bt_cronGenerator').on('click',function(){
 /**********************Node js requests *****************************/
 $('body').one('nodeJsConnect', function () {
     socket.on('zwave::controller.data.controllerState', function (_options) {
-        $('.changeIncludeState').addClass('btn-default').removeClass('btn-success btn-danger').attr('data-state', 1);
+        _options = json_decode(_options);
+        $('#div_inclusionAlert'+_options.serverId).addClass('btn-default').removeClass('btn-success btn-danger').attr('data-state', 1);
         $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
         $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion');
+        $('.changeIncludeState[data-mode=1]').removeClass('btn-success').addClass('btn-default');
+        $('.changeIncludeState[data-mode=0]').removeClass('btn-danger').addClass('btn-default');
         $.hideAlert();
-        if (_options == 1) {
+        if (_options.state == 1) {
             $('.changeIncludeState[data-mode=1]').removeClass('btn-default').addClass('btn-success');
             $('.changeIncludeState[data-mode=1]').attr('data-state', 0);
             $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Arrêter l\'inclusion');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
+            $('#div_inclusionAlert'+_options.serverId).showAlert({message: '{{Vous êtes en mode inclusion}} '+_options.name+'. {{Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
         }
-        if (_options == 5) {
+        if (_options.state == 5) {
             $('.changeIncludeState[data-mode=0]').removeClass('btn-default').addClass('btn-danger');
             $('.changeIncludeState[data-mode=0]').attr('data-state', 0);
             $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90"></i> Arrêter l\'exclusion');
-            $('#div_inclusionAlert').showAlert({message: '{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
+            $('#div_inclusionAlert'+_options.serverId).showAlert({message: '{{Vous êtes en mode exclusion sur}} '+_options.name+'. {{Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
         }
     });
 
@@ -287,7 +332,7 @@ function syncEqLogicWithRazberry() {
 });
 }
 
-function changeIncludeState(_mode, _state) {
+function changeIncludeState(_mode, _state,_serverID) {
     $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // méthode de transmission des données au fichier php
         url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
@@ -295,6 +340,7 @@ function changeIncludeState(_mode, _state) {
             action: "changeIncludeState",
             mode: _mode,
             state: _state,
+            serverID: _serverID,
         },
         dataType: 'json',
         error: function (request, status, error) {

@@ -7,24 +7,28 @@ include_file('3rdparty', 'jquery.fileupload/jquery.iframe-transport', 'js');
 include_file('3rdparty', 'jquery.fileupload/jquery.fileupload', 'js');
 sendVarToJS('eqType', 'zwave');
 sendVarToJS('marketAddr', config::byKey('market::address'));
+sendVarToJS('listServerZway', zwave::listServerZway());
+echo '<div id="div_inclusionAlert"></div>';
+foreach (zwave::listServerZway() as $id => $server) {
+	try {
+		$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value', $id);
+	} catch (Exception $e) {
+		$controlerState = 0;
+	}
+	if ($controlerState === 0) {
+		echo '<div id="div_inclusionAlert' . $id . '"></div>';
+	}
+	if ($controlerState === 1) {
+		echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
+	}
+	if ($controlerState === 5) {
+		echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
+	}
+	if ($controlerState === '') {
+		echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway ' . $server['name'] . '. Vérifiez que vous avez bien renseigné l\'adresse IP.}}</div>';
+	}
+}
 
-try {
-	$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
-} catch (Exception $e) {
-	$controlerState = 0;
-}
-if ($controlerState === 0) {
-	echo '<div id="div_inclusionAlert"></div>';
-}
-if ($controlerState === 1) {
-	echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
-}
-if ($controlerState === 5) {
-	echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
-}
-if ($controlerState === '') {
-	echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway. Vérifiez que vous avez bien renseigné l\'adresse IP.}}</div>';
-}
 $eqLogics = eqLogic::byType('zwave');
 ?>
 
@@ -241,7 +245,7 @@ foreach (zwave::devicesParameters() as $id => $info) {
                 <span class="zwaveInfo tooltips label label-default tooltips" title="{{Type produit}}" data-l1key="manufacturerProductType"></span>
                 <span class="zwaveInfo tooltips label label-default tooltips" title="{{Identifiant Produit}}" data-l1key="manufacturerProductId"></span>
             </div>
-             <label class="col-sm-2 control-label">{{Etat}}</label>
+            <label class="col-sm-2 control-label">{{Etat}}</label>
             <div class="col-sm-2">
                 <span class="zwaveInfo tooltips label label-default" data-l1key="state"></span>
             </div>
@@ -254,7 +258,7 @@ foreach (zwave::devicesParameters() as $id => $info) {
         <div class="form-group">
             <label class="col-sm-2 control-label">{{Interview}}</label>
             <div class="col-sm-3">
-            <a class="btn btn-default btn-sm" id="bt_showInterview" ><i class="fa fa-eye"></i> <span class="zwaveInfo" data-l1key="interviewComplete"></span></a>
+                <a class="btn btn-default btn-sm" id="bt_showInterview" ><i class="fa fa-eye"></i> <span class="zwaveInfo" data-l1key="interviewComplete"></span></a>
             </div>
             <label class="col-sm-2 control-label">{{Communication}}</label>
             <div class="col-sm-4">

@@ -125,7 +125,7 @@ class zwave extends eqLogic {
 	}
 
 	public static function pull() {
-		for ($serverID = 1; $serverID <= self::getNbZwaveServer(); $serverID++) {
+		foreach (self::listServerZway() as $serverID => $server) {
 			$cache = cache::byKey('zwave::lastUpdate' . $serverID);
 			$results = self::callRazberry('/ZWaveAPI/Data/' . $cache->getValue(0), $serverID);
 			if (!is_array($results)) {
@@ -133,7 +133,7 @@ class zwave extends eqLogic {
 			}
 			foreach ($results as $key => $result) {
 				if ($key == 'controller.data.controllerState') {
-					nodejs::pushUpdate('zwave::' . $key, $result['value']);
+					nodejs::pushUpdate('zwave::' . $key, array('name' => $server['name'], 'state' => $result['value'], 'serverId' => $serverID));
 				} else if ($key == 'controller.data.lastExcludedDevice') {
 					if ($result['value'] != null) {
 						nodejs::pushUpdate('jeedom::alert', array(
@@ -157,7 +157,7 @@ class zwave extends eqLogic {
 					}
 				} else if ($key == 'controller') {
 					if (isset($result['controllerState'])) {
-						nodejs::pushUpdate('zwave::controller.data.controllerState', $result['controllerState']['value']);
+						nodejs::pushUpdate('zwave::controller.data.controllerState', array('name' => $server['name'], 'state' => $result['controllerState']['value'], 'serverId' => $serverID));
 					}
 					if (isset($result['lastIncludedDevice']) && $result['lastIncludedDevice']['value'] != null) {
 						$eqLogic = self::getEqLogicByLogicalIdAndServerId($result['value'], $serveurID);
