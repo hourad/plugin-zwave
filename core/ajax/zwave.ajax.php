@@ -25,8 +25,8 @@ try {
 	}
 
 	if (init('action') == 'syncEqLogicWithRazberry') {
-		for ($i = 1; $i <= zwace::getNbZwaveServer(); $i++) {
-			zwave::syncEqLogicWithRazberry($i);
+		foreach (zwave::listServerZway() as $serverID => $server) {
+			zwave::syncEqLogicWithRazberry($serverID);
 		}
 		ajax::success();
 	}

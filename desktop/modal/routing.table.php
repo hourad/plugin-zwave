@@ -24,7 +24,9 @@ if (!isConnect('admin')) {
     <select class="form-control" style="width : 200px;" id="sel_routingTableServerId">
         <?php
 foreach (zwave::listServerZway() as $id => $server) {
-	echo '<option value="' . $id . '">' . $server['name'] . '</option>';
+	if (isset($server['name'])) {
+		echo '<option value="' . $id . '">' . $server['name'] . '</option>';
+	}
 }
 ?>
    </select>

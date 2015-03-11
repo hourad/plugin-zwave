@@ -22,7 +22,7 @@ $eqLogic = zwave::byId(init('id'));
 if (!is_object($eqLogic)) {
 	throw new Exception(__('Equipement Z-Wave introuvable : ', __FILE__) . init('id'));
 }
-$results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $eqLogic->getConfiguration('serveurID', 1));
+$results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $eqLogic->getConfiguration('serverID', 1));
 ?>
 <div id='div_zwaveInterviewResult' style="display: none;"></div>
 <table class="table table-condensed">

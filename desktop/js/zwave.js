@@ -43,7 +43,9 @@
  $('.changeIncludeState').on('click', function () {
     var nbZwayServer = 0;
     for(var i in listServerZway){
-        nbZwayServer++
+        if(listServerZway[i].name != null){
+            nbZwayServer++
+        }
     }
     if(nbZwayServer < 2){
         changeIncludeState($(this).attr('data-mode'), $(this).attr('data-state'));

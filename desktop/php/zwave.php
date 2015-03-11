@@ -152,41 +152,53 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                 <div class="col-sm-2">
                     <input type="text" class="eqLogicAttr form-control" data-l1key="logicalId" />
                 </div>
-            </div>
-            <div class="form-group expertModeVisible">
-                <label class="col-sm-4 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
-                <div class="col-sm-2">
-                    <input class="eqLogicAttr form-control" data-l1key="timeout" />
-                </div>
-                <label class="col-sm-3 control-label">{{Fréquence de mise à jour}}</label>
-                <div class="col-sm-2">
-                    <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
-                </div>
-                <div class="col-sm-1">
-                    <i class="fa fa-question-circle cursor floatright" id="bt_cronGenerator"></i>
-                </div>
-            </div>
-            <div class="form-group expertModeVisible">
+                <label class="col-sm-2 control-label">{{Server}}</label>
+                <div class="col-sm-4">
+                 <select class="form-control eqLogicAttr" data-l1key="configuration" data-l1key="serverID">
+                    <?php
+foreach (zwave::listServerZway() as $id => $server) {
+	if (isset($server['name'])) {
+		echo '<option value="' . $id . '">' . $server['name'] . '</option>';
+	}
+}
+?>
+              </select>
+          </div>
+      </div>
+      <div class="form-group expertModeVisible">
+        <label class="col-sm-4 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
+        <div class="col-sm-2">
+            <input class="eqLogicAttr form-control" data-l1key="timeout" />
+        </div>
+        <label class="col-sm-3 control-label">{{Fréquence de mise à jour}}</label>
+        <div class="col-sm-2">
+            <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
+        </div>
+        <div class="col-sm-1">
+            <i class="fa fa-question-circle cursor floatright" id="bt_cronGenerator"></i>
+        </div>
+    </div>
+    <div class="form-group expertModeVisible">
 
-            </div>
-            <div class="form-group expertModeVisible">
-                <label class="col-sm-4 control-label">{{Ne jamais mettre en erreur}}</label>
-                <div class="col-sm-1">
-                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
-                </div>
-                <label class="col-sm-4 control-label">{{Ne pas vérifier la batterie}}</label>
-                <div class="col-sm-1">
-                    <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">{{Commentaire}}</label>
-                <div class="col-sm-8">
-                    <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
-                </div>
-            </div>
-        </fieldset>
-    </form>
+    </div>
+    <div class="form-group expertModeVisible">
+        <label class="col-sm-4 control-label">{{Ne jamais mettre en erreur}}</label>
+        <div class="col-sm-1">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
+        </div>
+        <label class="col-sm-4 control-label">{{Ne pas vérifier la batterie}}</label>
+        <div class="col-sm-1">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">{{Commentaire}}</label>
+        <div class="col-sm-8">
+            <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
+        </div>
+    </div>
+</fieldset>
+</form>
 </div>
 <div class="col-sm-6">
     <form class="form-horizontal">

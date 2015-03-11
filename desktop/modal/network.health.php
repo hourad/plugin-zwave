@@ -22,10 +22,13 @@ if (!isConnect('admin')) {
 $infos = array();
 $communicationStatistics = array();
 foreach (zwave::listServerZway() as $id => $server) {
-	$infos[$id] = zwave::callRazberry('/ZWaveAPI/Data/0', $id);
-	try {
-		$communicationStatistics[$id] = zwave::callRazberry('/ZWaveAPI/CommunicationStatistics', $id);
-	} catch (Exception $e) {
+	if (isset($server['name'])) {
+		$infos[$id] = zwave::callRazberry('/ZWaveAPI/Data/0', $id);
+		try {
+			$communicationStatistics[$id] = zwave::callRazberry('/ZWaveAPI/CommunicationStatistics', $id);
+		} catch (Exception $e) {
+
+		}
 	}
 }
 ?>
@@ -47,7 +50,7 @@ foreach (zwave::listServerZway() as $id => $server) {
 	<tbody>
 		<?php
 foreach (zwave::byType('zwave') as $eqLogic) {
-	$info = $eqLogic->getInfo($infos[$eqLogic->getConfiguration('serverID', 1)]);
+	$info = $eqLogic->getInfo($infos[$eqLogic->getConfiguration('serverID')]);
 	echo "<tr>";
 	echo "<td><a href='index.php?v=d&m=zwave&p=zwave&id=" . $eqLogic->getId() . "'>" . $eqLogic->getHumanName() . "</a></td>";
 	echo "<td>" . $eqLogic->getLogicalId() . "</td>";
@@ -76,17 +79,17 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		echo "<td>-</td>";
 	}
 	echo "<td>";
-	if (isset($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()])) {
-		echo count($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()]);
+	if (isset($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()])) {
+		echo count($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]);
 	}
 	echo "</td>";
 	echo "<td>";
-	if (isset($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()]) && count($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()]) > 0) {
+	if (isset($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]) && count($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]) > 0) {
 		$nbOk = 0;
 		$mintime = 99999999;
 		$avgtime = 0;
 		$maxtime = 0;
-		foreach ($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()] as $packet) {
+		foreach ($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()] as $packet) {
 			if ($packet['delivered']) {
 				$nbOk++;
 				$avgtime += $packet['deliveryTime'];
@@ -99,7 +102,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 			}
 		}
 		$avgtime = round($avgtime / $nbOk);
-		$pourcentOk = round($nbOk / count($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()]) * 100);
+		$pourcentOk = round($nbOk / count($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]) * 100);
 		if ($pourcentOk == 100) {
 			echo "<span class='label label-success'>" . $pourcentOk . " %</span>";
 		} elseif ($pourcentOk > 75) {
@@ -109,7 +112,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		}
 	}
 	echo "<td>";
-	if (isset($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()]) && count($communicationStatistics[$eqLogic->getConfiguration('serverID', 1)][$eqLogic->getLogicalId()]) > 0) {
+	if (isset($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]) && count($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]) > 0) {
 		echo "<span class='label label-success tooltips' title='Temps de livraison minimum'>" . $mintime . "</span> ";
 		echo "<span class='label label-primary tooltips' title='Temps de livraison moyen'>" . $avgtime . "</span> ";
 		echo "<span class='label label-danger tooltips' title='Temps de livraison maximum'>" . $maxtime . "</span>";

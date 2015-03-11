@@ -52,8 +52,8 @@ function zwave_update() {
 		}
 	}
 	foreach (zwave::byType('zwave') as $zwave) {
-		if ($zwave->getConfiguration('serveurID') == '') {
-			$zwave->setConfiguration('serveurID', 1);
+		if ($zwave->getConfiguration('serverID') == '') {
+			$zwave->setConfiguration('serverID', 1);
 		}
 		$zwave->save();
 	}
