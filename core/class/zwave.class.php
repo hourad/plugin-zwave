@@ -29,19 +29,22 @@ class zwave extends eqLogic {
 	/*     * ***********************Methode static*************************** */
 
 	public static function sick() {
-		echo "Server zwave : " . config::byKey('zwaveAddr', 'zwave') . "\n";
-		echo "Port : " . config::byKey('zwavePort', 'zwave', 8083) . "\n";
-		echo "Is openZwave : " . config::byKey('isOpenZwave', 'zwave', 0) . "\n";
-		echo "Test connection to zwave server...";
-		try {
-			foreach (self::listServerZway() as $serverID => $server) {
-				self::callRazberry('/ZWaveAPI/Data/0', $serverID);
+		foreach (self::listServerZway() as $serverID => $server) {
+			if (isset($server['name'])) {
+				try {
+					echo "Server name : " . $server['name'] . "\n";
+					echo "Server addr : " . $server['addr'] . "\n";
+					echo "Port : " . $server['port'] . "\n";
+					echo "Is openZwave : " . $server['isIpenZwave'] . "\n";
+					echo "Test connection to zwave server...";
+					self::callRazberry('/ZWaveAPI/Data/0', $serverID);
+					echo "OK\n";
+				} catch (Exception $e) {
+					echo "NOK\n";
+					echo "Description : " . $e->getMessage();
+					echo "\n";
+				}
 			}
-			echo "OK\n";
-		} catch (Exception $e) {
-			echo "NOK\n";
-			echo "Description : " . $e->getMessage();
-			echo "\n";
 		}
 	}
 
@@ -669,7 +672,7 @@ class zwave extends eqLogic {
 
 	public static function backup($_path) {
 		foreach (self::listServerZway() as $id => $server) {
-			if ($server['isOpenZwave'] == 0) {
+			if (isset($server['name']) && $server['isOpenZwave'] == 0) {
 				file_put_contents($_path . '/zway_' . $server['name'] . '.zbk', fopen('http://' . $server['addr'] . ':' . $server['port'] . '/ZWaveAPI/Backup', 'r'));
 			}
 		}

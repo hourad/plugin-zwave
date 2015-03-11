@@ -26,7 +26,9 @@ try {
 
 	if (init('action') == 'syncEqLogicWithRazberry') {
 		foreach (zwave::listServerZway() as $serverID => $server) {
-			zwave::syncEqLogicWithRazberry($serverID);
+			if (isset($server['name'])) {
+				zwave::syncEqLogicWithRazberry($serverID);
+			}
 		}
 		ajax::success();
 	}

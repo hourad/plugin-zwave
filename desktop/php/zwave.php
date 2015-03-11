@@ -10,22 +10,24 @@ sendVarToJS('marketAddr', config::byKey('market::address'));
 sendVarToJS('listServerZway', zwave::listServerZway());
 echo '<div id="div_inclusionAlert"></div>';
 foreach (zwave::listServerZway() as $id => $server) {
-	try {
-		$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value', $id);
-	} catch (Exception $e) {
-		$controlerState = 0;
-	}
-	if ($controlerState === 0) {
-		echo '<div id="div_inclusionAlert' . $id . '"></div>';
-	}
-	if ($controlerState === 1) {
-		echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
-	}
-	if ($controlerState === 5) {
-		echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
-	}
-	if ($controlerState === '') {
-		echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway ' . $server['name'] . '. Vérifiez que vous avez bien renseigné l\'adresse IP.}}</div>';
+	if (isset($server['name'])) {
+		try {
+			$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value', $id);
+		} catch (Exception $e) {
+			$controlerState = 0;
+		}
+		if ($controlerState === 0) {
+			echo '<div id="div_inclusionAlert' . $id . '"></div>';
+		}
+		if ($controlerState === 1) {
+			echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode inclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}</div>';
+		}
+		if ($controlerState === 5) {
+			echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
+		}
+		if ($controlerState === '') {
+			echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway ' . $server['name'] . '. Vérifiez que vous avez bien renseigné l\'adresse IP.}}</div>';
+		}
 	}
 }
 
@@ -154,7 +156,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                 </div>
                 <label class="col-sm-2 control-label">{{Server}}</label>
                 <div class="col-sm-4">
-                 <select class="form-control eqLogicAttr" data-l1key="configuration" data-l1key="serverID">
+                   <select class="form-control eqLogicAttr" data-l1key="configuration" data-l1key="serverID">
                     <?php
 foreach (zwave::listServerZway() as $id => $server) {
 	if (isset($server['name'])) {
