@@ -159,6 +159,7 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', func
     jeedom.market.byLogicalId({
         logicalId : logicalId,
         global : false,
+        noExecption : 1,
         success : function(data){
             if(isset(data.link) && isset(data.link['doc_'+jeedom_langage])){
                 $('#bt_deviceDocumentation').show();
