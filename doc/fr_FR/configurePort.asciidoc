@@ -1,22 +1,50 @@
-Voici comment reconfigurer le port  du zwave si vous avez l'erreur "Error handling data from server"
+Voici comment reconfigurer le port du z-way-server :
 
-Connectez vous sur IP_ZWAY:8083, puis :  
+Connectez vous sur IP_ZWAY:8083, puis cliquez sur le GO de l'expert UI : 
+
+image::../images/zwave_configurePort_9.JPG[]
+
+Si vous voyez l'erreur "Error handling data from server" :
+
+image::../images/zwave_configurePort_8.JPG[]
+
+Alors retournez en arriere puis cliquer le GO du Z-Way Home Automation UI : 
 
 image::../images/zwave_configurePort_1.JPG[]
 
+Cliquez en haut sur "Preferences" : 
+
 image::../images/zwave_configurePort_2.JPG[]
 
-IMPORTANT: Ici cliquez d'abord sur automation, si vous avez un zway binding alors tout est bon, sinon faites la suite de la doc.
+Cliquez sur automation :
+
+image::../images/zwave_configurePort_11.JPG[]
+
+Vérifiez si vous avez bien un Z-way  binding : 
+
+image::../images/zwave_configurePort_10.JPG[]
+
+Si c'est le cas, n'appliquez pas la suite de la doc sinon, recliquez sur Preference : 
+
+image::../images/zwave_configurePort_12.JPG[]
+
+Cliquez ensuite sur module : 
 
 image::../images/zwave_configurePort_3.JPG[]
 
+Dépliez la partie Peripherals : 
+
 image::../images/zwave_configurePort_4.JPG[]
+
+Cliquez sur "Select" dans Z-Wave binding : 
 
 image::../images/zwave_configurePort_5.JPG[]
 
+Laissez les champs, cliquez juste sur "Next" : 
+
 image::../images/zwave_configurePort_6.JPG[]
 
-Le port a renseigner est /dev/ttyAMA0 pour un rpi
+Dans le port mettez /dev/ttyAMA0 pour RPI1 et 2 ou /dev/ttymxc0 pour les Jeedomboard
 
 image::../images/zwave_configurePort_7.JPG[]
 
