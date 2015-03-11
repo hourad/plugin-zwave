@@ -57,6 +57,9 @@ function zwave_update() {
 		}
 		$zwave->save();
 	}
+	config::save('zwaveAddr1', config::byKey('zwaveAddr', 'zwave'), 'zwave');
+	config::save('zwavePort1', config::byKey('zwavePort', 'zwave'), 'zwave');
+	config::save('isOpenZwave1', config::byKey('isOpenZwave', 'zwave'), 'zwave');
 }
 
 function zwave_remove() {

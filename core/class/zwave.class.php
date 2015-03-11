@@ -116,9 +116,9 @@ class zwave extends eqLogic {
 	}
 
 	public static function pull() {
-		for ($i = 1; $i <= self::getNbZwaveServer(); $i++) {
-			$cache = cache::byKey('zwave::lastUpdate' . $i);
-			$results = self::callRazberry('/ZWaveAPI/Data/' . $cache->getValue(0), $i);
+		for ($serverID = 1; $serverID <= self::getNbZwaveServer(); $serverID++) {
+			$cache = cache::byKey('zwave::lastUpdate' . $serverID);
+			$results = self::callRazberry('/ZWaveAPI/Data/' . $cache->getValue(0), $serverID);
 			if (!is_array($results)) {
 				continue;
 			}
@@ -132,18 +132,18 @@ class zwave extends eqLogic {
 							'message' => __('Un périphérique Z-Wave vient d\'être exclu. Logical ID : ', __FILE__) . $result['value'],
 						));
 						sleep(5);
-						self::syncEqLogicWithRazberry($i);
+						self::syncEqLogicWithRazberry($serverID);
 					}
 				} else if ($key == 'controller.data.lastIncludedDevice') {
 					if ($result['value'] != null) {
-						$eqLogic = self::byLogicalId($result['value'], 'zwave');
+						$eqLogic = self::getEqLogicByLogicalIdAndServerId($result['value'], $serveurID);
 						if (!is_object($eqLogic)) {
 							nodejs::pushUpdate('jeedom::alert', array(
 								'level' => 'warning',
 								'message' => __('Nouveau module Z-Wave détecté. Début de l\'intégration', __FILE__),
 							));
 							sleep(5);
-							self::syncEqLogicWithRazberry($i);
+							self::syncEqLogicWithRazberry($serverID);
 						}
 					}
 				} else if ($key == 'controller') {
@@ -151,14 +151,14 @@ class zwave extends eqLogic {
 						nodejs::pushUpdate('zwave::controller.data.controllerState', $result['controllerState']['value']);
 					}
 					if (isset($result['lastIncludedDevice']) && $result['lastIncludedDevice']['value'] != null) {
-						$eqLogic = self::byLogicalId($result['value'], 'zwave');
+						$eqLogic = self::getEqLogicByLogicalIdAndServerId($result['value'], $serveurID);
 						if (!is_object($eqLogic)) {
 							nodejs::pushUpdate('jeedom::alert', array(
 								'level' => 'warning',
 								'message' => __('Nouveau module Z-Wave détecté. Début de l\'intégration', __FILE__),
 							));
 							sleep(5);
-							self::syncEqLogicWithRazberry($i);
+							self::syncEqLogicWithRazberry($serverID);
 						}
 					}
 					if (isset($result['lastExcludedDevice']) && $result['lastExcludedDevice']['value'] != null) {
@@ -171,7 +171,7 @@ class zwave extends eqLogic {
 					}
 				} else if ($key == 'devices') {
 					foreach ($result as $device_id => $data) {
-						$eqLogic = self::byLogicalId($device_id, 'zwave');
+						$eqLogic = self::getEqLogicByLogicalIdAndServerId($device_id, $serveurID);
 						if (is_object($eqLogic)) {
 							if ($eqLogic->getConfiguration('device') == 'fibaro.fgs221.pilote') {
 								foreach ($eqLogic->searchCmdByConfiguration('pilotWire', 'info') as $cmd) {
@@ -206,7 +206,7 @@ class zwave extends eqLogic {
 					if ($explodeKey[1] == 1) {
 						if (isset($results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId'])) {
 							$explodeKey[1] = $results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId']['value'];
-							$eqLogic = self::byLogicalId($results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId']['value'], 'zwave');
+							$eqLogic = self::getEqLogicByLogicalIdAndServerId($results['devices.1.instances.0.commandClasses.' . $explodeKey[5] . '.data.srcNodeId']['value'], $serverID);
 							if (is_object($eqLogic)) {
 								foreach ($eqLogic->getCmd('info') as $cmd) {
 									if ($cmd->getConfiguration('instanceId') == $explodeKey[3]) {
@@ -220,7 +220,7 @@ class zwave extends eqLogic {
 							}
 						}
 					}
-					$eqLogic = self::byLogicalId($explodeKey[1], 'zwave');
+					$eqLogic = self::getEqLogicByLogicalIdAndServerId($explodeKey[1], $serverID);
 					if (is_object($eqLogic)) {
 						if (isset($value['hasCode'])) {
 							foreach ($eqLogic->searchCmdByConfiguration('code', 'info') as $cmd) {
@@ -269,11 +269,20 @@ class zwave extends eqLogic {
 				}
 			}
 			if (isset($results['updateTime'])) {
-				cache::set('zwave::lastUpdate' . $i, $results['updateTime'], 0);
+				//cache::set('zwave::lastUpdate' . $serverID, $results['updateTime'], 0);
 			} else {
-				cache::set('zwave::lastUpdate' . $i, 0, 0);
+				cache::set('zwave::lastUpdate' . $serverID, 0, 0);
 			}
 		}
+	}
+
+	public static function getEqLogicByLogicalIdAndServerId($_logical_id, $_serverId = 1) {
+		foreach (self::byLogicalId($_logical_id, 'zwave', true) as $eqLogic) {
+			if ($eqLogic->getConfiguration('serveurID', 1) == $_serverId) {
+				return $eqLogic;
+			}
+		}
+		return null;
 	}
 
 	public static function syncEqLogicWithRazberry($_serverId = 1) {
@@ -291,6 +300,7 @@ class zwave extends eqLogic {
 					$eqLogic->setIsEnable(1);
 					$eqLogic->setName('Device ' . $nodeId);
 					$eqLogic->setLogicalId($nodeId);
+					$eqLogic->setConfiguration('serveurID', $_serverId);
 					$eqLogic->setIsVisible(1);
 					$eqLogic->save();
 					$eqLogic = zwave::byId($eqLogic->getId());
@@ -304,7 +314,7 @@ class zwave extends eqLogic {
 					}
 					$include_device = $eqLogic->getId();
 					$findConfiguration = false;
-					$result = self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']');
+					$result = self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $_serverId);
 					$data = $result['data'];
 
 					if (isset($data['manufacturerId']['value']) && isset($data['manufacturerProductType']['value']) && isset($data['manufacturerProductId']['value'])) {

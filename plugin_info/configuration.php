@@ -33,13 +33,17 @@ try {
 }
 ?>
         <div class="form-group">
-            <label class="col-lg-4 control-label">{{Zway IP}}</label>
+            <label class="col-lg-4 control-label">{{Serveur Z-wave IP}}</label>
             <div class="col-lg-2">
-                <input class="configKey form-control" data-l1key="zwaveAddr" />
+                <input class="configKey form-control" data-l1key="zwaveAddr1" />
             </div>
-            <label class="col-lg-2 control-label">{{Zway port}}</label>
+            <label class="col-lg-1 control-label">{{Port}}</label>
             <div class="col-lg-2">
-                <input class="configKey form-control" data-l1key="zwavePort" value="8083" />
+                <input class="configKey form-control" data-l1key="zwavePort1" value="8083" />
+            </div>
+             <label class="col-lg-2 control-label">{{Openzwave}}</label>
+            <div class="col-lg-1">
+                <input type="checkbox" class="configKey" data-l1key="isOpenZwave1" />
             </div>
         </div>
         <div class="form-group">
@@ -49,10 +53,7 @@ try {
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">{{J'utilise un serveur openzwave}}</label>
-            <div class="col-lg-4">
-                <input type="checkbox" class="configKey" data-l1key="isOpenZwave" />
-            </div>
+
         </div>
         <?php if (config::byKey('zwaveAddr', 'zwave') == '127.0.0.1' || config::byKey('zwaveAddr', 'zwave') == 'localhost') {?>
             <div class="form-group">
