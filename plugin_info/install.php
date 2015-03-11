@@ -19,48 +19,51 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function zwave_install() {
-    if (config::byKey('jeeNetwork::mode') != 'slave') {
-        $cron = cron::byClassAndFunction('zwave', 'pull');
-        if (!is_object($cron)) {
-            $cron = new cron();
-            $cron->setClass('zwave');
-            $cron->setFunction('pull');
-            $cron->setEnable(1);
-            $cron->setDeamon(1);
-            $cron->setSchedule('* * * * *');
-            $cron->save();
-        }
-    }
+	if (config::byKey('jeeNetwork::mode') != 'slave') {
+		$cron = cron::byClassAndFunction('zwave', 'pull');
+		if (!is_object($cron)) {
+			$cron = new cron();
+			$cron->setClass('zwave');
+			$cron->setFunction('pull');
+			$cron->setEnable(1);
+			$cron->setDeamon(1);
+			$cron->setSchedule('* * * * *');
+			$cron->save();
+		}
+	}
 }
 
 function zwave_update() {
-    $cron = cron::byClassAndFunction('zwave', 'pull');
-    if (config::byKey('jeeNetwork::mode') != 'slave') {
-        if (!is_object($cron)) {
-            $cron = new cron();
-            $cron->setClass('zwave');
-            $cron->setFunction('pull');
-            $cron->setEnable(1);
-            $cron->setDeamon(1);
-            $cron->setSchedule('* * * * *');
-            $cron->save();
-        }
-        $cron->stop();
-    } else {
-        if (is_object($cron)) {
-            $cron->remove();
-        }
-    }
-    foreach (zwave::byType('zwave') as $zwave) {
-        $zwave->save();
-    }
+	$cron = cron::byClassAndFunction('zwave', 'pull');
+	if (config::byKey('jeeNetwork::mode') != 'slave') {
+		if (!is_object($cron)) {
+			$cron = new cron();
+			$cron->setClass('zwave');
+			$cron->setFunction('pull');
+			$cron->setEnable(1);
+			$cron->setDeamon(1);
+			$cron->setSchedule('* * * * *');
+			$cron->save();
+		}
+		$cron->stop();
+	} else {
+		if (is_object($cron)) {
+			$cron->remove();
+		}
+	}
+	foreach (zwave::byType('zwave') as $zwave) {
+		if ($zwave->getConfiguration('serveurID') == '') {
+			$zwave->setConfiguration('serveurID', 1);
+		}
+		$zwave->save();
+	}
 }
 
 function zwave_remove() {
-    $cron = cron::byClassAndFunction('zwave', 'pull');
-    if (is_object($cron)) {
-        $cron->remove();
-    }
+	$cron = cron::byClassAndFunction('zwave', 'pull');
+	if (is_object($cron)) {
+		$cron->remove();
+	}
 }
 
 ?>

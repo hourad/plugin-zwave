@@ -18,28 +18,26 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 include_file('core', 'authentification', 'php');
 if (!isConnect()) {
-    include_file('desktop', '404', 'php');
-    die();
+	include_file('desktop', '404', 'php');
+	die();
 }
 ?>
 <form class="form-horizontal">
     <fieldset>
         <?php
-        try {
-            $controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
-            echo '<div class="alert alert-success">{{Le z-way-server est en marche}}</div>';
-        } catch (Exception $e) {
-            echo '<div class="alert alert-danger">{{Le z-way-server ne tourne pas}}</div>';
-        }
-        ?>
+try {
+	$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
+	echo '<div class="alert alert-success">{{Le z-way-server est en marche}}</div>';
+} catch (Exception $e) {
+	echo '<div class="alert alert-danger">{{Le z-way-server ne tourne pas}}</div>';
+}
+?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Zway IP}}</label>
             <div class="col-lg-2">
                 <input class="configKey form-control" data-l1key="zwaveAddr" />
             </div>
-        </div>
-         <div class="form-group">
-            <label class="col-lg-4 control-label">{{Zway port}}</label>
+            <label class="col-lg-2 control-label">{{Zway port}}</label>
             <div class="col-lg-2">
                 <input class="configKey form-control" data-l1key="zwavePort" value="8083" />
             </div>
@@ -56,17 +54,17 @@ if (!isConnect()) {
                 <input type="checkbox" class="configKey" data-l1key="isOpenZwave" />
             </div>
         </div>
-        <?php if (config::byKey('zwaveAddr', 'zwave') == '127.0.0.1' || config::byKey('zwaveAddr', 'zwave') == 'localhost') { ?>
+        <?php if (config::byKey('zwaveAddr', 'zwave') == '127.0.0.1' || config::byKey('zwaveAddr', 'zwave') == 'localhost') {?>
             <div class="form-group">
                 <label class="col-lg-4 control-label">{{Arrêt/Redémarrage}}</label>
                 <div class="col-lg-2">
-                    <a class="btn btn-warning" id="bt_restartZwayServer"><i class='fa fa-stop'></i> {{Arrêter/Redemarrer le z-way-server}}</a> 
+                    <a class="btn btn-warning" id="bt_restartZwayServer"><i class='fa fa-stop'></i> {{Arrêter/Redemarrer le z-way-server}}</a>
                 </div>
             </div>
             <div class="form-group expertModeVisible">
                 <label class="col-lg-4 control-label">{{Lancer en debug}}</label>
                 <div class="col-lg-2">
-                    <a class="btn btn-danger" id="bt_launchZwayServerInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a> 
+                    <a class="btn btn-danger" id="bt_launchZwayServerInDebug"><i class="fa fa-exclamation-triangle"></i> {{Lancer en mode debug}}</a>
                 </div>
             </div>
             <script>
@@ -101,7 +99,7 @@ if (!isConnect()) {
                     });
                 });
             </script>
-        <?php } ?>
+        <?php }?>
     </fieldset>
 </form>
 
