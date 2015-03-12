@@ -82,7 +82,7 @@ foreach ($results['instances'] as $instanceID => $instance) {
 		        	$('#div_zwaveInterviewResult').showAlert({message: data.result, level: 'danger'});
 		        	return;
 		        }
-		        $('#div_zwaveInterviewResult').showAlert({message: "Demande envoyée, la mise à jour peut prendre plusieurs minutes", level: 'success'});
+		        $('#div_zwaveInterviewResult').showAlert({message: "{{Demande envoyée, la mise à jour peut prendre plusieurs minutes}}", level: 'success'});
 		    }
 		});
 	});

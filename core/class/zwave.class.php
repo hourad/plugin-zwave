@@ -1331,6 +1331,10 @@ class zwave extends eqLogic {
 		}
 	}
 
+	public function sendNoOperation() {
+		return self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].SendNoOperation()', $this->getConfiguration('serverID', 1));
+	}
+
 	public function export($_withCmd = true) {
 		if ($this->getConfiguration('device') != '') {
 			return array(

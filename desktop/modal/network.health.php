@@ -32,6 +32,7 @@ foreach (zwave::listServerZway() as $id => $server) {
 	}
 }
 ?>
+<div id='div_networkHealthAlert' style="display: none;"></div>
 <table class="table table-condensed">
 	<thead>
 		<tr>
@@ -45,6 +46,7 @@ foreach (zwave::listServerZway() as $id => $server) {
 			<th>{{% OK}}</th>
 			<th>{{Temporisation (ms)}}</th>
 			<th>{{Dernière communication}}</th>
+			<th>{{Ping}}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -118,8 +120,12 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		echo "<span class='label label-danger tooltips' title='Temps de livraison maximum'>" . $maxtime . "</span>";
 	}
 	echo "</td>";
-	echo "</td>";
 	echo "<td>" . $info['lastReceived']['value'] . "</td>";
+	echo "<td>";
+	if (!isset($info['battery']) || $info['battery']['value'] == '') {
+		echo "<a class='btn btn-primary btn-xs bt_pingDevice' data-id='" . $eqLogic->getId() . "'><i class='fa fa-eye'></i> {{Ping}}</a>";
+	}
+	echo "</td>";
 	echo "</tr>";
 }
 ?>
@@ -132,4 +138,28 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		$('#md_modal2').dialog({title: "{{Interview}}"});
 		$('#md_modal2').load('index.php?v=d&plugin=zwave&modal=interview.result&id=' + $(this).attr('data-id')).dialog('open');
 	});
+
+	$('.bt_pingDevice').on('click',function(){
+		$.ajax({// fonction permettant de faire de l'ajax
+		        type: "POST", // méthode de transmission des données au fichier php
+		        url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
+		        data: {
+		        	action: "sendNoOperation",
+		        	id: $(this).attr('data-id'),
+		        },
+		        dataType: 'json',
+		        global: false,
+		        error: function (request, status, error) {
+		        	handleAjaxError(request, status, error,$('#div_networkHealthAlert'));
+		        },
+		        success: function (data) { // si l'appel a bien fonctionné
+		        if (data.state != 'ok') {
+		        	$('#div_networkHealthAlert').showAlert({message: data.result, level: 'danger'});
+		        	return;
+		        }
+		        $('#div_networkHealthAlert').showAlert({message: "{{Ping envoyé avec succès}}", level: 'success'});
+		    }
+		});
+
+});
 </script>

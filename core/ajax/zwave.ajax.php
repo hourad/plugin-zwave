@@ -159,6 +159,14 @@ try {
 		ajax::success($eqLogic->getDeviceConfiguration(init('forceRefresh', false), init('parameter_id', null)));
 	}
 
+	if (init('action') == 'sendNoOperation') {
+		$eqLogic = zwave::byId(init('id'));
+		if (!is_object($eqLogic)) {
+			throw new Exception(__('Zwave eqLogic non trouvé : ', __FILE__) . init('id'));
+		}
+		ajax::success($eqLogic->sendNoOperation());
+	}
+
 	if (init('action') == 'setDeviceConfiguration') {
 		$eqLogic = zwave::byId(init('id'));
 		if (!is_object($eqLogic)) {
