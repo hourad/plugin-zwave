@@ -23,7 +23,7 @@ include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.widgets.min', 'js');
 ?>
 <div id='div_inspectQueueAlert' style="display: none;"></div>
-<span class='pull-left'>
+<span class='pull-left expertModeVisible'>
     <select class="form-control" style="width : 200px;" id="sel_inspectQueuServerId">
         <?php
 foreach (zwave::listServerZway() as $id => $server) {

@@ -21,7 +21,7 @@ if (!isConnect('admin')) {
 ?>
 <div id='div_routingTableAlert' style="display: none;"></div>
 <span class='pull-left'>
-    <select class="form-control" style="width : 200px;" id="sel_routingTableServerId">
+    <select class="form-control expertModeVisible" style="width : 200px;" id="sel_routingTableServerId">
         <?php
 foreach (zwave::listServerZway() as $id => $server) {
 	if (isset($server['name'])) {
