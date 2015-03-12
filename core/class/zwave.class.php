@@ -52,13 +52,18 @@ class zwave extends eqLogic {
 		if (self::$_listZwaveServer == null) {
 			self::$_listZwaveServer = array();
 			for ($i = 1; $i <= 3; $i++) {
-				self::$_listZwaveServer[$i] = array(
-					'id' => $i,
-					'name' => config::byKey('zwaveName' . $i, 'zwave', config::byKey('zwaveAddr' . $i, 'zwave')),
-					'addr' => config::byKey('zwaveAddr' . $i, 'zwave'),
-					'port' => config::byKey('zwavePort' . $i, 'zwave', 8083),
-					'isOpenZwave' => config::byKey('isOpenZwave' . $i, 'zwave', 0),
-				);
+				if (config::byKey('zwaveAddr' . $i, 'zwave') != '') {
+					self::$_listZwaveServer[$i] = array(
+						'id' => $i,
+						'name' => config::byKey('zwaveName' . $i, 'zwave', config::byKey('zwaveAddr' . $i, 'zwave')),
+						'addr' => config::byKey('zwaveAddr' . $i, 'zwave'),
+						'port' => config::byKey('zwavePort' . $i, 'zwave', 8083),
+						'isOpenZwave' => config::byKey('isOpenZwave' . $i, 'zwave', 0),
+					);
+				} else {
+					self::$_listZwaveServer[$i] = array();
+				}
+
 			}
 		}
 		return self::$_listZwaveServer;
@@ -81,10 +86,8 @@ class zwave extends eqLogic {
 		$result = curl_exec($ch);
 		if (curl_errno($ch)) {
 			$curl_error = curl_error($ch);
-			//curl_close($ch);
 			throw new Exception(__('Echec de la requete http : ', __FILE__) . $url . ' Curl error : ' . $curl_error, 404);
 		}
-		//curl_close($ch);
 		if (strpos($result, 'Error 500: Server Error') === 0 || strpos($result, 'Error 500: Internal Server Error') === 0) {
 			if (strpos($result, 'Code took too long to return result') === false) {
 				throw new Exception('Echec de la commande : ' . $_url . '. Erreur : ' . $result, 500);

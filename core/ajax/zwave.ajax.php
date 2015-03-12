@@ -53,6 +53,14 @@ try {
 		ajax::success();
 	}
 
+	if (init('action') == 'restartDeamon') {
+		$cron = cron::byClassAndFunction('zwave', 'pull');
+		if (is_object($cron)) {
+			$cron->stop();
+		}
+		ajax::success();
+	}
+
 	if (init('action') == 'autoDetectModule') {
 		$eqLogic = zwave::byId(init('id'));
 		if (!is_object($eqLogic)) {

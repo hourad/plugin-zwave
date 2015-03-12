@@ -44,9 +44,6 @@ $eqLogics = eqLogic::byType('zwave');
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_routingTable" title="{{Afficher la table de routage}}" style="display: inline-block;"><i class="fa fa-sitemap"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du Z-Wave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_healthRazberry" title="{{Santé du réseau Z-Wave}}" style="display: inline-block;"><i class="fa fa-medkit"></i></a>
-                    <?php if (config::byKey('isOpenZwave', 'zwave', 0) == 0) {?>
-                        <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_showZwayLog" title="{{Log du serveur z-way (valable uniquement si le serveur z-way est local)}}" style="display: inline-block;"><i class="fa fa-file-o"></i></a>
-                        <?php }?>
                     </center>
                     <?php
 if ($controlerState == 1) {
