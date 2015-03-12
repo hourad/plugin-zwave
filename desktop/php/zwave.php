@@ -156,7 +156,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                 </div>
                 <label class="col-sm-2 control-label">{{Server}}</label>
                 <div class="col-sm-4">
-                   <select class="form-control eqLogicAttr" data-l1key="configuration" data-l1key="serverID">
+                   <select class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="serverID">
                     <?php
 foreach (zwave::listServerZway() as $id => $server) {
 	if (isset($server['name'])) {
