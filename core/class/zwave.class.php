@@ -25,6 +25,7 @@ class zwave extends eqLogic {
 	private static $_curl = null;
 	private static $_nbZwaveServer = 1;
 	private static $_listZwaveServer = null;
+	private static $_zwaveUpdatetime = array();
 
 	/*     * ***********************Methode static*************************** */
 
@@ -129,8 +130,11 @@ class zwave extends eqLogic {
 			if (!isset($server['name'])) {
 				continue;
 			}
-			$cache = cache::byKey('zwave::lastUpdate' . $serverID);
-			$results = self::callRazberry('/ZWaveAPI/Data/' . $cache->getValue(0), $serverID);
+			if (!isset(self::$_zwaveUpdatetime[$serverID])) {
+				$cache = cache::byKey('zwave::lastUpdate' . $serverID);
+				self::$_zwaveUpdatetime[$serverID] = $cache->getValue(0);
+			}
+			$results = self::callRazberry('/ZWaveAPI/Data/' . self::$_zwaveUpdatetime[$serverID], $serverID);
 			if (!is_array($results)) {
 				continue;
 			}
@@ -281,8 +285,10 @@ class zwave extends eqLogic {
 				}
 			}
 			if (isset($results['updateTime'])) {
+				self::$_zwaveUpdatetime[$serverID] = $results['updateTime'];
 				cache::set('zwave::lastUpdate' . $serverID, $results['updateTime'], 0);
 			} else {
+				self::$_zwaveUpdatetime[$serverID] = 0;
 				cache::set('zwave::lastUpdate' . $serverID, 0, 0);
 			}
 		}
