@@ -16,18 +16,41 @@
  */
 
 if (!isConnect('admin')) {
-    throw new Exception('{{401 - Accès non autorisé}}');
+	throw new Exception('{{401 - Accès non autorisé}}');
 }
-$infos = zwave::callRazberry('/ZWaveAPI/Data/0');
+
 ?>
 <div id='div_adminRazberryAlert' style="display: none;"></div>
 
-<center>
-    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> Version Z-Way : <?php echo $infos['controller']['data']['softwareRevisionVersion']['value']; ?></span>
-    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> Version puce zwave : <?php echo $infos['controller']['data']['ZWaveChip']['value']; ?> </span>
-    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> SDK : <?php echo $infos['controller']['data']['SDK']['value']; ?> </span>
-    <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> API Version : <?php echo $infos['controller']['data']['APIVersion']['value']; ?> </span>
-</center><br/>
+
+    <?php
+foreach (zwave::listServerZway() as $id => $server) {
+	if (isset($server['name'])) {
+		$infos = zwave::callRazberry('/ZWaveAPI/Data/0', $id);
+		?>
+        <center>
+        <span class="label label-success" style="font-size : 1em;margin-right : 3px;"> {{Serveur}} : <?php echo $server['name'];?></span>
+        <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> {{Version Z-Way}} : <?php echo $infos['controller']['data']['softwareRevisionVersion']['value'];?></span>
+        <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> {{Version puce zwave}} : <?php echo $infos['controller']['data']['ZWaveChip']['value'];?> </span>
+        <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> {{SDK}} : <?php echo $infos['controller']['data']['SDK']['value'];?> </span>
+        <span class="label label-primary" style="font-size : 1em;margin-right : 3px;"> {{API Version}} : <?php echo $infos['controller']['data']['APIVersion']['value'];?> </span>
+        </center><br/>
+        <?php	}
+}
+?>
+
+<span class='pull-right expertModeVisible'>
+    <select class="form-control" style="width : 200px;" id="sel_adminRazberryServerId">
+        <?php
+foreach (zwave::listServerZway() as $id => $server) {
+	if (isset($server['name'])) {
+		echo '<option value="' . $id . '">' . $server['name'] . '</option>';
+	}
+}
+?>
+  </select>
+</span>
+<br/><br/><br/>
 
 <table class="table table-bordered table-condensed">
     <thead>
@@ -44,9 +67,9 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
                 </center>
             </td>
             <td>
-                {{Cette fonction effectue un redémarrage logiciel du firmware de la puce du contrôleur Z-Wave sans 
+                {{Cette fonction effectue un redémarrage logiciel du firmware de la puce du contrôleur Z-Wave sans
                 suppression de toute information de réseau ou un réglage. Il peut être nécessaire pour recupérer la puce d'un état bloqué.
-                Une situation typique d'une puce redémarrage requis est si la puce Z-Wave échoue à venir 
+                Une situation typique d'une puce redémarrage requis est si la puce Z-Wave échoue à venir
                 de retour de l'inclusion ou de l'état d'exclusion.}}
             </td>
         </tr>
@@ -67,8 +90,8 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
                 </center>
             </td>
             <td>
-                {{Dans certaines configurations réseau il peut être nécessaire d'envoyer le Node Id  
-                du contrôleur Z-Way. Ceci est particulièrement utile pour l'utilisation de certaines télécommandes pour la scène 
+                {{Dans certaines configurations réseau il peut être nécessaire d'envoyer le Node Id
+                du contrôleur Z-Way. Ceci est particulièrement utile pour l'utilisation de certaines télécommandes pour la scène
                 activation. Se référer au manuel de la télécommande pour donner plus d'
                 informations quand et comment utiliser cette fonction.}}
             </td>
@@ -81,7 +104,7 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
                 </center>
             </td>
             <td>
-                {{Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut 
+                {{Cette fonction va appeler le nœud Informations cadre de tous les périphériques du réseau. Ceci peut
                 être nécessaires en cas de changement de matériel ou lorsque tous les dispositifs où fournis avec un câble USB portable coller comme par exemple Aeon Labs Z-Stick. Les appareils fonctionnant sur secteur retourneront leur FNI immédiatement, les dispositifs à piles vont réagir après la prochaine activation.}}
             </td>
         </tr>
@@ -110,7 +133,7 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
                     <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(5)" data-risk="{{Moyen}}"> {{KR}}</a>
                     <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(8)" data-risk="{{Moyen}}"> {{JP}}</a>
                     <a class='btn btn-primary btn-xs bt_adminRazberryAction' style="color : white;margin-top : 5px;" data-command="ZMEFreqChange(3)" data-risk="{{Moyen}}"> {{US}}</a>
-                </center>        
+                </center>
             </td>
             <td>
                 {{Choix de la région (influe sur la fréquence du zwave)}}
@@ -122,13 +145,13 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
                 <center>
                     <a class='btn btn-danger btn-xs bt_adminRazberryAction' style="color : white;" data-command="ControllerChange(1)" data-risk="{{Elevé}}"> {{Démarrer le changement du contrôleur primaire}}</a><br/><br/>
                     <a class='btn btn-success btn-xs bt_adminRazberryAction' style="color : white;" data-command="ControllerChange(0)" data-risk="{{Faible}}"> {{Arrêter le changement du contrôleur primaire}}</a>
-                </center>        
+                </center>
             </td>
             <td>
                 {{La fonction de changement de contrôleur permet le transfert de la fonction primaire à un autre contrôleur du
-                réseau. La fonction fonctionne comme une fonction d'inclusion normale, mais remettra le primaire 
-                privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire du 
-                réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire 
+                réseau. La fonction fonctionne comme une fonction d'inclusion normale, mais remettra le primaire
+                privilège de la nouvelle commande après l'inscription. Z-Way va devenir un contrôleur secondaire du
+                réseau. Cette fonction peut être nécessaire lors de l'installation de réseaux plus importants sur la base de la télécommande des contrôles que lorsque Z-Way est uniquement utilisé pour faire une configuration de réseau pratique et le primaire
                 Enfin fonction est remis une des télécommandes.}}
             </td>
         </tr>
@@ -157,7 +180,8 @@ $infos = zwave::callRazberry('/ZWaveAPI/Data/0');
                     url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
                     data: {
                         action: "adminRazberry",
-                        command: command
+                        command: command,
+                        serverId: $('#sel_adminRazberryServerId').value(),
                     },
                     dataType: 'json',
                     error: function(request, status, error) {
