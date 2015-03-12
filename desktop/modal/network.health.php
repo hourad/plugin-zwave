@@ -21,7 +21,8 @@ if (!isConnect('admin')) {
 
 $infos = array();
 $communicationStatistics = array();
-foreach (zwave::listServerZway() as $id => $server) {
+$serverList = zwave::listServerZway();
+foreach ($serverList as $id => $server) {
 	if (isset($server['name'])) {
 		$infos[$id] = zwave::callRazberry('/ZWaveAPI/Data/0', $id);
 		try {
@@ -38,6 +39,7 @@ foreach (zwave::listServerZway() as $id => $server) {
 		<tr>
 			<th>{{Module}}</th>
 			<th>{{ID}}</th>
+			<th>{{Serveur}}</th>
 			<th>{{Interview}}</th>
 			<th>{{Statut}}</th>
 			<th>{{Batterie}}</th>
@@ -56,6 +58,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 	echo "<tr>";
 	echo "<td><a href='index.php?v=d&m=zwave&p=zwave&id=" . $eqLogic->getId() . "'>" . $eqLogic->getHumanName() . "</a></td>";
 	echo "<td>" . $eqLogic->getLogicalId() . "</td>";
+	echo "<td>" . $serverList[$eqLogic->getConfiguration('serverID')]['name'] . "</td>";
 	if ($info['interviewComplete']['value'] == __('Complete', __FILE__)) {
 		echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
 	} else {
