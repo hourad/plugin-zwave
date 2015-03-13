@@ -45,7 +45,7 @@
     var serverId = 1;
     for(var i in listServerZway){
         if(listServerZway[i].name != null){
-            serverId = listServerZway[i].serverId
+            serverId = i
             nbZwayServer++
         }
     }

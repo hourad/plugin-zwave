@@ -34,7 +34,7 @@ try {
 	}
 
 	if (init('action') == 'changeIncludeState') {
-		zwave::changeIncludeState(init('mode'), init('state'));
+		zwave::changeIncludeState(init('mode'), init('state'), init('serverID'));
 		ajax::success();
 	}
 
@@ -277,6 +277,10 @@ try {
 
 	if (init('action') == 'callRazberry') {
 		ajax::success(zwave::callRazberry(init('call'), init('serverId', 1)));
+	}
+
+	if (init('action') == 'listServerZway') {
+		ajax::success(zwave::listServerZway());
 	}
 
 	if (init('action') == 'uploadConfZwave') {
