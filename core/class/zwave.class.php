@@ -433,6 +433,7 @@ class zwave extends eqLogic {
 			$cmd .= 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/z-way-server/libs; ';
 			$cmd .= '&& cd /opt/z-way-server; ';
 			$cmd .= './z-way-server >> ' . log::getPathToLog('zwavecmd') . ' 2>&1 &';
+			exec($cmd);
 		} else {
 			$output = array();
 			$retval = 0;
@@ -441,6 +442,15 @@ class zwave extends eqLogic {
 				throw new Exception(__('Impossible de redémarrer le serveur zway (problème de droits ?) : ', __FILE__) . print_r($output, true));
 			}
 		}
+	}
+
+	public static function updateZwayServer($_version = '') {
+		if ($_version != '') {
+			$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/zway_update.sh ' . $_version;
+		} else {
+			$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/zway_update.sh';
+		}
+		$cmd .= ' >> ' . log::getPathToLog('zway_update') . ' 2>&1 &';
 	}
 
 	public static function changeIncludeState($_mode, $_state, $_serverId = 1) {

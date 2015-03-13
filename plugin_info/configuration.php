@@ -17,9 +17,14 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 include_file('core', 'authentification', 'php');
-if (!isConnect()) {
-	include_file('desktop', '404', 'php');
-	die();
+if (!isConnect('admin')) {
+	throw new Exception('{{401 - Accès non autorisé}}');
+}
+$localZwayServer = false;
+foreach (zwave::listServerZway() as $id => $server) {
+	if (($server['addr'] == '127.0.0.1' || $server['addr'] == 'localhost') && $server['isOpenZwave'] != 1) {
+		$localZwayServer = true;
+	}
 }
 ?>
 <form class="form-horizontal">
@@ -74,11 +79,29 @@ try {
         <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
     </div>
 </div>
-<div class="form-group">
-
+<?php if ($localZwayServer) {?>
+<div class="form-group expertModeVisible">
+    <label class="col-lg-3 control-label">{{Installer/Mettre à jour le serveur zway}}</label>
+    <div class="col-lg-3">
+        <a class="btn btn-danger" id="bt_updateZwayServer">{{Lancer l'installation/la mise à jour du serveur zway}}</a>
+    </div>
 </div>
-
+<?php }?>
 <script>
+    $('#bt_updateZwayServer').on('click',function(){
+        bootbox.confirm('{{Etes-vous sûr de vouloir installer/mettre à jour le serveur zway ? Ceci est une opération risquée !!!!!!}}', function (result) {
+          if (result) {
+            bootbox.prompt("Version (laisser vide pour mettre la derniere stable) ?", function (result) {
+               if (result !== null) {
+                  $('#md_modal').dialog({title: "{{Mise à jour du zway server}}"});
+                  $('#md_modal').load('index.php?v=d&plugin=zwave&modal=update.zway&version='+result).dialog('open');
+              }
+          });
+
+        }
+    });
+    });
+
     function zwave_postSaveConfiguration(){
              $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
