@@ -16,14 +16,14 @@
  */
 
 if (!isConnect('admin')) {
-    throw new Exception('{{401 - Accès non autorisé}}');
+	throw new Exception('{{401 - Accès non autorisé}}');
 }
 if (init('id') == '') {
-    throw new Exception('{{EqLogic ID ne peut être vide}}');
+	throw new Exception('{{EqLogic ID ne peut être vide}}');
 }
 $eqLogic = eqLogic::byId(init('id'));
 if (!is_object($eqLogic)) {
-    throw new Exception('{{Equipement non trouvé}}');
+	throw new Exception('{{Equipement non trouvé}}');
 }
 include_file('3rdparty', 'jquery.tablesorter/theme.bootstrap', 'css');
 include_file('3rdparty', 'jquery.tablesorter/jquery.tablesorter.min', 'js');
@@ -42,20 +42,17 @@ include_file('core', 'class.command', 'config', 'zwave');
             </thead>
             <tbody>
                 <?php
-                foreach ($eqLogic->getAvailableCommandClass() as $commandClasses) {
-                    echo '<tr data-commandClass="' . $commandClasses . '" class="cursor">';
-                    echo '<td>';
-                    echo $commandClasses;
-                    if (isset($listClassCommand[$commandClasses]) && count($listClassCommand[$commandClasses]) > 0) {
-                        echo '<span class="label label-success pull-right">' . count($listClassCommand[$commandClasses]) . '<span>';
-                    } else {
-                        echo '<span class="label label-default pull-right">' . count($listClassCommand[$commandClasses]) . '<span>';
-                    }
-
-                    echo '</td>';
-                    echo '</tr>';
-                }
-                ?>
+foreach ($eqLogic->getAvailableCommandClass() as $commandClasses) {
+	echo '<tr data-commandClass="' . $commandClasses . '" class="cursor">';
+	echo '<td>';
+	echo $commandClasses;
+	if (isset($listClassCommand[$commandClasses]) && count($listClassCommand[$commandClasses]) > 0) {
+		echo '<span class="label label-success pull-right">' . count($listClassCommand[$commandClasses]) . '<span>';
+	}
+	echo '</td>';
+	echo '</tr>';
+}
+?>
             </tbody>
         </table>
     </div>
@@ -161,4 +158,4 @@ include_file('core', 'class.command', 'config', 'zwave');
             }
         });
     }
-</script> 
+</script>

@@ -312,7 +312,7 @@ class zwave extends eqLogic {
 		foreach ($results['devices'] as $nodeId => $result) {
 			$findDevice[$nodeId] = $nodeId;
 			if ($nodeId != $razberry_id) {
-				if (!is_object(self::byLogicalId($nodeId, 'zwave'))) {
+				if (!is_object(self::getEqLogicByLogicalIdAndServerId($nodeId, $_serverId))) {
 					$eqLogic = new eqLogic();
 					$eqLogic->setEqType_name('zwave');
 					$eqLogic->setIsEnable(1);
@@ -407,7 +407,7 @@ class zwave extends eqLogic {
 		}
 		if (config::byKey('autoRemoveExcludeDevice', 'zwave') == 1 && count($findDevice) > 1) {
 			foreach (self::byType('zwave') as $eqLogic) {
-				if (!isset($findDevice[$eqLogic->getLogicalId()])) {
+				if (!isset($findDevice[$eqLogic->getLogicalId()]) && $eqLogic->getConfiguration('serverID') == $_serverId) {
 					$eqLogic->remove();
 				}
 			}
@@ -524,7 +524,7 @@ class zwave extends eqLogic {
 			$queue = array();
 			$queue['timeout'] = $result[0];
 			$queue['id'] = $result[2];
-			$eqLogic = zwave::byLogicalId($queue['id'], 'zwave');
+			$eqLogic = zwave::getEqLogicByLogicalIdAndServerId($queue['id'], $_serverId);
 			$queue['name'] = '';
 			if (is_object($eqLogic)) {
 				$queue['name'] = $eqLogic->getHumanName();
@@ -556,7 +556,7 @@ class zwave extends eqLogic {
 			} else {
 				$return[$id]['name'] = $id;
 				if ($nb < 25) {
-					$eqLogic = zwave::byLogicalId($id, 'zwave');
+					$eqLogic = zwave::getEqLogicByLogicalIdAndServerId($id, $_serverId);
 					if (is_object($eqLogic)) {
 						$return[$id]['name'] = $eqLogic->getHumanName();
 					}
@@ -794,7 +794,7 @@ class zwave extends eqLogic {
 					if ($node == $razberry_id) {
 						$info_group[] = array('id' => $node, 'name' => 'Jeedom');
 					} else {
-						$eqLogic = zwave::byLogicalId($node);
+						$eqLogic = zwave::getEqLogicByLogicalIdAndServerId($this->getConfiguration('serverID', 1));
 						if (is_object($eqLogic)) {
 							$info_group[] = array('id' => $node, 'name' => $eqLogic->getHumanName());
 						} else {
