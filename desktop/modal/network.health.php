@@ -59,10 +59,14 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 	echo "<td><a href='index.php?v=d&m=zwave&p=zwave&id=" . $eqLogic->getId() . "'>" . $eqLogic->getHumanName() . "</a></td>";
 	echo "<td>" . $eqLogic->getLogicalId() . "</td>";
 	echo "<td>" . $serverList[$eqLogic->getConfiguration('serverID')]['name'] . "</td>";
-	if ($info['interviewComplete']['value'] == __('Complete', __FILE__)) {
-		echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+	if (isset($info['interviewComplete']['value']) && $info['interviewComplete']['value'] != '') {
+		if ($info['interviewComplete']['value'] == __('Complete', __FILE__)) {
+			echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+		} else {
+			echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+		}
 	} else {
-		echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+		echo "<td></td>";
 	}
 	if ($info['state']['value'] == 'Dead') {
 		echo "<td><span class='label label-danger' title=" . $info['state']['datetime'] . ">" . $info['state']['value'] . "</span></td>";
@@ -125,7 +129,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 	echo "</td>";
 	echo "<td>" . $info['lastReceived']['value'] . "</td>";
 	echo "<td>";
-	if (!isset($info['battery']) || $info['battery']['value'] == '') {
+	if ((!isset($info['battery']) || $info['battery']['value'] == '') && is_numeric($eqLogic->getLogicalId())) {
 		echo "<a class='btn btn-primary btn-xs bt_pingDevice' data-id='" . $eqLogic->getId() . "'><i class='fa fa-eye'></i> {{Ping}}</a>";
 	}
 	echo "</td>";
