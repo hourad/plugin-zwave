@@ -6,9 +6,7 @@
     <icon>fa fa-rss</icon>
     <licence>AGPL</licence>
     <author>Loïc Gevrey</author>
-    <installation>Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http://razberry.z-wave.me/) faites :
-        - "wget -q -O - razberry.z-wave.me/install | sudo bash"
-    </installation>
+    <installation></installation>
     <require>1.10</require>
     <version>1.0</version>
     <category>automation protocol</category>

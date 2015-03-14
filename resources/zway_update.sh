@@ -1,8 +1,8 @@
 #!/bin/sh
 if [ -z "$1" ]; then
-	wget -q -O - razberry.z-wave.me/install zway-install
+	wget -q -O - razberry.z-wave.me/install | sudo bash
 else
-	wget -q -O - razberry.z-wave.me/install/$1 zway-install
+	wget -q -O - razberry.z-wave.me/install/$1 | sudo bash
 fi
 
 for i in mongoose zbw_connect
@@ -14,3 +14,5 @@ do
 done
 ps aux | grep mongoose | awk '{print $2}' | xargs kill -9
 ps aux | grep zbw_connect | awk '{print $2}' | xargs kill -9 
+
+echo "INSTALL/UPDATE OF Z-WAY-SERVER SUCCESSFULL"

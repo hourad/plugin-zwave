@@ -25,12 +25,13 @@ foreach (zwave::listServerZway() as $id => $server) {
 	}
 }
 if (!$localZwayServer) {
-	throw new Exception(__('Le serveur zway n\'est pas en local.', __FILE__));
+	throw new Exception(__('Le serveur z-way n\'est pas en local.', __FILE__));
 }
 sendVarToJs('zway_version', init('version'));
 ?>
 <div id='div_updateZwayAlert' style="display: none;"></div>
-<pre id='pre_zwaveupdate' style='overflow: auto; height: 95%;with:90%;'></pre>
+<div class="alert alert-warning">{{Attention la mise à jour peut être longue (30 min)}}</div>
+<pre id='pre_zwaveupdate' style='overflow: auto; height: 90%;with:90%;'></pre>
 
 
 <script>
@@ -58,7 +59,6 @@ sendVarToJs('zway_version', init('version'));
 			data: {
 				action: 'get',
 				logfile: 'zway_update',
-				jeeNetwork_id: jeeNetwork_id
 			},
 			dataType: 'json',
 			global: false,

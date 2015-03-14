@@ -19,7 +19,7 @@
         "Dernière communication": "Dernière communication"
     },
     "plugins\/zwave\/desktop\/php\/zwave.php": {
-        "Synchroniser équipement avec le Razberry": "Synchroniser équipement avec le Razberry",
+        "Synchroniser équipement avec le contrôleur": "Synchroniser équipement avec le contrôleur",
         "Synchroniser": "Synchroniser",
         "Inspecter la queue Z-Wave": "Inspecter la queue Z-Wave",
         "Afficher la table de routage": "Afficher la table de routage",
@@ -127,7 +127,7 @@
         "Action": "Action",
         "Explication": "Explication",
         "Faible": "Faible",
-        "Redémarrer le razberry": "Redémarrer le razberry",
+        "Redémarrer le contrôleur": "Redémarrer le contrôleur",
         "Cette fonction effectue un redémarrage logiciel du firmware de la puce du contrôleur Z-Wave sans \r\n                suppression de toute information de réseau ou un réglage. Il peut être nécessaire pour recupérer la puce d'un état bloqué.\r\n                Une situation typique d'une puce redémarrage requis est si la puce Z-Wave échoue à venir \r\n                de retour de l'inclusion ou de l'état d'exclusion.": "Cette fonction effectue un redémarrage logiciel du firmware de la puce du contrôleur Z-Wave sans \r\n                suppression de toute information de réseau ou un réglage. Il peut être nécessaire pour recupérer la puce d'un état bloqué.\r\n                Une situation typique d'une puce redémarrage requis est si la puce Z-Wave échoue à venir \r\n                de retour de l'inclusion ou de l'état d'exclusion.",
         "Moyenne": "Moyenne",
         "Soigner le reseaux Zwave automatiquement": "Soigner le reseaux Zwave automatiquement",
@@ -187,7 +187,6 @@
         "Valider": "Valider"
     },
     "plugins\/zwave\/plugin_info\/info.xml": {
-        "Plugin pour envoyer des ordres Z-Wave": "Plugin pour envoyer des ordres Z-Wave",
-        "Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http:\/\/razberry.z-wave.me\/) faites :\n        - \"wget -q -O - razberry.z-wave.me\/install | sudo bash\"\n    ": "Si vous n'avez pas une box préinstallée et que vous n'avez pas installé l'application zway (http:\/\/razberry.z-wave.me\/) faites :\n        - \"wget -q -O - razberry.z-wave.me\/install | sudo bash\"\n    "
+        "Plugin pour envoyer des ordres Z-Wave": "Plugin pour envoyer des ordres Z-Wave"
     }
 }

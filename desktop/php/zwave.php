@@ -39,7 +39,7 @@ $eqLogics = eqLogic::byType('zwave');
         <div class="bs-sidebar">
             <ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
                 <center style="margin-bottom: 5px;">
-                    <a class="btn btn-default btn-sm tooltips" id="bt_syncEqLogic" title="{{Synchroniser équipement avec le Razberry}}" style="display: inline-block;"><i class="fa fa-refresh"></i> <span class="expertModeHidden">{{Synchroniser}}</span></a>
+                    <a class="btn btn-default btn-sm tooltips" id="bt_syncEqLogic" title="{{Synchroniser équipement avec le contrôleur}}" style="display: inline-block;"><i class="fa fa-refresh"></i> <span class="expertModeHidden">{{Synchroniser}}</span></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_inspectQueue" title="{{Inspecter la queue Z-Wave}}" style="display: inline-block;"><i class="fa fa-exchange fa-rotate-90"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_routingTable" title="{{Afficher la table de routage}}" style="display: inline-block;"><i class="fa fa-sitemap"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du Z-Wave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>

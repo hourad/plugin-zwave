@@ -445,12 +445,14 @@ class zwave extends eqLogic {
 	}
 
 	public static function updateZwayServer($_version = '') {
+		log::clear('zway_update');
 		if ($_version != '') {
 			$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/zway_update.sh ' . $_version;
 		} else {
 			$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/zway_update.sh';
 		}
 		$cmd .= ' >> ' . log::getPathToLog('zway_update') . ' 2>&1 &';
+		exec($cmd);
 	}
 
 	public static function changeIncludeState($_mode, $_state, $_serverId = 1) {
@@ -545,6 +547,9 @@ class zwave extends eqLogic {
 	}
 
 	public static function getRoutingTable($_serverId = 1) {
+		if (self::$_listZwaveServer == null) {
+			self::listServerZway();
+		}
 		$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
 		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
 		$return = array();
@@ -552,7 +557,7 @@ class zwave extends eqLogic {
 		foreach ($results['devices'] as $id => $device) {
 			$return[$id] = $device;
 			if ($id == $razberry_id) {
-				$return[$id]['name'] = 'Razberry';
+				$return[$id]['name'] = 'Contrôleur ' . self::$_listZwaveServer[$_serverId]['name'];
 			} else {
 				$return[$id]['name'] = $id;
 				if ($nb < 25) {

@@ -63,7 +63,7 @@ foreach (zwave::listServerZway() as $id => $server) {
         <tr>
             <td>
                 <center>
-                    <a class='btn btn-default btn-xs bt_adminRazberryAction' data-command="SerialAPISoftReset()" data-risk="{{Faible}}">{{Redémarrer le razberry}}</a>
+                    <a class='btn btn-default btn-xs bt_adminRazberryAction' data-command="SerialAPISoftReset()" data-risk="{{Faible}}">{{Redémarrer le contrôleur}}</a>
                 </center>
             </td>
             <td>
@@ -163,7 +163,7 @@ foreach (zwave::listServerZway() as $id => $server) {
                 </center>
             </td>
             <td>
-                {{M'inclure dans un nouveau reseaux Zwave (pour etre controleur secondaire par exemple)}}
+                {{M'inclure dans un nouveau reseaux Zwave (pour etre contrôleur secondaire par exemple)}}
             </td>
         </tr>
     </tbody>
