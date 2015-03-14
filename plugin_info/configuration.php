@@ -22,87 +22,99 @@ if (!isConnect('admin')) {
 }
 $localZwayServer = false;
 foreach (zwave::listServerZway() as $id => $server) {
-	if (($server['addr'] == '127.0.0.1' || $server['addr'] == 'localhost') && $server['isOpenZwave'] != 1) {
-		$localZwayServer = true;
+	if (isset($server['addr'])) {
+		if (($server['addr'] == '127.0.0.1' || $server['addr'] == 'localhost') && $server['isOpenZwave'] != 1) {
+			$localZwayServer = true;
+		}
 	}
 }
 ?>
 <form class="form-horizontal">
     <fieldset>
         <?php
-try {
-	$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value');
-	echo '<div class="alert alert-success">{{Le z-way-server est en marche}}</div>';
-} catch (Exception $e) {
-	echo '<div class="alert alert-danger">{{Le z-way-server ne tourne pas}}</div>';
+foreach (zwave::listServerZway() as $id => $server) {
+	if (isset($server['name'])) {
+		echo ' <div class="form-group"><label class="col-sm-2 control-label">{{Serveur }}' . $server['name'] . '</label>';
+		try {
+			$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value', $id);
+			echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+		} catch (Exception $e) {
+			echo '<div class="col-sm-1"><span class="label label-danger">NOK</span></div>';
+		}
+		echo '</div>';
+	}
 }
-?>
-       <div class="form-group">
-        <label class="col-lg-3 control-label">{{Serveur Z-wave nom}}</label>
-        <div class="col-lg-2">
-            <input class="configKey form-control" data-l1key="zwaveName1" />
+?>  </fieldset>
+ </form>
+ <form class="form-horizontal">
+    <fieldset>
+        <legend>{{Paramètres}}</legend>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">{{Serveur Z-wave nom}}</label>
+            <div class="col-lg-2">
+                <input class="configKey form-control" data-l1key="zwaveName1" />
+            </div>
+            <label class="col-lg-1 control-label">{{IP}}</label>
+            <div class="col-lg-2">
+                <input class="configKey form-control" data-l1key="zwaveAddr1" />
+            </div>
+            <label class="col-lg-1 control-label">{{Port}}</label>
+            <div class="col-lg-2">
+                <input class="configKey form-control" data-l1key="zwavePort1" value="8083" />
+            </div>
+            <label class="col-lg-1 control-label">{{Openzwave}}</label>
+            <div class="col-lg-1">
+                <input type="checkbox" class="configKey" data-l1key="isOpenZwave1" />
+            </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-2 control-label">{{Serveur Z-wave nom}}</label>
+          <div class="col-lg-2">
+            <input class="configKey form-control" data-l1key="zwaveName2" />
         </div>
         <label class="col-lg-1 control-label">{{IP}}</label>
         <div class="col-lg-2">
-            <input class="configKey form-control" data-l1key="zwaveAddr1" />
+            <input class="configKey form-control" data-l1key="zwaveAddr2" />
         </div>
         <label class="col-lg-1 control-label">{{Port}}</label>
-        <div class="col-lg-1">
-            <input class="configKey form-control" data-l1key="zwavePort1" value="8083" />
+        <div class="col-lg-2">
+            <input class="configKey form-control" data-l1key="zwavePort2" value="8083" />
         </div>
         <label class="col-lg-1 control-label">{{Openzwave}}</label>
         <div class="col-lg-1">
-            <input type="checkbox" class="configKey" data-l1key="isOpenZwave1" />
+            <input type="checkbox" class="configKey" data-l1key="isOpenZwave2" />
         </div>
     </div>
     <div class="form-group">
-      <label class="col-lg-3 control-label">{{Serveur Z-wave nom}}</label>
-      <div class="col-lg-2">
-        <input class="configKey form-control" data-l1key="zwaveName2" />
+        <label class="col-lg-2 control-label">{{Supprimer automatiquement les périphériques exclus}}</label>
+        <div class="col-lg-3">
+            <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
+        </div>
     </div>
-    <label class="col-lg-1 control-label">{{IP}}</label>
-    <div class="col-lg-2">
-        <input class="configKey form-control" data-l1key="zwaveAddr2" />
+    <?php if ($localZwayServer) {?>
+    <div class="form-group expertModeVisible">
+        <label class="col-lg-2 control-label">{{Installer/Mettre à jour le serveur zway}}</label>
+        <div class="col-lg-3">
+            <a class="btn btn-danger" id="bt_updateZwayServer"><i class="fa fa-check"></i> {{Lancer}}</a>
+        </div>
     </div>
-    <label class="col-lg-1 control-label">{{Port}}</label>
-    <div class="col-lg-1">
-        <input class="configKey form-control" data-l1key="zwavePort2" value="8083" />
-    </div>
-    <label class="col-lg-1 control-label">{{Openzwave}}</label>
-    <div class="col-lg-1">
-        <input type="checkbox" class="configKey" data-l1key="isOpenZwave2" />
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-lg-3 control-label">{{Supprimer automatiquement les périphériques exclus}}</label>
-    <div class="col-lg-3">
-        <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
-    </div>
-</div>
-<?php if ($localZwayServer) {?>
-<div class="form-group expertModeVisible">
-    <label class="col-lg-3 control-label">{{Installer/Mettre à jour le serveur zway}}</label>
-    <div class="col-lg-3">
-        <a class="btn btn-danger" id="bt_updateZwayServer">{{Lancer l'installation/la mise à jour du serveur zway}}</a>
-    </div>
-</div>
-<?php }?>
-<script>
-    $('#bt_updateZwayServer').on('click',function(){
-        bootbox.confirm('{{Etes-vous sûr de vouloir installer/mettre à jour le serveur zway ? Ceci est une opération risquée !!!!!!}}', function (result) {
-          if (result) {
-            bootbox.prompt("Version (laisser vide pour mettre la derniere stable) ?", function (result) {
-               if (result !== null) {
+    <?php }?>
+    <script>
+        $('#bt_updateZwayServer').on('click',function(){
+            bootbox.confirm('{{Etes-vous sûr de vouloir installer/mettre à jour le serveur zway ? Ceci est une opération risquée !!!!!!}}', function (result) {
+              if (result) {
+                bootbox.prompt("Version (laisser vide pour mettre la derniere stable) ?", function (result) {
+                 if (result !== null) {
                   $('#md_modal').dialog({title: "{{Mise à jour du zway server}}"});
                   $('#md_modal').load('index.php?v=d&plugin=zwave&modal=update.zway&version='+result).dialog('open');
               }
           });
 
-        }
-    });
-    });
+            }
+        });
+        });
 
-    function zwave_postSaveConfiguration(){
+        function zwave_postSaveConfiguration(){
              $.ajax({// fonction permettant de faire de l'ajax
             type: "POST", // methode de transmission des données au fichier php
             url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
