@@ -518,7 +518,7 @@ class zwave extends eqLogic {
 	}
 
 	public static function inspectQueue($_serverId = 1) {
-		$results = self::callRazberry('/ZWaveAPI/InspectQueue', $_serverId = 1);
+		$results = self::callRazberry('/ZWaveAPI/InspectQueue', $_serverId);
 		$return = array();
 		foreach ($results as $result) {
 			$queue = array();

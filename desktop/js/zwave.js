@@ -56,7 +56,9 @@
         var mode = $(this).attr('data-mode');
         var state =  $(this).attr('data-state');
         for(var i in listServerZway){
-            options += '<option value="'+i+'">'+listServerZway[i].name+'</option>';
+            if(listServerZway[i].name != null){
+                options += '<option value="'+i+'">'+listServerZway[i].name+'</option>';
+            }
         }
         bootbox.dialog({
             title: "Choix du server z-wave",

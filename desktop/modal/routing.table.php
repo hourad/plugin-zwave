@@ -29,7 +29,7 @@ foreach (zwave::listServerZway() as $id => $server) {
 	}
 }
 ?>
-   </select>
+  </select>
 </span>
 <a class='btn btn-warning btn-xs pull-right' id='bt_routingTableForceUpdate' style='color : white;'>{{Forcer la mise à jour des routes}}</a><br/><br/>
 
@@ -63,6 +63,8 @@ foreach (zwave::listServerZway() as $id => $server) {
 </table>
 <script>
     var devicesRouting = '';
+    displayRoutingTable();
+
 
     $('#bt_routingTableForceUpdate').on('click', function () {
         $.ajax({
@@ -86,7 +88,12 @@ foreach (zwave::listServerZway() as $id => $server) {
         });
     });
 
+    $('#sel_routingTableServerId').on('change',function(){
+        var devicesRouting = '';
+        displayRoutingTable();
+    });
 
+    function displayRoutingTable(){
     $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // methode de transmission des données au fichier php
         url: "plugins/zwave/core/ajax/zwave.ajax.php", // url du fichier php
@@ -99,11 +106,11 @@ foreach (zwave::listServerZway() as $id => $server) {
             handleAjaxError(request, status, error, $('#div_routingTableAlert'));
         },
         success: function (data) { // si l'appel a bien fonctionné
-            if (data.state != 'ok') {
-                $('#div_routingTableAlert').showAlert({message: data.result, level: 'danger'});
-                return;
-            }
-            devicesRouting = data.result;
+        if (data.state != 'ok') {
+            $('#div_routingTableAlert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+        devicesRouting = data.result;
 
             var skipPortableAndVirtual = true; // to minimize routing table by removing not interesting lines
             var routingTable = '';
@@ -131,7 +138,7 @@ foreach (zwave::listServerZway() as $id => $server) {
                         rtClass = 'rtUnavailable';
                         routeHops = '';
                     } else if ($.inArray(parseInt(nnodeId, 10), node.data.neighbours.value) != -1)
-                        rtClass = 'alert alert-success';
+                    rtClass = 'alert alert-success';
                     else if (routesCount[nnodeId] && routesCount[nnodeId][1] > 1)
                         rtClass = 'alert alert-info';
                     else if (routesCount[nnodeId] && routesCount[nnodeId][1] == 1)
@@ -140,34 +147,35 @@ foreach (zwave::listServerZway() as $id => $server) {
                         rtClass = 'alert alert-danger';
                     routingTable += '<td class="' + rtClass + '"><span class="geek routeHops">' + routeHops + '</span></td>';
                 });
-                routingTable += '<td class="rtInfo">' + timeConverter(node.data.neighbours.updateTime) + '</td></tr>';
-            });
-            $('#div_routingTable').html('<table class="table table-bordered table-condensed"><thead><tr><th>{{Nom}}</th><th>ID</th>' + routingTableHeader + '<th>Date</th></tr></thead><tbody>' + routingTable + '</tbody></table>');
+routingTable += '<td class="rtInfo">' + timeConverter(node.data.neighbours.updateTime) + '</td></tr>';
+});
+$('#div_routingTable').html('<table class="table table-bordered table-condensed"><thead><tr><th>{{Nom}}</th><th>ID</th>' + routingTableHeader + '<th>Date</th></tr></thead><tbody>' + routingTable + '</tbody></table>');
+}
+});
+}
+
+function getRoutesCount(nodeId) {
+    var routesCount = {};
+    $.each(getFarNeighbours(nodeId), function (index, nnode) {
+        if (nnode.nodeId in routesCount) {
+            if (nnode.hops in routesCount[nnode.nodeId])
+                routesCount[nnode.nodeId][nnode.hops]++;
+            else
+                routesCount[nnode.nodeId][nnode.hops] = 1;
+        } else {
+            routesCount[nnode.nodeId] = new Array();
+            routesCount[nnode.nodeId][nnode.hops] = 1;
         }
     });
-
-    function getRoutesCount(nodeId) {
-        var routesCount = {};
-        $.each(getFarNeighbours(nodeId), function (index, nnode) {
-            if (nnode.nodeId in routesCount) {
-                if (nnode.hops in routesCount[nnode.nodeId])
-                    routesCount[nnode.nodeId][nnode.hops]++;
-                else
-                    routesCount[nnode.nodeId][nnode.hops] = 1;
-            } else {
-                routesCount[nnode.nodeId] = new Array();
-                routesCount[nnode.nodeId][nnode.hops] = 1;
-            }
-        });
-        return routesCount;
-    }
+    return routesCount;
+}
 
 // returns a list of {nodeId, hops}. Can be used to calculate number of routes and minimal hops to a node
-    function getFarNeighbours(nodeId, exludeNodeIds, hops) {
-        if (hops === undefined) {
-            var hops = 0;
-            var exludeNodeIds = [nodeId];
-        }
+function getFarNeighbours(nodeId, exludeNodeIds, hops) {
+    if (hops === undefined) {
+        var hops = 0;
+        var exludeNodeIds = [nodeId];
+    }
         if (hops > 4) // Z-Wave allows only 4 routers, but we are interested in only 2, since network becomes unstable if more that 2 routers are used in communications
             return [];
 
