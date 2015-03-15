@@ -4,6 +4,17 @@ if [ ! -e /etc/z-way/box_type ]; then
 	mkdir /etc/z-way/ 
 	touch /etc/z-way/box_type
 fi
+
+if [ ! -e /usr/lib/arm-linux-gnueabihf/libarchive.so.12 ]; then
+	if [ -e /usr/lib/arm-linux-gnueabihf/libarchive.so.13 ]; then
+		ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12
+	fi
+fi
+
+if [ -e /etc/systemd/system/getty.target.wants/getty@ttymxc0.service ]; then
+	systemctl mask serial-getty@ttymxc0.service
+fi
+
 if [ -z "$1" ]; then
 	wget -q -O - razberry.z-wave.me/install | sudo bash
 else
