@@ -111,7 +111,7 @@ foreach (zwave::listServerZway() as $id => $server) {
     <?php }?>
     <script>
         $('#bt_updateZwayServer').on('click',function(){
-            bootbox.confirm('{{Etes-vous sûr de vouloir installer/mettre à jour le serveur zway ? Ceci est une opération risquée !!!!!!}}', function (result) {
+            bootbox.confirm('{{Etes-vous sûr de vouloir installer/mettre à jour le serveur zway ? Ceci est une opération risquée !!!!!! Un razberry est nécessaire pour que le resulat fonctionne}}', function (result) {
               if (result) {
                 bootbox.prompt("Version (laisser vide pour mettre la derniere stable) ?", function (result) {
                  if (result !== null) {
