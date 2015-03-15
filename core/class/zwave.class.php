@@ -309,7 +309,7 @@ class zwave extends eqLogic {
 		$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
 		$findDevice = array();
 		$include_device = '';
-		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value', $_serverId);
 		$findConfiguration = true;
 		foreach ($results['devices'] as $nodeId => $result) {
 			$findDevice[$nodeId] = $nodeId;
@@ -553,7 +553,7 @@ class zwave extends eqLogic {
 			self::listServerZway();
 		}
 		$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
-		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value', $_serverId);
 		$return = array();
 		$nb = count($results['devices']);
 		foreach ($results['devices'] as $id => $device) {
@@ -792,7 +792,7 @@ class zwave extends eqLogic {
 			throw new Exception(__('Ce module ne supporte pas la notion de groupe', __FILE__));
 		}
 		$hasGroup = false;
-		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value', $this->getConfiguration('serverID', 1));
 		foreach ($results as $group => &$values) {
 			if (is_numeric($group)) {
 				$hasGroup = true;
@@ -1145,7 +1145,7 @@ class zwave extends eqLogic {
 
 		$cmd_order = 0;
 		$link_cmds = array();
-		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value');
+		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value', $this->getConfiguration('serverID', 1));
 		nodejs::pushUpdate('jeedom::alert', array(
 			'level' => 'warning',
 			'message' => __('Mise en place des groupes par défaut', __FILE__),
