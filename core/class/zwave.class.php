@@ -886,7 +886,7 @@ class zwave extends eqLogic {
 		if (isset($results['data'])) {
 			if (isset($results['data']['isAwake'])) {
 				$return['state'] = array(
-					'value' => ($results['data']['isAwake']['value']) ? 'Réveillé' : 'Endormi',
+					'value' => ($results['data']['isAwake']['value']) ? __('Réveillé', __FILE__) : __('Endormi', __FILE__),
 					'datetime' => date('Y-m-d H:i:s', $results['data']['isAwake']['updateTime']),
 				);
 			}
@@ -927,7 +927,19 @@ class zwave extends eqLogic {
 				);
 			}
 
-			if (isset($return['battery']) && $return['battery']['value'] != '') {
+			if ((isset($return['battery']) && $return['battery']['value'] != '') || (isset($return['state']) && $return['state']['value'] == __('Endormi', __FILE__))) {
+				$return['powered'] = array(
+					'value' => false,
+					'datetime' => date('Y-m-d H:i:s'),
+				);
+			} else {
+				$return['powered'] = array(
+					'value' => true,
+					'datetime' => date('Y-m-d H:i:s'),
+				);
+			}
+
+			if (isset($return['powered']) && !$return['powered']['value']) {
 				$return['nextWakeup'] = array(
 					'value' => date('Y-m-d H:i', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),
 					'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),

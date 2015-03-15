@@ -134,7 +134,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 
 	echo "</td>";
 	echo "<td>";
-	if ((!isset($info['battery']) || $info['battery']['value'] == '') && is_numeric($eqLogic->getLogicalId())) {
+	if (isset($info['powered']) && $info['powered']['value'] && is_numeric($eqLogic->getLogicalId())) {
 		echo "<a class='btn btn-primary btn-xs bt_pingDevice' data-id='" . $eqLogic->getId() . "'><i class='fa fa-eye'></i> {{Ping}}</a>";
 	}
 	echo "</td>";
