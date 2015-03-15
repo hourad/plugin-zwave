@@ -63,7 +63,7 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		if ($info['interviewComplete']['value'] == __('Complet', __FILE__)) {
 			echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'><i class='fa fa-check'></i> " . $info['interviewComplete']['value'] . "</a></td>";
 		} else {
-			echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'><i class='fa fa-times'></i> " . $info['interviewComplete']['value'] . "</a></td>";
+			echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'><i class='fa fa-times'></i> " . $info['interviewComplete']['value'] . " (" . $info['interviewComplete']['nbIncompleteClass'] . "/" . $info['interviewComplete']['nbClass'] . ")</a></td>";
 		}
 	} else {
 		echo "<td></td>";
