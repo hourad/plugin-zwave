@@ -19,10 +19,18 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 $localZwayServer = false;
+$noServer = true;
 foreach (zwave::listServerZway() as $id => $server) {
-	if (($server['addr'] == '127.0.0.1' || $server['addr'] == 'localhost') && $server['isOpenZwave'] != 1) {
-		$localZwayServer = true;
+	if (isset($server['addr'])) {
+		$noServer = false;
+		if (($server['addr'] == '127.0.0.1' || $server['addr'] == 'localhost') && $server['isOpenZwave'] != 1) {
+			$localZwayServer = true;
+		}
 	}
+}
+
+if (!$localZwayServer && $noServer) {
+	$localZwayServer = true;
 }
 if (!$localZwayServer) {
 	throw new Exception(__('Le serveur z-way n\'est pas en local.', __FILE__));

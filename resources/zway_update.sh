@@ -1,4 +1,9 @@
 #!/bin/sh
+
+if [ ! -e /etc/z-way/box_type ]; then
+	mkdir /etc/z-way/ 
+	touch /etc/z-way/box_type
+fi
 if [ -z "$1" ]; then
 	wget -q -O - razberry.z-wave.me/install | sudo bash
 else

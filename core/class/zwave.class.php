@@ -114,12 +114,14 @@ class zwave extends eqLogic {
 
 	public static function getZwaveInfo($_path, $_serverId = 1) {
 		$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
-		$paths = explode('::', $_path);
-		foreach ($paths as $path) {
-			if (isset($results[$path])) {
-				$results = $results[$path];
-			} else {
-				return null;
+		if ($_path != '') {
+			$paths = explode('::', $_path);
+			foreach ($paths as $path) {
+				if (isset($results[$path])) {
+					$results = $results[$path];
+				} else {
+					return null;
+				}
 			}
 		}
 		return $results;
@@ -445,7 +447,7 @@ class zwave extends eqLogic {
 	}
 
 	public static function updateZwayServer($_version = '') {
-		log::clear('zway_update');
+		log::remove('zway_update');
 		if ($_version != '') {
 			$cmd = 'sudo /bin/bash ' . dirname(__FILE__) . '/../../resources/zway_update.sh ' . $_version;
 		} else {

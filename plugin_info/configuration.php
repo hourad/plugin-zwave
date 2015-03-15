@@ -21,12 +21,18 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 $localZwayServer = false;
+$noServer = true;
 foreach (zwave::listServerZway() as $id => $server) {
 	if (isset($server['addr'])) {
+		$noServer = false;
 		if (($server['addr'] == '127.0.0.1' || $server['addr'] == 'localhost') && $server['isOpenZwave'] != 1) {
 			$localZwayServer = true;
 		}
 	}
+}
+
+if (!$localZwayServer && $noServer) {
+	$localZwayServer = true;
 }
 ?>
 <form class="form-horizontal">
@@ -36,8 +42,12 @@ foreach (zwave::listServerZway() as $id => $server) {
 	if (isset($server['name'])) {
 		echo ' <div class="form-group"><label class="col-sm-2 control-label">{{Serveur }}' . $server['name'] . '</label>';
 		try {
-			$controlerState = zwave::getZwaveInfo('controller::data::controllerState::value', $id);
-			echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+			$controlerState = zwave::getZwaveInfo('', $id);
+			if (!is_array($controlerState)) {
+				echo '<div class="col-sm-1"><span class="label label-warning tooltips" title="{{Serveur z-wave démarré mais erreur lors de la récuperation des données}}">NOK {{voir cette <a target="_blank" href="http://doc.jeedom.fr/fr_FR/zwave.html#configuration_du_port_dans_le_zway_server">doc</a>}}</span></div>';
+			} else {
+				echo '<div class="col-sm-1"><span class="label label-success">OK</span></div>';
+			}
 		} catch (Exception $e) {
 			echo '<div class="col-sm-1"><span class="label label-danger">NOK</span></div>';
 		}
