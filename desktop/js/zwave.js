@@ -283,6 +283,8 @@ $('#bt_autoDetectModule').on('click',function(){
             $('#div_alert').showAlert({message: data.result, level: 'danger'});
             return;
         }
+        $('#div_alert').showAlert({message: '{{Opération réalisée avec succès}}', level: 'success'});
+        $('.li_eqLogic[data-eqLogic_id='+$('.eqLogicAttr[data-l1key=id]').value()+']').click();
     }
 });
 });
