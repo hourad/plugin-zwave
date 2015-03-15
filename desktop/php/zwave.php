@@ -25,8 +25,8 @@ foreach (zwave::listServerZway() as $id => $server) {
 		if ($controlerState === 5) {
 			echo '<div class="alert jqAlert alert-warning" id="div_inclusionAlert' . $id . '" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Vous êtes en mode exclusion sur ' . $server['name'] . '. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}</div>';
 		}
-		if ($controlerState === '') {
-			echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway ' . $server['name'] . '. Vérifiez que vous avez bien renseigné l\'adresse IP.}}</div>';
+		if ($controlerState === null) {
+			echo '<div class="alert jqAlert alert-danger" style="margin : 0px 5px 15px 15px; padding : 7px 35px 7px 15px;">{{Impossible de contacter le serveur zway ' . $server['name'] . '.}}</div>';
 		}
 	}
 }
