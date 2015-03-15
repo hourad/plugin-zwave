@@ -60,10 +60,10 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 	echo "<td>" . $eqLogic->getLogicalId() . "</td>";
 	echo "<td>" . $serverList[$eqLogic->getConfiguration('serverID')]['name'] . "</td>";
 	if (isset($info['interviewComplete']['value']) && $info['interviewComplete']['value'] != '') {
-		if ($info['interviewComplete']['value'] == __('Complete', __FILE__)) {
-			echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+		if ($info['interviewComplete']['value'] == __('Complet', __FILE__)) {
+			echo "<td><a class='btn btn-xs btn-success bt_showInterview' data-id='" . $eqLogic->getId() . "'><i class='fa fa-check'></i> " . $info['interviewComplete']['value'] . "</a></td>";
 		} else {
-			echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'>" . $info['interviewComplete']['value'] . "</a></td>";
+			echo "<td><a class='btn btn-xs btn-warning bt_showInterview' data-id='" . $eqLogic->getId() . "'><i class='fa fa-times'></i> " . $info['interviewComplete']['value'] . "</a></td>";
 		}
 	} else {
 		echo "<td></td>";
@@ -127,7 +127,12 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		echo "<span class='label label-danger tooltips' title='Temps de livraison maximum'>" . $maxtime . "</span>";
 	}
 	echo "</td>";
-	echo "<td>" . $info['lastReceived']['value'] . "</td>";
+	echo "<td>" . $info['lastReceived']['value'];
+	if (isset($info['nextWakeup']['value']) && $info['nextWakeup']['value'] != '-') {
+		echo ' <i class="fa fa-long-arrow-right"></i> ' . date('H:i', strtotime($info['nextWakeup']['value'])) . ' <i class="fa fa-clock-o"></i>';
+	}
+
+	echo "</td>";
 	echo "<td>";
 	if ((!isset($info['battery']) || $info['battery']['value'] == '') && is_numeric($eqLogic->getLogicalId())) {
 		echo "<a class='btn btn-primary btn-xs bt_pingDevice' data-id='" . $eqLogic->getId() . "'><i class='fa fa-eye'></i> {{Ping}}</a>";

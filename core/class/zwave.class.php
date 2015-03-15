@@ -922,10 +922,23 @@ class zwave extends eqLogic {
 
 			if (isset($results['data']['lastReceived'])) {
 				$return['lastReceived'] = array(
-					'value' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
+					'value' => date('Y-m-d H:i', $results['data']['lastReceived']['updateTime']),
 					'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime']),
 				);
 			}
+
+			if (isset($return['battery']) && $return['battery']['value'] != '') {
+				$return['nextWakeup'] = array(
+					'value' => date('Y-m-d H:i', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),
+					'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),
+				);
+			} else {
+				$return['nextWakeup'] = array(
+					'value' => '-',
+					'datetime' => '-',
+				);
+			}
+
 			if (isset($results['data']['manufacturerId'])) {
 				$return['manufacturerId'] = array(
 					'value' => $results['data']['manufacturerId']['value'],
