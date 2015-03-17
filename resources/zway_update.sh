@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo 'Start install/update of zway'
 if [ ! -e /etc/z-way/box_type ]; then
 	mkdir /etc/z-way/ 
 	touch /etc/z-way/box_type
