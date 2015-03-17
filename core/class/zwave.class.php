@@ -580,10 +580,11 @@ class zwave extends eqLogic {
 		}
 		if (self::$_listZwaveServer[$_serverId]['isOpenZwave'] == 1) {
 			self::callRazberry('/ZWaveAPI/Run/controller.HealthNetwork()', $_serverId);
-		}
-		foreach (eqLogic::byType('zwave') as $eqLogic) {
-			if ($eqLogic->getConfiguration('serverID', 1) == $_serverId) {
-				self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()', $_serverId);
+		} else {
+			foreach (eqLogic::byType('zwave') as $eqLogic) {
+				if ($eqLogic->getConfiguration('serverID', 1) == $_serverId) {
+					self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()', $_serverId);
+				}
 			}
 		}
 	}
