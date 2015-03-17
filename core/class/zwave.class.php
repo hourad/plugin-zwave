@@ -669,7 +669,7 @@ class zwave extends eqLogic {
 		}
 
 		foreach (eqLogic::byTypeAndSearhConfiguration('zwave', $market->getLogicalId()) as $eqLogic) {
-			$eqLogic->applyModuleConfiguration();
+			$eqLogic->applyModuleConfiguration(true);
 		}
 	}
 
@@ -1127,7 +1127,7 @@ class zwave extends eqLogic {
 		}
 	}
 
-	public function applyModuleConfiguration() {
+	public function applyModuleConfiguration($_light = false) {
 		$this->setConfiguration('applyDevice', $this->getConfiguration('device'));
 		if ($this->getConfiguration('device') == '') {
 			$this->save();
@@ -1241,38 +1241,40 @@ class zwave extends eqLogic {
 			}
 		}
 
-		try {
-			nodejs::pushUpdate('jeedom::alert', array(
-				'level' => 'warning',
-				'message' => __('Récupération de la configuration d\'origine du module', __FILE__),
-			));
-			$configuration = $this->getDeviceConfiguration(true);
-			$optimiseConfigFound = false;
-			foreach ($configuration as $id => &$parameter) {
-				if (isset($device['parameters'][$id]['set'])) {
-					$optimiseConfigFound = true;
-					$configuration[$id]['value'] = $device['parameters'][$id]['set'];
-				}
-			}
-			if ($optimiseConfigFound) {
-				nodejs::pushUpdate('jeedom::alert', array(
-					'level' => 'warning',
-					'message' => __('Envoi de la configuration optimisée Jeedom', __FILE__),
-				));
-				$this->setDeviceConfiguration($configuration);
-			}
-		} catch (Exception $ex) {
-
-		}
-		if (isset($device['configure']) && is_array($device['configure'])) {
+		if (!$_light) {
 			try {
 				nodejs::pushUpdate('jeedom::alert', array(
 					'level' => 'warning',
-					'message' => __('Execution des commandes post-configuration', __FILE__),
+					'message' => __('Récupération de la configuration d\'origine du module', __FILE__),
 				));
-				$this->applyDeviceConfigurationCommand();
+				$configuration = $this->getDeviceConfiguration(true);
+				$optimiseConfigFound = false;
+				foreach ($configuration as $id => &$parameter) {
+					if (isset($device['parameters'][$id]['set'])) {
+						$optimiseConfigFound = true;
+						$configuration[$id]['value'] = $device['parameters'][$id]['set'];
+					}
+				}
+				if ($optimiseConfigFound) {
+					nodejs::pushUpdate('jeedom::alert', array(
+						'level' => 'warning',
+						'message' => __('Envoi de la configuration optimisée Jeedom', __FILE__),
+					));
+					$this->setDeviceConfiguration($configuration);
+				}
 			} catch (Exception $ex) {
 
+			}
+			if (isset($device['configure']) && is_array($device['configure'])) {
+				try {
+					nodejs::pushUpdate('jeedom::alert', array(
+						'level' => 'warning',
+						'message' => __('Execution des commandes post-configuration', __FILE__),
+					));
+					$this->applyDeviceConfigurationCommand();
+				} catch (Exception $ex) {
+
+				}
 			}
 		}
 

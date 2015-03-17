@@ -160,6 +160,7 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', func
 
     jeedom.market.byLogicalId({
         logicalId : logicalId,
+        type : 'zwave',
         global : false,
         noExecption : 1,
         success : function(data){
