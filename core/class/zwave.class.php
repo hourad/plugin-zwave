@@ -105,17 +105,6 @@ class zwave extends eqLogic {
 		return self::callRazberry('/ZAutomation/api/v1/notifications?pagination=true&limit=100&since=0', $_serverId);
 	}
 
-	public static function start() {
-		sleep(10);
-		foreach (self::byType('zwave') as $eqLogic) {
-			try {
-				$eqLogic->InterviewForce();
-			} catch (Exception $e) {
-
-			}
-		}
-	}
-
 	public static function getZwaveInfo($_path, $_serverId = 1) {
 		$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
 		if ($_path != '') {
@@ -505,6 +494,26 @@ class zwave extends eqLogic {
 			$cron = cron::byClassAndFunction('zwave', 'pull');
 			if (is_object($cron)) {
 				$cron->remove();
+			}
+		}
+	}
+
+	public static function cronHourly() {
+		foreach (self::listServerZway() as $serverID => $server) {
+			if (!isset($server['name'])) {
+				continue;
+			}
+			$notifications = self::showNotification($serverID);
+			if (is_array($notifications) && isset($notifications['data']) && isset($notifications['data']['notifications'])) {
+				$notifications = array_reverse($notifications['data']['notifications']);
+				$lastCheck = config::byKey('lastNotificationCheck' . $serverID, 'zwave', 0);
+				foreach ($notifications as $notification) {
+					$timestamp = strtotime($notification['timestamp']);
+					if ($timestamp > $lastCheck) {
+						log::add('zwave', 'error', __('Notification sur ', __FILE__) . $server['name'] . __(' le ', __FILE__) . date('Y-m-d H:i:s', $timestamp) . __(' type ', __FILE__) . $notification['type'] . __(' de niveau ', __FILE__) . $notification['level'] . '  : ' . $notification['message']);
+					}
+				}
+				config::save('lastNotificationCheck' . $serverID, strtotime('now'), 'zwave');
 			}
 		}
 	}

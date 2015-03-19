@@ -60,6 +60,13 @@ function zwave_update() {
 	config::save('zwaveAddr1', config::byKey('zwaveAddr1', 'zwave', config::byKey('zwaveAddr', 'zwave')), 'zwave');
 	config::save('zwavePort1', config::byKey('zwavePort1', 'zwave', config::byKey('zwavePort', 'zwave')), 'zwave');
 	config::save('isOpenZwave1', config::byKey('isOpenZwave1', 'zwave', config::byKey('isOpenZwave', 'zwave')), 'zwave');
+	if (method_exists('zwave', 'listServerZway')) {
+		foreach (zwave::listServerZway() as $serverID => $server) {
+			if (config::byKey('lastNotificationCheck' . $serverID, 'zwave', 0) == 0) {
+				config::save('lastNotificationCheck' . $serverID, strtotime('now'), 'zwave');
+			}
+		}
+	}
 }
 
 function zwave_remove() {
