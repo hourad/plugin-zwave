@@ -101,6 +101,10 @@ class zwave extends eqLogic {
 		}
 	}
 
+	public static function showNotification($_serverId = 1) {
+		return self::callRazberry('/ZAutomation/api/v1/notifications?pagination=true&limit=100&since=0', $_serverId);
+	}
+
 	public static function start() {
 		sleep(10);
 		foreach (self::byType('zwave') as $eqLogic) {
@@ -507,7 +511,7 @@ class zwave extends eqLogic {
 
 	public static function cronDaily() {
 		foreach (zwave::byType('zwave') as $eqLogic) {
-			if ($eqLogic->getConfiguration('noBatterieCheck') != 1) {
+			if ($eqLogic->getConfiguration('noBatterieCheck', 0) != 1) {
 				try {
 					self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].instances[0].commandClasses[0x80].Get()', $eqLogic->getConfiguration('serverID', 1));
 					$info = $eqLogic->getInfo();
@@ -952,6 +956,9 @@ class zwave extends eqLogic {
 					'value' => '-',
 					'datetime' => '-',
 				);
+				if ($return['state']['value'] == __('Réveillé', __FILE__)) {
+					$return['state']['value'] = __('Actif', __FILE__);
+				}
 			}
 
 			if (isset($results['data']['manufacturerId'])) {
@@ -1527,17 +1534,17 @@ class zwaveCmd extends cmd {
 	public function handleUpdateValue($_result) {
 		$updateTime = null;
 		if (isset($_result['val'])) {
-			$value = zwaveCmd::handleResult($_result['val']);
+			$value = self::handleResult($_result['val']);
 			if (isset($_result['val']['updateTime'])) {
 				$updateTime = $_result['val']['updateTime'];
 			}
 		} else if (isset($_result['level'])) {
-			$value = zwaveCmd::handleResult($_result['level']);
+			$value = self::handleResult($_result['level']);
 			if (isset($_result['level']['updateTime'])) {
 				$updateTime = $_result['level']['updateTime'];
 			}
 		} else {
-			$value = zwaveCmd::handleResult($_result);
+			$value = self::handleResult($_result);
 			if (isset($_result['updateTime'])) {
 				$updateTime = $_result['updateTime'];
 			}

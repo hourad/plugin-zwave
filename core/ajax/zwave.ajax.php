@@ -38,6 +38,10 @@ try {
 		ajax::success();
 	}
 
+	if (init('action') == 'showNotification') {
+		ajax::success(zwave::showNotification(init('serverID')));
+	}
+
 	if (init('action') == 'updateZwayServer') {
 		zwave::updateZwayServer(init('version'));
 		ajax::success();

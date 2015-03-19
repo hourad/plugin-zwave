@@ -55,8 +55,8 @@ foreach (zwave::listServerZway() as $id => $server) {
 	}
 }
 ?>  </fieldset>
- </form>
- <form class="form-horizontal">
+</form>
+<form class="form-horizontal">
     <fieldset>
         <legend>{{Paramètres}}</legend>
         <div class="form-group">
@@ -101,7 +101,14 @@ foreach (zwave::listServerZway() as $id => $server) {
             <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
         </div>
     </div>
+    <div class="form-group expertModeVisible">
+        <label class="col-lg-2 control-label">{{Notifications}}</label>
+        <div class="col-lg-3">
+            <a class="btn btn-default" id="bt_showNotification"><i class="fa fa-eye"></i> {{Afficher}}</a>
+        </div>
+    </div>
     <?php if ($localZwayServer) {?>
+
     <div class="form-group expertModeVisible">
         <label class="col-lg-2 control-label">{{Installer/Mettre à jour le serveur zway}}</label>
         <div class="col-lg-3">
@@ -110,15 +117,21 @@ foreach (zwave::listServerZway() as $id => $server) {
     </div>
     <?php }?>
     <script>
+        $('#bt_showNotification').on('click',function(){
+           $('#md_modal').dialog({title: "{{Notification du serveur Zway}}"});
+           $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.notification').dialog('open');
+       });
+
+
         $('#bt_updateZwayServer').on('click',function(){
             bootbox.confirm('{{Etes-vous sûr de vouloir installer/mettre à jour le serveur zway ? Ceci est une opération risquée !!!!!! Un <strong>razberry</strong> est nécessaire pour que le resulat fonctionne}}', function (result) {
               if (result) {
                 bootbox.prompt("Version (laisser vide pour mettre la derniere stable) ?", function (result) {
-                 if (result !== null) {
-                  $('#md_modal').dialog({title: "{{Mise à jour du zway server}}"});
-                  $('#md_modal').load('index.php?v=d&plugin=zwave&modal=update.zway&version='+result).dialog('open');
-              }
-          });
+                   if (result !== null) {
+                      $('#md_modal').dialog({title: "{{Mise à jour du zway server}}"});
+                      $('#md_modal').load('index.php?v=d&plugin=zwave&modal=update.zway&version='+result).dialog('open');
+                  }
+              });
 
             }
         });

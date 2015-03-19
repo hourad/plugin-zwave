@@ -172,6 +172,5 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 		        $('#div_networkHealthAlert').showAlert({message: "{{Ping envoyé avec succès}}", level: 'success'});
 		    }
 		});
-
 });
 </script>
