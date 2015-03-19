@@ -47,6 +47,9 @@ foreach (zwave::listServerZway() as $id => $server) {
 </table>
 
 <script>
+	$('#sel_showNotificationServerId').on('change',function(){
+		showNotification($('#sel_showNotificationServerId').value());
+	});
 
 	showNotification($('#sel_showNotificationServerId').value());
 
