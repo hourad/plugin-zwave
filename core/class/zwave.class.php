@@ -499,6 +499,9 @@ class zwave extends eqLogic {
 	}
 
 	public static function cronHourly() {
+		if (config::byKey('noAlertOnNotification', 'zwave', 0) == 1) {
+			return;
+		}
 		foreach (self::listServerZway() as $serverID => $server) {
 			if (!isset($server['name'])) {
 				continue;

@@ -158,7 +158,7 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', func
     var logicalId = $(this).value();
     $('#bt_deviceDocumentation').hide();
 
-    jeedom.market.byLogicalId({
+     jeedom.market.byLogicalId({
         logicalId : logicalId,
         type : 'zwave',
         global : false,

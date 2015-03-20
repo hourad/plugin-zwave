@@ -101,6 +101,12 @@ foreach (zwave::listServerZway() as $id => $server) {
             <input type="checkbox" class="configKey" data-l1key="autoRemoveExcludeDevice" />
         </div>
     </div>
+     <div class="form-group">
+        <label class="col-lg-2 control-label">{{Ne pas remonter les notifications}}</label>
+        <div class="col-lg-3">
+            <input type="checkbox" class="configKey" data-l1key="noAlertOnNotification" />
+        </div>
+    </div>
     <div class="form-group expertModeVisible">
         <label class="col-lg-2 control-label">{{Notifications}}</label>
         <div class="col-lg-3">
