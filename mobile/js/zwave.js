@@ -19,22 +19,24 @@
 
     if (socket != null) {
         socket.on('zwave::controller.data.controllerState', function(_options) {
-         _options = json_decode(_options);
-         $('.changeIncludeState[data-serverID='+_options.serverId+']').removeClass('ui-btn-b').addClass('ui-btn-a').attr('data-state', 1);
-         $('#div_inclusionAlert'+_options.serverId).html('{{Aucun mode actif}}');
-         $('.changeIncludeState[data-mode=0][data-serverID='+_options.serverId+']').html('<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Exclusion}}');
-         $('.changeIncludeState[data-mode=1][data-serverID='+_options.serverId+']').html('<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Inclusion}}');
-         if (_options.state == 1) {
+           _options = json_decode(_options);
+           if (_options.state == 1) {
             $('.changeIncludeState[data-mode=1][data-serverID='+_options.serverId+']').removeClass('ui-btn-a').addClass('ui-btn-b');
             $('.changeIncludeState[data-mode=1][data-serverID='+_options.serverId+']').attr('data-state', 0);
             $('#div_inclusionAlert'+_options.serverId).html('{{Vous êtes en mode inclusion. Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}');
             $('.changeIncludeState[data-mode=1][data-serverID='+_options.serverId+']').html('<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Stop inclusion}}');
-        }
-        if (_options.state == 5) {
+        }else if (_options.state == 5) {
             $('.changeIncludeState[data-mode=0][data-serverID='+_options.serverId+']').removeClass('ui-btn-a').addClass('ui-btn-b');
             $('.changeIncludeState[data-mode=0][data-serverID='+_options.serverId+']').attr('data-state', 0);
             $('#div_inclusionAlert'+_options.serverId).html('{{Vous êtes en mode exclusion. Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}');
             $('.changeIncludeState[data-mode=0][data-serverID='+_options.serverId+']').html('<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Stop exclusion}}');
+        }else{
+            $('.changeIncludeState[data-serverID='+_options.serverId+']').removeClass('ui-btn-b').addClass('ui-btn-a');
+            $('#div_inclusionAlert'+_options.serverId).html('{{Aucun mode actif}}');
+            $('.changeIncludeState[data-mode=0][data-serverID='+_options.serverId+']').html('<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Exclusion}}');
+            $('.changeIncludeState[data-mode=1][data-serverID='+_options.serverId+']').html('<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Inclusion}}');
+            $('.changeIncludeState[data-mode=1][data-serverID='+_options.serverId+']').attr('data-state', 1);
+            $('.changeIncludeState[data-mode=0][data-serverID='+_options.serverId+']').attr('data-state', 1);
         }
     });
 
@@ -80,28 +82,28 @@ $('#div_listIncludeSever').delegate('.changeIncludeState','click', function() {
         $('#div_listIncludeSever').empty();
         for(var i in listServerZway){
             if(listServerZway[i].name != null){
-               var html = '';
-               html += '<legend>'+listServerZway[i].name+'</legend>';
-               html += '<div id="div_inclusionAlert'+i+'" style="text-align: center;font-size: 2em;"></div>';
-               html += '<div class="ui-grid-a">';
-               html += '<div class="ui-block-a">';
-               html += '<center>';
-               html += '<a href="#" class="ui-btn ui-btn-a changeIncludeState" data-mode="1" data-state="1" data-serverID="'+i+'" style="margin: 5px;">';
-               html += '<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Inclusion}}';
-               html += '</a>';
-               html += '</center>';
-               html += '</div>';
-               html += '<div class="ui-block-b">';
-               html += '<center>';
-               html += '<a href="#" class="ui-btn ui-btn-a changeIncludeState" data-mode="0" data-state="1" data-serverID="'+i+'" style="margin: 5px;">';
-               html += '<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Exclusion}}';
-               html += '</a>';
-               html += '</center>';
-               html += '</div>';
-               html += '</div>';
-               $('#div_listIncludeSever').append(html);
-               var controllerState = getZwaveInfo('controller::data::controllerState::value',i);
-               if (controllerState == "0") {
+             var html = '';
+             html += '<legend>'+listServerZway[i].name+'</legend>';
+             html += '<div id="div_inclusionAlert'+i+'" style="text-align: center;font-size: 2em;"></div>';
+             html += '<div class="ui-grid-a">';
+             html += '<div class="ui-block-a">';
+             html += '<center>';
+             html += '<a href="#" class="ui-btn ui-btn-a changeIncludeState" data-mode="1" data-state="1" data-serverID="'+i+'" style="margin: 5px;">';
+             html += '<i class="fa fa-sign-in fa-rotate-90" style="font-size: 6em;"></i><br/>{{Inclusion}}';
+             html += '</a>';
+             html += '</center>';
+             html += '</div>';
+             html += '<div class="ui-block-b">';
+             html += '<center>';
+             html += '<a href="#" class="ui-btn ui-btn-a changeIncludeState" data-mode="0" data-state="1" data-serverID="'+i+'" style="margin: 5px;">';
+             html += '<i class="fa fa-sign-out fa-rotate-90" style="font-size: 6em;"></i><br/>{{Exclusion}}';
+             html += '</a>';
+             html += '</center>';
+             html += '</div>';
+             html += '</div>';
+             $('#div_listIncludeSever').append(html);
+             var controllerState = getZwaveInfo('controller::data::controllerState::value',i);
+             if (controllerState == "0") {
                 $('#div_inclusionAlert'+i).html('{{Aucun mode actif}}');
             }
             if (controllerState == "1") {

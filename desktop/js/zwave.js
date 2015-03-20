@@ -158,7 +158,7 @@ $('.eqLogicAttr[data-l1key=configuration][data-l2key=device]').on('change', func
     var logicalId = $(this).value();
     $('#bt_deviceDocumentation').hide();
 
-     jeedom.market.byLogicalId({
+    jeedom.market.byLogicalId({
         logicalId : logicalId,
         type : 'zwave',
         global : false,
@@ -231,25 +231,26 @@ $('#bt_cronGenerator').on('click',function(){
 $('body').one('nodeJsConnect', function () {
     socket.on('zwave::controller.data.controllerState', function (_options) {
         _options = json_decode(_options);
-        $('#div_inclusionAlert'+_options.serverId).addClass('btn-default').removeClass('btn-success btn-danger').attr('data-state', 1);
-        $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
-        $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion');
-        $('.changeIncludeState[data-mode=1]').removeClass('btn-success').addClass('btn-default');
-        $('.changeIncludeState[data-mode=0]').removeClass('btn-danger').addClass('btn-default');
         $.hideAlert();
         if (_options.state == 1) {
             $('.changeIncludeState[data-mode=1]').removeClass('btn-default').addClass('btn-success');
             $('.changeIncludeState[data-mode=1]').attr('data-state', 0);
             $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Arrêter l\'inclusion');
             $('#div_inclusionAlert'+_options.serverId).showAlert({message: '{{Vous êtes en mode inclusion}} '+_options.name+'. {{Cliquez à nouveau sur le bouton d\'inclusion pour sortir de ce mode}}', level: 'warning'});
-        }
-        if (_options.state == 5) {
+        }else if (_options.state == 5) {
             $('.changeIncludeState[data-mode=0]').removeClass('btn-default').addClass('btn-danger');
             $('.changeIncludeState[data-mode=0]').attr('data-state', 0);
             $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90"></i> Arrêter l\'exclusion');
             $('#div_inclusionAlert'+_options.serverId).showAlert({message: '{{Vous êtes en mode exclusion sur}} '+_options.name+'. {{Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
-        }
-    });
+        }else{
+           $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
+           $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion');
+           $('.changeIncludeState[data-mode=1]').attr('data-state', 1);
+           $('.changeIncludeState[data-mode=0]').attr('data-state', 1);
+           $('.changeIncludeState[data-mode=1]').removeClass('btn-success').addClass('btn-default');
+           $('.changeIncludeState[data-mode=0]').removeClass('btn-danger').addClass('btn-default');
+       }
+   });
 
 setTimeout(function () {
     socket.on('zwave::includeDevice', function (_options) {

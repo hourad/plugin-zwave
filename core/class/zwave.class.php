@@ -138,6 +138,7 @@ class zwave extends eqLogic {
 					nodejs::pushUpdate('zwave::' . $key, array('name' => $server['name'], 'state' => $result['value'], 'serverId' => $serverID));
 				} else if ($key == 'controller.data.lastExcludedDevice') {
 					if ($result['value'] != null) {
+						nodejs::pushUpdate('zwave::' . $key, array('name' => $server['name'], 'state' => 0, 'serverId' => $serverID));
 						nodejs::pushUpdate('jeedom::alert', array(
 							'level' => 'warning',
 							'message' => __('Un périphérique Z-Wave vient d\'être exclu. Logical ID : ', __FILE__) . $result['value'],
@@ -147,6 +148,7 @@ class zwave extends eqLogic {
 					}
 				} else if ($key == 'controller.data.lastIncludedDevice') {
 					if ($result['value'] != null) {
+						nodejs::pushUpdate('zwave::' . $key, array('name' => $server['name'], 'state' => 0, 'serverId' => $serverID));
 						$eqLogic = self::getEqLogicByLogicalIdAndServerId($result['value'], $serverID);
 						if (!is_object($eqLogic)) {
 							nodejs::pushUpdate('jeedom::alert', array(
