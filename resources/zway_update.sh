@@ -21,8 +21,7 @@ else
 	wget -q -O - razberry.z-wave.me/install/$1 | sudo bash
 fi
 
-for i in mongoose zbw_connect
-do
+for i in mongoose zbw_connect; do
 	if [ -f "/etc/init.d/${i}" ]; then
 		service ${i} stop
 		update-rc.d -f ${i} remove
