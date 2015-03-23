@@ -570,8 +570,9 @@ class zwave extends eqLogic {
 		if (self::$_listZwaveServer == null) {
 			self::listServerZway();
 		}
+		$startTime = getmicrotime();
 		$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
-		$razberry_id = zwave::getZwaveInfo('controller::data::nodeId::value', $_serverId);
+		$razberry_id = $results['controller']['data']['nodeId']['value'];
 		$return = array();
 		$nb = count($results['devices']);
 		foreach ($results['devices'] as $id => $device) {
@@ -591,7 +592,7 @@ class zwave extends eqLogic {
 		return $return;
 	}
 
-	public static function updateRoute($_serverId = 1) {
+	public static function updateAllRoute($_serverId = 1) {
 		self::callRazberry('/ZWaveAPI/Run/controller.RequestNetworkUpdate()', $_serverId);
 		if (self::$_listZwaveServer == null) {
 			self::listServerZway();
@@ -601,7 +602,7 @@ class zwave extends eqLogic {
 		} else {
 			foreach (eqLogic::byType('zwave') as $eqLogic) {
 				if ($eqLogic->getConfiguration('serverID', 1) == $_serverId) {
-					self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeNeighbourUpdate()', $_serverId);
+					$eqLogic->updateRoute();
 				}
 			}
 		}
@@ -881,6 +882,10 @@ class zwave extends eqLogic {
 			}
 		}
 		return true;
+	}
+
+	public function updateRoute() {
+		self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].RequestNodeNeighbourUpdate()', $this->getConfiguration('serverID', 1));
 	}
 
 	public function getInfo($_infos = '') {

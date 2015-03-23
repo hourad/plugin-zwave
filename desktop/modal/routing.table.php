@@ -31,11 +31,11 @@ foreach (zwave::listServerZway() as $id => $server) {
 ?>
   </select>
 </span>
-<a class='btn btn-warning btn-xs pull-right' id='bt_routingTableForceUpdate' style='color : white;'>{{Forcer la mise à jour des routes}}</a><br/><br/>
+<a class='btn btn-warning btn-xs pull-right updateRoute' data-id="" style='color : white;'><i class="fa fa-refresh"></i> {{Forcer la mise à jour des routes}}</a><br/><br/>
 
 <div id="div_routingTable"></div>
 
-<table class="table table-bordered table-condensed" style="width: 400px;">
+<table class="table table-bordered table-condensed" style="width: 500px;">
     <thead>
         <tr><th colspan="2">{{Légende}}</th></tr>
     </thead>
@@ -66,8 +66,10 @@ foreach (zwave::listServerZway() as $id => $server) {
     displayRoutingTable();
 
 
-    $('#bt_routingTableForceUpdate').on('click', function () {
-        bootbox.confirm('{{Etes-vous sûr de vouloir mettre à jour les routes ? Cette opération est risquée', function (result) {
+    $('body').delegate('.updateRoute','click', function () {
+        var id = $(this).attr('data-id');
+        if(id == ''){
+         bootbox.confirm('{{Etes-vous sûr de vouloir mettre à jour les routes ? Cette opération est risquée', function (result) {
           if (result) {
             $.ajax({
                 type: "POST",
@@ -90,6 +92,28 @@ foreach (zwave::listServerZway() as $id => $server) {
             });
         }
     });
+}else{
+   $.ajax({
+    type: "POST",
+    url: "plugins/zwave/core/ajax/zwave.ajax.php",
+    data: {
+        action: "updateRoute",
+        serverId: $('#sel_routingTableServerId').value(),
+        id: id,
+    },
+    dataType: 'json',
+    error: function (request, status, error) {
+        handleAjaxError(request, status, error, $('#div_routingTableAlert'));
+    },
+    success: function (data) {
+        if (data.state != 'ok') {
+            $('#div_routingTableAlert').showAlert({message: data.result, level: 'danger'});
+            return;
+        }
+        $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'à plusieurs minutes)}}', level: 'success'});
+    }
+});
+}
 });
 
 $('#sel_routingTableServerId').on('change',function(){
@@ -137,7 +161,11 @@ function displayRoutingTable(){
                     var rtClass;
                     if (!routesCount[nnodeId])
                         routesCount[nnodeId] = new Array(); // create empty array to let next line work
-                    var routeHops = (routesCount[nnodeId][0] || '0') + '/' + (routesCount[nnodeId][1] || '0') + '/' + (routesCount[nnodeId][2] || '0') + '/' + (routesCount[nnodeId][3] || '0') + '/' + (routesCount[nnodeId][4] || '0');
+                    var routeHops = (routesCount[nnodeId][0] || '0')+"/";
+                    routeHops += (routesCount[nnodeId][1] || '0')+"/";
+                    routeHops += (routesCount[nnodeId][2] || '0')+"/";
+                    routeHops += (routesCount[nnodeId][3] || '0')+"/";
+                    routeHops += (routesCount[nnodeId][4] || '0');
                     if (nodeId == nnodeId || node.data.isVirtual.value || nnode.data.isVirtual.value || node.data.basicType.value == 1 || nnode.data.basicType.value == 1) {
                         rtClass = 'rtUnavailable';
                         routeHops = '';
@@ -149,11 +177,16 @@ function displayRoutingTable(){
                         rtClass = 'alert alert-warning';
                     else
                         rtClass = 'alert alert-danger';
-                    routingTable += '<td class="' + rtClass + '"><span class="geek routeHops">' + routeHops + '</span></td>';
+                    routingTable += '<td class="' + rtClass + ' tooltips" title="' + routeHops + '"></td>';
                 });
-routingTable += '<td class="rtInfo">' + timeConverter(node.data.neighbours.updateTime) + '</td></tr>';
+routingTable += '<td class="rtInfo">' + timeConverter(node.data.neighbours.updateTime);
+if(nodeId != 1){
+    routingTable += ' <a class="btn btn-primary btn-xs updateRoute" data-id="'+nodeId+'"><i class="fa fa-refresh"></i> {{Mettre à jour}}</a>';
+}
+routingTable += '</td></tr>';
 });
 $('#div_routingTable').html('<table class="table table-bordered table-condensed"><thead><tr><th>{{Nom}}</th><th>ID</th>' + routingTableHeader + '<th>Date</th></tr></thead><tbody>' + routingTable + '</tbody></table>');
+initTooltips();
 }
 });
 }
@@ -198,14 +231,14 @@ function getFarNeighbours(nodeId, exludeNodeIds, hops) {
 
     function timeConverter(UNIX_timestamp) {
         var a = new Date(UNIX_timestamp * 1000);
-        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var months = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juilllet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
         var year = a.getFullYear();
         var month = months[a.getMonth()];
         var date = a.getDate();
         var hour = a.getHours();
         var min = a.getMinutes();
         var sec = a.getSeconds();
-        var time = date + ',' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+        var time = date + ' ' + month + ' ' + year;
         return time;
     }
 </script>

@@ -201,7 +201,15 @@ try {
 	}
 
 	if (init('action') == 'updateRoute') {
-		ajax::success(zwave::updateRoute(init('serverId', 1)));
+		if (init('id') == '') {
+			ajax::success(zwave::updateAllRoute(init('serverId', 1)));
+		} else {
+			$eqLogic = zwave::getEqLogicByLogicalIdAndServerId(init('id'), init('serverId', 1));
+			if (!is_object($eqLogic)) {
+				throw new Exception(__('Zwave eqLogic non trouvé : ', __FILE__) . init('id'));
+			}
+			ajax::success($eqLogic->updateRoute());
+		}
 	}
 
 	if (init('action') == 'copyDeviceConfiguration') {
