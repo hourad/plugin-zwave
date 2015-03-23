@@ -95,6 +95,24 @@ foreach (zwave::listServerZway() as $id => $server) {
             <input type="checkbox" class="configKey" data-l1key="isOpenZwave2" />
         </div>
     </div>
+     <div class="form-group">
+          <label class="col-lg-2 control-label">{{Serveur Z-wave nom}}</label>
+          <div class="col-lg-2">
+            <input class="configKey form-control" data-l1key="zwaveName3" />
+        </div>
+        <label class="col-lg-1 control-label">{{IP}}</label>
+        <div class="col-lg-2">
+            <input class="configKey form-control" data-l1key="zwaveAddr3" />
+        </div>
+        <label class="col-lg-1 control-label">{{Port}}</label>
+        <div class="col-lg-2">
+            <input class="configKey form-control" data-l1key="zwavePort3" value="8083" />
+        </div>
+        <label class="col-lg-1 control-label">{{Openzwave}}</label>
+        <div class="col-lg-1">
+            <input type="checkbox" class="configKey" data-l1key="isOpenZwave3" />
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-lg-4 control-label">{{Supprimer automatiquement les périphériques exclus}}</label>
         <div class="col-lg-3">
