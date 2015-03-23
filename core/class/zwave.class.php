@@ -511,7 +511,7 @@ class zwave extends eqLogic {
 			$notifications = self::showNotification($serverID);
 			if (is_array($notifications) && isset($notifications['data']) && isset($notifications['data']['notifications'])) {
 				$notifications = array_reverse($notifications['data']['notifications']);
-				$lastCheck = config::byKey('lastNotificationCheck' . $serverID, 'zwave', 0);
+				$lastCheck = config::byKey('lastNotificationCheck' . $serverID, 'zwave', strtotime('now'));
 				foreach ($notifications as $notification) {
 					$timestamp = strtotime($notification['timestamp']);
 					if ($timestamp > $lastCheck) {
