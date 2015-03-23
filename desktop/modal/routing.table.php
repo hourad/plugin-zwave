@@ -44,19 +44,19 @@ foreach (zwave::listServerZway() as $id => $server) {
             <td colspan="2">{{Nombre de [routes directes / avec 1 saut / 2 sauts / 3 sauts / 4 sauts]}}</td>
         </tr>
         <tr>
-            <td class="alert alert-success" style="width: 40px"></td>
+            <td class="success" style="width: 40px"></td>
             <td>{{Communication directe}}</td>
         </tr>
         <tr>
-            <td class="alert alert-info"></td>
+            <td class="active"></td>
             <td>{{Au moins 2 routes avec un saut}}</td>
         </tr>
         <tr>
-            <td class="alert alert-warning"></td>
+            <td class="warning"></td>
             <td>{{Moins de 2 routes avec un saut}}</td>
         </tr>
         <tr>
-            <td class="alert alert-danger"></td>
+            <td class="danger"></td>
             <td>{{Toutes les routes ont plus d'un saut}}</td>
         </tr>
     </tbody>
@@ -170,13 +170,13 @@ function displayRoutingTable(){
                         rtClass = 'rtUnavailable';
                         routeHops = '';
                     } else if ($.inArray(parseInt(nnodeId, 10), node.data.neighbours.value) != -1)
-                    rtClass = 'alert alert-success';
+                    rtClass = 'success';
                     else if (routesCount[nnodeId] && routesCount[nnodeId][1] > 1)
-                        rtClass = 'alert alert-info';
+                        rtClass = 'active';
                     else if (routesCount[nnodeId] && routesCount[nnodeId][1] == 1)
-                        rtClass = 'alert alert-warning';
+                        rtClass = 'warning';
                     else
-                        rtClass = 'alert alert-danger';
+                        rtClass = 'danger';
                     routingTable += '<td class="' + rtClass + ' tooltips" title="' + routeHops + '"></td>';
                 });
 routingTable += '<td class="rtInfo">' + timeConverter(node.data.neighbours.updateTime);
