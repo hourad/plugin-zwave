@@ -30,6 +30,9 @@ class zwave extends eqLogic {
 	/*     * ***********************Methode static*************************** */
 
 	public static function sick() {
+		if (file_exists('/var/log/z-way-server.log')) {
+			copy('/var/log/z-way-server.log', realpath(dirname(__FILE__) . '/../../log/z-way-server.log'));
+		}
 		foreach (self::listServerZway() as $serverID => $server) {
 			if (isset($server['name'])) {
 				try {
