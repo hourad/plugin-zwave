@@ -608,7 +608,7 @@ function configureDeviceLoad(_forceRefresh, _parameter_id) {
                 return;
             }
             $('#div_configureDeviceAlert').showAlert({message: '{{Paramètres envoyés avec succès (la prise en compte peut prendre jusqu\'à plusieurs minutes)}}', level: 'success'});
-            configureDeviceLoad(1);
+            configureDeviceLoad();
         }
     });
 }

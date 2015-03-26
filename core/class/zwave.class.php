@@ -1140,9 +1140,14 @@ class zwave extends eqLogic {
 
 	public function setDeviceConfiguration($_configurations) {
 		if (count($_configurations) > 0) {
+			$current_configuration = $this->getDeviceConfiguration();
 			foreach ($_configurations as $id => $configuration) {
 				if (isset($configuration['size']) && isset($configuration['value']) && is_numeric($configuration['size']) && is_numeric($configuration['value'])) {
+					if (isset($current_configuration[$id]) && isset($current_configuration[$id]['value']) && $current_configuration[$id]['value'] == $configuration['value']) {
+						continue;
+					}
 					self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].commandClasses[0x70].Set(' . $id . ',' . $configuration['value'] . ',' . $configuration['size'] . ')', $this->getConfiguration('serverID', 1));
+					self::callRazberry('/ZWaveAPI/Run/devices[' . $this->getLogicalId() . '].commandClasses[0x70].Get(' . $id . ')', $this->getConfiguration('serverID', 1));
 				}
 			}
 		}
