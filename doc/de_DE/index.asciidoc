@@ -22,7 +22,3 @@ include::faq.asciidoc[]
 '''
 === Fehlersuche
 include::troubleshoting.asciidoc[]
-
-'''
-=== Changelog
-include::changelog.asciidoc[]
