@@ -44,8 +44,8 @@ $eqLogics = eqLogic::byType('zwave');
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_routingTable" title="{{Afficher la table de routage}}" style="display: inline-block;"><i class="fa fa-sitemap"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_adminRazberry" title="{{Administration avancée du Z-Wave}}" style="display: inline-block;"><i class="fa fa-cogs"></i></a>
                     <a class="btn btn-default btn-sm tooltips expertModeVisible" id="bt_healthRazberry" title="{{Santé du réseau Z-Wave}}" style="display: inline-block;"><i class="fa fa-medkit"></i></a>
-                    </center>
-                    <?php
+                </center>
+                <?php
 if ($controlerState == 1) {
 	echo ' <a class="btn btn-success tooltips changeIncludeState" title="{{Inclure périphérique Z-Wave}}" data-mode="1" data-state="0" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-in fa-rotate-90"></i> Arrêter inclusion</a>';
 } else {
@@ -57,27 +57,27 @@ if ($controlerState == 5) {
 	echo ' <a class="btn btn-default tooltips changeIncludeState" title="{{Exclure périphérique Z-Wave}}" data-mode="0" data-state="1" style="width : 100%;margin-bottom : 5px;"><i class="fa fa-sign-out fa-rotate-90"></i> Mode exclusion</a>';
 }
 ?>
-                   <a class="btn btn-default eqLogicAction expertModeVisible" style="width : 100%;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
-                   <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="Rechercher" style="width: 100%"/></li>
-                   <?php
+               <a class="btn btn-default eqLogicAction expertModeVisible" style="width : 100%;margin-bottom: 5px;" data-action="add"><i class="fa fa-plus-circle"></i> {{Ajouter un équipement}}</a>
+               <li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="Rechercher" style="width: 100%"/></li>
+               <?php
 foreach ($eqLogics as $eqLogic) {
 	echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '"><a>' . $eqLogic->getHumanName(true);
 	// echo '<span class="badge pull-right tooltips expertModeVisible" title="ID logique de l\'équipement">'.$eqLogic->getLogicalId().'</span>';
 	echo '</a></li>';
 }
 ?>
-               </ul>
-           </div>
+           </ul>
        </div>
+   </div>
 
-       <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
-        <legend>{{Mes équipements Z-Wave}}
-            <span style="font-size: 0.7em;color:#c5c5c5">
-                Vous devez être connecté à internet pour voir les prévisualisations
-            </span>
-        </legend>
-        <div class="eqLogicThumbnailContainer">
-            <?php
+   <div class="col-lg-10 col-md-9 col-sm-8 eqLogicThumbnailDisplay" style="border-left: solid 1px #EEE; padding-left: 25px;">
+    <legend>{{Mes équipements Z-Wave}}
+        <span style="font-size: 0.7em;color:#c5c5c5">
+            Vous devez être connecté à internet pour voir les prévisualisations
+        </span>
+    </legend>
+    <div class="eqLogicThumbnailContainer">
+        <?php
 if (count($eqLogics) == 0) {
 	echo "<br/><br/><br/><center><span style='color:#767676;font-size:1.2em;font-weight: bold;'>Vous n'avez pas encore de module Z-Wave. Cliquez sur le bouton inclusion  à gauche et suivez la documentation de votre module pour associer celui-ci à Jeedom</span></center>";
 } else {
@@ -95,10 +95,10 @@ if (count($eqLogics) == 0) {
 	}
 }
 ?>
-      </div>
   </div>
+</div>
 
-  <div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
+<div class="col-lg-10 col-md-9 col-sm-8 eqLogic" style="border-left: solid 1px #EEE; padding-left: 25px;display: none;">
     <div class="row">
         <div class="col-sm-6">
             <form class="form-horizontal">
@@ -153,7 +153,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                 </div>
                 <label class="col-sm-2 control-label">{{Server}}</label>
                 <div class="col-sm-4">
-                   <select class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="serverID">
+                 <select class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="serverID">
                     <?php
 foreach (zwave::listServerZway() as $id => $server) {
 	if (isset($server['name'])) {
@@ -166,36 +166,36 @@ foreach (zwave::listServerZway() as $id => $server) {
       </div>
       <div class="form-group expertModeVisible">
         <label class="col-sm-4 control-label">{{Délai maximum autorisé entre 2 messages (min)}}</label>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <input class="eqLogicAttr form-control" data-l1key="timeout" />
         </div>
-        <label class="col-sm-3 control-label">{{Fréquence de mise à jour}}</label>
-        <div class="col-sm-2">
-            <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
-        </div>
-        <div class="col-sm-1">
-            <i class="fa fa-question-circle cursor floatright" id="bt_cronGenerator"></i>
-        </div>
-    </div>
-    <div class="form-group expertModeVisible">
 
     </div>
     <div class="form-group expertModeVisible">
-        <label class="col-sm-4 control-label">{{Ne jamais mettre en erreur}}</label>
-        <div class="col-sm-1">
-            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
-        </div>
-        <label class="col-sm-4 control-label">{{Ne pas vérifier la batterie}}</label>
-        <div class="col-sm-1">
-            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
-        </div>
+      <label class="col-sm-4 control-label">{{Fréquence de mise à jour}}</label>
+      <div class="col-sm-4">
+        <input class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="refreshDelay"/>
     </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">{{Commentaire}}</label>
-        <div class="col-sm-8">
-            <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
-        </div>
+    <div class="col-sm-1">
+        <i class="fa fa-question-circle cursor floatright" id="bt_cronGenerator"></i>
     </div>
+</div>
+<div class="form-group expertModeVisible">
+    <label class="col-sm-4 control-label">{{Ne jamais mettre en erreur}}</label>
+    <div class="col-sm-1">
+        <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="nerverFail"/>
+    </div>
+    <label class="col-sm-4 control-label">{{Ne pas vérifier la batterie}}</label>
+    <div class="col-sm-1">
+        <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="noBatterieCheck"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-4 control-label">{{Commentaire}}</label>
+    <div class="col-sm-8">
+        <textarea class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="commentaire" ></textarea>
+    </div>
+</div>
 </fieldset>
 </form>
 </div>

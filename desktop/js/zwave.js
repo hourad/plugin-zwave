@@ -213,11 +213,9 @@ load: function () {
 
 $('body').delegate('.cmd .cmdAttr[data-l1key=type]', 'change', function () {
     if ($(this).value() == 'info') {
-        $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateValue]').show();
-        $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateTime]').show();
+        $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=doNotAutoRefresh]').parent().show();
     } else {
-        $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateValue]').hide();
-        $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=returnStateTime]').hide();
+        $(this).closest('.cmd').find('.cmdAttr[data-l1key=configuration][data-l2key=doNotAutoRefresh]').parent().hide();
     }
 });
 
@@ -243,14 +241,14 @@ $('body').one('nodeJsConnect', function () {
             $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-out fa-rotate-90"></i> Arrêter l\'exclusion');
             $('#div_inclusionAlert'+_options.serverId).showAlert({message: '{{Vous êtes en mode exclusion sur}} '+_options.name+'. {{Cliquez à nouveau sur le bouton d\'exclusion pour sortir de ce mode}}', level: 'warning'});
         }else{
-           $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
-           $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion');
-           $('.changeIncludeState[data-mode=1]').attr('data-state', 1);
-           $('.changeIncludeState[data-mode=0]').attr('data-state', 1);
-           $('.changeIncludeState[data-mode=1]').removeClass('btn-success').addClass('btn-default');
-           $('.changeIncludeState[data-mode=0]').removeClass('btn-danger').addClass('btn-default');
-       }
-   });
+         $('.changeIncludeState[data-mode=0]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode exclusion');
+         $('.changeIncludeState[data-mode=1]').html('<i class="fa fa-sign-in fa-rotate-90"></i> Mode inclusion');
+         $('.changeIncludeState[data-mode=1]').attr('data-state', 1);
+         $('.changeIncludeState[data-mode=0]').attr('data-state', 1);
+         $('.changeIncludeState[data-mode=1]').removeClass('btn-success').addClass('btn-default');
+         $('.changeIncludeState[data-mode=0]').removeClass('btn-danger').addClass('btn-default');
+     }
+ });
 
 setTimeout(function () {
     socket.on('zwave::includeDevice', function (_options) {
@@ -404,6 +402,7 @@ function addCmdToTable(_cmd) {
     tr += '<span class="expertModeVisible"><input type="checkbox" class="cmdAttr" data-l1key="configuration" data-l2key="onlyChangeEvent" /> {{Evenement sur changement}}<br/></span>';
     tr += '<span class="expertModeVisible"><input type="checkbox" class="cmdAttr" data-l1key="display" data-l2key="invertBinary" /> {{Inverser}}<br/></span>';
     tr += '<input style="width : 150px;" class="tooltips cmdAttr form-control expertModeVisible input-sm" data-l1key="cache" data-l2key="lifetime" placeholder="{{Lifetime cache}}">';
+    tr += '<span class="expertModeVisible"><span><input type="checkbox" class="cmdAttr" data-l1key="configuration" data-l2key="doNotAutoRefresh" /> {{Ne pas réactualiser automatiquement}}<br/></span></span>';
     tr += '</td>';
     tr += '<td>';
     tr += '<input class="cmdAttr form-control tooltips input-sm" data-l1key="unite"  style="width : 100px;" placeholder="Unité" title="{{Unité}}">';

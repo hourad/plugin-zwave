@@ -483,7 +483,9 @@ class zwave extends eqLogic {
 						if ($c->isDue()) {
 							try {
 								foreach ($eqLogic->getCmd() as $cmd) {
-									$cmd->forceUpdate();
+									if ($cmd->getConfiguration('doNotAutoRefresh', 0) == 0) {
+										$cmd->forceUpdate();
+									}
 								}
 							} catch (Exception $exc) {
 								log::add('zwave', 'error', __('Erreur pour ', __FILE__) . $eqLogic->getHumanName() . ' : ' . $exc->getMessage());
