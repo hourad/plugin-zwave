@@ -482,7 +482,7 @@ class zwave extends eqLogic {
 						$c = new Cron\CronExpression($scheduler, new Cron\FieldFactory);
 						if ($c->isDue()) {
 							try {
-								foreach ($eqLogic->getCmd() as $cmd) {
+								foreach ($eqLogic->getCmd('info') as $cmd) {
 									if ($cmd->getConfiguration('doNotAutoRefresh', 0) == 0) {
 										$cmd->forceUpdate();
 									}
