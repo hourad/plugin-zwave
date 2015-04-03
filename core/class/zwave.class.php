@@ -31,7 +31,7 @@ class zwave extends eqLogic {
 
 	public static function sick() {
 		if (file_exists('/var/log/z-way-server.log')) {
-			copy('/var/log/z-way-server.log', realpath(dirname(__FILE__) . '/../../log/z-way-server.log'));
+			copy('/var/log/z-way-server.log', dirname(__FILE__) . '/../../log/z-way-server.log');
 		}
 		foreach (self::listServerZway() as $serverID => $server) {
 			if (isset($server['name'])) {
@@ -39,7 +39,7 @@ class zwave extends eqLogic {
 					echo "Server name : " . $server['name'] . "\n";
 					echo "Server addr : " . $server['addr'] . "\n";
 					echo "Port : " . $server['port'] . "\n";
-					echo "Is openZwave : " . $server['isIpenZwave'] . "\n";
+					echo "Is openZwave : " . $server['isOpenZwave'] . "\n";
 					echo "Test connection to zwave server...";
 					self::callRazberry('/ZWaveAPI/Data/0', $serverID);
 					echo "OK\n";
