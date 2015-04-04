@@ -970,7 +970,7 @@ class zwave extends eqLogic {
 				);
 			}
 
-			if (isset($return['powered']) && !$return['powered']['value']) {
+			if (isset($return['powered']) && !$return['powered']['value'] && isset($return['wakup'])) {
 				$return['nextWakeup'] = array(
 					'value' => date('Y-m-d H:i', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),
 					'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),

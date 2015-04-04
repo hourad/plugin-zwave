@@ -110,7 +110,9 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 				}
 			}
 		}
-		$avgtime = round($avgtime / $nbOk);
+		if ($nbOk > 0) {
+			$avgtime = round($avgtime / $nbOk);
+		}
 		$pourcentOk = round($nbOk / count($communicationStatistics[$eqLogic->getConfiguration('serverID')][$eqLogic->getLogicalId()]) * 100);
 		if ($pourcentOk == 100) {
 			echo "<span class='label label-success'>" . $pourcentOk . " %</span>";
