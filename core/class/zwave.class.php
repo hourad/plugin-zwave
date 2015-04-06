@@ -873,12 +873,13 @@ class zwave extends eqLogic {
 	public function ping() {
 		$info = $this->getInfo();
 		if ($info['state']['value'] == __('Réveillé', __FILE__) || $info['state']['value'] == __('Actif', __FILE__)) {
-			$cmds = $this->getCmd();
+			$cmds = $this->getCmd('info');
 			$cmds[0]->forceUpdate();
-			if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-2 minutes' . date('Y-m-d H:i:s')))) {
+			if (strtotime($this->getStatus('lastCommunication', date('Y-m-d H:i:s'))) < (strtotime('now') - 120)) {
 				sleep(5);
 			}
-			if ($this->getStatus('lastCommunication', date('Y-m-d H:i:s')) < date('Y-m-d H:i:s', strtotime('-2 minutes' . date('Y-m-d H:i:s')))) {
+			if (strtotime($this->getStatus('lastCommunication', date('Y-m-d H:i:s'))) < (strtotime('now') - 120)) {
+				echo 'je passe';
 				return false;
 			}
 		} else {
