@@ -69,8 +69,6 @@ foreach (zwave::listServerZway() as $id => $server) {
     $('body').delegate('.updateRoute','click', function () {
         var id = $(this).attr('data-id');
         if(id == ''){
-         bootbox.confirm('{{Etes-vous sûr de vouloir mettre à jour les routes ? Cette opération est risquée', function (result) {
-          if (result) {
             $.ajax({
                 type: "POST",
                 url: "plugins/zwave/core/ajax/zwave.ajax.php",
@@ -90,31 +88,29 @@ foreach (zwave::listServerZway() as $id => $server) {
                     $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'à plusieurs minutes)}}', level: 'success'});
                 }
             });
-        }
-    });
-}else{
-   $.ajax({
-    type: "POST",
-    url: "plugins/zwave/core/ajax/zwave.ajax.php",
-    data: {
-        action: "updateRoute",
-        serverId: $('#sel_routingTableServerId').value(),
-        id: id,
-    },
-    dataType: 'json',
-    error: function (request, status, error) {
-        handleAjaxError(request, status, error, $('#div_routingTableAlert'));
-    },
-    success: function (data) {
-        if (data.state != 'ok') {
-            $('#div_routingTableAlert').showAlert({message: data.result, level: 'danger'});
-            return;
-        }
-        $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'à plusieurs minutes)}}', level: 'success'});
-    }
-});
-}
-});
+        }else{
+         $.ajax({
+            type: "POST",
+            url: "plugins/zwave/core/ajax/zwave.ajax.php",
+            data: {
+                action: "updateRoute",
+                serverId: $('#sel_routingTableServerId').value(),
+                id: id,
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error, $('#div_routingTableAlert'));
+            },
+            success: function (data) {
+                if (data.state != 'ok') {
+                    $('#div_routingTableAlert').showAlert({message: data.result, level: 'danger'});
+                    return;
+                }
+                $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'à plusieurs minutes)}}', level: 'success'});
+            }
+        });
+     }
+ });
 
 $('#sel_routingTableServerId').on('change',function(){
     var devicesRouting = '';
