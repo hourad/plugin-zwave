@@ -82,8 +82,8 @@ foreach (zwave::byType('zwave') as $eqLogic) {
 			echo "<td><span class='label label-success' title=" . $info['battery']['datetime'] . ">" . $info['battery']['value'] . " %</span></td>";
 		}
 	}
-	if (isset($info['wakup']['value'])) {
-		echo "<td>" . $info['wakup']['value'] . "</td>";
+	if (isset($info['wakeup']['value'])) {
+		echo "<td>" . $info['wakeup']['value'] . "</td>";
 	} else {
 		echo "<td>-</td>";
 	}

@@ -946,7 +946,7 @@ class zwave extends eqLogic {
 			}
 
 			if (isset($results['instances'][0]) && isset($results['instances'][0]['commandClasses'][132])) {
-				$return['wakup'] = array(
+				$return['wakeup'] = array(
 					'value' => $results['instances'][0]['commandClasses'][132]['data']['interval']['value'],
 					'datetime' => date('Y-m-d H:i:s', $results['instances'][0]['commandClasses'][132]['data']['updateTime']),
 				);
@@ -971,10 +971,10 @@ class zwave extends eqLogic {
 				);
 			}
 
-			if (isset($return['powered']) && !$return['powered']['value'] && isset($return['wakup'])) {
+			if (isset($return['powered']) && !$return['powered']['value'] && isset($return['wakeup'])) {
 				$return['nextWakeup'] = array(
-					'value' => date('Y-m-d H:i', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),
-					'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime'] + $return['wakup']['value']),
+					'value' => date('Y-m-d H:i', $results['data']['lastReceived']['updateTime'] + $return['wakeup']['value']),
+					'datetime' => date('Y-m-d H:i:s', $results['data']['lastReceived']['updateTime'] + $return['wakeup']['value']),
 				);
 			} else {
 				$return['nextWakeup'] = array(
