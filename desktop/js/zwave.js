@@ -250,7 +250,7 @@ $('body').one('nodeJsConnect', function () {
            $('.changeIncludeState[data-mode=0]:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Mode exclusion}}');
            $('.changeIncludeState[data-mode=1]:not(.card)').html('<i class="fa fa-sign-in fa-rotate-90"></i> {{Mode inclusion}}');
            $('.changeIncludeState.card[data-mode=1] span center').text('{{Mode inclusion}}');
-           $('.changeIncludeState.card[data-mode=0] span center').text('{{Mode inclusion}}');
+           $('.changeIncludeState.card[data-mode=0] span center').text('{{Mode exclusion}}');
            $('.changeIncludeState[data-mode=1]').attr('data-state', 1);
            $('.changeIncludeState[data-mode=0]').attr('data-state', 1);
            $('.changeIncludeState[data-mode=1]:not(.card)').removeClass('btn-success').addClass('btn-default');
