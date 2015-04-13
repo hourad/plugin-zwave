@@ -23,8 +23,11 @@ if (!is_object($eqLogic)) {
 	throw new Exception(__('Equipement Z-Wave introuvable : ', __FILE__) . init('id'));
 }
 $results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $eqLogic->getConfiguration('serverID', 1));
+sendVarToJs('interview_eqLogic_id', init('id'));
 ?>
 <div id='div_zwaveInterviewResult' style="display: none;"></div>
+<a class="btn btn-primary pull-right" id="bt_interviewRefresh"><i class="fa fa-refresh"></i> {{Rafraichir}}</a>
+<br/><br/>
 <table class="table table-condensed">
 	<thead>
 		<tr>
@@ -61,6 +64,11 @@ foreach ($results['instances'] as $instanceID => $instance) {
 </table>
 
 <script>
+	$('#bt_interviewRefresh').on('click',function(){
+		$('#md_modal2').load('index.php?v=d&plugin=zwave&modal=interview.result&id=' + interview_eqLogic_id).dialog('open');
+	});
+
+
 	$('.forceInterview').on('click',function(){
 		$.ajax({// fonction permettant de faire de l'ajax
 		        type: "POST", // méthode de transmission des données au fichier php
@@ -85,5 +93,5 @@ foreach ($results['instances'] as $instanceID => $instance) {
 		        $('#div_zwaveInterviewResult').showAlert({message: "{{Demande envoyée, la mise à jour peut prendre plusieurs minutes}}", level: 'success'});
 		    }
 		});
-	});
+});
 </script>

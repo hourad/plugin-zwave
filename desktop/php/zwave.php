@@ -76,14 +76,14 @@ foreach ($eqLogics as $eqLogic) {
 if ($controlerState == 1) {
 	echo '<div class="cursor changeIncludeState card" data-mode="1" data-state="0" style="background-color : #8000FF; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo '<center>';
-	echo '<i class="fa fa-sign-in fa-rotate-90" style="font-size : 7em;color:#94ca02;"></i>';
+	echo '<i class="fa fa-sign-in fa-rotate-90" style="font-size : 5em;color:#94ca02;"></i>';
 	echo '</center>';
 	echo '<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Arrêter inclusion}}</center></span>';
 	echo '</div>';
 } else {
 	echo '<div class="cursor changeIncludeState card" data-mode="1" data-state="1" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo '<center>';
-	echo '<i class="fa fa-sign-in fa-rotate-90" style="font-size : 7em;color:#94ca02;"></i>';
+	echo '<i class="fa fa-sign-in fa-rotate-90" style="font-size : 5em;color:#94ca02;"></i>';
 	echo '</center>';
 	echo '<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#94ca02"><center>{{Mode inclusion}}</center></span>';
 	echo '</div>';
@@ -91,50 +91,50 @@ if ($controlerState == 1) {
 if ($controlerState == 5) {
 	echo '<div class="cursor changeIncludeState card" data-mode="0" data-state="0" style="background-color : #8000FF; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo '<center>';
-	echo '<i class="fa fa-sign-out fa-rotate-90" style="font-size : 7em;color:#FA5858;"></i>';
+	echo '<i class="fa fa-sign-out fa-rotate-90" style="font-size : 5em;color:#FA5858;"></i>';
 	echo '</center>';
 	echo '<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#FA5858"><center>{{Arrêter exclusion}}</center></span>';
 	echo '</div>';
 } else {
 	echo '<div class="cursor changeIncludeState card" data-mode="0" data-state="1" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	echo '<center>';
-	echo '<i class="fa fa-sign-out fa-rotate-90" style="font-size : 7em;color:#FA5858;"></i>';
+	echo '<i class="fa fa-sign-out fa-rotate-90" style="font-size : 5em;color:#FA5858;"></i>';
 	echo '</center>';
 	echo '<span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#FA5858"><center>{{Mode exclusion}}</center></span>';
 	echo '</div>';
 }
 ?>
-           <div class="cursor" id="bt_syncEqLogic2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+           <div class="cursor expertModeVisible" id="bt_syncEqLogic2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
             <center>
-                <i class="fa fa-refresh" style="font-size : 7em;color:#767676;"></i>
+                <i class="fa fa-refresh" style="font-size : 5em;color:#767676;"></i>
             </center>
             <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Synchroniser}}</center></span>
         </div>
 
-        <div class="cursor" id="bt_inspectQueue2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+        <div class="cursor expertModeVisible" id="bt_inspectQueue2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
             <center>
-                <i class="fa fa-exchange fa-rotate-90" style="font-size : 7em;color:#767676;"></i>
+                <i class="fa fa-exchange fa-rotate-90" style="font-size : 5em;color:#767676;"></i>
             </center>
             <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{File d'attente}}</center></span>
         </div>
 
-        <div class="cursor" id="bt_routingTable2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+        <div class="cursor expertModeVisible" id="bt_routingTable2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
             <center>
-                <i class="fa fa-sitemap" style="font-size : 7em;color:#767676;"></i>
+                <i class="fa fa-sitemap" style="font-size : 5em;color:#767676;"></i>
             </center>
             <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Table de routage}}</center></span>
         </div>
 
-        <div class="cursor" id="bt_adminRazberry2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+        <div class="cursor expertModeVisible" id="bt_adminRazberry2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
             <center>
-                <i class="fa fa-cogs" style="font-size : 7em;color:#767676;"></i>
+                <i class="fa fa-cogs" style="font-size : 5em;color:#767676;"></i>
             </center>
-            <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Administration du zwave}}</center></span>
+            <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Administration zwave}}</center></span>
         </div>
 
-        <div class="cursor" id="bt_healthRazberry2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
+        <div class="cursor expertModeVisible" id="bt_healthRazberry2" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >
             <center>
-                <i class="fa fa-medkit" style="font-size : 7em;color:#767676;"></i>
+                <i class="fa fa-medkit" style="font-size : 5em;color:#767676;"></i>
             </center>
             <span style="font-size : 1.1em;position:relative; top : 23px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#767676"><center>{{Santé}}</center></span>
         </div>
