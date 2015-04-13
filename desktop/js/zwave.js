@@ -37,7 +37,7 @@
     return false;
 });
 
- $('#bt_syncEqLogic').on('click', function () {
+ $('#bt_syncEqLogic,#bt_syncEqLogic2').on('click', function () {
     syncEqLogicWithRazberry();
 });
  $('.changeIncludeState').on('click', function () {
@@ -97,7 +97,7 @@ $('#bt_showClass').on('click', function () {
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=show.class&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_healthRazberry').on('click', function () {
+$('#bt_healthRazberry,#bt_healthRazberry2').on('click', function () {
     $('#md_modal').dialog({title: "{{Santé du Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=network.health').dialog('open');
 });
@@ -117,12 +117,12 @@ $('#bt_configureDevice').on('click', function () {
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=configure.device&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_inspectQueue').on('click', function () {
+$('#bt_inspectQueue,#bt_inspectQueue2').on('click', function () {
     $('#md_modal').dialog({title: "{{Queue Z-Wave}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=inspect.queue').dialog('open');
 });
 
-$('#bt_routingTable').on('click', function () {
+$('#bt_routingTable,#bt_routingTable2').on('click', function () {
     $('#md_modal').dialog({title: "{{Table de routage}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=routing.table').dialog('open');
 });
@@ -132,7 +132,7 @@ $('#bt_displayZwaveData').on('click', function () {
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=zwave.data&id=' + $('.eqLogicAttr[data-l1key=id]').value()).dialog('open');
 });
 
-$('#bt_adminRazberry').on('click', function () {
+$('#bt_adminRazberry,#bt_adminRazberry2').on('click', function () {
     $('#md_modal').dialog({title: "{{Actions avancées}}"});
     $('#md_modal').load('index.php?v=d&plugin=zwave&modal=admin.razberry').dialog('open');
 });
