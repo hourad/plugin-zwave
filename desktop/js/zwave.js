@@ -139,7 +139,7 @@ $('#bt_adminRazberry,#bt_adminRazberry2').on('click', function () {
 
 $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 
-$('body').delegate('#bt_getFromMarket', 'click', function () {
+$('body').delegate('#bt_getFromMarket,#bt_getFromMarket2', 'click', function () {
     $('#md_modal').dialog({title: "{{Market module zwave}}"});
     $('#md_modal').load('index.php?v=d&modal=market.list&type=zwave').dialog('open');
 });
