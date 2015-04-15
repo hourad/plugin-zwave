@@ -207,7 +207,7 @@ try {
 			$results = zwave::callRazberry('/ZWaveAPI/Data/0', init('serverId', 1));
 			$razberry_id = $results['controller']['data']['nodeId']['value'];
 			if ($razberry_id == init('id')) {
-				self::callRazberry('/ZWaveAPI/Run/devices[' . $razberry_id . '].RequestNodeNeighbourUpdate()', init('serverId', 1));
+				zwave::callRazberry('/ZWaveAPI/Run/devices[' . $razberry_id . '].RequestNodeNeighbourUpdate()', init('serverId', 1));
 				ajax::success();
 			} else {
 				$eqLogic = zwave::getEqLogicByLogicalIdAndServerId(init('id'), init('serverId', 1));
