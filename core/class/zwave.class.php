@@ -605,8 +605,10 @@ class zwave extends eqLogic {
 		if (self::$_listZwaveServer[$_serverId]['isOpenZwave'] == 1) {
 			self::callRazberry('/ZWaveAPI/Run/controller.HealthNetwork()', $_serverId);
 		} else {
+			$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
+			$razberry_id = $results['controller']['data']['nodeId']['value'];
 			foreach (eqLogic::byType('zwave') as $eqLogic) {
-				if ($eqLogic->getConfiguration('serverID', 1) == $_serverId) {
+				if ($eqLogic->getLogicalId() != $razberry_id && $eqLogic->getConfiguration('serverID', 1) == $_serverId) {
 					$eqLogic->updateRoute();
 				}
 			}
@@ -739,7 +741,7 @@ class zwave extends eqLogic {
 	public static function adminRazberry($_command, $_ignoreError = false, $_serverId = 1) {
 		if ($_command == 'RequestNodeInformation()') {
 			foreach (zwave::byType('zwave') as $eqLogic) {
-				if ($eqLogic->getLogicalId() != 1) {
+				if ($eqLogic->getLogicalId() != 1 && $eqLogic->getConfiguration('serverID', 1) == $_serverId) {
 					try {
 						self::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . '].RequestNodeInformation()', $_serverId);
 					} catch (Exception $e) {
@@ -774,11 +776,31 @@ class zwave extends eqLogic {
 			return true;
 		}
 		if ($_command == 'cureZwaveNetwork') {
+			$results = self::callRazberry('/ZWaveAPI/Data/0', $_serverId);
+			$razberry_id = $results['controller']['data']['nodeId']['value'];
 			self::adminRazberry('SendNodeInformation()', $_serverId);
 			sleep(2);
 			self::adminRazberry('RequestNodeInformation()', $_serverId);
 			sleep(20);
-			self::adminRazberry('InterviewForce', $_serverId);
+			foreach (zwave::byType('zwave') as $eqLogic) {
+				if ($eqLogic->getLogicalId() != $razberry_id && $eqLogic->getConfiguration('serverID', 1) == $_serverId) {
+					$results = zwave::callRazberry('/ZWaveAPI/Run/devices[' . $eqLogic->getLogicalId() . ']', $eqLogic->getConfiguration('serverID', 1));
+					foreach ($results['instances'] as $instanceID => $instance) {
+						foreach ($instance['commandClasses'] as $ccId => $commandClasses) {
+							if (($ccId == 96 && $instanceID != 0) || (($ccId == 134 || $ccId == 114 || $ccId == 96) && $instanceID == 0)) {
+								continue;
+							}
+							if (isset($commandClasses['data']) && isset($commandClasses['data']['supported']) && (!isset($commandClasses['data']['supported']['value']) || $commandClasses['data']['supported']['value'] != true)) {
+								continue;
+							}
+							if (isset($commandClasses['data']) && isset($commandClasses['data']['interviewDone']) && (!isset($commandClasses['data']['interviewDone']['value']) || $commandClasses['data']['interviewDone']['value'] != true)) {
+								$eqLogic->InterviewForce($instanceID, $ccId);
+							}
+						}
+					}
+				}
+			}
+			sleep(20);
 			self::updateRoute();
 			return true;
 		}
