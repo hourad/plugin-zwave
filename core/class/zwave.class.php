@@ -732,8 +732,7 @@ class zwave extends eqLogic {
 	}
 
 	public static function restore() {
-		self::adminRazberry('RequestNodeInformation', true);
-		self::adminRazberry('InterviewForce', true);
+		self::adminRazberry('cureZwaveNetwork', true);
 	}
 
 	/*     * ************************************************************* */
@@ -800,8 +799,6 @@ class zwave extends eqLogic {
 					}
 				}
 			}
-			sleep(20);
-			self::updateRoute();
 			return true;
 		}
 		try {
