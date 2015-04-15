@@ -732,7 +732,9 @@ class zwave extends eqLogic {
 	}
 
 	public static function restore() {
-		self::adminRazberry('cureZwaveNetwork', true);
+		foreach (self::listServerZway() as $id => $server) {
+			self::adminRazberry('cureZwaveNetwork', true, $id);
+		}
 	}
 
 	/*     * ************************************************************* */
