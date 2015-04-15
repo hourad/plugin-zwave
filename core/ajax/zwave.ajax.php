@@ -204,11 +204,19 @@ try {
 		if (init('id') == '') {
 			ajax::success(zwave::updateAllRoute(init('serverId', 1)));
 		} else {
-			$eqLogic = zwave::getEqLogicByLogicalIdAndServerId(init('id'), init('serverId', 1));
-			if (!is_object($eqLogic)) {
-				throw new Exception(__('Zwave eqLogic non trouvé : ', __FILE__) . init('id'));
+			$results = zwave::callRazberry('/ZWaveAPI/Data/0', init('serverId', 1));
+			$razberry_id = $results['controller']['data']['nodeId']['value'];
+			if ($razberry_id == init('id')) {
+				self::callRazberry('/ZWaveAPI/Run/devices[' . $razberry_id . '].RequestNodeNeighbourUpdate()', init('serverId', 1));
+				ajax::success();
+			} else {
+				$eqLogic = zwave::getEqLogicByLogicalIdAndServerId(init('id'), init('serverId', 1));
+				if (!is_object($eqLogic)) {
+					throw new Exception(__('Zwave eqLogic non trouvé : ', __FILE__) . init('id'));
+				}
+				ajax::success($eqLogic->updateRoute());
 			}
-			ajax::success($eqLogic->updateRoute());
+
 		}
 	}
 

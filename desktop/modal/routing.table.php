@@ -89,7 +89,7 @@ foreach (zwave::listServerZway() as $id => $server) {
                 }
             });
         }else{
-         $.ajax({
+           $.ajax({
             type: "POST",
             url: "plugins/zwave/core/ajax/zwave.ajax.php",
             data: {
@@ -109,8 +109,8 @@ foreach (zwave::listServerZway() as $id => $server) {
                 $('#div_routingTableAlert').showAlert({message: '{{Demande de mise à jour des routes envoyée (cela peut mettre jusqu\'à plusieurs minutes)}}', level: 'success'});
             }
         });
-     }
- });
+       }
+   });
 
 $('#sel_routingTableServerId').on('change',function(){
     var devicesRouting = '';
@@ -176,9 +176,7 @@ function displayRoutingTable(){
                     routingTable += '<td class="' + rtClass + ' tooltips" title="' + routeHops + '"></td>';
                 });
 routingTable += '<td class="rtInfo">' + timeConverter(node.data.neighbours.updateTime);
-if(nodeId != 1){
-    routingTable += ' <a class="btn btn-primary btn-xs updateRoute" data-id="'+nodeId+'"><i class="fa fa-refresh"></i> {{Mettre à jour}}</a>';
-}
+routingTable += ' <a class="btn btn-primary btn-xs updateRoute" data-id="'+nodeId+'"><i class="fa fa-refresh"></i> {{Mettre à jour}}</a>';
 routingTable += '</td></tr>';
 });
 $('#div_routingTable').html('<table class="table table-bordered table-condensed"><thead><tr><th>{{Nom}}</th><th>ID</th>' + routingTableHeader + '<th>Date</th></tr></thead><tbody>' + routingTable + '</tbody></table>');
