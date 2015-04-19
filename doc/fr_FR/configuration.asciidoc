@@ -160,6 +160,7 @@ Les groupes permettent de definir quelques type d'informations doivent etre remo
 La méthode d'assocication est assez simple, sur le premier selecteur vous choissisez le groupe et dans le deuxieme le module à qu'il faut mettre dans ce groupe puis il suffit de cliquer sur ok.
 Pour supprimer une association il suffit de cliquer sur le signe "moins" à coté de celle-ci
 
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 Attention les modules sur batterie doivent etre reveillé pour recevoir une modification de leur association. Voir la documentation de votre module pour savoir comment le reveiller
 
@@ -175,9 +176,11 @@ image::../images/zwave22.png[]
 
 Cette fenetre vous montre l'état de l'interview pour chaque classe de votre module et vous permet pour celle qui sont incomplet de forcer leur interview. Vous avez aussi un bouton pour rafraichir l'état de l'interview
 
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 Attention les modules sur batterie doivent etre reveillé pour pouvoir mettre à jour l'interview. Voir la documentation de votre module pour savoir comment le reveiller
 
+[icon="../images/plugin/important.png"]
 [IMPORTANT]
 Il est a noté que dans certain cas l'interview meme en le forcant ne peut etre completé. Cela varie en fonction de firmware de vos module. La regle à retenir est que si votre module ne marche pas il faut essayé de completer le maximum d'interview de classe mais que si il marche bien pas besoin d'essayer de tout completer.
 
@@ -197,6 +200,14 @@ Tant que vous n'avez pas le bandeau vous n'etes pas en mode inclusion
 
 Si vous recliquez sur le bouton vous sortez du mode inclusion
 
+[icon="../images/plugin/important.png"]
+[IMPORTANT]
+Lors d'une inclusion il est conseillé que le module soit a moins d'un metre de la box
+
+[icon="../images/plugin/tip.png"]
+[TIP]
+A noter que l'interface mobile vous donne aussi accès a l'inclusion
+
 ==== Mode exclusion
 
 image::../images/zwave25.png[]
@@ -211,6 +222,10 @@ Tant que vous n'avez pas le bandeau vous n'etes pas en mode exclusion
 
 Si vous recliquez sur le bouton vous sortez du mode exclusion
 
+[icon="../images/plugin/tip.png"]
+[TIP]
+A noter que l'interface mobile vous donne aussi accès a l'exclusion
+
 ==== Accès au market
 
 image::../images/zwave27.png[]
@@ -221,12 +236,82 @@ image::../images/zwave28.png[]
 
 ==== Synchroniser
 
+image::../images/zwave29.png[]
+
+Bouton permettant de synchroniser les modules du reseaux zwave avec Jeedom.
+
+[icon="../images/plugin/important.png"]
+[IMPORTANT]
+Attention cette action n'est a faire que si vous avez un module sur votre reseaux zwave qui n'apparait pas dans Jeedom, cela peut etre utile si vous repartez d'une installation vierge de Jeedom mais pas du réseaux zwave
+
 ==== File d'attente
+
+image::../images/zwave30.png[]
+
+Affiche les messages en attentes ou venant d'etre transmis au module sur le reseaux zwave
+
+image::../images/zwave301.png[]
+
+[icon="../images/plugin/tip.png"]
+[TIP]
+Il est possible que certain message reste et ne disparraissent jamais, ce n'est pas anormale. Il n'y a pour le moment aucun moyen connu de les supprimer
 
 ==== Table de routage
 
+image::../images/zwave32.png[]
+
+Affiche la table de routage de votre reseaux zwave (peut mettre quelques minutes à s'afficher) : 
+
+image::../images/zwave33.png[]
+
+Le protocole zwave est un protocole qui permet au message de "rebondir" de module en module (maximum 4), cette table vous affiche donc la qualité des routes entre les differents module.
+
+Voici la legende : 
+
+image::../images/zwave34.png[]
+
+Au survole sur une case jeedom vous donne le nombre de routes directes / avec 1 saut / 2 sauts / 3 sauts / 4 sauts.
+
+Vous pouvez aussi forcer la mise à jour de toutes les routes ou seulement pour un module, vous retrouvez aussi la date de derniere mise à jour des routes
+
+[icon="../images/plugin/tip.png"]
+[TIP]
+La mise à jour des routes est une opération assez longue car il faut reveillé tous les modules, il n'est pas conseillé de faire cette opération souvent, par contre il peut etre utile de le faire sur un module qui n'a pas été inclus a sa position finale
+
+[icon="../images/plugin/important.png"]
+[IMPORTANT]
+Attention la mise a jour des routes force une retinterview complet des modules, d'ou le faite qu'il est plutot conseillé de le faire sur un module plutot que de remettre à jour toute les routes 
+
 ==== Administration du zwave
 
+image::../images/zwave35.png[]
+
+Vous permet d'afficher les commandes d'administration avancé du zwave : 
+
+image::../images/zwave36.png[]
+
+Vous pouvez à droite choisir le serveur zwave a regarder, en haut vous retrouvez les informations sur la version du serveur, de la puce zwave... et au milieu les differentes commandes ainsi que leur descriptions
+
 ==== Santé
+
+image::../images/zwave37.png[]
+
+Cette fenetre résume l'état de votre reseaux zwave : 
+
+image::../images/zwave38.png[]
+
+Vous avez ici : 
+* *Module* : le nom de votre module, un clique dessus vous permet d'y accedder directement
+* *ID* : ID votre module sur le reseaux zwavz
+* *Serveur* : nom du serveur zwave
+* *Interview* : statut de l'interview, un clique dessus permet d'afficher la fenetre de l'interview
+* *Statut* : statut du module (actif => module alimenté, endormie => module sur batterie dormant, reveillé => module sur batterie à l'écoute)
+* *Batterie* : niveau de batterie du module (NA indique que le module est alimenté)
+* *Wakeup time* : pour les modules sur batterie donne la fréquence en seconde ou le module se reveille forcement
+* *Paquet total* : affiche le nombre de paquet total recu ou envoyé avec succes au module (maximum 30)
+* *%OK* : affiche le pourcentage de paquet envoyé/recu avec succes
+* *Temporisation* : affiche le delai minimum, moyen et maximum d'envoi de paquet en ms
+* *Derniere communication* : Date de derniere communication avec le module ainsi que l'heure de la prochaine communication prévu
+* *Ping* : Permet d'envoyé un ping au module, peut etre utilise si le module est en dead pour voir si c'est vraiment le cas
 
  
