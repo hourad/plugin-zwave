@@ -301,6 +301,7 @@ Cette fenetre résume l'état de votre reseaux zwave :
 image::../images/zwave38.png[]
 
 Vous avez ici : 
+
 * *Module* : le nom de votre module, un clique dessus vous permet d'y accedder directement
 * *ID* : ID votre module sur le reseaux zwavz
 * *Serveur* : nom du serveur zwave
