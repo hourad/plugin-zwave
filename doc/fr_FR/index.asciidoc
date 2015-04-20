@@ -9,6 +9,14 @@ Plugin permetant d'utiliser le protocole Zwave
 include::configuration.asciidoc[]
 
 '''
+=== Restauration
+include::restore.asciidoc[]
+
+'''
+=== Mode deporté
+include::slave.asciidoc[]
+
+'''
 === Liste des modules connus
 link:http://doc.jeedom.fr/fr_FR/doc_zwave_module_list.html[ici]
 

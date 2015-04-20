@@ -80,7 +80,7 @@ foreach (zwave::listServerZway() as $id => $server) {
                 </center>
             </td>
             <td>
-                {{Permet de lancer une tentative de soin automatique du reseaux zwave (envoi du NIF, demande de tous les NIF, interview de tous les modules et mise à jour des routes). Cela peut paralyser le reseaux zwave pendant plusieurs minutes/heures}}
+                {{Permet de lancer une tentative de soin automatique du reseaux zwave (envoi du NIF, demande de tous les NIF, interview de tous les modules). Cela peut paralyser le reseaux zwave pendant plusieurs minutes/heures}}
             </td>
         </tr>
         <tr>

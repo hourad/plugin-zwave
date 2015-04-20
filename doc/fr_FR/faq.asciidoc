@@ -1,5 +1,5 @@
 [panel,primary]
-.Comment restorer le z-way-server
+.C'est quoi le zway et openzwave ?
 --
-Il faut deja recuperer le backup de celui-ci dans le backup de Jeedom (il se trouve dans plugins_backup/zwave), puis se connecter sur le z-way-server (IP:8083), dans network (en mode expert, disponible en bas à droite) faire une restauration du backup. Puis dans jeedom, sur l'administration du zwave  envoyer des requêtes NIF à tous les modules zwave, et enfin si besoin les réveiller un par un.
+C'est de type de serveur zwave different, en faite le plugin zwave sert d'interface pour ces 2 serveurs qui parle le meme langage, vous pouvez donc utiliser l'un au l'autre de maniere transparente. La difference et que le serveur zway (serveur officiel zwave pour Jeedom, utilisé notament sur les mini/mini+) ne marche qu'avec un razberry ce qui n'est pas le cas du serveur openzwave qui lui marche avec toute les clef USB zwave et le razberry. En revanche pour utiliser le serveur openzwave il faut un autre plugin (en plus du plugin zwave) qui s'appel openzwave et qui est payant.
 --

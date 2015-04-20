@@ -1,0 +1,24 @@
+[icon="../images/plugin/important.png"]
+[IMPORTANT]
+Cette documentation n'est valable que pour le Z-way server !
+
+Lors de la restauration du zway server il faut distinguer 2 cas : 
+
+==== J'ai gardé le meme razberry
+
+Dans ce cas la recupération et simple mais peut etre longue, il faut : 
+
+* installer le Z-way serveur sur le systeme cible (pas à faire si vous utilisez l'image officiel ou une mini/mini+)
+* installer jeedom si necessaire (pas a faire si vous utilisez l'image officiel ou une mini/mini+)
+* aller sur l'administration du zwave et cliquer "Soigner le reseaux Zwave" 
+* reveiller tous les modules sur batterie
+
+image::../images/zwave40.png[]
+
+[icon="../images/plugin/tip.png"]
+[TIP]
+Soigner le reseaux zwave réalise en faite 3 actions : envoie du NIF, demande de tous les NIF et va essayer de recuperer chaque classe manquante de chaque module
+
+==== J'ai changé de razberry
+
+Pour l'instant ce cas ne marche pas, les solutions envisagé sont soit de restaurer un backup (mais ne marche pas pour le moment), soit de déclarer votre nouveau controleur en secondaire sur le reseaux puis de le passer en primaire, malheureusement cette solution ne marche pas dans 100% des cas
