@@ -11,16 +11,17 @@ Tout d’abord il faut inclure votre module Z-Wave.
 
 image::../images/zwave_unknowDevice.png[]
 
-Pour cela référez vous à la documentation du plugin Z-Wave. Il faut bien s’assurer que l’inclusion s’est correctement déroulée, et que l’interview est complète. (sinon forcer l'interview, soit sur le module soit sur l'interface avec le bouton engrenage menu de gauche, en mode expert)
+Pour cela référez vous à la partie inclusion. Il faut bien s’assurer que l’inclusion s’est correctement déroulée, et que l’interview est complète. (sinon forcer l'interview, soit sur le module soit sur l'interface avec le bouton "engrenage" menu de gauche, en mode expert)
 
 Ensuite il faut identifier 2 types de commande.
 
-Les actions (par exemple on/off).
-Les infos (par exemple la température).
-Il faudra donc savoir si votre module comporte l’un ou l’autre type, et parfois les 2. Suivant le type de commande la configuration est différente, nous allons voir ça plus bas.
+- Les actions (par exemple on/off).
+- Les infos (par exemple la température).
+
+Il faudra donc savoir si votre module comporte l’un ou l’autre type, et parfois les deux. Suivant le type de commande, la configuration est différente, et est détaillée plus bas.
 
 ==== Les actions
-Commençons par les actions. Il faudra vous rendre dans l’interface du contrôleur Z-Way (RaZberry) qui se trouve à http://IP_JEEDOM:8083 Ensuite rendez vous dans le mode Expert, puis device control – switches.
+Pour les actions : Il faudra vous rendre dans l’interface du contrôleur Z-Way (RaZberry) qui se trouve à http://IP_JEEDOM:8083 . Ensuite passez en mode Expert, puis allez dans device control – switches.
 
 image::../images/zwave41.png[]
 
@@ -30,50 +31,53 @@ Vous devez obtenir :
 
 image::../images/zwave43.png[]
 
-Il faut ensuite que vous fassiez F12 puis l'onglet "network" ou "reseaux" : 
+Il faut ensuite que vous fassiez F12 puis l'onglet "network" ou "réseaux" : 
 
 image::../images/zwave44.png[]
 
-Vous voyez ici passer toutes les requetes vers le serveur zway, il est normalement de voir une requete par seconde. Cliquez sur la commande que vous voulez creer dans Jeedom, vous devez voir : 
+Vous voyez ici passer toutes les requêtes vers le serveur Z-Way, il est normal de voir une requête par seconde. Cliquez sur la commande que vous voulez créer dans Jeedom, vous devez voir : 
 
 image::../images/zwave45.png[]
 
-On voit ici la requete passer : devices[27].instances[0].commandClasses[38].Set(0)
+On voit ici la requête passer : devices[27].instances[0].commandClasses[38].Set(0)
 
-Elle se decompose en plusieurs partie : 
+Elle se decompose en plusieurs parties : 
 
-* devices[XX] : XX representant l'ID de votre équipement, ce n'est pas utile pour jeedom
+* devices[XX] : XX représentant l'ID de votre équipement, ce n'est pas utile pour jeedom
 * instances[X] : X étant l'instance de la commande, c'est utile pour la création de la commande dans jeedom
-* commandClasses[XX] : XX etant la classe de la commande en decimal, c'est utilisé dans Jeedom
-* Set(0) : commande a executer
+* commandClasses[XX] : XX étant la classe de la commande en décimal, c'est utilisé dans Jeedom
+* Set(0) : commande à exécuter
 
-Il vous faut ajouter une nouvelle commande (avec le bouton vert ajouter) et compléter les champs “Instance ID”, “Class” et “Commande” avec les valeurs précédemment trouvées (ne pas oublier de donner un nom ainsi qu’un type (Action vu qu'on veut une action ici) et un sous-type pour la commande :
+Il vous faut ajouter une nouvelle commande (avec le bouton vert "ajouter") et compléter les champs “Instance ID”, “Class” et “Commande” avec les valeurs précédemment trouvées (ne pas oublier de donner un nom ainsi qu’un type (Action vu qu'on veut une action ici) et un sous-type pour la commande) :
 
 image::../images/zwave46.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-La classe est stocké sous forme hexadecimal dans Jeedom, ici 0x26 en hexa vaut 38 en decimal. Vous n'avez pas à vous occuper de la conversion, si vous rentrez 38 lors de la sauvegarde Jeedom le convertira automatiquement en 0x26
+La classe est stockée sous forme hexadécimale dans Jeedom, ici 0x26 en hexa vaut 38 en décimal. Vous n'avez pas à vous occuper de la conversion, si vous rentrez 38 lors de la sauvegarde Jeedom le convertira automatiquement en 0x26.
 
 Voyons plus précisément les possibilités pour une commande de type action.
 
-Sur la gauche, la colonne nom permet de définir le nom de l’action, et si on le souhaite un icône qui sera présent à la place du texte.
+Sur la gauche, la colonne "Nom" permet de définir le nom de l’action, et si on le souhaite une icône qui sera présente à la place du texte.
 
-Après avoir définit le type action, on peut définir un sous type suivant le type d’action à faire.
+Après avoir défini le type "action", on peut définir un sous-type suivant le type d’action à faire.
 
 image::../images/zwave_unknowDevice7.png[]
 
-Vous avez également à votre disposition plusieurs paramètres. Historiser qui permet de d’archiver les états des actions. Afficher qui permet de dire si l’action sera affichée ou non dans le widget, les autres options seront utiles pour des types infos.
+Vous avez également à votre disposition plusieurs paramètres :
+
+- Historiser qui permet de d’archiver les états des actions.
+- Afficher qui permet de dire si l’action sera affichée ou non dans le widget, les autres options seront utiles pour des types infos.
 
 image::../images/zwave_unknowDevice8.png[]
 
-Vous pouvez répéter cette opération pour chaque commande. Pour les commandes de type slider il suffit de mettre dans la commande "Set(#slider#)" au lieu de Set(0) dans notre cas
+Vous pouvez répéter cette opération pour chaque commande. Pour les commandes de type slider, il suffit de mettre dans la commande "Set(#slider#)" au lieu de Set(0) dans notre cas.
 
 
 ==== Les infos
-Passons maintenant aux commandes de type info.
+Pour les commandes de type info :
 
-Ici c’est un peu plus complexe, car il faut lire l’arbre z-wave du module. Pour cela rendez-vous sur la page de votre module, rubrique information puis cliquez sur le petit bouton « arbre » situé en haut à droite.
+Ici c’est un peu plus complexe, car il faut lire l’arbre Z-Wave du module. Pour cela rendez-vous sur la page de votre module, rubrique information puis cliquez sur le petit bouton « arbre » situé en haut à droite.
 
 image::../images/zwave47.png[]
 
@@ -81,19 +85,19 @@ Vous devriez obtenir un résultat similaire à ceci :
 
 image::../images/zwave48.png[]
 
-A partir de maintenant il faut chercher dans l’arbre l’information qui vous intéresse. S’il s’agit d’un relevé par exemple de température, les informations sont assez facile à trouver. Si c’est une information de type retour d’état, par exemple ouverture de porte, il faudra alors déclencher le retour d’état à partir de votre module.
+A partir de maintenant il faut chercher dans l’arbre l’information qui vous intéresse. S’il s’agit d’un relevé, par exemple de température, les informations sont assez faciles à trouver. Si c’est une information de type retour d’état, par exemple ouverture de porte, il faudra alors déclencher le retour d’état à partir de votre module.
 
-Vous trouverez en général les informations sous le schéma suivant : dans instance le numéro d’instance, puis dans “data” et dans level le numéro de la classe, attention elle est ici en décimale et non en hexa. Pour chaque classe il faut regarder le tableau “data” puis “level” en generale.
+Vous trouverez en général les informations sous le schéma suivant : dans instance le numéro d’instance, puis dans “data” et dans "level" le numéro de la classe. Attention elle est ici en décimal et non en hexa. Pour chaque classe, il faut regarder le tableau “data” puis “level” en général.
 
 On obtient donc ceci dans Jeedom :
 
 image::../images/zwave49.png[]
 
-Comme tout à l’heure plusieurs informations sont à renseigner. On a le nom de la commande, son type ici c’est une info ici. Le sous type est important, numérique quand il s’agit d’un nombre (par exemple la température), binaire quand il s’agit une info Vrai ou Faux (0 ou 1), et Autre quand on entre dans aucun de ces cas.
+Comme tout à l’heure plusieurs informations sont à renseigner. On a le nom de la commande, son type (ici c’est une info). Le sous type est important, numérique quand il s’agit d’un nombre (par exemple la température), binaire quand il s’agit d'une info Vrai ou Faux (0 ou 1), et Autre quand on est dans aucun de ces cas.
 
 image::../images/zwave_unknowDevice15.png[]
 
-Ensuite en dessous de commande, on a plusieurs champs. La valeur de retour d’état, et la durée avant le retour d’état. Ces options sont utiles pour certains modules. En effet certains modules Z-Wave ne gardent pas en mémoire l’état, mais envoient juste un signal comme quoi l’état à changer, un front montant… Ces paramètres permettent de mémoriser cette valeur, et au bout d’un certain temps (durée avant retour) on réinitialise le module avec la valeur du retour d’état.
+Ensuite en-dessous de commande, on a plusieurs champs. La valeur de retour d’état, et la durée avant le retour d’état. Ces options sont utiles pour certains modules. En effet certains modules Z-Wave ne gardent pas en mémoire l’état, mais envoient juste un signal comme quoi l’état a changé, un front montant… Ces paramètres permettent de mémoriser cette valeur, et au bout d’un certain temps (durée avant retour), on réinitialise le module avec la valeur du retour d’état.
 
 image::../images/zwave_unknowDevice16.png[]
 
@@ -103,9 +107,9 @@ Ensuite on a les mêmes paramètres que précédemment, Historiser, Afficher, In
 ==== Partage sur le market avec la communauté
 Pour finir, un point très important, le partage de votre configuration avec la communauté sur le Market de Jeedom. En partageant votre configuration, vous permettrez aux autres utilisateurs d’utiliser ce module Z-Wave sans avoir à le configurer.
 
-Pour chaque module Z-Wave, il existe un fichier de configuration au format JSON. Ce fichier de configuration doit posséder un nom avec un format bien spécifique : marque.nom_du_module.json ce qui donne par exemple pour un Everspring AD142 everspring.ad142.json (évitez tous les caractères spéciaux et accent).
+Pour chaque module Z-Wave, il existe un fichier de configuration au format JSON. Ce fichier de configuration doit posséder un nom avec un format bien spécifique : marque.nom_du_module.json ce qui donne par exemple pour un Everspring AD142 everspring.ad142.json (évitez tous les caractères spéciaux et accents).
 
-Après avoir testé votre configuration faite à la main précédemment, vous devez cliquer sur "Exporter" : 
+Après avoir testé votre configuration faite à la main, comme précédemment, vous devez cliquer sur "Exporter" : 
 
 image::../images/zwave50.png[]
 
@@ -177,11 +181,11 @@ image::../images/zwave50.png[]
 }
 ----
 
-Vous pouvez également vous inspirez de configuration déjà réalisées disponibles sur le Site Web du Market en cliquant sur télécharger les sources.
+Vous pouvez également vous inspirez de configuration déjà réalisées et disponibles sur le Site Web du Market en cliquant sur télécharger les sources.
 
-Vous allez devoir reprendre la configuration manuelle pour la completer. Voici quelques détails sur la structure du fichier.
+Vous allez devoir reprendre la configuration manuelle pour la complèter. Ci-dessous vous trouverez quelques détails sur la structure du fichier.
 
-Tous les champs à compléter sont encadrés de “#”. Voici leur description (attention tous les champs précédés d’une * sont obligatoires) :
+Tous les champs à compléter sont encadrés de “#”. Voici leur description :
 
 
 - #marque#.#nom_module# : le nom et la marque du module, ATTENTION !! doit être la même que ceux dans le nom du fichier 
@@ -194,31 +198,31 @@ Tous les champs à compléter sont encadrés de “#”. Voici leur description 
 },
 ----
 
-L’option de groupe permet de définir un groupe d’appartenance au module Z-Wave, à définir dans #numero_group#. Ces lignes ne sont pas obligatoire si on a pas besoin de changer le groupe du module.
+L’option de groupe permet de définir un groupe d’appartenance au module Z-Wave, à définir dans #numero_group#. Ces lignes ne sont pas obligatoires, si on a pas besoin de changer le groupe du module.
 
-Partie commande, deja completé par Jeedom, voici le détail :
+Partie commande, déjà complétée par Jeedom, voici le détail :
 
 - #nom cmd# : Nom de la commande 
-- #type cmd# : Type de la commande ( info ou action ou other ) 
-- #sous type cmd# : Sous type ( numeric ou binary ou other ou color ou message ou slider ) 
+- #type cmd# : Type de la commande (info ou action ou other) 
+- #sous type cmd# : Sous type (numeric ou binary ou other ou color ou message ou slider) 
 - #visibilité cmd# : Visibilité (1 ou 0) 
 - #historisation cmd# : Historisation de la commande (1 ou 0) 
-- #événement cmd# : Événement seulement (1 ou 0) 
+- #événement cmd# : Évènement seulement (1 ou 0) 
 - #instance cmd# : Instance de la commande (par défaut 0) 
-- #class cmd# : Classe de la commande (en hexa ou décimale) 
+- #class cmd# : Classe de la commande (en hexadécimal ou décimal) 
 - #valeur cmd# : Valeur de la commande 
 - #min valeur cmd# : Minimum de la commande (si de type info, par défaut 0) 
 - #max valeur cmd# : Maximum de la commande (si de type info, par défaut 100) 
 - #inverte binaire# : Inversion du retour binaire lors de l’affichage seulement (uniquement possible sur une commande de type info/binaire) (1 ou 0) 
-- #valeur retour etat# : Valeur de retour d’état (1 ou 0) (la ligne n’est pas obligatoire) 
-- #durée avant etat# : Durée avant le retour d’état en minute (la ligne n’est pas obligatoire)
+- #valeur retour état# : Valeur de retour d’état (1 ou 0) (la ligne n’est pas obligatoire) 
+- #durée avant état# : Durée avant le retour d’état en minute (la ligne n’est pas obligatoire)
 
-Si vous voulez assigner un widget par defaut à votre module il faudra renseigner le template (non obligatoire).
+Si vous voulez assigner un widget par défaut à votre module, il faudra renseigner le template (non obligatoire).
 
 - #widget dashboard# : Le widget par défaut appliqué au module sur le dashboard 
 - #widget mobile# : Le widget par défaut appliqué au module sur la version mobile
 
-Paramètres (doit être répété autant de fois qu’il y a de paramètres). Ce sont les paramètres constructeur du module Z-Wave vous les trouverez dans la documentation de votre module. Il y deux types de paramètres, voici déjà les points communs
+Paramètres (doit être répété autant de fois qu’il y a de paramètres). Ce sont les paramètres constructeur du module Z-Wave, vous les trouverez dans la documentation de votre module. Il y deux types de paramètres, voici déjà les points communs :
 
 - #id paramètre# : ID du paramètre 
 - #nom paramètre# : Nom du paramètre 
@@ -233,26 +237,26 @@ Paramètres (doit être répété autant de fois qu’il y a de paramètres). Ce
 - #min# : Minimum possible du paramètre 
 - #max# : Maximum
 
-Une fois que vous avez créé le fichier JSON, il faut l’envoyer sur votre installation Jeedom. Pour cela cliquez dans la rubrique Information de votre module sur le bouton Envoyer une configuration :
+Une fois que vous avez créé le fichier JSON, il faut l’envoyer sur votre installation Jeedom. Pour cela, dans la rubrique Information de votre module, cliquez sur le bouton "Envoyer une configuration" :
 
 image::../images/zwave51.png[]
 
-Si votre fichier est correctement écrit, il doit apparaitre maintenant dans la liste des modules Z-Wave, toujours dans la rubrique Information.
+Si votre fichier est correctement écrit, il doit apparaître maintenant dans la liste des modules Z-Wave, toujours dans la rubrique Information.
 
 image::../images/zwave_unknowDevice19.png[]
 
-Sélectionnez-le, puis faite sauvegarder. Ensuite testez votre module pour savoir si tout fonctionne correctement. Si tout est bon, il n’y a plus qu’à cliquer sur le bouton orange Partager sur la page de votre module rubrique Information.
+Sélectionnez-le, puis faites sauvegarder. Ensuite testez votre module pour savoir si tout fonctionne correctement. Si tout est bon, il n’y a plus qu’à cliquer sur le bouton orange "Partager" sur la page de votre module rubrique Information.
 
 image::../images/zwave_unknowDevice20.png[]
 
-A noter que pour pouvoir partager un module, il faut que vous soyer préalablement inscrit sur le Market Jeedom, et que votre Jeedom soit relié à votre compte Market. (voir documentation Market).
+A noter que pour pouvoir partager un module, il faut que vous soyez préalablement inscrits sur le Market Jeedom, et que votre Jeedom soit relié à votre compte Market. (voir documentation Market).
 
 Une popup va alors s’ouvrir vous demandant quelques renseignements sur ce module.
 
 image::../images/zwave_unknowDevice21.png[]
 
-Donnez le nom complet de votre module Z-Wave, la catégorie Module zwave, si des liens sont disponibles vers une vidéo, le wiki ou le forum ne pas hésiter à les mettre. Enfin, un guide d’utilisation du module si nécessaire, et le Changelog ou vous pouvez y noter les mises à jour que vous effectuerez par la suite.Cliquez sur le bouton vert en haut à droite Envoyer, et votre configuration sera disponible sur le Market !
+Donnez le nom complet de votre module Z-Wave, la catégorie Module Z-Wave, si des liens sont disponibles vers une vidéo, le wiki ou le forum ne pas hésiter à les mettre. Enfin, un guide d’utilisation du module si nécessaire, et le Changelog où vous pouvez y noter les mises à jour que vous effectuerez par la suite. Cliquez sur le bouton vert en haut à droite "Envoyer", et votre configuration sera disponible sur le Market !
 
 Votre configuration sera en version dite BETA. Ne pas hésiter à nous solliciter sur le forum, ou par mail contact@jeedom.com pour signaler le fonctionnement de votre configuration si celle-ci est prête pour passer en version STABLE. Vous pouvez aussi aller sur le Site Web du Market pour ajouter une photo à votre configuration.
 
-Vous avez maintenant configurer un module inconnu de Jeedom et vous l'avez partagé avec la communauté sur le Market.
+Vous avez maintenant configuré un module inconnu de Jeedom et vous l'avez partagé avec la communauté sur le Market.
