@@ -1,5 +1,5 @@
 [panel,primary]
-.C'est quoi le zway et openzwave ?
+.C'est quoi le Z-Way et Open Z-Wave ?
 --
-C'est de type de serveur zwave different, en faite le plugin zwave sert d'interface pour ces 2 serveurs qui parle le meme langage, vous pouvez donc utiliser l'un au l'autre de maniere transparente. La difference et que le serveur zway (serveur officiel zwave pour Jeedom, utilisé notament sur les mini/mini+) ne marche qu'avec un razberry ce qui n'est pas le cas du serveur openzwave qui lui marche avec toute les clef USB zwave et le razberry. En revanche pour utiliser le serveur openzwave il faut un autre plugin (en plus du plugin zwave) qui s'appel openzwave et qui est payant.
+C'est deux types de serveur Z-Wave différents. En fait le plugin Z-Wave sert d'interface pour ces 2 serveurs qui parlent le même langage, vous pouvez donc utiliser l'un ou l'autre de manière transparente. La différence est que le serveur Z-Way (serveur officiel Z-Wave pour Jeedom, utilisé notament sur les mini/mini+) ne marche qu'avec un razberry ce qui n'est pas le cas du serveur openzwave qui lui marche avec toutes les clefs USB Z-Wave et le razberry. En revanche pour utiliser le serveur Open Z-Wave, il faut un autre plugin (en plus du plugin Z-Wave) qui s'appelle Open Z-Wave et est payant.
 --
