@@ -2,7 +2,7 @@
 == Zwave
 
 === Description
-Plugin permetant d'utiliser le protocole Zwave
+Plugin permettant d'utiliser le protocole Z-Wave
 
 '''
 === Configuration
@@ -33,5 +33,5 @@ include::faq.asciidoc[]
 include::troubleshoting.asciidoc[]
 
 '''
-=== Configuration du port dans le zway server
+=== Configuration du port dans le Z-Way server
 include::configurePort.asciidoc[]
