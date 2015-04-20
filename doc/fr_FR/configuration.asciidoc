@@ -22,6 +22,7 @@ Voici le détail (certains paramètres peuvent n'être visibles qu'en mode exper
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
 Un module ne peut etre affecté qu'à un et un seul serveur zwave, ca ne permet donc pas de faire de la redondance comme sur les plugins enOcean,RFXcom ou Edisio
+
 *** Nom : permet de nommer votre serveur zwave, ce champs n'est pas obligatoire
 *** IP : IP du serveur zwave, si votre serveur zwave est sur le meme systeme que Jeedom (min/mini+) il faut mettre 127.0.0.1, sinon c'est l'IP de la machine hebergeant le serveur zwave
 *** Port : port du serveur zwave, par defaut 8083
@@ -30,6 +31,7 @@ Un module ne peut etre affecté qu'à un et un seul serveur zwave, ca ne permet 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
 Supprimer un péripherique zwave de jeedom ne le retire pas du reseaux Zwave il faut soit l'exclure soit le market comme defaillant puis le supprimer
+
 ** _Ne pas remonter les notifications_ : Indique à Jeedom de ne pas vous notifiez des evenements propre au Z-Way. Cette fonction est encore en cours de developpement coté Z-Way et pour l'instant les notifications ne sont pas pertinente
 ** _Notifications_ : permet d'afficher les notifications : 
 
