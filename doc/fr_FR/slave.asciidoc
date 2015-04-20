@@ -1,20 +1,20 @@
-Il est possible, comme pour le RFXcom, EnOcean, Edisio, SMS, MySensor... de déporter l'antenne Zwave (independement du type de serveur zwave utilisé, vous pouvez meme mixer).
+Il est possible, comme pour le RFXcom, EnOcean, Edisio, SMS, MySensor... de déporter l'antenne Z-Wave (indépendamment du type de serveur Z-Wave utilisé, vous pouvez même mixer).
 
-==== Pourquoi le deporter ?
+==== Pourquoi le déporter ?
 
-Cela permet deja de reduire la charge sur le Jeedom centrale, en delegant une partie de la gestion zwave à l'esclave, cela peut aussi vous permettre de mettre le coeur de Jeedom a un endroit (garage par exemple) et l'antenne zwave dans la maison pour mieux couvrir la zone.
+Cela permet déjà de réduire la charge sur le Jeedom central, en délégant une partie de la gestion Z-Wave à l'esclave. Cela peut aussi vous permettre de mettre le coeur de Jeedom à un endroit (garage par exemple) et l'antenne Z-Wave dans la maison pour mieux couvrir la zone.
 
-Derniere interet il est possible d'avoir jusqu'a 3 antennes zwave, cela vous permet donc de couvrir differente zone ou de separer des capteur pour plus de securité en cas de defaillance d'un controleur tous les modules ne deviennent pas inaccessible
+Dernier intérêt, il est possible d'avoir jusqu'à 3 antennes Z-Wave, ce qui vous permet de couvrir différentes zones ou de séparer des capteurs pour plus de sécurité, car en cas de défaillance d'un contrôleur tous les modules ne deviennent pas inaccessibles.
 
-==== Comment le deporter ?
+==== Comment le déporter ?
 
-Deporter le zwave est assez simple, il faut sur le systeme qui servira d'esclave : 
+Déporter le Z-Wave est assez simple, il faut sur le système qui servira d'esclave : 
 
-* installer jeedom (non obligatoire pour le zway server)
-* installer votre serveur zwave (si vous partez d'un jeedom preinstallé ou d'une image officiel et avec un razberry ces étapes ne sont pas necessaire)
-* mettre le jeedom en esclave (si vous l'avez installé bien sur, pour rappel c'est obligatoire avec le serveur zwave openzwave)
-* sur le maitre il vous faut juste indiquer l'ip de l'esclave
+* installer jeedom (non obligatoire pour le Z-Way server) (si vous partez d'un jeedom pré-installé ou d'une image officielle avec un razberry cette étape n'est pas nécessaire)
+* installer votre serveur Z-Wave (si vous partez d'un jeedom pré-installé ou d'une image officielle avec un razberry cette étape n'est pas nécessaire)
+* mettre le jeedom en esclave (si vous l'avez installé bien sûr, pour rappel c'est obligatoire avec le serveur Z-Wave Open-Zwave)
+* sur le maître il vous faut juste indiquer l'ip de l'esclave
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Si vous partez d'un jeedom ou il y a le razberry et jeedom maitre sur la meme carte pour arriver sur un jeedom maitre sans razberry et un jeedom esclave avec le razberry, vous pouvez suivre la demarche plus haut puis dans l'administration du serveur zwave faire un soigner le reseaux zwave, cela vous permettra de recuperer tous les modules. Attention quand meme dans ce cas à bien remplacer sur le mettre l'IP 127.0.0.1 par celle de l'esclave
+Si vous partez d'un jeedom où il y a le razberry et jeedom maître sur la même carte, pour arriver sur un jeedom maître sans razberry et un jeedom esclave avec le razberry, vous pouvez suivre la démarche plus haut. Puis dans l'administration du serveur Z-Wave faire un soigner le réseau Z-Wave, cela vous permettra de récupérer tous les modules. Attention quand même dans ce cas à bien remplacer sur le maître l'IP 127.0.0.1 par celle de l'esclave.
