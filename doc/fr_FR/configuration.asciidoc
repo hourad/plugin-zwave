@@ -139,100 +139,100 @@ image::../images/zwave19.png[]
 Vous retrouvez, dans le premier onglet, les différents paramètres de configuration de votre module : 
 
 * *Informations*
-** *Nom de l'équipement* : le nom de votre équipement dans jeedom
-** *Nom du module* : le nom de votre module
-** *Marque* : la marque de votre module
-** *Forcer re-interview* : permet de forcer l'interview de votre module, attention cela remet à 0 tous les classes d'interview complete, c'est donc une opération risquée
-** *Marquer comme sans batterie* : permet de forcer le module comme sans batterie, ce qui au bout de quelques minutes vous permettra de voir le bouton "marquer comme defaillant" pour sortir un module de force de votre reseaux zwave
-* *Configuration* : vous retrouver ici un bouton pour forcer la mise à jour des valeurs de configuration. Vous retrouver ici tous les parametres de configuration renseigné sur votre module (il peut ne pas en avoir).
-* *Configuration avancée* : vous pouvez ici et si vous ne l'avez pas dans la description au dessus demander un parametre spécifique de la configuration, cela vous permettra aussi de connaitre ca taille pour pouvoir envoyer une valeur
+** *Nom de l'équipement* : le nom de votre équipement dans Jeedom.
+** *Nom du module* : le nom de votre module.
+** *Marque* : la marque de votre module.
+** *Forcer re-interview* : permet de forcer l'interview de votre module, attention cela remet à 0 toutes les classes d'interview complètes, c'est donc une opération risquée.
+** *Marquer comme sans batterie* : permet de forcer le module comme sans batterie, ce qui au bout de quelques minutes vous permettra de voir le bouton "marquer comme défaillant" pour sortir un module de force de votre réseau Z-Wave.
+* *Configuration* : vous retrouver ici un bouton pour forcer la mise à jour des valeurs de configuration. Vous retrouver ici tous les paramètres de configuration renseignés sur votre module (il peut ne pas en avoir).
+* *Configuration avancée* : vous pouvez ici, et si vous ne l'avez pas dans la description au-dessus, demander un paramètre spécifique de la configuration, cela vous permettra aussi de connaître sa taille pour pouvoir envoyer une valeur.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Attention les modules sur batterie doivent etre reveillé pour recevoir une modification de leur configuration. Voir la documentation de votre module pour savoir comment le reveiller
+Attention les modules sur batterie doivent être réveillés pour recevoir une modification de leur configuration. Voir la documentation de votre module pour savoir comment le réveiller.
 
-Sur le 2eme onglet vous avez la gestion des groupes zwave : 
+Sur le dexième onglet, vous avez la gestion des groupes Z-Wave : 
 
 image::../images/zwave20.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Les groupes permettent de definir quelques type d'informations doivent etre remonté et à qui. Cela permet aussi d'associer 2 modules directement entre eux, pour par exemple lier un capteur de luminosité à un dimmer pour une lumiere
+Les groupes permettent de définir quels types d'informations doivent être remontés et à qui. Cela permet aussi d'associer deux modules directement entre eux, pour par exemple lier un capteur de luminosité à un dimmer pour une lumière.
 
-La méthode d'assocication est assez simple, sur le premier selecteur vous choissisez le groupe et dans le deuxieme le module à qu'il faut mettre dans ce groupe puis il suffit de cliquer sur ok.
-Pour supprimer une association il suffit de cliquer sur le signe "moins" à coté de celle-ci
+La méthode d'assocication est assez simple, sur le premier sélecteur vous choissisez le groupe, et dans le deuxième le module à qu'il faut mettre dans ce groupe, puis il suffit de cliquer sur ok.
+Pour supprimer une association, il suffit de cliquer sur le signe "moins" à côté de celle-ci.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Attention les modules sur batterie doivent etre reveillé pour recevoir une modification de leur association. Voir la documentation de votre module pour savoir comment le reveiller
+Attention les modules sur batterie doivent être réveillés pour recevoir une modification de leur association. Voir la documentation de votre module pour savoir comment le réveiller.
 
-Sur certain module vous pourrez voir un 3eme onglet qui sert a la configuration spécifique de celui-ci
+Sur certains modules vous pourrez voir un troisième onglet qui sert à la configuration spécifique de celui-ci.
 
 image::../images/zwave21.png[]
 
-Ici par exemple pour ajouter un badge au zipato keyboard
+Ici par exemple pour ajouter un badge au Zipato Keyboard.
 
 ==== Interview
 
 image::../images/zwave22.png[]
 
-Cette fenetre vous montre l'état de l'interview pour chaque classe de votre module et vous permet pour celle qui sont incomplet de forcer leur interview. Vous avez aussi un bouton pour rafraichir l'état de l'interview
+Cette fenêtre vous montre l'état de l'interview pour chaque classe de votre module, et vous permet pour celles qui sont incomplètes de forcer leur interview. Vous avez aussi un bouton pour rafraîchir l'état de l'interview.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Attention les modules sur batterie doivent etre reveillé pour pouvoir mettre à jour l'interview. Voir la documentation de votre module pour savoir comment le reveiller
+Attention les modules sur batterie doivent être reveillé pour pouvoir mettre à jour l'interview. Voir la documentation de votre module pour savoir comment le réveiller.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Il est a noté que dans certain cas l'interview meme en le forcant ne peut etre completé. Cela varie en fonction de firmware de vos module. La regle à retenir est que si votre module ne marche pas il faut essayé de completer le maximum d'interview de classe mais que si il marche bien pas besoin d'essayer de tout completer.
+Il est à noter que dans certains cas l'interview même en le forçant ne peut être complété. Cela varie en fonction du firmware de vos modules. La règle à retenir est que si votre module ne marche pas, il faut essayer de compléter le maximum d'interview de classe, mais que si il marche bien : pas besoin d'essayer de tout compléter.
 
 ==== Mode inclusion
 
 image::../images/zwave23.png[]
 
-Ce bouton vous permet de passer en mode inclusion, cela pour ajouter un module à votre reseaux zwave, il faut faire de meme sur votre module (voir la doc de celui-ci pour le passer en module inclusion)
+Ce bouton vous permet de passer en mode inclusion pour ajouter un module à votre réseau Z-Wave, il faut en faire de même sur votre module (voir la doc de celui-ci pour le passer en mode inclusion).
 
-Une fois en mode inclusion jeedom vous le signal
+Une fois en mode inclusion Jeedom vous le signale.
 
 image::../images/zwave24.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Tant que vous n'avez pas le bandeau vous n'etes pas en mode inclusion
+Tant que vous n'avez pas le bandeau vous n'êtes pas en mode inclusion.
 
-Si vous recliquez sur le bouton vous sortez du mode inclusion
+Si vous recliquez sur le bouton vous sortez du mode inclusion.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Lors d'une inclusion il est conseillé que le module soit a moins d'un metre de la box
+Lors d'une inclusion, il est conseillé que le module soit à moins d'un mètre de la box.
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-A noter que l'interface mobile vous donne aussi accès a l'inclusion
+A noter que l'interface mobile vous donne aussi accès à l'inclusion.
 
 ==== Mode exclusion
 
 image::../images/zwave25.png[]
 
-Ce bouton vous permet de passer en mode exclusion, cela pour retirer un module à votre reseaux zwave, il faut faire de meme sur votre module (voir la doc de celui-ci pour le passer en module exclusion)
+Ce bouton vous permet de passer en mode exclusion, cela pour retirer un module de votre réseau Z-Wave, il faut en faire de même avec votre module (voir la doc de celui-ci pour le passer en mode exclusion).
 
 image::../images/zwave26.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Tant que vous n'avez pas le bandeau vous n'etes pas en mode exclusion
+Tant que vous n'avez pas le bandeau vous n'êtes pas en mode exclusion.
 
-Si vous recliquez sur le bouton vous sortez du mode exclusion
+Si vous recliquez sur le bouton vous sortez du mode exclusion.
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-A noter que l'interface mobile vous donne aussi accès a l'exclusion
+A noter que l'interface mobile vous donne aussi accès à l'exclusion.
 
 ==== Accès au market
 
 image::../images/zwave27.png[]
 
-Vous permet d'afficher une fenetre pour recuperer la configuration d'un module à partir du market : 
+Vous permet d'afficher une fenêtre pour récupérer la configuration d'un module à partir du market : 
 
 image::../images/zwave28.png[]
 
@@ -240,81 +240,81 @@ image::../images/zwave28.png[]
 
 image::../images/zwave29.png[]
 
-Bouton permettant de synchroniser les modules du reseaux zwave avec Jeedom.
+Bouton permettant de synchroniser les modules du réseau Z-Wave avec Jeedom.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Attention cette action n'est a faire que si vous avez un module sur votre reseaux zwave qui n'apparait pas dans Jeedom, cela peut etre utile si vous repartez d'une installation vierge de Jeedom mais pas du réseaux zwave
+Attention cette action n'est à faire que si vous avez un module sur votre réseau Z-Wave qui n'apparaît pas dans Jeedom. Cela peut être utile si vous repartez d'une installation vierge de Jeedom mais pas du réseau Z-Wave.
 
 ==== File d'attente
 
 image::../images/zwave30.png[]
 
-Affiche les messages en attentes ou venant d'etre transmis au module sur le reseaux zwave
+Affiche les messages en attente ou venant d'être transmis au module sur le réseau Z-Wave.
 
 image::../images/zwave301.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Il est possible que certain message reste et ne disparraissent jamais, ce n'est pas anormale. Il n'y a pour le moment aucun moyen connu de les supprimer
+Il est possible que certains messages restent et ne disparraissent jamais, ce n'est pas anormal. Il n'y a pour le moment aucun moyen connu pour les supprimer.
 
 ==== Table de routage
 
 image::../images/zwave32.png[]
 
-Affiche la table de routage de votre reseaux zwave (peut mettre quelques minutes à s'afficher) : 
+Affiche la table de routage de votre réseau Z-Wave (peut mettre quelques minutes à s'afficher) : 
 
 image::../images/zwave33.png[]
 
-Le protocole zwave est un protocole qui permet au message de "rebondir" de module en module (maximum 4), cette table vous affiche donc la qualité des routes entre les differents module.
+Le protocole Z-Wave est un protocole qui permet au message de "rebondir" de module en module (maximum 4), cette table vous affiche donc la qualité des routes entre les différents modules.
 
-Voici la legende : 
+Voici la légende : 
 
 image::../images/zwave34.png[]
 
-Au survole sur une case jeedom vous donne le nombre de routes directes / avec 1 saut / 2 sauts / 3 sauts / 4 sauts.
+Au survol d'une case, Jeedom vous donne le nombre de routes directes / avec 1 saut / 2 sauts / 3 sauts / 4 sauts.
 
-Vous pouvez aussi forcer la mise à jour de toutes les routes ou seulement pour un module, vous retrouvez aussi la date de derniere mise à jour des routes
+Vous pouvez aussi forcer la mise à jour de toutes les routes ou seulement pour un module. Vous retrouvez aussi la date de dernière mise à jour des routes.
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-La mise à jour des routes est une opération assez longue car il faut reveillé tous les modules, il n'est pas conseillé de faire cette opération souvent, par contre il peut etre utile de le faire sur un module qui n'a pas été inclus a sa position finale
+La mise à jour des routes est une opération assez longue car il faut reveiller tous les modules. Il n'est pas conseillé de faire cette opération souvent, par contre il peut être utile de le faire sur un module qui n'a pas été inclus à sa position finale.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Attention la mise a jour des routes force une retinterview complet des modules, d'ou le faite qu'il est plutot conseillé de le faire sur un module plutot que de remettre à jour toute les routes 
+Attention la mise à jour des routes force une ré-interview complète des modules, d'où le fait qu'il est plutôt conseillé de le faire sur un module plutôt que de remettre à jour toutes les routes. 
 
-==== Administration du zwave
+==== Administration du Z-Wave
 
 image::../images/zwave35.png[]
 
-Vous permet d'afficher les commandes d'administration avancé du zwave : 
+Vous permet d'afficher les commandes d'administration avancée du Z-Wave : 
 
 image::../images/zwave36.png[]
 
-Vous pouvez à droite choisir le serveur zwave a regarder, en haut vous retrouvez les informations sur la version du serveur, de la puce zwave... et au milieu les differentes commandes ainsi que leur descriptions
+Vous pouvez à droite choisir le serveur Z-Wave à regarder, en haut vous retrouvez les informations sur la version du serveur, de la puce Z-Wave... et au milieu les différentes commandes ainsi que leur description.
 
 ==== Santé
 
 image::../images/zwave37.png[]
 
-Cette fenetre résume l'état de votre reseaux zwave : 
+Cette fenêtre résume l'état de votre réseau Z-Wave : 
 
 image::../images/zwave38.png[]
 
 Vous avez ici : 
 
-* *Module* : le nom de votre module, un clique dessus vous permet d'y accedder directement
-* *ID* : ID votre module sur le reseaux zwavz
-* *Serveur* : nom du serveur zwave
-* *Interview* : statut de l'interview, un clique dessus permet d'afficher la fenetre de l'interview
-* *Statut* : statut du module (actif => module alimenté, endormie => module sur batterie dormant, reveillé => module sur batterie à l'écoute)
-* *Batterie* : niveau de batterie du module (NA indique que le module est alimenté)
-* *Wakeup time* : pour les modules sur batterie donne la fréquence en seconde ou le module se reveille forcement
-* *Paquet total* : affiche le nombre de paquet total recu ou envoyé avec succes au module (maximum 30)
-* *%OK* : affiche le pourcentage de paquet envoyé/recu avec succes
-* *Temporisation* : affiche le delai minimum, moyen et maximum d'envoi de paquet en ms
-* *Derniere communication* : Date de derniere communication avec le module ainsi que l'heure de la prochaine communication prévu
-* *Ping* : Permet d'envoyé un ping au module, peut etre utilise si le module est en dead pour voir si c'est vraiment le cas
+* *Module* : le nom de votre module, un clic dessus vous permet d'y accèder directement.
+* *ID* : ID de votre module sur le réseau Z-Wave.
+* *Serveur* : nom du serveur Z-Wave.
+* *Interview* : statut de l'interview, un clic dessus permet d'afficher la fenêtre de l'interview.
+* *Statut* : statut du module (actif => module alimenté, endormi => module sur batterie dormant, réveillé => module sur batterie à l'écoute).
+* *Batterie* : niveau de batterie du module (NA indique que le module est alimenté).
+* *Wakeup time* : pour les modules sur batterie, il donne la fréquence en secondes des instants où le module se réveille forcément.
+* *Paquet total* : affiche le nombre total de paquets reçus ou envoyés avec succès au module (maximum 30).
+* *%OK* : affiche le pourcentage de paquets envoyés/reçus avec succès.
+* *Temporisation* : affiche le délai minimum, moyen et maximum d'envoi de paquet en ms.
+* *Derniere communication* : Date de dernière communication avec le module ainsi que l'heure de la prochaine communication prévue.
+* *Ping* : Permet d'envoyer un ping au module, peut être utilisé si le module est en dead pour voir si c'est réellement le cas
 
  
