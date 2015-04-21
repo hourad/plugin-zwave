@@ -1,64 +1,64 @@
-Le plugin Z-wave permet de rendre compatible Jeedom avec le protocole domotique Z-Wave. Il permet également de configurer les modules Z-Wave et d'en ajouter de nouveaux.
+Le plugin Z-Wave permet de rendre compatible Jeedom avec le protocole domotique Z-Wave. Il permet également de configurer les modules Z-Wave et d'en ajouter de nouveaux.
 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Si vous utilisez une clef Z-Wave il vous faut aussi le plugin openzwave en complement. Si vous utilisez un razberry il vous faut installer le z-way server, sur une mini/mini+ vous n'avez rien a faire tout est preinstallé
+Si vous utilisez une clé Z-Wave, il vous faut aussi le plugin Open Z-Wave en complément. Si vous utilisez un razberry, il vous faut installer le Z-Way server, sur une mini/mini+ vous n'avez rien à faire tout est pré-installé.
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Le fonctionnement entre le zway server et openzwave je prendrais le nom de server zwave tout au long de la doc pour parler d'openzwave ou du server zway et preciserai, le cas echeant si il y a une difference entre les 2
+Le nom de server Z-Wave sera pris tout au long de la doc pour parler d'Open Z-Wave ou du server Z-Way, et il sera précisé le cas échéant si il y a une différence entre les deux.
 
 ==== Configuration du plugin
 
-Après téléchargement du plugin il vous faut l'activer puis le configurer : 
+Après téléchargement du plugin, il vous faut l'activer puis le configurer : 
 
 image::../images/zwave2.png[]
 
 Voici le détail (certains paramètres peuvent n'être visibles qu'en mode expert) :
 
-* *Configuration* : cette partie vous donne le statut du serveur zwave.
+* *Configuration* : cette partie vous donne le statut du serveur Z-Wave.
 * *Paramètres* : cette partie permet de configurer les paramètres généraux du plugin.
-** _Serveur Z-wave_ : le plugin zwave vous permet d'avoir jusqu'a 3 serveurs zwave differents, pour par exemple augmenter la porté, ou séparer des zones. 
+** _Serveur Z-Wave_ : le plugin Z-Wave vous permet d'avoir jusqu'à 3 serveurs Z-Wave différents, pour par exemple augmenter la portée, ou séparer des zones. 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Un module ne peut etre affecté qu'à un et un seul serveur zwave, ca ne permet donc pas de faire de la redondance comme sur les plugins enOcean,RFXcom ou Edisio
+Un module ne peut être affecté qu'à un et un seul serveur Z-Wave. Ca ne permet donc pas de faire de la redondance comme sur les plugins EnOcean, RFXcom ou Edisio.
 
-*** Nom : permet de nommer votre serveur zwave, ce champs n'est pas obligatoire
-*** IP : IP du serveur zwave, si votre serveur zwave est sur le meme systeme que Jeedom (min/mini+) il faut mettre 127.0.0.1, sinon c'est l'IP de la machine hebergeant le serveur zwave
-*** Port : port du serveur zwave, par defaut 8083
-*** Openzwave : indique à Jeedom que vous utilisez openzwave. Attention à bien correctement configurer cette option sous peine d'avoir des fonctionement inatendus
-** _Supprimer automatiquement les périphériques exclus_ : indique à Jeedom de supprimer automatiquement un péripherique zwave de Jeedom lorsqu'il est exclus
+*** Nom : permet de nommer votre serveur Z-Wave, ce champ n'est pas obligatoire.
+*** IP : IP du serveur Z-Wave, si votre serveur Z-Wave est sur le même système que Jeedom (mini/mini+) il faut mettre 127.0.0.1, sinon c'est l'IP de la machine hébergeant le serveur Z-Wave.
+*** Port : port du serveur Z-Wave, par défaut 8083.
+*** Open Z-Wave : indique à Jeedom que vous utilisez Open Z-Wave. Attention à bien correctement configurer cette option sous peine d'avoir des fonctionnements inatendus.
+** _Supprimer automatiquement les périphériques exclus_ : indique à Jeedom de supprimer automatiquement un périphérique Z-Wave de Jeedom lorsqu'il est exclu.
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Supprimer un péripherique zwave de jeedom ne le retire pas du reseaux Zwave il faut soit l'exclure soit le market comme defaillant puis le supprimer
+Supprimer un périphérique Z-Wave de Jeedom ne le retire pas du réseau Z-Wave. Il faut soit l'exclure, soit le marquer comme défaillant puis le supprimer.
 
-** _Ne pas remonter les notifications_ : Indique à Jeedom de ne pas vous notifiez des evenements propre au Z-Way. Cette fonction est encore en cours de developpement coté Z-Way et pour l'instant les notifications ne sont pas pertinente
+** _Ne pas remonter les notifications_ : Indique à Jeedom de ne pas vous notifiez des évènements propres au Z-Way. Cette fonction est encore en cours de développement côté Z-Way, et pour l'instant les notifications ne sont pas pertinentes.
 ** _Notifications_ : permet d'afficher les notifications : 
 
 image::../images/zwave15.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Sur la plus part des fenetres de ce genre dans le plugin zwave vous retrouvez en haut à gauche une liste de selection pour changer de serveur zwave, utile bien sur seulement si vous avez plusieurs serveurs zwave
+Sur la plupart des fenêtres de ce genre dans le plugin Z-Wave, vous retrouvez en haut à gauche une liste de sélections pour changer de serveur Z-Wave, utile bien sûr seulement si vous avez plusieurs serveurs Z-Wave.
 
 
 ==== Configuration des équipements
 
-La configuration des équipements Zwave est accessible à partir du menu plugin : 
+La configuration des équipements Z-Wave est accessible à partir du menu plugin : 
 
 image::../images/zwave16.png[]
 
-Voilà à quoi ressemble la page du plugin SMS (ici avec plusieurs module déja) : 
+Voilà à quoi ressemble la page du plugin SMS (ici avec déjà plusieurs modules) : 
 
 image::../images/zwave17.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Comme à beaucoup d'endroits sur Jeedom, mettre la souris tout à gauche permet de faire apparaître un menu d'accès rapide (vous pouvez, à partir de votre profil, le laisser toujours visible).
+Comme à beaucoup d'endroits sur Jeedom, placer la souris tout à gauche permet de faire apparaître un menu d'accès rapide (vous pouvez, à partir de votre profil, le laisser toujours visible).
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-Les boutons sur la ligne tout en haut sont presenté plus bas
+Les boutons sur la ligne tout en haut sont présentés plus bas.
 
 Une fois que vous cliquez sur l'un d'eux, vous obtenez : 
 
@@ -66,77 +66,77 @@ image::../images/zwave18.png[]
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-L'interface présenté ici est en mode expert, si vous n'etes pas en mode expert celle-ci contient nettement moins d'options
+L'interface présentée ici est en mode expert, si vous n'êtes pas en mode expert, celle-ci contient nettement moins d'options.
 
 Vous retrouvez ici toute la configuration de votre équipement : 
 
-* *Nom de l'équipement* : nom de votre module zwave,
+* *Nom de l'équipement* : nom de votre module Z-Wave.
 * *Objet parent* : indique l'objet parent auquel appartient l'équipement.
-* *Catégorie* : les catégories de l'équipement (il peut appartenir à plusieurs catégories)
-* *Activer* : permet de rendre votre équipement actif,
-* *Visible* : le rend visible sur le dashboard,
-* *Node ID* : ID du module sur le reseaux Zwave. Peut etre utile si par exemple vous voulez remplacer un module defaillant. Il suffti d'inclure le nouveau module, de recuperer son ID et le mettre a la place de l'id de l'ancien module et enfin de supprimer le nouveau module
-* *Serveur* : serveur zwave auquel est rataché votre module. Il est déconseillé de changer ca a moins de savoir ce que vous faite
+* *Catégorie* : les catégories de l'équipement (il peut appartenir à plusieurs catégories).
+* *Activer* : permet de rendre votre équipement actif.
+* *Visible* : le rend visible sur le dashboard.
+* *Node ID* : ID du module sur le réseau Z-Wave. Peut être utile si par exemple vous voulez remplacer un module défaillant. Il suffit d'inclure le nouveau module, de récupérer son ID, et le mettre à la place de l'ID de l'ancien module et enfin de supprimer le nouveau module.
+* *Serveur* : serveur Z-Wave auquel est rataché votre module. Il est déconseillé de changer ça à moins de savoir ce que vous faites.
 * *Délai maximum autorisé entre 2 messages (min)* : le délai maximum autorisé entre 2 messages avant que Jeedom ne déclare l'équipement en "timeout". 
-* *Fréquence de mise à jour* : syntaxe cron (le point d'interrogation vous permettra de la generer facilement) permettant de forcer jeedom à interroger le module. 
+* *Fréquence de mise à jour* : syntaxe cron (le point d'interrogation vous permettra de la générer facilement) permettant de forcer Jeedom à interroger le module. 
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
-Attention a n'utiliser ca que si le module ne remonte pas automatiquement ces valeurs. L'utilisation de cette option est risqué et peut faire tomber votre reseaux zwave 
-* *Ne jamais mettre en erreur* : indique a Jeedom que meme si il n'arrive plus a communiquer avec le module il ne faut as le declarer en erreur (utile si vous couper votre module la nuit par exemple)
-* *Ne pas vérifier la batterie* : indique à Jeedom de ne pas vous alerter si l'équipement envoie une trame de batterie faible (certains modules ne gèrent pas correctement cette info et génèrent de fausses alertes)
+Attention à n'utiliser ça que si le module ne remonte pas automatiquement ses valeurs. L'utilisation de cette option est risquée et peut faire tomber votre réseau Z-Wave.
+* *Ne jamais mettre en erreur* : indique à Jeedom que même si il n'arrive plus à communiquer avec le module, il ne faut pas le déclarer en erreur (utile si vous coupez votre module la nuit par exemple).
+* *Ne pas vérifier la batterie* : indique à Jeedom de ne pas vous alerter si l'équipement envoie une trame de batterie faible (certains modules ne gèrent pas correctement cette info et génèrent de fausses alertes).
 * *Commentaire* : vous permet de mettre des commentaires sur l'équipement (ex : pile changée le XX/XX/XXXX)
-* *Module* : Model du module, Jeedom le configure automatiquement, si ce n'est pas le cas c'est le premiere parametre à configurer puis il faut immédiatement sauvegarder la configuration.
-** *Market* : permet de recuperer la configuration d'un module à partir du market
-** *Configuration* (clef à molette) : fenetre de configuration des parametres du module + des parametres spécifique (comme pour la zipato keypad pour enregistrer facilement des tags)
-** *Documentation* (petit livre) : ce bouton vous permet d'ouvrir directement la doc jeedom concernant ce module
-* *Envoyer une configuration* : permet d'envoyer a Jeedom le fichier json de la configuration d'un module.
-** *Exporter* : permet de recuperer la configuration actuel de votre module sous forme d'un fichier json generique. Cela vous permet de peaufiner la configuration de votre module avant de la renvoyer à Jeedom puis vers le market
-** *Paratger* : permet d'envoyer le fichier de configuration json de votre module vers le market
-* *Marque* : fabricant de votre module zwave
-* *Nom* : nom/model de votre module zwave
-* *Identifiant* : identifiant unique du model de votre module zwave
-* *Etat* : indique l'état actuel de votre module : actif => module alimenté, endormie => module sur batterie dormant, reveillé => module sur batterie à l'écoute
-* *Batterie* : si votre module est sur batterie vous aurez le poucentage de batterie ici
+* *Module* : Modèle du module : Jeedom le configure automatiquement, si ce n'est pas le cas : c'est le premier paramètre à configurer puis il faut immédiatement sauvegarder la configuration (pour que les informations se mettent à jour).
+** *Market* : permet de récupérer la configuration d'un module à partir du Market.
+** *Configuration* (clé à molette) : fenêtre de configuration des paramètres du module et des paramètres spécifiques (comme pour la zipato keypad pour enregistrer facilement des tags).
+** *Documentation* (petit livre) : ce bouton vous permet d'ouvrir directement la doc Jeedom concernant ce module.
+* *Envoyer une configuration* : permet d'envoyer à Jeedom le fichier json de la configuration d'un module.
+** *Exporter* : permet de récupérer la configuration actuelle de votre module sous forme d'un fichier json générique. Cela vous permet de peaufiner la configuration de votre module avant de la renvoyer à Jeedom puis vers le Market.
+** *Paratger* : permet d'envoyer le fichier de configuration json de votre module vers le Market.
+* *Marque* : fabricant de votre module Z-Wave.
+* *Nom* : nom/modèle de votre module Z-Wave.
+* *Identifiant* : identifiant unique du modèle de votre module Z-Wave.
+* *Etat* : indique l'état actuel de votre module : actif => module alimenté, endormi => module sur batterie dormant, réveillé => module sur batterie à l'écoute.
+* *Batterie* : si votre module est sur batterie vous aurez le pourcentage de batterie ici.
 [icon="../images/plugin/tip.png"]
 [TIP]
-Si la batterie de votre module tombe sous les 20% Jeedom vous previendra, vous n'avez donc pas a vous preocupper du niveau de batterie de votre module
-* *Interview* : vous indique le status de l'interview en cliquant dessus vous obtiendrez une fenetre qui vous permettra de voir les classes manquante et de forcer leur interview
+Si la batterie de votre module tombe sous les 20 % Jeedom vous préviendra, vous n'avez donc pas à vous préoccuper du niveau de batterie de votre module.
+* *Interview* : vous indique le statut de l'interview. En cliquant dessus vous obtiendrez une fenêtre qui vous permettra de voir les classes manquantes et de forcer leur interview.
 [icon="../images/plugin/tip.png"]
 [TIP]
-Un interview incomplet n'est pas toujours signe d'un module defaillant ou qu'il ne marchera pas, en fonction des versions des modules l'interview peut etre incomplet.
-* *Communication* : date de la derniere synchronisation avec le module (peut ne pas correspondre avec la date de derniere communication avec le module, la synchronisation ici et au sens wakeup)
+Une interview incomplète n'est pas toujours signe d'un module défaillant ou qu'il ne marche pas, en fonction des versions des modules l'interview peut être incomplète.
+* *Communication* : date de la dernière synchronisation avec le module (peut ne pas correspondre avec la date de dernière communication avec le module, la synchronisation ici est au sens de wakeup).
 
 En dessous vous retrouvez la liste des commandes : 
 
 [icon="../images/plugin/tip.png"]
 [TIP]
-En fonction des types et sous type certaine options peuvent etre absente
+En fonction des types et sous types, certaines options peuvent être absentes.
 
 * le nom affiché sur le dashboard
-* icone : dans le cas d'une action permet de choisir une icone a afficher sur le dashboard au lieu du texte
-* valeur de la commande : dans le cas d'une commande type action ca valeur peut etre lier a une commande de type info, c'est ici que ca se configure. Exemple pour une lampe l'intensité est liée à son état, cela permet au widget d'avoir le vrai état de la lampe
-* le type et le sous-type
-* l'instance de cette commande zwave (reservé aux experts)
-* la classe de la commande zwave (reservé aux experts)
-* la commande en elle meme (reservé aux experts)
-* "Valeur de retour d'état" et "Durée avant retour d'état" : permet d'indiquer à Jeedom qu'après un changement sur l'information sa valeur doit revenir à Y, X min après le changement. Exemple : dans le cas d'un détecteur de présence qui n'émet que lors d'une détection de présence, il est utile de mettre par exemple 0 en valeur et 4 en durée, pour que 4 min après une détection de mouvement (et s'il n'y a en pas eu de nouvelles depuis) Jeedom remette la valeur de l'information à 0 (plus de mouvement détecté)
-* historiser : permet d'historiser la donnée
-* afficher : permet d'afficher la donnée sur le dashboard
-* évènement : permet d'indiqué a jeedom si le module peut etre interrogé ou non. Dans le cas du zwave il est conseillé de toujours cocher cette case
-* évènement sur changement : indique a jeedom de ne traiter l'évenement que si il y a eu un changement d'état effectif, certain module (type detecteur de présence) remonte leur status toutes les X minutes
-* ne pas réactualiser automatiquement : permet, si vous avez configuré une "Fréquence de mise à jour" de dire a Jeedom que cette commande ne fait pas partie des commandes a mettre à jour (permet de soulager le reseaux zwave lors de l'utilisation de l'option "Fréquence de mise à jour")
-* unité : unité de la donnée (peut être vide)
-* min/max : bornes de la donnée (peuvent être vides)
-* configuration avancée (petites roues crantées) : permet d'afficher la configuration avancée de la commande (méthode d'historisation, widget...)
-* Tester : permet de tester la commande
-* supprimer (signe -) : permet de supprimer la commande
+* icône : dans le cas d'une action permet de choisir une icône à afficher sur le dashboard au lieu du texte
+* valeur de la commande : dans le cas d'une commande type action, sa valeur peut être liée à une commande de type info, c'est ici que cela se configure. Exemple pour une lampe l'intensité est liée à son état, cela permet au widget d'avoir l'état réel de la lampe.
+* le type et le sous-type.
+* l'instance de cette commande Z-Wave (réservé aux experts).
+* la classe de la commande Z-Wave (réservé aux experts).
+* la commande en elle-même (réservé aux experts).
+* "Valeur de retour d'état" et "Durée avant retour d'état" : permet d'indiquer à Jeedom qu'après un changement sur l'information sa valeur doit revenir à Y, X min après le changement. Exemple : dans le cas d'un détecteur de présence qui n'émet que lors d'une détection de présence, il est utile de mettre par exemple 0 en valeur et 4 en durée, pour que 4 min après une détection de mouvement (et s'il n'y a en pas eu de nouvelles depuis) Jeedom remette la valeur de l'information à 0 (plus de mouvement détecté).
+* historiser : permet d'historiser la donnée.
+* afficher : permet d'afficher la donnée sur le dashboard.
+* évènement : permet d'indiquer à Jeedom si le module peut être interrogé ou non. Dans le cas du Z-Wave il est conseillé de toujours cocher cette case.
+* évènement sur changement : indique à Jeedom de ne traiter l'évènement que si il y a eu un changement d'état effectif, certains modules (type détecteur de présence) remontent leur statut toutes les X minutes.
+* ne pas réactualiser automatiquement : permet, si vous avez configuré une "Fréquence de mise à jour" de dire à Jeedom que cette commande ne fait pas partie des commandes à mettre à jour (permet de soulager le réseau Z-Wave lors de l'utilisation de l'option "Fréquence de mise à jour").
+* unité : unité de la donnée (peut être vide).
+* min/max : bornes de la donnée (peuvent être vides).
+* configuration avancée (petites roues crantées) : permet d'afficher la configuration avancée de la commande (méthode d'historisation, widget...).
+* Tester : permet de tester la commande.
+* supprimer (signe -) : permet de supprimer la commande.
 
 
 ==== Configuration des modules
 
 image::../images/zwave19.png[]
 
-Vous retrouvez, dans le premiere onglet, les differents parametres de configuration de votre module : 
+Vous retrouvez, dans le premier onglet, les différents paramètres de configuration de votre module : 
 
 * *Informations*
 ** *Nom de l'équipement* : le nom de votre équipement dans jeedom
