@@ -1,37 +1,36 @@
 [panel,danger]
-.Lors du clique sur le bouton inclusion il ne se passe rien
+.Lors du clic sur le bouton inclusion il ne se passe rien...
 --
-Cela arrive quand le serveur z-way est dans un état bancale, il est conseillé, en mode expert, dans le menu d'administration du serveur de "Redémarrer le razberry"
---
-
-[panel,danger]
-.Les commandes sont lente à s'éxecuter
---
-Essayé de redemarrer le serveur z-way , en mode expert, dans le menu d'administration du serveur de "Redémarrer le razberry". Si le probleme persiste il est fort probable qu'il y ai un module zwave mal configuré et qu'il envoit trop de données ou de mauvaise données
+Cela arrive quand le serveur Z-Way est dans un état bancal. Il est conseillé, en mode expert, dans le menu d'administration du serveur de "Redémarrer le razberry".
 --
 
 [panel,danger]
-.J'ai une erreur zwave::pull
+.Les commandes sont lentes à s'éxecuter...
 --
-Vérifiez que le serveur z-way est bien demarré en allant sur #IP_SERVER_ZWAY#::8083. Si vous n'obtenez rien faites en ssh : "sudo service z-way-server restart"
---
-
-[panel,danger]
-.Suite à l'inclusion d'un nouveau module j'ai des erreurs 500 sur celui-ci lorsque que j'utilise ses commandes
---
-Il y a une un soucis lors de l'inclusion, il faut la refaire. La cause la plus courante est une trop grande distance entre la box et le module lors de l'inclusion
+Essayez de redémarrer le serveur Z-Way, en mode expert dans le menu d'administration du serveur de "Redémarrer le razberry". Si le problème persiste, il est fort probable qu'il y ait un module Z-Wave mal configuré et qu'il envoie trop de données ou de mauvaises données.
 --
 
 [panel,danger]
-.Je n'arrive pas à inclure un seul module, la diode du razberry s'allume pourtant en rouge
+.J'ai une erreur Z-Wave::pull
 --
-Il semble avoir un soucis de configuration de fréquences sur certain razberry, il faut aller Sur Plugin -> Protocole Domotique -> Zwave, puis en mode expert, cliqué à gauche sur l'administration avancée du Z-Wave (petites roues crantées), et dans la colonne action cliquer sur le bouton de la région vous concernant (EU pour la France)
+Vérifiez que le serveur Z-Way est bien démarré en allant sur #IP_SERVER_ZWAY#::8083. Si vous n'obtenez rien, faites en ssh : "sudo service z-way-server restart"
 --
 
-
- 
 [panel,danger]
-.J'ai une page blanche suite a la mise à jour du zway 2.0
+.Suite à l'inclusion d'un nouveau module, j'ai des erreurs 500 sur celui-ci lorsque que j'utilise ses commandes...
+--
+Il y a eu un souci lors de l'inclusion, il faut la refaire. La cause la plus courante est une trop grande distance entre la box et le module lors de l'inclusion.
+--
+
+[panel,danger]
+.Je n'arrive pas à inclure un seul module, la diode du razberry s'allume pourtant en rouge.
+--
+Il semble y avoir un souci de configuration de fréquences sur certains razberry. Il faut aller Sur Plugin -> Protocole Domotique -> Z-Wave, puis en mode expert, cliquez à gauche sur l'administration avancée du Z-Wave (petites roues crantées), et dans la colonne "action" cliquez sur le bouton de la région vous concernant (EU pour la France).
+--
+
+
+[panel,danger]
+.J'ai une page blanche suite à la mise à jour du Z-Way 2.0.
 --
 En SSH faites : 
 ----
