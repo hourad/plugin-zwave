@@ -82,6 +82,7 @@ Vous retrouvez ici toute la configuration de votre équipement :
 [icon="../images/plugin/important.png"]
 [IMPORTANT]
 Attention à n'utiliser ça que si le module ne remonte pas automatiquement ses valeurs. L'utilisation de cette option est risquée et peut faire tomber votre réseau Z-Wave.
+
 * *Ne jamais mettre en erreur* : indique à Jeedom que même si il n'arrive plus à communiquer avec le module, il ne faut pas le déclarer en erreur (utile si vous coupez votre module la nuit par exemple).
 * *Ne pas vérifier la batterie* : indique à Jeedom de ne pas vous alerter si l'équipement envoie une trame de batterie faible (certains modules ne gèrent pas correctement cette info et génèrent de fausses alertes).
 * *Commentaire* : vous permet de mettre des commentaires sur l'équipement (ex : pile changée le XX/XX/XXXX)
