@@ -12,7 +12,7 @@ Le nom de server Z-Wave sera pris tout au long de la doc pour parler d'Open Z-Wa
 
 Après téléchargement du plugin, il vous faut l'activer puis le configurer : 
 
-image::../images/zwave2.png[]
+image::../images/zwave14.png[]
 
 Voici le détail (certains paramètres peuvent n'être visibles qu'en mode expert) :
 
