@@ -3,8 +3,8 @@
         "name": "Fibaro FGS-221 Double charge",
         "vendor": "Fibar Group",
         "manufacturerId": 271,
-        "manufacturerProductType": -1,
-        "manufacturerProductId": -1,
+        "manufacturerProductType": 512,
+        "manufacturerProductId": 4106,
         "commands": [
             {
                 "name": "On 1",
