@@ -57,6 +57,20 @@
                     "minValue": 0,
                     "maxValue": 100
                 }
+            },
+            {
+                "name": "Scene",
+                "type": "info",
+                "subtype": "numeric",
+                "unite": "",
+                "isVisible": 0,
+                "eventOnly": 1,
+                "configuration": {
+                    "class": "0x2B",
+                    "value": "data.currentScene",
+                    "minValue": 0,
+                    "maxValue": 100
+                }
             }
         ],
         "parameters": {
